@@ -1,29 +1,14 @@
 @import 'bootstrap/scss/functions';
 
-@import './variables';
+@import './helpers/variables';
 
 @import 'bootstrap/scss/bootstrap';
 
-@import './utilities';
+@import './helpers/utilities';
 
-h0{
-  font-size: 4rem;
-  font-weight: 700;
-  line-height: 1.2;
+@import './layout/layout';
+
+body{
+  background: $primary-300;
 }
 
-.h0{
-  font-size: 4rem;
-  font-weight: 700;
-  line-height: 1.2;
-}
-
-.gradient-blue {
-  background: $gradient-blue;
-  -webkit-background-clip: text; /* 僅裁剪背景 */
-  -webkit-text-fill-color: transparent; /* 將文字填充設為透明 */
-}
-
-.gradient-brown{
-  background: $gradient-brown
-}
