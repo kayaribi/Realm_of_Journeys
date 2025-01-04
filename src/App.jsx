@@ -1,4 +1,6 @@
 import { useState } from 'react'
+import axios from 'axios'
+
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
@@ -18,11 +20,13 @@ function App() {
       </div>
       <h1>Vite + React</h1>
       <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
+        <button className='gradient-brown' onClick={() => setCount((count) => count + 1)}>
           count is {count}
         </button>
         <p>
           Edit <code>src/App.jsx</code> and save to test HMR
+          <br />
+          <h0 className="gradient-blue">全包服務，無憂旅程</h0>
         </p>
       </div>
       <p className="read-the-docs">
