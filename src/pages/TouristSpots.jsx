@@ -11,7 +11,6 @@ export default function TouristSpots(){
                 <div className="col-12">
                     <Outlet/>
                 </div>
-
             </div>
         </div>
     )

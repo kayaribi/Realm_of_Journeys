@@ -1,5 +1,5 @@
 export default function Home(){
     return(
-        <div>首頁</div>
+        <div style={{height:"1000px"}}>首頁</div>
     )
 }

@@ -2,8 +2,11 @@ import { useState } from 'react'
 import axios from 'axios'
 import './App.css'
 import Navbar from './component/Navbar'
+import Footer from './component/Footer';
 import {Route,Routes} from 'react-router-dom';
 import {Home,About,Guide,TouristSpots,Cart,Account,TouristIndex} from './pages';
+import BackTopBtn from './component/BackTopBtn';
+
 
 function App() {
 
@@ -20,6 +23,8 @@ function App() {
           <Route path='/cart' element={<Cart/>}></Route>                 {/* 購物車 */}
           <Route path='/account' element={<Account/>}></Route>           {/* 登入註冊 */}
         </Routes>
+        <BackTopBtn />
+      <Footer/>
     </div>
     )
   }
