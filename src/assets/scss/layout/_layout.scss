@@ -1,0 +1,140 @@
+.gradient-blue {
+  background: $gradient-blue;
+  -webkit-background-clip: text;
+  /* 僅裁剪背景 */
+  -webkit-text-fill-color: transparent;
+  /* 將文字填充設為透明 */
+}
+
+.gradient-brown {
+  background: $gradient-brown
+}
+
+.h0 {
+  font-size: 96px;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+.form-label {
+  line-height: 1.4;
+}
+
+.btn:disabled {
+  background-color: #C3C3C3 !important;
+  color: white !important;
+  border: 1px solid transparent !important;
+}
+
+.btn-primary-600 {
+  &:active {
+    background: $primary-400 !important;
+    border: 1px solid $primary-400 !important;
+  }
+
+  &:hover {
+    background: $primary-500;
+    border: 1px solid $primary-500;
+  }
+}
+
+.btn-secondary-200 {
+  color: #FFFFFF !important;
+
+  &:active {
+    background: #7F503E !important;
+    border: 1px solid #7F503E !important;
+  }
+
+  &:hover {
+    background: #986647;
+    border: 1px solid #986647;
+  }
+}
+
+.btn-outline-secondary-200 {
+  color: $secondary-200 !important;
+
+  &:active {
+    background: #C8B2A4CC !important;
+    border: 1px solid $secondary-200 !important;
+  }
+
+  &:hover {
+    background: #C8B2A44D;
+    border: 1px solid $secondary-200;
+  }
+}
+
+.shadow-banner-text {
+  box-shadow: 0px 0px 10px 0px #174675;
+}
+
+.page-link {
+  line-height: 1.2;
+  font-weight: 700;
+  border-radius: 100px;
+}
+
+.card-custom {
+  backdrop-filter: blur(10px);
+  background: #FFFFFFCC;
+  box-shadow: 0px 4px 8px 0px #FFFFFF40;
+  border: 1px solid #FFFFFF
+}
+
+.form-check-input {
+  &:hover {
+    border-color: $primary-500;
+  }
+
+  &:checked {
+    &:hover {
+      border-color: $primary-500;
+      background-color: $primary-500;
+    }
+  }
+}
+
+.form-check-label {
+  color: #878787;
+}
+
+.form-check-input:hover+.form-check-label {
+  color: $primary-500;
+}
+
+.form-check-input:checked+.form-check-label {
+  color: $neutral-300;
+}
+
+.form-check-input:checked:hover+.form-check-label {
+  color: $primary-500;
+}
+
+.form-check-input[type=radio] {
+  border-radius: 12px;
+  background-color: #FFFFFF;
+}
+
+.form-check-input[type=radio]:hover {
+  background-color: #FFFFFF;
+}
+
+.form-check-input:disabled {
+  border: 1.5px solid #C3C3C3;
+  color: #C3C3C380;
+}
+
+.form-check-input:disabled+.form-check-label {
+  color: $neutral-100;
+}
+
+.form-check-input[type=radio]:disabled {
+  color: $neutral-100;
+  border: 1.5px solid #C3C3C3;
+}
+
+.form-check-input[type=radio]:disabled+.form-check-label {
+  color: $neutral-100;
+}
