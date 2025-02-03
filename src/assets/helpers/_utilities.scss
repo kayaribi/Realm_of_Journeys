@@ -1,8 +1,21 @@
 $utilities: map-merge(
-  $utilities, (
-    "font-size": map-merge(
-      map-get($utilities, "font-size"),
-      ( responsive: true ),
-    ),
+  $utilities,
+  (
+    "font-size":
+      map-merge(
+        map-get($utilities, "font-size"),
+        (
+          responsive: true,
+        )
+      ),
   )
 );
+
+.featuredImg {
+  border-top-right-radius: 60px;
+  border-top-left-radius: 60px;
+  border-bottom-left-radius: 60px;
+  width: 240px;
+  height: 360px;
+  object-fit: cover;
+}
