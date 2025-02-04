@@ -52,7 +52,11 @@ function Evaluate() {
             <Swiper
               slidesPerView={4}
               spaceBetween={24}
-              pagination={{ clickable: true }}
+              navigation={true}
+              mousewheel={true}
+              keyboard={true}
+              pagination={pagination}
+              modules={[Navigation, Pagination, Mousewheel, Keyboard]}
             // modules={[Pagination]}
             >
               <SwiperSlide>
@@ -62,18 +66,18 @@ function Evaluate() {
                       <img key={i} src={star} style={{ width: "16px", height: "15px" }} alt="star" />
                     ))}
                   </div>
-                  <p className="fs-3 pb-2 text-neutral-black pb-5">
+                  <p className="fs-10 pb-2 text-neutral-black pb-5">
                     這趟旅程很棒，行程安排很周到，小缺點是導遊的講解還可以更詳細些，其他都很滿意。
                   </p>
                   <div className="position-relative d-flex align-items-center justify-content-between w-100 pb-2">
                     <div style={{ flexGrow: "1", borderBottom: "1px solid #878787", marginRight: "10px" }}></div>
-                    <div className="text-neutral-200 fs-4">2024/12/01</div>
+                    <div className="text-neutral-200 fs-11">2024/12/01</div>
                   </div>
                   <div className="d-flex gap-1 align-items-center">
                     <img src={customer_01} style={{ width: "32px", height: "32px" }} alt="customer_01" />
                     <div>
-                      <p className="fs-4 text-neutral-300">Emma L.</p>
-                      <p className="fs-4 text-neutral-200">參加 法國義大利經典雙城八日</p>
+                      <p className="fs-11 text-neutral-300">Emma L.</p>
+                      <p className="fs-11 text-neutral-200">參加 法國義大利經典雙城八日</p>
                     </div>
                   </div>
                 </div>
@@ -84,18 +88,18 @@ function Evaluate() {
                     <img key={i} src={star} style={{ width: "16px", height: "15px" }} alt="star" />
                   ))}
                 </div>
-                <p className="fs-3 pb-2 text-neutral-black pb-5">
+                <p className="fs-10 pb-2 text-neutral-black pb-5">
                   非常方便的全包服務，不用煩惱任何細節，一切都安排得妥妥的，下次旅行還會選擇你們！
                 </p>
                 <div className="position-relative d-flex align-items-center justify-content-between w-100 pb-2">
                   <div style={{ flexGrow: "1", borderBottom: "1px solid #878787", marginRight: "10px" }}></div>
-                  <div className="text-neutral-200 fs-4">2024/11/30</div>
+                  <div className="text-neutral-200 fs-11">2024/11/30</div>
                 </div>
                 <div className="d-flex gap-1 align-items-center">
                   <img src={customer_02} style={{ width: "32px", height: "32px" }} alt="customer_02" />
                   <div>
-                    <p className="fs-4 text-neutral-300">James T.</p>
-                    <p className="fs-4 text-neutral-200">參加 法國義大利經典雙城八日</p>
+                    <p className="fs-11 text-neutral-300">James T.</p>
+                    <p className="fs-11 text-neutral-200">參加 法國義大利經典雙城八日</p>
                   </div>
                 </div>
               </div></SwiperSlide>
@@ -105,18 +109,18 @@ function Evaluate() {
                     <img key={i} src={star} style={{ width: "16px", height: "15px" }} alt="star" />
                   ))}
                 </div>
-                <p className="fs-3 pb-2 text-neutral-black pb-5">
+                <p className="fs-10 pb-2 text-neutral-black pb-5">
                   這次的行程讓我們全家都很開心，特別喜歡自由活動的時間，希望能有更多選項可以選擇。
                 </p>
                 <div className="position-relative d-flex align-items-center justify-content-between w-100 pb-2">
                   <div style={{ flexGrow: "1", borderBottom: "1px solid #878787", marginRight: "10px" }}></div>
-                  <div className="text-neutral-200 fs-4">2024/11/28</div>
+                  <div className="text-neutral-200 fs-11">2024/11/28</div>
                 </div>
                 <div className="d-flex gap-1 align-items-center">
                   <img src={customer_03} style={{ width: "32px", height: "32px" }} alt="customer_03" />
                   <div>
-                    <p className="fs-4 text-neutral-300">陳佳君</p>
-                    <p className="fs-4 text-neutral-200">參加 捷克匈牙利多瑙河之旅六日</p>
+                    <p className="fs-11 text-neutral-300">陳佳君</p>
+                    <p className="fs-11 text-neutral-200">參加 捷克匈牙利多瑙河之旅六日</p>
                   </div>
                 </div>
               </div>
@@ -127,18 +131,18 @@ function Evaluate() {
                     <img key={i} src={star} style={{ width: "16px", height: "15px" }} alt="star" />
                   ))}
                 </div>
-                <p className="fs-3 pb-2 text-neutral-black pb-5">
+                <p className="fs-10 pb-2 text-neutral-black pb-5">
                   這次的行程讓我們全家都很開心，特別喜歡自由活動的時間，希望能有更多選項可以選擇。
                 </p>
                 <div className="position-relative d-flex align-items-center justify-content-between w-100 pb-2">
                   <div style={{ flexGrow: "1", borderBottom: "1px solid #878787", marginRight: "10px" }}></div>
-                  <div className="text-neutral-200 fs-4">2024/11/28</div>
+                  <div className="text-neutral-200 fs-11">2024/11/28</div>
                 </div>
                 <div className="d-flex gap-1 align-items-center">
                   <img src={customer_03} style={{ width: "32px", height: "32px" }} alt="customer_03" />
                   <div>
-                    <p className="fs-4 text-neutral-300">陳佳君</p>
-                    <p className="fs-4 text-neutral-200">參加 捷克匈牙利多瑙河之旅六日</p>
+                    <p className="fs-11 text-neutral-300">陳佳君</p>
+                    <p className="fs-11 text-neutral-200">參加 捷克匈牙利多瑙河之旅六日</p>
                   </div>
                 </div>
               </div>
@@ -149,18 +153,18 @@ function Evaluate() {
                     <img key={i} src={star} style={{ width: "16px", height: "15px" }} alt="star" />
                   ))}
                 </div>
-                <p className="fs-3 pb-2 text-neutral-black pb-5">
+                <p className="fs-10 pb-2 text-neutral-black pb-5">
                   這次的行程讓我們全家都很開心，特別喜歡自由活動的時間，希望能有更多選項可以選擇。
                 </p>
                 <div className="position-relative d-flex align-items-center justify-content-between w-100 pb-2">
                   <div style={{ flexGrow: "1", borderBottom: "1px solid #878787", marginRight: "10px" }}></div>
-                  <div className="text-neutral-200 fs-4">2024/11/28</div>
+                  <div className="text-neutral-200 fs-11">2024/11/28</div>
                 </div>
                 <div className="d-flex gap-1 align-items-center">
                   <img src={customer_03} style={{ width: "32px", height: "32px" }} alt="customer_03" />
                   <div>
-                    <p className="fs-4 text-neutral-300">陳佳君</p>
-                    <p className="fs-4 text-neutral-200">參加 捷克匈牙利多瑙河之旅六日</p>
+                    <p className="fs-11 text-neutral-300">陳佳君</p>
+                    <p className="fs-11 text-neutral-200">參加 捷克匈牙利多瑙河之旅六日</p>
                   </div>
                 </div>
               </div>
@@ -185,39 +189,39 @@ function Evaluate() {
                         <img key={i} src={star} style={{ width: "16px", height: "15px" }} alt="star" />
                       ))}
                     </div>
-                    <p className="fs-3 pb-2 text-neutral-black pb-5">
+                    <p className="fs-10 pb-2 text-neutral-black pb-5">
                       這趟旅程很棒，行程安排很周到，小缺點是導遊的講解還可以更詳細些，其他都很滿意。
                     </p>
                     <div className="position-relative d-flex align-items-center justify-content-between w-100 pb-2">
                       <div style={{ flexGrow: "1", borderBottom: "1px solid #878787", marginRight: "10px" }}></div>
-                      <div className="text-neutral-200 fs-4">2024/12/01</div>
+                      <div className="text-neutral-200 fs-11">2024/12/01</div>
                     </div>
                     <div className="d-flex gap-1 align-items-center">
                       <img src={customer_01} style={{ width: "32px", height: "32px" }} alt="customer_01" />
                       <div>
-                        <p className="fs-4 text-neutral-300">Emma L.</p>
-                        <p className="fs-4 text-neutral-200">參加 法國義大利經典雙城八日</p>
+                        <p className="fs-11 text-neutral-300">Emma L.</p>
+                        <p className="fs-11 text-neutral-200">參加 法國義大利經典雙城八日</p>
                       </div>
                     </div>
                   </div>
                   <div className="card card-custom px-6 py-4">
                     <div className="d-flex gap-1 pb-2">
-                      {[...Array(5)].map((_, i) => (
+                      {[...Array(4)].map((_, i) => (
                         <img key={i} src={star} style={{ width: "16px", height: "15px" }} alt="star" />
                       ))}
                     </div>
-                    <p className="fs-3 pb-2 text-neutral-black pb-5">
+                    <p className="fs-10 pb-2 text-neutral-black pb-5">
                       非常方便的全包服務，不用煩惱任何細節，一切都安排得妥妥的，下次旅行還會選擇你們！
                     </p>
                     <div className="position-relative d-flex align-items-center justify-content-between w-100 pb-2">
                       <div style={{ flexGrow: "1", borderBottom: "1px solid #878787", marginRight: "10px" }}></div>
-                      <div className="text-neutral-200 fs-4">2024/11/30</div>
+                      <div className="text-neutral-200 fs-11">2024/11/30</div>
                     </div>
                     <div className="d-flex gap-1 align-items-center">
                       <img src={customer_02} style={{ width: "32px", height: "32px" }} alt="customer_02" />
                       <div>
-                        <p className="fs-4 text-neutral-300">James T.</p>
-                        <p className="fs-4 text-neutral-200">參加 法國義大利經典雙城八日</p>
+                        <p className="fs-11 text-neutral-300">James T.</p>
+                        <p className="fs-11 text-neutral-200">參加 法國義大利經典雙城八日</p>
                       </div>
                     </div>
                   </div>
@@ -227,18 +231,18 @@ function Evaluate() {
                         <img key={i} src={star} style={{ width: "16px", height: "15px" }} alt="star" />
                       ))}
                     </div>
-                    <p className="fs-3 pb-2 text-neutral-black pb-5">
+                    <p className="fs-10 pb-2 text-neutral-black pb-5">
                       這次的行程讓我們全家都很開心，特別喜歡自由活動的時間，希望能有更多選項可以選擇。
                     </p>
                     <div className="position-relative d-flex align-items-center justify-content-between w-100 pb-2">
                       <div style={{ flexGrow: "1", borderBottom: "1px solid #878787", marginRight: "10px" }}></div>
-                      <div className="text-neutral-200 fs-4">2024/11/28</div>
+                      <div className="text-neutral-200 fs-11">2024/11/28</div>
                     </div>
                     <div className="d-flex gap-1 align-items-center">
                       <img src={customer_03} style={{ width: "32px", height: "32px" }} alt="customer_03" />
                       <div>
-                        <p className="fs-4 text-neutral-300">陳佳君</p>
-                        <p className="fs-4 text-neutral-200">參加 捷克匈牙利多瑙河之旅六日</p>
+                        <p className="fs-11 text-neutral-300">陳佳君</p>
+                        <p className="fs-11 text-neutral-200">參加 捷克匈牙利多瑙河之旅六日</p>
                       </div>
                     </div>
                   </div>
@@ -252,18 +256,18 @@ function Evaluate() {
                         <img key={i} src={star} style={{ width: "16px", height: "15px" }} alt="star" />
                       ))}
                     </div>
-                    <p className="fs-3 pb-2 text-neutral-black pb-5">
+                    <p className="fs-10 pb-2 text-neutral-black pb-5">
                       這趟旅程很棒，行程安排很周到，小缺點是導遊的講解還可以更詳細些，其他都很滿意。
                     </p>
                     <div className="position-relative d-flex align-items-center justify-content-between w-100 pb-2">
                       <div style={{ flexGrow: "1", borderBottom: "1px solid #878787", marginRight: "10px" }}></div>
-                      <div className="text-neutral-200 fs-4">2024/12/01</div>
+                      <div className="text-neutral-200 fs-11">2024/12/01</div>
                     </div>
                     <div className="d-flex gap-1 align-items-center">
                       <img src={customer_01} style={{ width: "32px", height: "32px" }} alt="customer_01" />
                       <div>
-                        <p className="fs-4 text-neutral-300">Emma L.</p>
-                        <p className="fs-4 text-neutral-200">參加 法國義大利經典雙城八日</p>
+                        <p className="fs-11 text-neutral-300">Emma L.</p>
+                        <p className="fs-11 text-neutral-200">參加 法國義大利經典雙城八日</p>
                       </div>
                     </div>
                   </div>
@@ -273,18 +277,18 @@ function Evaluate() {
                         <img key={i} src={star} style={{ width: "16px", height: "15px" }} alt="star" />
                       ))}
                     </div>
-                    <p className="fs-3 pb-2 text-neutral-black pb-5">
+                    <p className="fs-10 pb-2 text-neutral-black pb-5">
                       非常方便的全包服務，不用煩惱任何細節，一切都安排得妥妥的，下次旅行還會選擇你們！
                     </p>
                     <div className="position-relative d-flex align-items-center justify-content-between w-100 pb-2">
                       <div style={{ flexGrow: "1", borderBottom: "1px solid #878787", marginRight: "10px" }}></div>
-                      <div className="text-neutral-200 fs-4">2024/11/30</div>
+                      <div className="text-neutral-200 fs-11">2024/11/30</div>
                     </div>
                     <div className="d-flex gap-1 align-items-center">
                       <img src={customer_02} style={{ width: "32px", height: "32px" }} alt="customer_02" />
                       <div>
-                        <p className="fs-4 text-neutral-300">James T.</p>
-                        <p className="fs-4 text-neutral-200">參加 法國義大利經典雙城八日</p>
+                        <p className="fs-11 text-neutral-300">James T.</p>
+                        <p className="fs-11 text-neutral-200">參加 法國義大利經典雙城八日</p>
                       </div>
                     </div>
                   </div>
@@ -294,18 +298,18 @@ function Evaluate() {
                         <img key={i} src={star} style={{ width: "16px", height: "15px" }} alt="star" />
                       ))}
                     </div>
-                    <p className="fs-3 pb-2 text-neutral-black pb-5">
+                    <p className="fs-10 pb-2 text-neutral-black pb-5">
                       這次的行程讓我們全家都很開心，特別喜歡自由活動的時間，希望能有更多選項可以選擇。
                     </p>
                     <div className="position-relative d-flex align-items-center justify-content-between w-100 pb-2">
                       <div style={{ flexGrow: "1", borderBottom: "1px solid #878787", marginRight: "10px" }}></div>
-                      <div className="text-neutral-200 fs-4">2024/11/28</div>
+                      <div className="text-neutral-200 fs-11">2024/11/28</div>
                     </div>
                     <div className="d-flex gap-1 align-items-center">
                       <img src={customer_03} style={{ width: "32px", height: "32px" }} alt="customer_03" />
                       <div>
-                        <p className="fs-4 text-neutral-300">陳佳君</p>
-                        <p className="fs-4 text-neutral-200">參加 捷克匈牙利多瑙河之旅六日</p>
+                        <p className="fs-11 text-neutral-300">陳佳君</p>
+                        <p className="fs-11 text-neutral-200">參加 捷克匈牙利多瑙河之旅六日</p>
                       </div>
                     </div>
                   </div>
