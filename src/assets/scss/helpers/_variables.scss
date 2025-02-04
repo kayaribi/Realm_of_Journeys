@@ -660,6 +660,7 @@ $aspect-ratios: (
 // scss-docs-start font-variables
 // stylelint-disable value-keyword-case
 $font-family-sans-serif: "Noto Sans TC",
+  "Noto Serif TC",
   system-ui,
   -apple-system,
   "Segoe UI",
@@ -727,11 +728,30 @@ $font-sizes: (
   // 4: $h4-font-size,
   // 5: $h5-font-size,
   // 6: $h6-font-size
-  1: 1.125rem,
-  2: 1rem,
-  3: 0.875rem,
-  4: 0.75rem,
-  5: 0.625rem,
+  1: 6rem,
+  /* 96 / 16 = 6 */
+  2: 4rem,
+  /* 64 / 16 = 4 */
+  3: 3rem,
+  /* 48 / 16 = 3 */
+  4: 2.5rem,
+  /* 40 / 16 = 2.5 */
+  5: 2rem,
+  /* 32 / 16 = 2 */
+  6: 1.5rem,
+  /* 24 / 16 = 1.5 */
+  7: 1.25rem,
+  /* 20 / 16 = 1.25 */
+  8: 1.125rem,
+  /* 18 / 16 = 1.125 */
+  9: 1rem,
+  /* 16 / 16 = 1 */
+  10: 0.875rem,
+  /* 14 / 16 = 0.875 */
+  11: 0.75rem,
+  /* 12 / 16 = 0.75 */
+  12: 0.625rem
+  /* 10 / 16 = 0.625 */
   ) !default;
 // scss-docs-end font-sizes
 
