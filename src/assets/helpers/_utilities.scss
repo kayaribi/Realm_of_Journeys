@@ -11,11 +11,88 @@ $utilities: map-merge(
   )
 );
 
+// * {
+//   outline: 1px solid red;
+// }
+
+.featuredTitleIcon {
+  width: 48px;
+  height: 48px;
+}
+
 .featuredImg {
   border-top-right-radius: 60px;
   border-top-left-radius: 60px;
   border-bottom-left-radius: 60px;
-  width: 240px;
-  height: 360px;
+  width: 100%;
+  height: 100%;
   object-fit: cover;
+}
+
+.featuredLeftFlex {
+  flex: 43;
+  height: 360px;
+}
+
+.featuredRightFlex {
+  flex: 57;
+}
+
+.featuredCardTitle {
+  font-size: 32px;
+}
+
+.featuredCardDescription {
+  font-size: 16px;
+}
+
+.featuredDiscountPrice {
+  font-size: 24px;
+}
+
+@media screen and (max-width: 1399px) {
+  .featuredLeftFlex {
+    flex: 50;
+  }
+
+  .featuredRightFlex {
+    flex: 50;
+  }
+
+  .featuredCardTitle {
+    font-size: 24px;
+  }
+}
+
+@media screen and (max-width: 1199px) {
+  .featuredLeftFlex {
+    flex: 55;
+  }
+
+  .featuredRightFlex {
+    flex: 45;
+  }
+
+  .featuredCardTitle {
+    font-size: 20px;
+  }
+
+  .featuredDiscountPrice {
+    font-size: 18px;
+  }
+}
+
+@media screen and (max-width: 575px) {
+  .featuredTitleIcon {
+    width: 24px;
+    height: 24px;
+  }
+
+  .featuredCardTitle {
+    font-size: 18px;
+  }
+
+  .featuredCardDescription {
+    font-size: 14px;
+  }
 }

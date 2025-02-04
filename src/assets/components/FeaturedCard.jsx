@@ -1,41 +1,64 @@
 function FeaturedCard({ featuredItem, index, featuredImgIcon }) {
   return (
-    <div className={`col ${index % 2 === 0 ? "mt-16" : "mb-16"}`}>
-      <div className="d-flex px-6 h-100">
-        <div className="me-8 position-relative">
-          <img className="featuredImg" src={featuredItem.imageUrl} alt="" />
+    <div
+      className={`col ${
+        index % 2 === 0 ? "mt-lg-16 mt-0 mb-lg-0 mb-6" : "mb-lg-16 mb-6"
+      }`}
+    >
+      <div className="d-flex flex-lg-row flex-column px-xxl-6 px-xl-4 px-lg-2 px-0 ">
+        {/* 左邊圖片區域 */}
+        <div className="me-lg-8 me-0 position-relative featuredLeftFlex">
+          <a href="">
+            <img
+              className="featuredImg"
+              src={featuredItem.imageUrl}
+              alt={featuredItem.title}
+            />
+          </a>
+
           <div className="bg-primary-500 d-flex align-items-center position-absolute bottom-0 end-0 py-1 px-3">
-            <img src={featuredImgIcon} alt="" />
-            <p style={{ marginLeft: "10px" }} className="mb-0 text-white">
+            <img src={featuredImgIcon} alt="日曆icon" />
+            <p
+              style={{ marginLeft: "10px" }}
+              className="mb-0 text-white fs-lg-2 fs-4"
+            >
               {featuredItem.travelDate}
             </p>
           </div>
         </div>
 
-        <div className="py-6 d-flex flex-column">
-          <h3 style={{ whiteSpace: "pre-line" }} className="fs-8">
+        {/* 右邊文字區域 */}
+        <div className="pt-xl-lg-6 pb-xl-6 pt-lg-3 pb-lg-3 pt-5 d-flex flex-column featuredRightFlex">
+          <h3 style={{ whiteSpace: "pre-line" }} className="featuredCardTitle">
             {featuredItem.title}
           </h3>
-          <hr className="text-primary-200 opacity-100" />
-          <p
-            className="mb-0 text-neutral-300"
-            style={{ whiteSpace: "pre-line" }}
-          >
-            {featuredItem.description}
-          </p>
+          <hr className="text-primary-200 opacity-100 my-xl-4 my-lg-3 my-2" />
 
-          <div className="mt-auto">
+          {featuredItem.description.split("\n").map((des, index) => {
+            return (
+              <p
+                key={index}
+                className={`${
+                  index === 0 ? "mb-xl-3 mb-2" : "mb-0"
+                } text-neutral-300 featuredCardDescription`}
+              >
+                {des}
+              </p>
+            );
+          })}
+
+          <div className="mt-lg-auto mt-2">
             <p
               className="mb-0 text-decoration-line-through text-neutral-200"
               style={{ fontSize: "14px" }}
             >
-              原價 NT{featuredItem.origin_price}
+              原價 NT{featuredItem.origin_price.toLocaleString()}
             </p>
             <p
               style={{ lineHeight: "1.2" }}
-              className="mb-0 text-secondary-200 fs-6"
+              className="mb-0 text-secondary-200 featuredDiscountPrice"
             >
-              優惠價 NT{featuredItem.price}/{featuredItem.unit}
+              優惠價 NT{featuredItem.price.toLocaleString()}/{featuredItem.unit}
             </p>
           </div>
         </div>
