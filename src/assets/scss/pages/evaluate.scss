@@ -22,6 +22,10 @@
 .swiper-pagination {
   position: static;
   margin-top: 32px;
+
+  @media (min-width: 1024px) {
+    margin-top: 60px;
+  }
 }
 
 .swiper-horizontal>.swiper-pagination-bullets .swiper-pagination-bullet,
@@ -36,5 +40,43 @@
 
   @media (min-width: 1200px) {
     height: 182px;
+  }
+}
+
+
+.swiper-button-next {
+  top: calc(97% - 3px);
+  right: 20%;
+
+  @media (min-width: 1024px) {
+    top: 93%;
+    right: calc(30% + 50px);
+  }
+
+  &:after {
+    content: url("/images/icon/chevrons-right.svg");
+    // background-image: url("/images/icon/chevrons-right.svg"); // 直接從 public 資料夾讀取
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+
+}
+
+.swiper-button-prev {
+  top: calc(97% - 3px);
+  left: 20%;
+
+  @media (min-width: 1024px) {
+    top: 93%;
+    left: calc(30% + 50px);
+  }
+
+  &:after {
+    content: url("/images/icon/chevrons-left.svg");
+    // background-image: url("/images/icon/chevrons-right.svg"); // 直接從 public 資料夾讀取
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
   }
 }
