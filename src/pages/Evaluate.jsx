@@ -93,12 +93,21 @@ function Evaluate() {
   return (
     <>
       <div
-        style={{
-          backgroundImage: "url(images/evaluate/message-bgc.png)",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          height: "812px",
-        }}
+        style={isDesktop
+          ? {
+            backgroundImage: "url(images/evaluate/message-bgc.png)",
+            backgroundSize: "100% 100%",
+            backgroundPosition: "center",
+            backgroundRepeat: "no-repeat",
+            height: "642px"
+          }
+          : {
+            backgroundImage: "url(images/evaluate/message-bgc.png)",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            height: "812px",
+          }
+        }
       >
         <div className="container">
           <div className="title-family h1 text-white text-center pt-10 pb-8">我們的旅程，由您見證</div>
