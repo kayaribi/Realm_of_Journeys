@@ -68,31 +68,33 @@ function App() {
       </div>
 
       {/* 精選行程 - 倫倫 */}
-      <div className="container pt-lg-20 pb-lg-20 pt-15 pb-9">
-        <div className="d-flex align-items-center mb-lg-5 mb-8">
-          <div className="featuredTitleIcon">
-            <img
-              style={{ width: "100%", height: "100%" }}
-              src={featuredTitleIcon}
-              alt="精選行程標題icon"
-            />
-          </div>
+      <section className="bg-white">
+        <div className="container pt-lg-20 pb-lg-20 pt-15 pb-9 ">
+          <div className="d-flex align-items-center mb-lg-5 mb-8">
+            <div className="featuredTitleIcon">
+              <img
+                style={{ width: "100%", height: "100%" }}
+                src={featuredTitleIcon}
+                alt="精選行程標題icon"
+              />
+            </div>
 
-          <h2 className="text-primary-600 fs-sm-12 fs-6 ms-sm-4 ms-2">
-            精選行程
-          </h2>
+            <h2 className="text-primary-600 fs-sm-12 fs-6 ms-sm-4 ms-2 notoSerifTC">
+              精選行程
+            </h2>
+          </div>
+          <div className="row row-cols-lg-2 row-cols-1">
+            {featuredData.map((item, index) => (
+              <FeaturedCard
+                key={item.id}
+                featuredItem={item}
+                index={index}
+                featuredImgIcon={featuredImgIcon}
+              />
+            ))}
+          </div>
         </div>
-        <div className="row row-cols-lg-2 row-cols-1">
-          {featuredData.map((item, index) => (
-            <FeaturedCard
-              key={item.id}
-              featuredItem={item}
-              index={index}
-              featuredImgIcon={featuredImgIcon}
-            />
-          ))}
-        </div>
-      </div>
+      </section>
     </>
   );
 }
