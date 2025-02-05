@@ -13,7 +13,7 @@ const data = [
   {
     id: 1,
     name: "Emma L.",
-    customer: "./public/images/evaluate/people_05.png",
+    customer: "images/evaluate/people_05.png",
     vacation: "參加 法國義大利經典雙城八日",
     date: "2024/12/01",
     comment: "這趟旅程很棒，行程安排很周到，小缺點是導遊的講解還可以更詳細些，其他都很滿意。",
@@ -22,7 +22,7 @@ const data = [
   {
     id: 2,
     name: "James T",
-    customer: "./public/images/evaluate/people_04.png",
+    customer: "images/evaluate/people_04.png",
     vacation: "參加 法國義大利經典雙城八日",
     date: "2024/11/30",
     comment: "非常方便的全包服務，不用煩惱任何細節，一切都安排得妥妥的，下次旅行還會選擇你們！",
@@ -31,7 +31,7 @@ const data = [
   {
     id: 3,
     name: "陳佳君",
-    customer: "./public/images/evaluate/people_03.png",
+    customer: "images/evaluate/people_03.png",
     vacation: "參加 捷克匈牙利多瑙河之旅六日",
     date: "2024/11/28",
     comment: "這次的行程讓我們全家都很開心，特別喜歡自由活動的時間，希望能有更多選項可以選擇。",
@@ -129,7 +129,7 @@ function Evaluate() {
     <>
       <div
         style={{
-          backgroundImage: "url(./public/images/evaluate/message-bgc.png)",
+          backgroundImage: "url(images/evaluate/message-bgc.png)",
           backgroundSize: "cover",
           backgroundPosition: "center",
           height: "812px",
@@ -156,7 +156,7 @@ function Evaluate() {
                       <div className="card card-custom px-6 py-4">
                         <div className="d-flex gap-1 pb-2">
                           {[...Array(evaluate.star)].map((_, i) => (
-                            <img key={i} src="./public/images/icon/star.svg" style={{ width: "16px", height: "15px" }} alt="star" />
+                            <img key={i} src="images/icon/star.svg" style={{ width: "16px", height: "15px" }} alt="star" />
                           ))}
                         </div>
                         <p className="fs-10 mb-auto text-neutral-black">
