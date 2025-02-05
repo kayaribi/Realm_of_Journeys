@@ -8,21 +8,23 @@ function FeaturedCard({ featuredItem, index, featuredImgIcon }) {
       <a href="">
         <div className="d-flex flex-lg-row flex-column px-xxl-6 px-xl-4 px-lg-2 px-0 ">
           {/* 左邊圖片區域 */}
-          <div className="me-lg-8 me-0 position-relative featuredLeftFlex">
-            <img
-              className="featuredImg"
-              src={featuredItem.imageUrl}
-              alt={featuredItem.title}
-            />
+          <div className="me-lg-8 me-0  featuredLeftFlex ">
+            <div className="featuredImgWrap overflow-hidden position-relative">
+              <img
+                className="featuredImg"
+                src={featuredItem.imageUrl}
+                alt={featuredItem.title}
+              />
 
-            <div className="bg-primary-500 d-flex align-items-center position-absolute bottom-0 end-0 py-1 px-3">
-              <img src={featuredImgIcon} alt="日曆icon" />
-              <p
-                style={{ marginLeft: "10px" }}
-                className="text-white fs-lg-2 fs-4"
-              >
-                {featuredItem.travelDate}
-              </p>
+              <div className="bg-primary-500 d-flex align-items-center position-absolute bottom-0 end-0 py-1 px-3">
+                <img src={featuredImgIcon} alt="日曆icon" />
+                <p
+                  style={{ marginLeft: "10px" }}
+                  className="text-white fs-lg-2 fs-4"
+                >
+                  {featuredItem.travelDate}
+                </p>
+              </div>
             </div>
           </div>
 
