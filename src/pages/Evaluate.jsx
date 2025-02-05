@@ -64,42 +64,7 @@ const EvaluateData = [
     comment: "吃遍了各種韓國特色美食，韓服體驗也很有趣！不過購物行程稍多了一點。",
     star: 4
   },
-  {
-    id: 7,
-    name: "Robert K.",
-    // customer: customer_01,
-    vacation: "參加 澳洲大堡礁生態探索七日",
-    date: "2024/11/15",
-    comment: "浮潛活動超棒！看到很多珊瑚與魚類，導遊解說很詳細，整體來說是一次很棒的旅程。",
-    star: 5
-  },
-  {
-    id: 8,
-    name: "楊志明",
-    // customer: customer_02,
-    vacation: "參加 北歐極光夢幻之旅九日",
-    date: "2024/11/10",
-    comment: "極光真的太震撼了！導遊也很專業，雖然天氣有點冷，但一切都很值得。",
-    star: 5
-  },
-  {
-    id: 9,
-    name: "Anna P.",
-    // customer: customer_03,
-    vacation: "參加 埃及金字塔與尼羅河八日",
-    date: "2024/11/05",
-    comment: "古文明之旅很有趣，導遊的歷史知識很豐富，行程安排也很好，下次想嘗試非洲其他國家。",
-    star: 5
-  },
-  {
-    id: 10,
-    name: "吳承翰",
-    // customer: customer_1,
-    vacation: "參加 加拿大洛磯山脈冰川之旅七日",
-    date: "2024/11/02",
-    comment: "美景無敵，特別是冰川健行的體驗超棒，攝影愛好者一定會很喜歡這個行程。",
-    star: 5
-  }
+
 ]
 
 
@@ -136,7 +101,7 @@ function Evaluate() {
         }}
       >
         <div className="container">
-          <div className="h1 text-white text-center pt-10 pb-8">我們的旅程，由您見證</div>
+          <div className="title-family h1 text-white text-center pt-10 pb-8">我們的旅程，由您見證</div>
           {isDesktop ? (
             //桌面版
             <Swiper
