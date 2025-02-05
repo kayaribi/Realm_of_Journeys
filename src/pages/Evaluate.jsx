@@ -9,7 +9,7 @@ import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 import '../assets/scss/pages/evaluate.scss';
 
-const data = [
+const EvaluateData = [
   {
     id: 1,
     name: "Emma L.",
@@ -149,7 +149,7 @@ function Evaluate() {
               modules={[Navigation, Pagination, Mousewheel, Keyboard]}
             // modules={[Pagination]}
             >
-              {data.map((evaluate) => {
+              {EvaluateData.map((evaluate) => {
                 return (
                   <SwiperSlide key={evaluate.id}>
                     <div className="d-flex flex-column align-items-stretch h-100">
