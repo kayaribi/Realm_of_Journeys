@@ -9,7 +9,7 @@ export default function Footer(){
 
     return(<>
         <footer className="footer bg-primary-600">
-            <div className="container-fluid py-10">
+            <div className="container py-10">
                 <div className="d-flex justify-content-center flex-column flex-lg-row justify-content-lg-center align-items-center mb-8">
                     {/* logo + title */}
                     <div className="d-flex align-items-center mb-14 my-lg-4 me-lg-15">

@@ -12,7 +12,7 @@ export default function Navbar(){
 
     return(<>
         <nav className={`navbar navbar-expand-lg navbar-light navbarPadding ${isNavbarOpen ? "bg-primary-50" : ""}`} >
-            <div className="container-fluid d-flex justify-content-between align-items-center">
+            <div className="container d-flex justify-content-between align-items-center">
                 {/* logo + 標題 */}
                 <div className="d-flex align-items-center">
                     <NavLink className="navbar-brand" to="/">
