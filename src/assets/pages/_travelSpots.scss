@@ -1,0 +1,99 @@
+.travelSpotsBanner {
+  width: 100%;
+  background-size: cover;
+  aspect-ratio: 3 / 1;
+  background-repeat: no-repeat;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.travelSpotsBannerText {
+  text-shadow: 0px 0px 10px #174675;
+  font-size: 40px;
+}
+
+.travelSpotsBannerBackDrop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #1c1c1c4c;
+}
+
+.travelSpotsSelectWrap {
+  background-color: #3d3d3d66;
+  //   backdrop-filter: blur(80px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  border: 1px solid white;
+  border-radius: 100px;
+  box-shadow: 0px 4px 20px 0px rgba(0, 0, 0, 0.15);
+  transform: translateY(-50%);
+}
+
+.travelSpotsSelectbutton {
+  display: block;
+  line-height: 1.2;
+  border-radius: 100px;
+  //   padding: 16px 74px;
+  text-align: center;
+  font-size: 32px;
+}
+
+.travelSpotsSelectbuttonWrap {
+  flex: 1;
+}
+
+// @media screen and (max-width: 1399px) {
+//   .travelSpotsSelectbutton {
+//     padding: 16px 59px;
+//   }
+// }
+
+@media screen and (max-width: 1199px) {
+  .travelSpotsSelectbutton {
+    font-size: 28px;
+  }
+}
+
+// col-10
+// @media screen and (max-width: 991px) {
+
+// }
+
+// col-10
+@media screen and (max-width: 767px) {
+  .travelSpotsSelectbutton {
+    font-size: 24px;
+  }
+
+  .travelSpotsBannerText {
+    font-size: 32px;
+  }
+}
+
+// col-12
+@media screen and (max-width: 575px) {
+  .travelSpotsSelectbutton {
+    font-size: 20px;
+  }
+
+  .travelSpotsBannerText {
+    font-size: 24px;
+  }
+}
+
+@media screen and (max-width: 374px) {
+  .travelSpotsSelectbutton {
+    font-size: 18px;
+  }
+
+  .travelSpotsBannerText {
+    font-size: 18px;
+  }
+}
