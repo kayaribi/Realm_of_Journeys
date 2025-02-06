@@ -23,9 +23,21 @@
   background-color: #1c1c1c4c;
 }
 
+.travelSpotsSelectWrapPosition {
+  position: absolute;
+  width: 100%;
+
+  z-index: 100;
+  transform: translateY(-50%);
+}
+
+.productListTranslate {
+  padding-top: 100px;
+}
+
 .travelSpotsSelectWrap {
   background-color: #3d3d3d66;
-  //   backdrop-filter: blur(80px);
+  backdrop-filter: blur(80px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -33,7 +45,6 @@
   border: 1px solid white;
   border-radius: 100px;
   box-shadow: 0px 4px 20px 0px rgba(0, 0, 0, 0.15);
-  transform: translateY(-50%);
 }
 
 .travelSpotsSelectbutton {
@@ -49,22 +60,66 @@
   flex: 1;
 }
 
-// @media screen and (max-width: 1399px) {
-//   .travelSpotsSelectbutton {
-//     padding: 16px 59px;
-//   }
-// }
+.productListImgWrap {
+  border-top-right-radius: 60px;
+  border-top-left-radius: 60px;
+  border-bottom-left-radius: 60px;
+  width: 100%;
+  height: 294px;
+}
+
+.productListImg {
+  border-top-right-radius: 60px;
+  border-top-left-radius: 60px;
+  border-bottom-left-radius: 60px;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+
+  &:hover {
+    transform: scale(1.5);
+  }
+}
+
+.travelSpotCardTitle {
+  font-size: 32px;
+}
+
+.travelSpotCardDescription {
+  font-size: 16px;
+}
+
+.travelSpotCardDiscountPrice {
+  font-size: 24px;
+}
+
+@media screen and (max-width: 1399px) {
+  .travelSpotCardTitle {
+    font-size: 24px;
+  }
+}
 
 @media screen and (max-width: 1199px) {
   .travelSpotsSelectbutton {
     font-size: 28px;
   }
+
+  .travelSpotCardTitle {
+    font-size: 20px;
+  }
+
+  .travelSpotCardDiscountPrice {
+    font-size: 18px;
+  }
 }
 
 // col-10
-// @media screen and (max-width: 991px) {
-
-// }
+@media screen and (max-width: 991px) {
+  .productListTranslate {
+    padding-top: 80px;
+  }
+}
 
 // col-10
 @media screen and (max-width: 767px) {
@@ -74,6 +129,10 @@
 
   .travelSpotsBannerText {
     font-size: 32px;
+  }
+
+  .productListTranslate {
+    padding-top: 60px;
   }
 }
 
@@ -85,6 +144,25 @@
 
   .travelSpotsBannerText {
     font-size: 24px;
+  }
+
+  .travelSpotCardTitle {
+    font-size: 18px;
+  }
+
+  .travelSpotCardDescription {
+    font-size: 14px;
+  }
+
+  .travelSpotsSelectWrapPosition {
+    transform: translateY(0);
+    position: fixed;
+    bottom: 32px;
+  }
+
+  .productListTranslate {
+    padding-top: 0px;
+    margin-top: -32px;
   }
 }
 

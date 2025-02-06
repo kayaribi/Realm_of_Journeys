@@ -2,7 +2,6 @@ import { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import featuredData from "../featuredData";
 import featuredTitleIcon from "../assets/shiny_48px.svg";
-import featuredImgIcon from "../assets/calendar.svg";
 import FeaturedCard from "../assets/components/FeaturedCard";
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
@@ -46,12 +45,7 @@ export default function Home() {
           </div>
           <div className="row row-cols-lg-2 row-cols-1">
             {featuredData.map((item, index) => (
-              <FeaturedCard
-                key={item.id}
-                featuredItem={item}
-                index={index}
-                featuredImgIcon={featuredImgIcon}
-              />
+              <FeaturedCard key={item.id} featuredItem={item} index={index} />
             ))}
           </div>
         </div>

@@ -1,4 +1,6 @@
-function FeaturedCard({ featuredItem, index, featuredImgIcon }) {
+import DepartureTimeDecoration from "./DepartureTimeDecoration";
+
+function FeaturedCard({ featuredItem, index }) {
   return (
     <div
       className={`col ${
@@ -15,16 +17,7 @@ function FeaturedCard({ featuredItem, index, featuredImgIcon }) {
                 src={featuredItem.imageUrl}
                 alt={featuredItem.title}
               />
-
-              <div className="bg-primary-500 d-flex align-items-center position-absolute bottom-0 end-0 py-1 px-3">
-                <img src={featuredImgIcon} alt="日曆icon" />
-                <p
-                  style={{ marginLeft: "10px" }}
-                  className="text-white fs-lg-2 fs-4"
-                >
-                  {featuredItem.travelDate}
-                </p>
-              </div>
+              <DepartureTimeDecoration featuredItem={featuredItem} />
             </div>
           </div>
 
@@ -60,7 +53,7 @@ function FeaturedCard({ featuredItem, index, featuredImgIcon }) {
               </p>
               <p
                 style={{ lineHeight: "1.2" }}
-                className="text-secondary-200 featuredDiscountPrice"
+                className="text-secondary-200 featuredDiscountPrice fw-bold"
               >
                 優惠價 NT{featuredItem.price.toLocaleString()}/
                 {featuredItem.unit}
