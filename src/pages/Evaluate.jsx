@@ -1,4 +1,3 @@
-import star from "../assets/images/icon/star.svg";
 import { useEffect, useState, useRef } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination, Mousewheel, Keyboard } from 'swiper/modules';
@@ -7,13 +6,13 @@ import { Navigation, Pagination, Mousewheel, Keyboard } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
-import '../assets/scss/pages/evaluate.scss';
+import '../scss/pages/evaluate.scss';
 
 const EvaluateData = [
   {
     id: 1,
     name: "Emma L.",
-    customer: "images/evaluate/people_05.png",
+    customer: "images/people_05.png",
     vacation: "參加 法國義大利經典雙城八日",
     date: "2024/12/01",
     comment: "這趟旅程很棒，行程安排很周到，小缺點是導遊的講解還可以更詳細些，其他都很滿意。",
@@ -22,7 +21,7 @@ const EvaluateData = [
   {
     id: 2,
     name: "James T",
-    customer: "images/evaluate/people_04.png",
+    customer: "images/people_04.png",
     vacation: "參加 法國義大利經典雙城八日",
     date: "2024/11/30",
     comment: "非常方便的全包服務，不用煩惱任何細節，一切都安排得妥妥的，下次旅行還會選擇你們！",
@@ -31,7 +30,7 @@ const EvaluateData = [
   {
     id: 3,
     name: "陳佳君",
-    customer: "images/evaluate/people_03.png",
+    customer: "images/people_03.png",
     vacation: "參加 捷克匈牙利多瑙河之旅六日",
     date: "2024/11/28",
     comment: "這次的行程讓我們全家都很開心，特別喜歡自由活動的時間，希望能有更多選項可以選擇。",
@@ -95,14 +94,14 @@ function Evaluate() {
       <div
         style={isDesktop
           ? {
-            backgroundImage: "url(images/evaluate/message-bgc.png)",
+            backgroundImage: "url(images/message-bgc.png)",
             backgroundSize: "100% 100%",
             backgroundPosition: "center",
             backgroundRepeat: "no-repeat",
             height: "642px"
           }
           : {
-            backgroundImage: "url(images/evaluate/message-bgc.png)",
+            backgroundImage: "url(images/message-bgc.png)",
             backgroundSize: "cover",
             backgroundPosition: "center",
             height: "812px",
@@ -286,7 +285,7 @@ function Evaluate() {
                   <div className="card card-custom px-6 py-4">
                     <div className="d-flex gap-1 pb-2">
                       {[...Array(5)].map((_, i) => (
-                        <img key={i} src={star} style={{ width: "16px", height: "15px" }} alt="star" />
+                        <img key={i} src="" style={{ width: "16px", height: "15px" }} alt="star" />
                       ))}
                     </div>
                     <p className="fs-10 pb-2 text-neutral-black pb-5">
@@ -297,7 +296,7 @@ function Evaluate() {
                       <div className="text-neutral-200 fs-11">2024/12/01</div>
                     </div>
                     <div className="d-flex gap-1 align-items-center">
-                      <img src="./public/images/evaluate/people_05.png" style={{ width: "32px", height: "32px" }} alt="customer_01" />
+                      <img src="./public/images/people_05.png" style={{ width: "32px", height: "32px" }} alt="customer_01" />
                       <div>
                         <p className="fs-11 text-neutral-300">Emma L.</p>
                         <p className="fs-11 text-neutral-200">參加 法國義大利經典雙城八日</p>
@@ -307,7 +306,7 @@ function Evaluate() {
                   <div className="card card-custom px-6 py-4">
                     <div className="d-flex gap-1 pb-2">
                       {[...Array(4)].map((_, i) => (
-                        <img key={i} src={star} style={{ width: "16px", height: "15px" }} alt="star" />
+                        <img key={i} src="" style={{ width: "16px", height: "15px" }} alt="star" />
                       ))}
                     </div>
                     <p className="fs-10 pb-2 text-neutral-black pb-5">
@@ -318,7 +317,7 @@ function Evaluate() {
                       <div className="text-neutral-200 fs-11">2024/11/30</div>
                     </div>
                     <div className="d-flex gap-1 align-items-center">
-                      <img src="./public/images/evaluate/people_04.png" style={{ width: "32px", height: "32px" }} alt="customer_02" />
+                      <img src="./public/images/people_04.png" style={{ width: "32px", height: "32px" }} alt="customer_02" />
                       <div>
                         <p className="fs-11 text-neutral-300">James T.</p>
                         <p className="fs-11 text-neutral-200">參加 法國義大利經典雙城八日</p>
@@ -328,7 +327,7 @@ function Evaluate() {
                   <div className="card card-custom px-6 py-4">
                     <div className="d-flex gap-1 pb-2">
                       {[...Array(5)].map((_, i) => (
-                        <img key={i} src={star} style={{ width: "16px", height: "15px" }} alt="star" />
+                        <img key={i} src="" style={{ width: "16px", height: "15px" }} alt="star" />
                       ))}
                     </div>
                     <p className="fs-10 pb-2 text-neutral-black pb-5">
@@ -339,7 +338,7 @@ function Evaluate() {
                       <div className="text-neutral-200 fs-11">2024/11/28</div>
                     </div>
                     <div className="d-flex gap-1 align-items-center">
-                      <img src="./public/images/evaluate/people_03.png" style={{ width: "32px", height: "32px" }} alt="customer_03" />
+                      <img src="./public/images/people_03.png" style={{ width: "32px", height: "32px" }} alt="customer_03" />
                       <div>
                         <p className="fs-11 text-neutral-300">陳佳君</p>
                         <p className="fs-11 text-neutral-200">參加 捷克匈牙利多瑙河之旅六日</p>
@@ -353,7 +352,7 @@ function Evaluate() {
                   <div className="card card-custom px-6 py-4">
                     <div className="d-flex gap-1 pb-2">
                       {[...Array(5)].map((_, i) => (
-                        <img key={i} src={star} style={{ width: "16px", height: "15px" }} alt="star" />
+                        <img key={i} src="" style={{ width: "16px", height: "15px" }} alt="star" />
                       ))}
                     </div>
                     <p className="fs-10 pb-2 text-neutral-black pb-5">
@@ -374,7 +373,7 @@ function Evaluate() {
                   <div className="card card-custom px-6 py-4">
                     <div className="d-flex gap-1 pb-2">
                       {[...Array(5)].map((_, i) => (
-                        <img key={i} src={star} style={{ width: "16px", height: "15px" }} alt="star" />
+                        <img key={i} src="" style={{ width: "16px", height: "15px" }} alt="star" />
                       ))}
                     </div>
                     <p className="fs-10 pb-2 text-neutral-black pb-5">
@@ -395,7 +394,7 @@ function Evaluate() {
                   <div className="card card-custom px-6 py-4">
                     <div className="d-flex gap-1 pb-2">
                       {[...Array(5)].map((_, i) => (
-                        <img key={i} src={star} style={{ width: "16px", height: "15px" }} alt="star" />
+                        <img key={i} src="" style={{ width: "16px", height: "15px" }} alt="star" />
                       ))}
                     </div>
                     <p className="fs-10 pb-2 text-neutral-black pb-5">
