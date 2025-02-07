@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import axios from "axios";
-import DepartureTimeDecoration from "../assets/components/DepartureTimeDecoration";
-import productPageBanner from "../assets/productPageBanner.svg";
+import DepartureTimeDecoration from "../components/DepartureTimeDecoration";
+import productPageBanner from "../../public/images/icon/productPageBanner.svg";
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 const API_PATH = import.meta.env.VITE_API_PATH;

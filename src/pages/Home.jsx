@@ -1,8 +1,8 @@
 import { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import featuredData from "../featuredData";
-import featuredTitleIcon from "../assets/shiny_48px.svg";
-import FeaturedCard from "../assets/components/FeaturedCard";
+import featuredTitleIcon from "../../public/images/icon/shiny_48px.svg";
+import FeaturedCard from "../components/FeaturedCard";
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 const API_PATH = import.meta.env.VITE_API_PATH;
@@ -39,7 +39,7 @@ export default function Home() {
               />
             </div>
 
-            <h2 className="text-primary-600 fs-sm-12 fs-6 ms-sm-4 ms-2 notoSerifTC">
+            <h2 className="text-primary-600 fs-sm-3 fs-6 ms-sm-4 ms-2 notoSerifTC">
               精選行程
             </h2>
           </div>
