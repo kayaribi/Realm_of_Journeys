@@ -1,0 +1,20 @@
+$utilities: map-merge(
+  $utilities,
+  (
+    "font-size":
+      map-merge(
+        map-get($utilities, "font-size"),
+        (
+          responsive: true,
+        )
+      ),
+  )
+);
+
+// * {
+//   outline: 1px solid red;
+// }
+
+.notoSerifTC {
+  font-family: "Noto Serif TC", serif;
+}

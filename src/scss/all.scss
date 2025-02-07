@@ -3,16 +3,24 @@
 // bs icon
 @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css");
 
-@import 'animate.css';
+@import "animate.css";
 
-@import 'bootstrap/scss/functions';
+@import "bootstrap/scss/functions";
 
-@import './helpers/variables';
+@import "./helpers/variables";
 
-@import 'bootstrap/scss/bootstrap';
+@import "bootstrap/scss/bootstrap";
 
-@import './helpers/utilities';
+@import "./helpers/utilities";
 
 @import "bootstrap/scss/utilities/api";
 
-@import './layout/layout';
+@import "./layout/layout";
+
+@import "./pages/home";
+
+@import "./pages/travelSpots";
+
+// body{
+//   background: $primary-300;
+// }
