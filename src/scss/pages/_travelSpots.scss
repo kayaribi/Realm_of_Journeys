@@ -112,6 +112,86 @@
   font-size: 24px;
 }
 
+.leftArrow {
+  display: inline-block;
+  position: relative;
+  width: 24px;
+  height: 24px;
+  margin-right: 32px;
+
+  &::before,
+  &::after {
+    content: "";
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    border-top: 2px solid #3d3d3d;
+    border-left: 2px solid #3d3d3d;
+    transform: rotate(-45deg);
+  }
+
+  &:hover::before,
+  &:hover::after {
+    cursor: pointer;
+    border-color: #c2dcf5; /* 例如改為番茄紅 */
+  }
+
+  &:active::before,
+  &:active::after {
+    border-color: #509fe0; /* 點擊時改為紅色 */
+  }
+
+  &::before {
+    left: 4px;
+    top: 9px;
+  }
+
+  &::after {
+    left: 12px;
+    top: 9px;
+  }
+}
+
+.rightArrow {
+  display: inline-block;
+  position: relative;
+  width: 24px;
+  height: 24px;
+  margin-left: 32px;
+
+  &::before,
+  &::after {
+    content: "";
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    border-right: 2px solid #3d3d3d;
+    border-bottom: 2px solid #3d3d3d;
+    transform: rotate(-45deg);
+  }
+
+  &:hover::before,
+  &:hover::after {
+    cursor: pointer;
+    border-color: #c2dcf5; /* 例如改為番茄紅 */
+  }
+
+  &:active::before,
+  &:active::after {
+    border-color: #509fe0; /* 點擊時改為紅色 */
+  }
+
+  &::before {
+    left: 4px;
+    top: 9px;
+  }
+
+  &::after {
+    left: 12px;
+    top: 9px;
+  }
+}
+
 @media screen and (max-width: 1399px) {
   .travelSpotCardTitle {
     font-size: 24px;

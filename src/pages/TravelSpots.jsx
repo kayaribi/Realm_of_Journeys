@@ -38,7 +38,6 @@ export default function TravelSpots() {
 
   const handleBannerBG = (e) => {
     e.preventDefault();
-    console.dir(e.target.textContent);
     if (e.target.textContent === "全部") {
       setBannerChange(productPageBanner);
     } else if (e.target.textContent === "亞洲") {
@@ -58,11 +57,11 @@ export default function TravelSpots() {
       const { products } = res.data;
       setProductList(products);
 
-      console.log(
-        products.map((item) => {
-          return item.category;
-        })
-      );
+      // console.log(
+      //   products.map((item) => {
+      //     return item.category;
+      //   })
+      // );
     } catch (error) {
       console.log(error);
     }
@@ -195,6 +194,52 @@ export default function TravelSpots() {
                 </div>
               );
             })}
+          </div>
+          {/* 分頁元件 */}
+          <div className="row my-15">
+            <div className="col">
+              <ul className="list-unstyled mb-0 d-flex align-items-center">
+                <li className="leftArrow"></li>
+                <li
+                  className="bg-primary-100 text-primary-500 fw-bold"
+                  style={{
+                    padding: "4px 10px",
+                    fontSize: "20px",
+                    lineHeight: "1.2",
+                    borderRadius: "100px",
+                    cursor: "pointer",
+                  }}
+                >
+                  1
+                </li>
+                <li
+                  className="bg-primary-100 text-primary-500 fw-bold"
+                  style={{
+                    padding: "4px 10px",
+                    fontSize: "20px",
+                    lineHeight: "1.2",
+                    borderRadius: "100px",
+                    cursor: "pointer",
+                    margin: "0px 32px",
+                  }}
+                >
+                  2
+                </li>
+                <li
+                  className="bg-primary-100 text-primary-500 fw-bold"
+                  style={{
+                    padding: "4px 10px",
+                    fontSize: "20px",
+                    lineHeight: "1.2",
+                    borderRadius: "100px",
+                    cursor: "pointer",
+                  }}
+                >
+                  3
+                </li>
+                <li className="rightArrow"></li>
+              </ul>
+            </div>
           </div>
         </div>
       </section>
