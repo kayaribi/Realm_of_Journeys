@@ -9,7 +9,6 @@ import axios from "axios";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-// import "./styles.css";
 import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
 import About from "./pages/About";
@@ -21,14 +20,6 @@ const BASE_URL = import.meta.env.VITE_BASE_URL;
 const API_PATH = import.meta.env.VITE_API_PATH;
 
 function App() {
-  const handleClick = () => {
-    Swal.fire({
-      title: "Drag me!",
-      icon: "success",
-      draggable: true,
-    });
-  };
-
   return (
     <>
       <Navbar />

@@ -39,7 +39,7 @@ export default function Home() {
               />
             </div>
 
-            <h2 className="text-primary-600 fs-sm-3 fs-6 ms-sm-4 ms-2 notoSerifTC">
+            <h2 className="text-primary-600 fs-sm-3 fs-6 ms-sm-4 ms-2 title-family">
               精選行程
             </h2>
           </div>

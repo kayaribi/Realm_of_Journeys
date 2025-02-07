@@ -33,6 +33,18 @@
 
 .productListTranslate {
   padding-top: 100px;
+
+  div.col:nth-child(1) {
+    margin-top: 0;
+  }
+
+  div.col:nth-child(2) {
+    margin-top: 0;
+  }
+
+  div.col:not(:nth-child(1)):not(:nth-child(2)) {
+    margin-top: 32px;
+  }
 }
 
 .travelSpotsSelectWrap {
@@ -54,6 +66,12 @@
   //   padding: 16px 74px;
   text-align: center;
   font-size: 32px;
+
+  transition: all 0.3s ease;
+
+  &:hover {
+    background: #1b67ae;
+  }
 }
 
 .travelSpotsSelectbuttonWrap {
@@ -114,14 +132,12 @@
   }
 }
 
-// col-10
 @media screen and (max-width: 991px) {
   .productListTranslate {
     padding-top: 80px;
   }
 }
 
-// col-10
 @media screen and (max-width: 767px) {
   .travelSpotsSelectbutton {
     font-size: 24px;
@@ -136,7 +152,6 @@
   }
 }
 
-// col-12
 @media screen and (max-width: 575px) {
   .travelSpotsSelectbutton {
     font-size: 20px;
@@ -163,6 +178,10 @@
   .productListTranslate {
     padding-top: 0px;
     margin-top: -32px;
+
+    div.col:nth-child(2) {
+      margin-top: 32px;
+    }
   }
 }
 

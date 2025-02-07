@@ -25,7 +25,7 @@ function FeaturedCard({ featuredItem, index }) {
           <div className="pt-xl-lg-6 pb-xl-6 pt-lg-3 pb-lg-3 pt-5 d-flex flex-column featuredRightFlex">
             <h3
               style={{ whiteSpace: "pre-line" }}
-              className="featuredCardTitle text-neutral-black notoSerifTC"
+              className="featuredCardTitle text-neutral-black title-family"
             >
               {featuredItem.title}
             </h3>

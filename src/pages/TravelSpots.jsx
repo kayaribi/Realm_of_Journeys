@@ -2,12 +2,16 @@ import { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import DepartureTimeDecoration from "../components/DepartureTimeDecoration";
 import productPageBanner from "../../public/images/icon/productPageBanner.svg";
+import productPageBanner2 from "../../public/images/icon/productPageBanner2.svg";
+import productPageBanner3 from "../../public/images/icon/productPageBanner3.svg";
+import productPageBanner4 from "../../public/images/icon/productPageBanner4.svg";
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 const API_PATH = import.meta.env.VITE_API_PATH;
 
 export default function TravelSpots() {
   const [productList, setProductList] = useState([]);
+  const [bannerChange, setBannerChange] = useState(productPageBanner);
 
   const signIn = async () => {
     try {
@@ -32,6 +36,20 @@ export default function TravelSpots() {
     signIn();
   }, []);
 
+  const handleBannerBG = (e) => {
+    e.preventDefault();
+    console.dir(e.target.textContent);
+    if (e.target.textContent === "全部") {
+      setBannerChange(productPageBanner);
+    } else if (e.target.textContent === "亞洲") {
+      setBannerChange(productPageBanner2);
+    } else if (e.target.textContent === "歐洲") {
+      setBannerChange(productPageBanner3);
+    } else if (e.target.textContent === "中東") {
+      setBannerChange(productPageBanner4);
+    }
+  };
+
   const getProduct = async () => {
     try {
       const res = await axios.get(
@@ -39,6 +57,12 @@ export default function TravelSpots() {
       );
       const { products } = res.data;
       setProductList(products);
+
+      console.log(
+        products.map((item) => {
+          return item.category;
+        })
+      );
     } catch (error) {
       console.log(error);
     }
@@ -58,11 +82,11 @@ export default function TravelSpots() {
       <div
         className="travelSpotsBanner"
         style={{
-          backgroundImage: `url(${productPageBanner})`,
+          backgroundImage: `url(${bannerChange})`,
         }}
       >
         <div className="travelSpotsBannerBackDrop"></div>
-        <h2 className="notoSerifTC  text-white travelSpotsBannerText">
+        <h2 className="title-family  text-white travelSpotsBannerText">
           精選旅遊行程，開啟你的夢想旅途
         </h2>
       </div>
@@ -77,6 +101,7 @@ export default function TravelSpots() {
                   <a
                     className="text-white fw-bold  travelSpotsSelectbutton bg-primary-500 text-nowrap py-xl-4 py-md-3 py-2 "
                     href=""
+                    onClick={handleBannerBG}
                   >
                     全部
                   </a>
@@ -85,6 +110,7 @@ export default function TravelSpots() {
                   <a
                     className="text-white fw-bold  travelSpotsSelectbutton  text-nowrap py-xl-4 py-md-3 py-2"
                     href=""
+                    onClick={handleBannerBG}
                   >
                     亞洲
                   </a>
@@ -93,6 +119,7 @@ export default function TravelSpots() {
                   <a
                     className="text-white fw-bold  travelSpotsSelectbutton  text-nowrap py-xl-4 py-md-3 py-2"
                     href=""
+                    onClick={handleBannerBG}
                   >
                     歐洲
                   </a>
@@ -101,6 +128,7 @@ export default function TravelSpots() {
                   <a
                     className="text-white fw-bold  travelSpotsSelectbutton  text-nowrap py-xl-4 py-md-3 py-2"
                     href=""
+                    onClick={handleBannerBG}
                   >
                     中東
                   </a>
@@ -110,14 +138,9 @@ export default function TravelSpots() {
           </div>
           {/* 產品列表 */}
           <div className="row row-cols-sm-2 row-cols-1 productListTranslate">
-            {productList.map((product, index) => {
+            {productList.map((product) => {
               return (
-                <div
-                  key={product.id}
-                  className={`col ${
-                    index === 0 || index === 1 ? "mt-0" : "mt-8"
-                  }`}
-                >
+                <div key={product.id} className={`col`}>
                   <a style={{ display: "block", height: "100%" }} href="">
                     <div className="d-flex flex-column px-xl-6 px-lg-4 px-md-2 px-0 h-100">
                       {/* 上方圖片區域 */}
@@ -132,7 +155,7 @@ export default function TravelSpots() {
                       {/* 下方文字區域 */}
                       <div className="mt-4 mb-2">
                         <h3
-                          className="notoSerifTC travelSpotCardTitle text-neutral-black"
+                          className="title-family travelSpotCardTitle text-neutral-black"
                           style={{ whiteSpace: "pre-line" }}
                         >
                           {product.title}
