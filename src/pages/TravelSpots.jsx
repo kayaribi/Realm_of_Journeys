@@ -11,6 +11,7 @@ const API_PATH = import.meta.env.VITE_API_PATH;
 
 export default function TravelSpots() {
   const [productList, setProductList] = useState([]);
+  const [pagination, setPagination] = useState({});
   const [bannerChange, setBannerChange] = useState(productPageBanner);
 
   const signIn = async () => {
@@ -49,23 +50,38 @@ export default function TravelSpots() {
     }
   };
 
-  const getProduct = async () => {
+  const getProduct = async (page = 1) => {
     try {
       const res = await axios.get(
-        `${BASE_URL}/v2/api/${API_PATH}/admin/products`
+        `${BASE_URL}/v2/api/${API_PATH}/admin/products?page=${page}`
       );
-      const { products } = res.data;
+      const { products, pagination } = res.data;
       setProductList(products);
-
-      // console.log(
-      //   products.map((item) => {
-      //     return item.category;
-      //   })
-      // );
+      setPagination(pagination);
     } catch (error) {
       console.log(error);
     }
   };
+
+  // const handlePaginationProduct = async () => {
+  //   const res = await axios.get(
+  //     `${BASE_URL}/v2/api/${API_PATH}/admin/products`
+  //   );
+
+  //   const { total_pages } = res.data.pagination;
+
+  //   // 點擊分頁標籤後 根據 index去執行相對應的　api pages
+
+  //   console.log(res);
+  //   console.log(total_pages);
+  //   console.log(
+  //     productList.map((item) => {
+  //       return item.title;
+  //     })
+  //   );
+  // };
+
+  // handlePaginationProduct();
 
   return (
     <>
@@ -196,6 +212,57 @@ export default function TravelSpots() {
             })}
           </div>
           {/* 分頁元件 */}
+          <div className="row my-15">
+            <div className="col">
+              <ul className="list-unstyled mb-0 d-flex align-items-center">
+                <li>
+                  <a
+                    className={`leftArrow ${
+                      pagination.has_pre ? "" : "disabled"
+                    }  `}
+                    onClick={() => {
+                      getProduct(pagination.current_page - 1);
+                    }}
+                  ></a>
+                </li>
+                {[...new Array(pagination.total_pages)].map((_, index) => {
+                  return (
+                    <li
+                      key={`${index}_page`}
+                      className={`fw-bold ${
+                        index + 1 === pagination.current_page
+                          ? "paginationActive"
+                          : ""
+                      }`}
+                      style={{
+                        padding: "4px 10px",
+                        fontSize: "20px",
+                        lineHeight: "1.2",
+                        borderRadius: "100px",
+                        cursor: "pointer",
+                      }}
+                      onClick={() => {
+                        getProduct(index + 1);
+                      }}
+                    >
+                      {index + 1}
+                    </li>
+                  );
+                })}
+                <li>
+                  <a
+                    className={`rightArrow ${
+                      pagination.has_next ? "" : "disabled"
+                    }`}
+                    onClick={() => {
+                      getProduct(pagination.current_page + 1);
+                    }}
+                  ></a>
+                </li>
+              </ul>
+            </div>
+          </div>
+
           <div className="row my-15">
             <div className="col">
               <ul className="list-unstyled mb-0 d-flex align-items-center">

@@ -143,12 +143,22 @@
 
   &::before {
     left: 4px;
-    top: 9px;
+    top: 12px;
   }
 
   &::after {
     left: 12px;
-    top: 9px;
+    top: 12px;
+  }
+
+  &.disabled {
+    pointer-events: none; /* 禁止偽元素的點擊事件 */
+
+    &::before,
+    &::after {
+      border-top: 2px solid #878787;
+      border-left: 2px solid #878787;
+    }
   }
 }
 
@@ -183,13 +193,28 @@
 
   &::before {
     left: 4px;
-    top: 9px;
+    top: 12px;
   }
 
   &::after {
     left: 12px;
-    top: 9px;
+    top: 12px;
   }
+
+  &.disabled {
+    pointer-events: none; /* 禁止偽元素的點擊事件 */
+
+    &::before,
+    &::after {
+      border-right: 2px solid #878787;
+      border-bottom: 2px solid #878787;
+    }
+  }
+}
+
+.paginationActive {
+  background-color: #e4eefa;
+  color: #1b67ae;
 }
 
 @media screen and (max-width: 1399px) {

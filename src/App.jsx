@@ -31,7 +31,7 @@ function App() {
           <Route path="/travelguide" element={<TravelGuide />}></Route>
         </Routes>
       </div>
-      <Evaluate />
+      {/* <Evaluate /> */}
     </>
   );
 }
