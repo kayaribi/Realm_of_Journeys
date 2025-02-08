@@ -13,7 +13,18 @@ export default function TravelSpots() {
   const [productList, setProductList] = useState([]);
   const [pagination, setPagination] = useState({});
   const [bannerChange, setBannerChange] = useState(productPageBanner);
+  const [selected, setSelected] = useState("全部");
+  const [initialProducts, setInitialProducts] = useState({}); // 儲存最初的50筆資料
 
+  const [allProducts, setAllProducts] = useState([]);
+  // const [firstHalf, setFirstHalf] = useState(1);
+  // const [secondHalf, setSecondHalf] = useState("");
+
+  let firstHalf = 1;
+  let secondHalf = 5;
+  let half = 3;
+
+  // 登入功能
   const signIn = async () => {
     try {
       const res = await axios.post(`${BASE_URL}/v2/admin/signin`, {
@@ -22,32 +33,87 @@ export default function TravelSpots() {
       });
 
       const { token, expired } = res.data;
-
       // document.cookie = `hexToken=${token}; expires=${new Date(expired)}`;
-
       axios.defaults.headers.common["Authorization"] = token;
 
+      copyInitialProducts();
       getProduct();
+      // getAllProduct();
     } catch (error) {
       console.log(error);
     }
   };
 
+  // 備份初始資料功能
+  const copyInitialProducts = async () => {
+    try {
+      const res = await axios.get(
+        `${BASE_URL}/v2/api/${API_PATH}/admin/products/all`
+      );
+
+      if (Object.keys(initialProducts).length === 0) {
+        setInitialProducts(res.data.products);
+      }
+    } catch (error) {
+      console.error(error); // 處理錯誤
+    }
+  };
+
+  // 執行登入以及備份初始資料
   useEffect(() => {
     signIn();
   }, []);
 
-  const handleBannerBG = (e) => {
+  // 初始資料備份完成時執行
+  useEffect(() => {
+    if (Object.keys(initialProducts).length !== 0) {
+      console.log(initialProducts, "備份完成");
+    }
+  }, [initialProducts]);
+
+  // const getAllProduct = async () => {
+  //   const res = await axios.get(
+  //     `${BASE_URL}/v2/api/${API_PATH}/admin/products/all`
+  //   );
+
+  //   if (Object.keys(initialProducts).length === 0) {
+  //     console.log("我是空物件");
+  //   }
+
+  // setAllProducts(Object.values(res.data.products));
+  // };
+
+  const handleBannerBG = async (e, category) => {
     e.preventDefault();
+    setSelected(category);
+    let filteredProductsList = [];
+
     if (e.target.textContent === "全部") {
       setBannerChange(productPageBanner);
+      await getProduct();
+
+      return;
     } else if (e.target.textContent === "亞洲") {
       setBannerChange(productPageBanner2);
+
+      filteredProductsList = allProducts.filter((item) =>
+        item.category.includes("亞洲")
+      );
     } else if (e.target.textContent === "歐洲") {
       setBannerChange(productPageBanner3);
+
+      filteredProductsList = allProducts.filter((item) =>
+        item.category.includes("歐洲")
+      );
     } else if (e.target.textContent === "中東") {
       setBannerChange(productPageBanner4);
+
+      filteredProductsList = allProducts.filter((item) =>
+        item.category.includes("中東")
+      );
     }
+
+    // filterProducts(1, filteredProductsList);
   };
 
   const getProduct = async (page = 1) => {
@@ -56,12 +122,53 @@ export default function TravelSpots() {
         `${BASE_URL}/v2/api/${API_PATH}/admin/products?page=${page}`
       );
       const { products, pagination } = res.data;
+
+      // console.log(res.data);
       setProductList(products);
       setPagination(pagination);
     } catch (error) {
       console.log(error);
     }
   };
+
+  // useEffect(() => {
+  //   console.log(initialProducts);
+  // }, [initialProducts]);
+
+  // const filterProducts = async (page, filteredProductsList) => {
+  //   const startIdx = (page - 1) * 10;
+  //   const endIdx = page * 10;
+  //   const filteredProducts = filteredProductsList.slice(startIdx, endIdx);
+
+  //   setProductList(filteredProducts);
+
+  //   //  根據篩選後的數量，手動更新 pagination
+  //   setPagination({
+  //     total_pages: Math.ceil(filteredProductsList.length / 10), // 每頁 10 筆
+  //     current_page: 1, // 預設從第 1 頁開始
+  //     has_pre: page > 1,
+  //     has_next: page < Math.ceil(filteredProductsList.length / 10),
+  //     category: "",
+  //   });
+
+  //   // console.log(page, filteredProducts);
+  // };
+
+  // useEffect(() => {
+  //   if (pagination.total_pages) {
+  //     setSecondHalf(pagination.total_pages);
+  //   }
+
+  //   // console.log(firstHalf, secondHalf);
+  // }, [pagination]);
+
+  // useEffect(() => {
+  //   if (secondHalf) {
+  //     console.log(secondHalf);
+  //   }
+
+  //   // console.log(firstHalf, secondHalf);
+  // }, [secondHalf]);
 
   // const handlePaginationProduct = async () => {
   //   const res = await axios.get(
@@ -82,6 +189,29 @@ export default function TravelSpots() {
   // };
 
   // handlePaginationProduct();
+
+  // if (
+  //   pagination.current_page === firstHalf ||
+  //   pagination.current_page === secondHalf
+  // ) {
+  //   // return 陣列長度為3的 firstHalf 以及 ... 以及 secondHalf 的頁碼li
+  // } else if (
+  //   pagination.current_page > firstHalf &&
+  //   pagination.current_page < half
+  // ) {
+  //   if (secondHalf - pagination.current_page >= 3) {
+  //     //  return 陣列長度為4 且為 firstHalf 到 current_page 的所有li 以及 ... 和 secondHalf 的頁碼li
+  //   }
+  // } else if (pagination.current_page === half) {
+  //   //  return 陣列長度為5的所有li
+  // } else if (
+  //   pagination.current_page > half &&
+  //   pagination.current_page < secondHalf
+  // ) {
+  //   if (pagination.current_page - firstHalf >= 3) {
+  //     //  return 陣列長度為4 且為 firstHalf的頁碼li 以及 ... 和 current_page 到 secondHalf 的所有li
+  //   }
+  // }
 
   return (
     <>
@@ -114,36 +244,52 @@ export default function TravelSpots() {
               <ul className="list-unstyled mb-0 travelSpotsSelectWrap p-1">
                 <li className="travelSpotsSelectbuttonWrap  ">
                   <a
-                    className="text-white fw-bold  travelSpotsSelectbutton bg-primary-500 text-nowrap py-xl-4 py-md-3 py-2 "
+                    className={`text-white fw-bold  travelSpotsSelectbutton ${
+                      selected === "全部" ? "bg-primary-500" : ""
+                    } text-nowrap py-xl-4 py-md-3 py-2`}
                     href=""
-                    onClick={handleBannerBG}
+                    onClick={(e) => {
+                      handleBannerBG(e, "全部");
+                    }}
                   >
                     全部
                   </a>
                 </li>
                 <li className="travelSpotsSelectbuttonWrap">
                   <a
-                    className="text-white fw-bold  travelSpotsSelectbutton  text-nowrap py-xl-4 py-md-3 py-2"
+                    className={`text-white fw-bold ${
+                      selected === "亞洲" ? "bg-primary-500" : ""
+                    } travelSpotsSelectbutton  text-nowrap py-xl-4 py-md-3 py-2`}
                     href=""
-                    onClick={handleBannerBG}
+                    onClick={(e) => {
+                      handleBannerBG(e, "亞洲");
+                    }}
                   >
                     亞洲
                   </a>
                 </li>
                 <li className="travelSpotsSelectbuttonWrap">
                   <a
-                    className="text-white fw-bold  travelSpotsSelectbutton  text-nowrap py-xl-4 py-md-3 py-2"
+                    className={`text-white fw-bold ${
+                      selected === "歐洲" ? "bg-primary-500" : ""
+                    } travelSpotsSelectbutton  text-nowrap py-xl-4 py-md-3 py-2`}
                     href=""
-                    onClick={handleBannerBG}
+                    onClick={(e) => {
+                      handleBannerBG(e, "歐洲");
+                    }}
                   >
                     歐洲
                   </a>
                 </li>
                 <li className="travelSpotsSelectbuttonWrap">
                   <a
-                    className="text-white fw-bold  travelSpotsSelectbutton  text-nowrap py-xl-4 py-md-3 py-2"
+                    className={`text-white fw-bold ${
+                      selected === "中東" ? "bg-primary-500" : ""
+                    } travelSpotsSelectbutton  text-nowrap py-xl-4 py-md-3 py-2`}
                     href=""
-                    onClick={handleBannerBG}
+                    onClick={(e) => {
+                      handleBannerBG(e, "中東");
+                    }}
                   >
                     中東
                   </a>
@@ -214,98 +360,65 @@ export default function TravelSpots() {
           {/* 分頁元件 */}
           <div className="row my-15">
             <div className="col">
-              <ul className="list-unstyled mb-0 d-flex align-items-center">
-                <li>
-                  <a
-                    className={`leftArrow ${
-                      pagination.has_pre ? "" : "disabled"
-                    }  `}
-                    onClick={() => {
-                      getProduct(pagination.current_page - 1);
-                    }}
-                  ></a>
-                </li>
-                {[...new Array(pagination.total_pages)].map((_, index) => {
-                  return (
-                    <li
-                      key={`${index}_page`}
-                      className={`fw-bold ${
-                        index + 1 === pagination.current_page
-                          ? "paginationActive"
-                          : ""
+              <div className="d-flex justify-content-center">
+                <ul className="list-unstyled mb-0 d-flex align-items-center">
+                  <li>
+                    <a
+                      className={`leftArrow ${
+                        pagination.has_pre ? "" : "disabled"
+                      }  `}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        getProduct(pagination.current_page - 1);
+                      }}
+                    ></a>
+                  </li>
+                  {[...new Array(pagination.total_pages)].map((_, index) => {
+                    return (
+                      <li
+                        className={`${
+                          index === 0 ? "" : "paginationNumbersMargin"
+                        }`}
+                        key={`${index}_page`}
+                      >
+                        <a
+                          className={`fw-bold paginationNumbers ${
+                            index + 1 === pagination.current_page
+                              ? "paginationActive"
+                              : ""
+                          }`}
+                          style={{
+                            padding: "4px 10px",
+                            fontSize: "20px",
+                            lineHeight: "1.2",
+                            borderRadius: "100px",
+                            cursor: "pointer",
+                            display: "block",
+                          }}
+                          onClick={(e) => {
+                            e.preventDefault();
+                            getProduct(index + 1);
+                          }}
+                          href=""
+                        >
+                          {index + 1}
+                        </a>
+                      </li>
+                    );
+                  })}
+                  <li>
+                    <a
+                      className={`rightArrow ${
+                        pagination.has_next ? "" : "disabled"
                       }`}
-                      style={{
-                        padding: "4px 10px",
-                        fontSize: "20px",
-                        lineHeight: "1.2",
-                        borderRadius: "100px",
-                        cursor: "pointer",
+                      onClick={(e) => {
+                        e.preventDefault();
+                        getProduct(pagination.current_page + 1);
                       }}
-                      onClick={() => {
-                        getProduct(index + 1);
-                      }}
-                    >
-                      {index + 1}
-                    </li>
-                  );
-                })}
-                <li>
-                  <a
-                    className={`rightArrow ${
-                      pagination.has_next ? "" : "disabled"
-                    }`}
-                    onClick={() => {
-                      getProduct(pagination.current_page + 1);
-                    }}
-                  ></a>
-                </li>
-              </ul>
-            </div>
-          </div>
-
-          <div className="row my-15">
-            <div className="col">
-              <ul className="list-unstyled mb-0 d-flex align-items-center">
-                <li className="leftArrow"></li>
-                <li
-                  className="bg-primary-100 text-primary-500 fw-bold"
-                  style={{
-                    padding: "4px 10px",
-                    fontSize: "20px",
-                    lineHeight: "1.2",
-                    borderRadius: "100px",
-                    cursor: "pointer",
-                  }}
-                >
-                  1
-                </li>
-                <li
-                  className="bg-primary-100 text-primary-500 fw-bold"
-                  style={{
-                    padding: "4px 10px",
-                    fontSize: "20px",
-                    lineHeight: "1.2",
-                    borderRadius: "100px",
-                    cursor: "pointer",
-                    margin: "0px 32px",
-                  }}
-                >
-                  2
-                </li>
-                <li
-                  className="bg-primary-100 text-primary-500 fw-bold"
-                  style={{
-                    padding: "4px 10px",
-                    fontSize: "20px",
-                    lineHeight: "1.2",
-                    borderRadius: "100px",
-                    cursor: "pointer",
-                  }}
-                >
-                  3
-                </li>
-                <li className="rightArrow"></li>
-              </ul>
+                    ></a>
+                  </li>
+                </ul>
+              </div>
             </div>
           </div>
         </div>

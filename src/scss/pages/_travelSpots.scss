@@ -212,6 +212,19 @@
   }
 }
 
+.paginationNumbers {
+  color: #3d3d3d;
+
+  &:hover {
+    background-color: #e4eefa;
+    color: #1b67ae;
+  }
+}
+
+.paginationNumbersMargin {
+  margin-left: 32px;
+}
+
 .paginationActive {
   background-color: #e4eefa;
   color: #1b67ae;
