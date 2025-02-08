@@ -214,8 +214,8 @@ const CustomPagination = ({ totalPages, currentPage, onClickPage, swiperInstance
   根據裝置寬度顯示桌面版或手機版的 Swiper 評價區塊，並整合自定義分頁元件
 ===================== */
 function Evaluate() {
-  // 判斷是否為桌面版 (window.innerWidth >= 1024 為桌面)
-  const [isDesktop, setIsDesktop] = useState(window.innerWidth >= 1024);
+  // 判斷是否為桌面版 (window.innerWidth >= 992 為桌面)
+  const [isDesktop, setIsDesktop] = useState(window.innerWidth >= 992);
   // 使用 Ref 儲存目前視窗寬度 (方便在事件監聽中使用)
   const widthRef = useRef(window.innerWidth);
   // Swiper 的實例，用來操作 Swiper API
@@ -271,7 +271,7 @@ function Evaluate() {
   useEffect(() => {
     const handleResize = () => {
       widthRef.current = window.innerWidth;
-      setIsDesktop(window.innerWidth >= 1024);
+      setIsDesktop(window.innerWidth >= 992);
     };
     window.addEventListener("resize", handleResize);
     // 清除事件監聽器
@@ -300,7 +300,7 @@ function Evaluate() {
       >
         <div className="container">
           {/* 主標題 */}
-          <div className="title-family h1 text-white text-center pt-10 pb-8">
+          <div className="title-family h1 text-white text-center pt-10 pt-lg-20 pb-8 pb-lg-15 fs-lg-3">
             我們的旅程，由您見證
           </div>
 

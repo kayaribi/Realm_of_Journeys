@@ -15,7 +15,7 @@
 // import TravelSpots from './pages/TravelSpots'
 // import TravelGuide from './pages/TravelGuide'
 // import AnimateGo from './assets/components/AnimateGo';
-import Evaluate from "./pages/Evaluate"
+import Home from "./pages/Home"
 
 
 // const BASE_URL = import.meta.env.VITE_BASE_URL
@@ -26,7 +26,7 @@ function App() {
 
   return (
     <>
-      <Evaluate />
+      <Home />
     </>
   )
 }
