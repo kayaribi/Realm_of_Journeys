@@ -1,7 +1,9 @@
-export default function Home(){
+import Evaluate from "../components/Evaluate"
+
+export default function Home() {
   return (
     <>
-    <div>這是首頁</div>
+      <Evaluate />
     </>
   )
 }
