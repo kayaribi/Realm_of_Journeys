@@ -1,13 +1,20 @@
-import { useState } from 'react'
-import axios from 'axios'
-
 import {Route,Routes} from 'react-router-dom';
-import {Home,About,TravelGuide,TouristSpots,Cart,Account,TouristIndex} from './pages';
-
-import Navbar from './components/Navbar';
-import Footer from './components/Footer';
-import BackTopBtn from './components/BackTopBtn';
-
+import axios from "axios";
+import { useState, useEffect, useRef } from "react";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Pagination, Mousewheel, Keyboard } from "swiper/modules";
+import { motion } from "framer-motion";
+import Swal from "sweetalert2";
+// 匯入頁面(pages>index.jsx做匯入喔)
+import {Home,About,Cart,Account,TravelGuide,TravelSpots,TouristSpots,TouristIndex} from './pages';
+// 匯入元件(去components>index.jsx做匯入喔)
+import {AnimateGo,BackTopBtn,DepartureTimeDecoration,FeaturedCard,Footer,Navbar} from './components';
+import Evaluate from "./pages/Evaluate";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+const BASE_URL = import.meta.env.VITE_BASE_URL;
+const API_PATH = import.meta.env.VITE_API_PATH;
 function App() {
   return (
     <div>
@@ -29,3 +36,4 @@ function App() {
   }
 
   export default App
+
