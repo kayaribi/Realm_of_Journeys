@@ -1,10 +1,13 @@
 .custom-up-arrow {
+  position: fixed;
+  right: 32px;
+  border: none;
+  z-index: 1000;
   width: 48px;
   height: 48px;
   border-radius: 800px;
   padding: 12px;
   background-color: #174675;
-  cursor: pointer;
 
   &:hover {
     background-color: #1B67AE;
