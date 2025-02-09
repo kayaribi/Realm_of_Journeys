@@ -7,7 +7,7 @@ import {AnimateGo,BackTopBtn,DepartureTimeDecoration,FeaturedCard,Footer,Navbar}
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-
+import './scss/all.scss';
 function App() {
   return (
     <div>

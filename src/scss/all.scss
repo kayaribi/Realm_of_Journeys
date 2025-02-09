@@ -17,16 +17,11 @@
 
 @import "./layout/layout";
 
+// Page-scss
 @import "./pages/home";
-
 @import "./pages/travelSpots";
+@import './pages/footer';
+@import './pages/navbar';
+@import './pages/evaluate';
+@import './pages/travelGuide';
 
-@import './layout/layout';
-
-@import '../scss/pages/footer';
-
-@import '../scss/pages/navbar';
-
-*{
-    outline: 1px solid red;
-  }

@@ -96,3 +96,20 @@
     font-size: 14px;
   }
 }
+// ↓ Hailey
+.buttonShadow{
+  transition: transform .3s, box-shadow .3s;
+}
+
+.buttonShadow:hover{
+  transform: translateY(-5px);
+  box-shadow: 0 0 10px rgba(23, 70, 117, 1);
+}
+
+.buttonShadowDesktop{
+  transition: box-shadow .3s;
+}
+
+.buttonShadowDesktop:hover{
+  box-shadow: 0 -5px 10px rgba(23, 70, 117, 1);
+}
