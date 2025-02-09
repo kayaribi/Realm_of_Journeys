@@ -1,5 +1,5 @@
 import { NavLink } from 'react-router-dom';
-import '../assets/all.scss';
+import '../scss/all.scss';
 
 export default function Footer(){
 
@@ -12,11 +12,11 @@ export default function Footer(){
             <div className="container py-10">
                 <div className="d-flex justify-content-center flex-column flex-lg-row justify-content-lg-center align-items-center mb-8">
                     {/* logo + title */}
-                    <div className="d-flex align-items-center mb-14 my-lg-4 me-lg-15">
-                        <img src="../public/images/logo-light-L.png" />
+                    <div className="d-flex align-items-center mb-14 my-lg-4 me-xl-15 me-lg-10">
+                        <img src="../public/images/logo-light-L.svg" />
                     </div>
                     {/* link page */}
-                    <ul className="list-unstyled d-flex flex-column flex-lg-row gap-6 mb-15 mb-lg-0 text-20px">
+                    <ul className="list-unstyled d-flex flex-column align-items-center flex-lg-row gap-6 mb-15 mb-lg-0 text-20px">
                         <li>
                             <NavLink className="text-white link-warning" to="/">首頁</NavLink>
                         </li>
@@ -33,23 +33,23 @@ export default function Footer(){
                     {/* 社群連結 */}
                     <ul className="list-unstyled d-flex gap-6 mb-14 mb-lg-0 ms-lg-auto me-lg-14">
                         <li>
-                            <a href="https://www.notion.so/C-1-Realm-of-Journeys-556c4f636a0743818bd3ecb51e1c31ce">
+                            <a href="https://github.com/kayaribi/Realm_of_Journeys">
                                 <i className="bi bi-facebook text-white link-warning community-link"></i>
                             </a>
                         </li>
                         <li>
-                            <a href="https://www.notion.so/C-1-Realm-of-Journeys-556c4f636a0743818bd3ecb51e1c31ce">
+                            <a href="https://github.com/kayaribi/Realm_of_Journeys">
                                 <i className="bi bi-instagram text-white link-warning community-link"></i>
                             </a>
                         </li>
                         <li>
-                            <a href="https://www.notion.so/C-1-Realm-of-Journeys-556c4f636a0743818bd3ecb51e1c31ce">
+                            <a href="https://github.com/kayaribi/Realm_of_Journeys">
                                 <i className="bi bi-line text-white link-warning community-link"></i>
                             </a>
                         </li>
                     </ul>
                     {/* 管理員登入 */}
-                    <a href="https://www.notion.so/C-1-Realm-of-Journeys-556c4f636a0743818bd3ecb51e1c31ce" className="text-white link-warning px-4 py-3 mb-8 mb-lg-0">
+                    <a href="https://github.com/kayaribi/Realm_of_Journeys" className="text-white link-warning px-4 py-3 mb-8 mb-lg-0">
                         管理員登入<i className="bi bi-box-arrow-in-right ms-2"></i>
                     </a>
                 </div>

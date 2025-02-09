@@ -16,6 +16,21 @@
 // 【行旅之境】
 .navbar-brand{
     padding: 0px !important;
+    .log-style{
+        text-indent: 101%;
+        white-space: nowrap;
+        overflow: hidden;
+    }
+    .logo-size-l{
+        width: 216px; 
+        height: 48px;
+        background-image: url("/public/images/logo-dark-L.svg");
+    }
+    .logo-size-s{
+        width: 88px; 
+        height: 20px;
+        background-image: url("/public/images/logo-dark-S.svg");
+    }
 }
 .navbar-title {
     font-size: 16px;

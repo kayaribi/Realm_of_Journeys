@@ -1,5 +1,7 @@
 export default function Home(){
-    return(
-        <div style={{height:"1000px"}}>首頁</div>
+    return (
+      <>
+      <div className="bg-warning" style={{height:"2000px"} }>這是首頁</div>
+      </>
     )
-}
+  }
