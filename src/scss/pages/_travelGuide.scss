@@ -1,0 +1,61 @@
+.guide{
+    .header-height {
+        height: 210px;
+        @media (min-width: 768px) {
+            height: 500px;
+        }
+    }
+    .header-bg {
+        background: url("https://s3-alpha-sig.figma.com/img/42b6/889b/75aeae951a56137c68bbdc7d0fb41f83?Expires=1739750400&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=A24cFv3gJp2VRmQnc5H8eB6-ybItukStcJDnqJ411CHwVZoTWdT8~M3xG-KGBxfGCXBGRHzItyuJgDlfpB8oxHY15Pph8vYBopdyHdm5-y0ubZuQvGaCp-bnO2LfQ4vK~OBHx-gvbBMTgK5skGMmD0TYfZekvvbvo6jklPCriXjYG-U5c62CndexD7edAIJr~lDhR0xgHUxI~2hisCK79NM7OKE79vL4ORnjySLq8KXEelXscHcts0L3RPDjDT6YJO5DMg3gqLt5ML9-bKu8X6U7mgpVQxVTJ-UtmRV21JcZg4~bLAyt2G15Kco3gyLEwvdO~6OLF86Y~nJHgi2kJw__")
+            no-repeat center center / cover;
+    } //data替換url
+    .header-title {
+        @media (min-width: 768px) {
+            font-size: 40px;
+            margin-top: 102px; //彌補navbar高度
+        }
+    }
+    .form-select {
+        font-size: 12px;
+        line-height: 14.4px;
+        color: #808080;
+        margin-left: 106px;
+        width: 141px;
+        height: 28px;
+        padding: 7px 0px 7px 13px;
+        @media (min-width: 768px) {
+            font-size: 24px;
+            line-height: 28.8px;
+            margin-left: 180px;
+            width: 360px;
+            height: 43px;
+        }
+    }
+    // 卡片圖片設定 ↓
+    .card-radius {
+        border-radius: 60px 60px 0px 60px;
+    }
+    .card-img-height {
+        height: 351px;
+        @media (min-width: 768px) {
+          height: 294px; //
+        }
+    }
+    //----------------------------------------
+    .card-title{
+        color: #1C1C1C;
+        @media (min-width: 375px) {
+            font-size: 24px;
+        }
+        @media (min-width: 1200px) {
+            font-size: 32px;
+        }
+    }
+    .card-text{
+        font-size: 14px;
+        color: #3D3D3D;
+        @media (min-width: 1200px) {
+            font-size: 16px;
+        }
+    }
+}

@@ -4,7 +4,6 @@ import { Navigation, Pagination, Mousewheel, Keyboard } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
-import '../scss/pages/evaluate.scss';
 
 /* =====================
   模擬評價資料

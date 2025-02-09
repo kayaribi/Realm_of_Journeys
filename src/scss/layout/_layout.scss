@@ -1,3 +1,7 @@
+// * {
+//   outline: 1px solid red;
+// }
+
 .title-family {
   font-family: "Noto Serif TC", serif;
 }
@@ -11,7 +15,7 @@
 }
 
 .gradient-brown {
-  background: $gradient-brown
+  background: $gradient-brown;
 }
 
 .h0 {
@@ -20,12 +24,18 @@
   line-height: 1.4;
 }
 
+.title-family{
+  font-family: "Noto Serif TC", serif;
+}
+
+$gradient-brown: linear-gradient(270deg, #C8B2A4 0%, #B1855D 100%);
+
 .form-label {
   line-height: 1.4;
 }
 
 .btn:disabled {
-  background-color: #C3C3C3 !important;
+  background-color: #c3c3c3 !important;
   color: white !important;
   border: 1px solid transparent !important;
 }
@@ -43,11 +53,11 @@
 }
 
 .btn-secondary-200 {
-  color: #FFFFFF !important;
+  color: #ffffff !important;
 
   &:active {
-    background: #7F503E !important;
-    border: 1px solid #7F503E !important;
+    background: #7f503e !important;
+    border: 1px solid #7f503e !important;
   }
 
   &:hover {
@@ -60,12 +70,12 @@
   color: $secondary-200 !important;
 
   &:active {
-    background: #C8B2A4CC !important;
+    background: #c8b2a4cc !important;
     border: 1px solid $secondary-200 !important;
   }
 
   &:hover {
-    background: #C8B2A44D;
+    background: #c8b2a44d;
     border: 1px solid $secondary-200;
   }
 }
@@ -82,9 +92,9 @@
 
 .card-custom {
   backdrop-filter: blur(10px);
-  background: #FFFFFFCC;
-  box-shadow: 0px 4px 8px 0px #FFFFFF40;
-  border: 1px solid #FFFFFF
+  background: #ffffffcc;
+  box-shadow: 0px 4px 8px 0px #ffffff40;
+  border: 1px solid #ffffff;
 }
 
 .form-check-input {
@@ -104,41 +114,41 @@
   color: #878787;
 }
 
-.form-check-input:hover+.form-check-label {
+.form-check-input:hover + .form-check-label {
   color: $primary-500;
 }
 
-.form-check-input:checked+.form-check-label {
+.form-check-input:checked + .form-check-label {
   color: $neutral-300;
 }
 
-.form-check-input:checked:hover+.form-check-label {
+.form-check-input:checked:hover + .form-check-label {
   color: $primary-500;
 }
 
-.form-check-input[type=radio] {
+.form-check-input[type="radio"] {
   border-radius: 12px;
-  background-color: #FFFFFF;
+  background-color: #ffffff;
 }
 
-.form-check-input[type=radio]:hover {
-  background-color: #FFFFFF;
+.form-check-input[type="radio"]:hover {
+  background-color: #ffffff;
 }
 
 .form-check-input:disabled {
-  border: 1.5px solid #C3C3C3;
-  color: #C3C3C380;
+  border: 1.5px solid #c3c3c3;
+  color: #c3c3c380;
 }
 
-.form-check-input:disabled+.form-check-label {
+.form-check-input:disabled + .form-check-label {
   color: $neutral-100;
 }
 
-.form-check-input[type=radio]:disabled {
+.form-check-input[type="radio"]:disabled {
   color: $neutral-100;
-  border: 1.5px solid #C3C3C3;
+  border: 1.5px solid #c3c3c3;
 }
 
-.form-check-input[type=radio]:disabled+.form-check-label {
+.form-check-input[type="radio"]:disabled + .form-check-label {
   color: $neutral-100;
 }
