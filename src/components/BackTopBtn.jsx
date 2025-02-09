@@ -1,18 +1,18 @@
 
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 
 export default function BackTopBtn() {
     const [isVisible, setIsVisible] = useState(false);
     const [buttonPosition, setButtonPosition] = useState(100);
-    const footerHeight = 242; 
+    const footerHeight = 242;
     // 頁面位置
     const handleScroll = () => {
-        if (window.scrollY > 200) { 
+        if (window.scrollY > 200) {
             setIsVisible(true);
         } else {
             setIsVisible(false);
         }
-        const distanceToBottom = document.documentElement.scrollHeight - window.scrollY - window.innerHeight; 
+        const distanceToBottom = document.documentElement.scrollHeight - window.scrollY - window.innerHeight;
         if (distanceToBottom <= footerHeight + 100) {
             setButtonPosition(footerHeight + 100 - distanceToBottom);
         } else {
@@ -41,15 +41,8 @@ export default function BackTopBtn() {
     return (
         <>
             {isVisible && (
-                <button 
-                    onClick={scrollToTop}
-                    className="top-btn rounded-circle p-3"
-                    style={{
-                        position: "fixed",bottom: `${buttonPosition}px`,right: "32px",backgroundColor: "#174675",
-                        border: "none",zIndex: "1000",cursor: "pointer"
-                    }}
-                >
-                    <img src="../public/images/top.png" alt="" />
+                <button type='button'>
+                    <img className="top-btn rounded-circle custom-up-arrow p-3" style={{ bottom: `${buttonPosition}px`, }} onClick={scrollToTop} src="/images/icon/up-arrow_48px.svg" alt="" />
                 </button>
             )}
         </>
