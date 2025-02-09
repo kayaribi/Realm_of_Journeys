@@ -6,6 +6,5 @@ import TravelSpots from './TravelSpots';
 import TravelGuide from './TravelGuide';
 import TouristSpots from './TouristSpots';
 import TouristIndex from './TouristIndex';
-import Evaluate from './Evaluate';
 
-export {Home,About,Cart,Account,Evaluate,TravelGuide,TravelSpots,TouristSpots,TouristIndex}
+export {Home,About,Cart,Account,TravelGuide,TravelSpots,TouristSpots,TouristIndex}

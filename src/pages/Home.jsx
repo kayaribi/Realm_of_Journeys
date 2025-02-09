@@ -3,6 +3,7 @@ import axios from "axios";
 import featuredData from "../featuredData";
 import featuredTitleIcon from "../../public/images/icon/shiny_48px.svg";
 import FeaturedCard from "../components/FeaturedCard";
+import { Evaluate, FAQ } from "../components";
 
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
@@ -27,10 +28,10 @@ export default function Home() {
       console.log(error);
     }
   };
-
   useEffect(() => {
     signIn();
   }, []);
+
   return (
     <>
       <header
@@ -58,15 +59,15 @@ export default function Home() {
             Realm <br className="d-md-none" />
             of <br className="d-md-none" />
             Journeys
-            <h3
-              className="fs-5 d-xl-block d-none position-absolute bottom-0 start-50 translate-middle-x"
+            <span className="fs-5 d-xl-block d-none position-absolute bottom-0 start-50 translate-middle-x"
               style={{
                 textShadow: "0 0 10px rgba(23, 70, 117, 1)",
               }}
             >
               探索世界不費心，全包服務伴你行。
-            </h3>
+            </span>
           </h2>
+
           <h3
             className="fs-md-5 fs-8 position-relative z-2 d-xl-none d-block mt-8"
             style={{
@@ -180,6 +181,9 @@ export default function Home() {
           </div>
         </div>
       </section>
+      <Evaluate />
+      <FAQ />
+
     </>
   );
 }

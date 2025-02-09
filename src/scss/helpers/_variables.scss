@@ -442,57 +442,90 @@ $gradient: linear-gradient(
 // scss-docs-start spacer-variables-maps
 $spacer: 1rem !default;
 $spacers: (
-  0: 0,
+  0: $spacer * 0,
+  // 0px
   1: $spacer * 0.25,
+  // 4px
   2: $spacer * 0.5,
+  // 8px
   3: $spacer * 0.75,
-  4: $spacer,
+  // 12px
+  4: $spacer * 1,
+  // 16px
   5: $spacer * 1.25,
+  // 20px
   6: $spacer * 1.5,
+  // 24px
+  7: $spacer * 1.75,
+  // 28px
   8: $spacer * 2,
+  // 32px
   9: $spacer * 2.25,
+  // 36px
   10: $spacer * 2.5,
+  // 40px
   11: $spacer * 2.75,
+  // 44px
   12: $spacer * 3,
+  // 48px
   13: $spacer * 3.25,
+  // 52px
   14: $spacer * 3.5,
+  // 56px
   15: $spacer * 3.75,
+  // 60px
   16: $spacer * 4,
-  // 64
+  // 64px
+  17: $spacer * 4.25,
+  // 68px
+  18: $spacer * 4.5,
+  // 72px
   19: $spacer * 4.75,
-  // 76
+  // 76px
   20: $spacer * 5,
-  // 80
+  // 80px
+  21: $spacer * 5.25,
+  // 84px
   22: $spacer * 5.5,
-  // 88
+  // 88px
+  23: $spacer * 5.75,
+  // 92px
+  24: $spacer * 6,
+  // 96px
   25: $spacer * 6.25,
-  //100
+  // 100px
+  26: $spacer * 6.5,
+  // 104px
   27: $spacer * 6.75,
-  // 108
+  // 108px
+  28: $spacer * 7,
+  // 112px
+  29: $spacer * 7.25,
+  // 116px
   30: $spacer * 7.5,
-  // 120
+  // 120px
   34: $spacer * 8.5,
-  // 136
+  // 136px
   36: $spacer * 9,
-  // 144
+  // 144px
   37: $spacer * 9.25,
-  // 148
+  // 148px
   40: $spacer * 10,
-  // 160
+  // 160px
   41: $spacer * 10.25,
-  // 164
+  // 164px
   42: $spacer * 10.5,
-  // 168
+  // 168px
   43: $spacer * 10.75,
-  // 172
+  // 172px
   48: $spacer * 12,
-  // 192
+  // 192px
   50: $spacer * 12.5,
-  // 200
+  // 200px
   62: $spacer * 15.5,
+  // 248px
+  78: $spacer * 19.5, // 312px
   // 248
-  78: $spacer * 19.5,
-  // 310
   xl: $spacer * 26.375, // 422
   lg: $spacer * 27.4375, // 439
 ) !default;

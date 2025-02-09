@@ -2,12 +2,13 @@ import {Route,Routes} from 'react-router-dom';
 // 匯入頁面(pages>index.jsx做匯入喔)
 import {Home,About,Cart,Account,TravelGuide,TravelSpots,TouristSpots,TouristIndex} from './pages';
 // 匯入元件(去components>index.jsx做匯入喔)
-import {AnimateGo,BackTopBtn,DepartureTimeDecoration,FeaturedCard,Footer,Navbar} from './components';
+import {BackTopBtn,Footer,Navbar} from './components';
 
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import './scss/all.scss';
+
 function App() {
   return (
     <div>

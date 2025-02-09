@@ -23,7 +23,7 @@
   position: static;
   margin-top: 32px;
 
-  @media (min-width: 1024px) {
+  @media (min-width: 992px) {
     margin-top: 60px;
   }
 }
@@ -34,49 +34,102 @@
 }
 
 .card-custom {
-  @media (min-width: 1024px) {
-    height: 230px;
+  height: 186px;
+
+  @media (min-width: 992px) {
+    height: 320px;
   }
 
   @media (min-width: 1200px) {
-    height: 182px;
+    height: 300px;
+    width: 306px;
+  }
+
+  @media (min-width: 1400px) {
+    height: 272px;
   }
 }
 
 
-.swiper-button-next {
-  top: calc(97% - 3px);
-  right: 20%;
+.pagination-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 32px;
+  margin-top: 32px;
 
-  @media (min-width: 1024px) {
-    top: 93%;
-    right: calc(30% + 50px);
+  @media (min-width: 992px) {
+    margin-top: 60px;
   }
-
-  &:after {
-    content: url("/images/icon/chevrons-right.svg");
-    // background-image: url("/images/icon/chevrons-right.svg"); // 直接從 public 資料夾讀取
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
-  }
-
 }
 
-.swiper-button-prev {
-  top: calc(97% - 3px);
-  left: 20%;
+.pagination-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
-  @media (min-width: 1024px) {
-    top: 93%;
-    left: calc(30% + 50px);
-  }
+.pagination-button img {
+  width: 24px;
+  /* 調整箭頭大小 */
+  height: 24px;
+  opacity: 0.8;
+  transition: opacity 0.3s ease;
+}
 
-  &:after {
-    content: url("/images/icon/chevrons-left.svg");
-    // background-image: url("/images/icon/chevrons-right.svg"); // 直接從 public 資料夾讀取
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
-  }
+.custom-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 32px;
+}
+
+.pagination-button.disabled img {
+  filter: brightness(0) saturate(100%) invert(47%) sepia(3%) saturate(12%) hue-rotate(9deg) brightness(94%) contrast(82%);
+  opacity: 1;
+  cursor: default;
+}
+
+.pagination-bullet {
+  font-size: 20px;
+  line-height: 24px;
+  color: white;
+  cursor: pointer;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pagination-bullet.active {
+  background: #E4EEFA;
+  width: 32px;
+  height: 32px;
+  color: #1B67AE;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pagination-ellipsis {
+  display: flex;
+  gap: 3px;
+  align-items: flex-end;
+  justify-content: center;
+  color: white;
+  height: 20px;
+}
+
+.dot {
+  width: 5px;
+  height: 5px;
+  background: white;
+  border-radius: 50%;
+  margin: 0 2px;
 }
