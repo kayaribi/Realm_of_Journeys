@@ -37,7 +37,6 @@ export default function FAQ() {
             <p className="pt-4 pt-6 fs-lg-6">我們會根據您的需求提供相應的服務，無論是特殊飲食還是其他旅行上的需求，請在預訂時與我們聯繫，我們會盡力協助。</p>
           </li>
         </ul>
-        {/* <img src="/images/icon/up-arrow_48px.svg" alt="回到置頂icon" className='position-absolute bottom-0 end-0 mb-4 me-3 mb-lg-25 me-lg-50 custom-up-arrow' onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} /> */}
       </div >
     </div>
   )

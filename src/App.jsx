@@ -1,8 +1,8 @@
-import {Route,Routes} from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 // 匯入頁面(pages>index.jsx做匯入喔)
 import {Home,About,Cart,Account,TravelGuide,TravelSpots,TravelSpotsItem} from './pages';
 // 匯入元件(去components>index.jsx做匯入喔)
-import {BackTopBtn,Footer,Navbar} from './components';
+import { BackTopBtn, Footer, Navbar } from './components';
 
 import "swiper/css";
 import "swiper/css/navigation";
@@ -26,8 +26,8 @@ function App() {
         <BackTopBtn />
       <Footer/>
     </div>
-    )
-  }
+  )
+}
 
-  export default App
+export default App
 
