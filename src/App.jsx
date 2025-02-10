@@ -1,6 +1,6 @@
 import {Route,Routes} from 'react-router-dom';
 // 匯入頁面(pages>index.jsx做匯入喔)
-import {Home,About,Cart,Account,TravelGuide,TravelSpots,TouristIndex} from './pages';
+import {Home,About,Cart,Account,TravelGuide,TravelSpots,TravelSpotsItem} from './pages';
 // 匯入元件(去components>index.jsx做匯入喔)
 import {BackTopBtn,Footer,Navbar} from './components';
 
@@ -16,8 +16,8 @@ function App() {
         <Routes>
           <Route path='/' element={<Home />}></Route>                    {/* 首頁 */}
           <Route path='/about' element={<About/>}></Route>               {/* 關於我們 */}
-          <Route path='/travelSpots' element={<TravelSpots/>}>         {/* 旅遊景點 */}
-            <Route index element={<TouristIndex/>}></Route>                 {/* ---商品-呈現 */}
+          <Route path='/travelSpots' element={<TravelSpots />}>     {/* 旅遊景點-商品列表 */}
+            <Route path=":id" element={<TravelSpotsItem />} />         {/* ---各別單一商品-呈現 */}
           </Route>
           <Route path='/guide' element={<TravelGuide/>}></Route>               {/* 攻略指南 */}
           <Route path='/cart' element={<Cart/>}></Route>                 {/* 購物車 */}

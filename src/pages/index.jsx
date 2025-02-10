@@ -4,6 +4,6 @@ import Cart from './Cart';
 import Account from './Account';
 import TravelSpots from './TravelSpots';
 import TravelGuide from './TravelGuide';
-import TouristIndex from './TouristIndex';
+import TravelSpotsItem from './TravelSpotsItem';
 
-export {Home,About,Cart,Account,TravelGuide,TravelSpots,TouristIndex}
+export {Home,About,Cart,Account,TravelGuide,TravelSpots,TravelSpotsItem}
