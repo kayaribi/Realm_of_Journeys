@@ -42,7 +42,7 @@ export default function Navbar(){
                             <div className="nav-item-br"></div>
                         </li>
                         <li className="nav-item me-lg-8">
-                            <NavLink className={linkActiveColor} to="/touristSpots">旅遊景點</NavLink>
+                            <NavLink className={linkActiveColor} to="/travelSpots">旅遊景點</NavLink>
                         </li>
                         <li>
                             <div className="nav-item-br"></div>
