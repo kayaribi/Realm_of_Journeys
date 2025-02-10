@@ -1,56 +1,74 @@
+import { useState, useEffect } from "react";
 
-import React, { useState, useEffect } from 'react';
-
-export default function BackTopBtn() {
+export default function BackToTop() {
+    const getInitialPosition = () => (window.innerWidth >= 992 ? 100 : 16);
+    const [buttonPosition, setButtonPosition] = useState(getInitialPosition());
+    const [headerHeight, setHeaderHeight] = useState(0);
     const [isVisible, setIsVisible] = useState(false);
-    const [buttonPosition, setButtonPosition] = useState(100);
-    const footerHeight = 242; 
-    // 頁面位置
-    const handleScroll = () => {
-        if (window.scrollY > 200) { 
-            setIsVisible(true);
-        } else {
-            setIsVisible(false);
-        }
-        const distanceToBottom = document.documentElement.scrollHeight - window.scrollY - window.innerHeight; 
-        if (distanceToBottom <= footerHeight + 100) {
-            setButtonPosition(footerHeight + 100 - distanceToBottom);
-        } else {
-            setButtonPosition(100); // 正常情況下，按鈕距離底部100px
-        }
-    };
 
-    // 滾動事件
     useEffect(() => {
-        window.addEventListener('scroll', handleScroll);
-
-        // 清理事件監聽器
-        return () => {
-            window.removeEventListener('scroll', handleScroll);
+        // ✅ 取得 `header` 高度
+        const updateHeaderHeight = () => {
+            const header = document.getElementById("header");
+            if (header) {
+                const height = header.offsetHeight;
+                setHeaderHeight(height);
+            }
         };
+
+        updateHeaderHeight(); // 初次執行
+
+        window.addEventListener("resize", updateHeaderHeight);
+        return () => window.removeEventListener("resize", updateHeaderHeight);
     }, []);
 
-    // 回頂部
+    useEffect(() => {
+        const handleViewportChange = () => {
+            const scrollPosition = window.scrollY;
+            const windowHeight = window.innerHeight;
+            const documentHeight = document.body.scrollHeight;
+
+            // ✅ 設定不同解析度的 `headerHeight` 偏移量
+            const offset = window.innerWidth >= 992 ? 180 : 64;
+
+            // ✅ 讓按鈕在 `headerHeight + offset` 外才顯示
+            setIsVisible(scrollPosition + windowHeight > headerHeight + offset);
+
+            // ✅ 讓按鈕不會超過底部
+            const bottomLimit = window.innerWidth >= 992 ? documentHeight - 343 : documentHeight - 699;
+            let newPosition = getInitialPosition();
+            if (scrollPosition + windowHeight > bottomLimit) {
+                newPosition = Math.max(newPosition, scrollPosition + windowHeight - bottomLimit);
+            }
+
+            setButtonPosition(newPosition);
+        };
+
+        handleViewportChange();
+        window.addEventListener("scroll", handleViewportChange);
+        window.addEventListener("resize", handleViewportChange);
+        return () => {
+            window.removeEventListener("scroll", handleViewportChange);
+            window.removeEventListener("resize", handleViewportChange);
+        };
+    }, [headerHeight]);
+
     const scrollToTop = () => {
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth', // 平滑滾動
-        });
+        window.scrollTo({ top: 0, behavior: "smooth" });
     };
 
     return (
         <>
             {isVisible && (
-                <button 
-                    onClick={scrollToTop}
-                    className="top-btn rounded-circle p-3"
+                <img
+                    className="top-btn rounded-circle custom-up-arrow"
                     style={{
-                        position: "fixed",bottom: `${buttonPosition}px`,right: "32px",backgroundColor: "#174675",
-                        border: "none",zIndex: "1000",cursor: "pointer"
+                        bottom: `${buttonPosition}px`, // 距離底部動態變化
                     }}
-                >
-                    <img src="../public/images/top.png" alt="" />
-                </button>
+                    onClick={scrollToTop}
+                    src="/images/icon/up-arrow_48px.svg"
+                    alt="置頂按鍵"
+                />
             )}
         </>
     );

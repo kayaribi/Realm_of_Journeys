@@ -1,4 +1,7 @@
 .custom-up-arrow {
+  position: fixed;
+  right: 12px;
+  z-index: 1000;
   width: 48px;
   height: 48px;
   border-radius: 800px;
@@ -18,5 +21,9 @@
     width: 80px;
     height: 80px;
     padding: 16px;
+  }
+
+  @media (min-width: 1920px) {
+    right: 200px;
   }
 }

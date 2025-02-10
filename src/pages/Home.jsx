@@ -34,7 +34,7 @@ export default function Home() {
 
   return (
     <>
-      <header
+      <header id="header"
         className="position-relative"
         style={{
           background: `url('https://s3-alpha-sig.figma.com/img/da07/0bdc/23fbaf472b51a76b0f29a09ac69f5e2e?Expires=1739750400&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=IuEFadg3GJm2Wys6c-NWu~bWq6djUJbOf9ELDpsQY1qxHmeSEqFjdupC9HuLVf6-IBtdw2ozjHf3cvYa7bZbVVQnb7-o-kurIIZBCFU4eYb7LvJAjH6bKI6~NTHqT-Se7K~Luphd3GEwmimfkmR1Ux-ZdiseHmJggCuobLzewPrbL9pmIxi2Hwlc4rMiED12CYXtIcJRsJ0qv9tNITGI~CqiDnuuAGvQVErhQGa0uIwKJJlvt91oMjbVtDQkNVqqFRraYc0Bh1gtSiteAHRi-i54-kTi78DNvnT5kASbITJjhusU5k8sdbsV21YPXESCimWx7u9J6NIWCRL~2MMJOg__') no-repeat center`,
