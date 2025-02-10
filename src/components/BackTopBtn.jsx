@@ -35,7 +35,16 @@ export default function BackToTop() {
             setIsVisible(scrollPosition + windowHeight > headerHeight + offset);
 
             // ✅ 讓按鈕不會超過底部
-            const bottomLimit = window.innerWidth >= 992 ? documentHeight - 343 : documentHeight - 699;
+            let bottomLimit;
+
+            if (window.innerWidth >= 1500) {
+                bottomLimit = documentHeight - 343;
+            } else if (window.innerWidth >= 992) {
+                bottomLimit = documentHeight - 259;
+            } else {
+                bottomLimit = documentHeight - 699;
+            }
+
             let newPosition = getInitialPosition();
             if (scrollPosition + windowHeight > bottomLimit) {
                 newPosition = Math.max(newPosition, scrollPosition + windowHeight - bottomLimit);
