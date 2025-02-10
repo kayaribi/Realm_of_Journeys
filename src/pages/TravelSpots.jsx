@@ -23,6 +23,8 @@ export default function TravelSpots() {
   const [cusHasPre, setCusHasPre] = useState(false);
   const [cusHasNext, setCusHasNext] = useState(true);
   const itemsPerPage = 10;
+  // 判斷是否啟用 ... 分頁功能
+  const [isDotPagination, setIsDotPagination] = useState(true);
 
   // (Api沒提供，所以自己撰寫) 計算篩選後的當前頁面要顯示的資料
   const paginatedData = filteredProductData.slice(
@@ -131,6 +133,12 @@ export default function TravelSpots() {
   useEffect(() => {
     setCusTotalPages(Math.ceil(filteredProductData.length / itemsPerPage));
   }, [filteredProductData]);
+
+  const handleDotStylePagination = (currentPage = 1) => {
+    if (currentPage === 3) {
+      setIsDotPagination(false);
+    }
+  };
 
   // 登入功能
   const signIn = async () => {
@@ -466,7 +474,7 @@ export default function TravelSpots() {
           <div className="row my-15">
             <div className="col">
               <div className="d-flex justify-content-center">
-                <ul className="list-unstyled mb-0 d-flex align-items-center">
+                <ul className="list-unstyled mb-0 d-flex align-items-center cusDotStylePaginationWrap">
                   {isFilterProducts ? (
                     <>
                       {/* (Api沒提供，所以自己撰寫) 篩選後的分頁功能 */}
@@ -484,7 +492,7 @@ export default function TravelSpots() {
                       {[...new Array(cusTotalPages)].map((_, index) => {
                         return (
                           <li
-                            className={`${
+                            className={` ${
                               index === 0 ? "" : "paginationNumbersMargin"
                             }`}
                             key={`${index}_page`}
@@ -537,6 +545,9 @@ export default function TravelSpots() {
                           onClick={(e) => {
                             e.preventDefault();
                             getProduct(pagination.current_page - 1);
+                            handleDotStylePagination(
+                              pagination.current_page - 1
+                            );
                           }}
                         ></a>
                       </li>
@@ -544,28 +555,33 @@ export default function TravelSpots() {
                         (_, index) => {
                           return (
                             <li
-                              className={`${
+                              className={`cusDotStylePagination ${
                                 index === 0 ? "" : "paginationNumbersMargin"
-                              }`}
-                              key={`${index}_page`}
-                            >
-                              <a
-                                className={`fw-bold paginationNumbers ${
+                              } 
+
+                              ${
+                                isDotPagination &&
+                                index !== 0 &&
+                                index !== pagination.total_pages - 1 &&
+                                "middleDotStyle"
+                              } 
+                              
+                             ${isDotPagination && "middleDotStyleMargin"}
+ 
+                                ${
                                   index + 1 === pagination.current_page
                                     ? "paginationActive"
                                     : ""
-                                }`}
-                                style={{
-                                  padding: "4px 10px",
-                                  fontSize: "20px",
-                                  lineHeight: "1.2",
-                                  borderRadius: "100px",
-                                  cursor: "pointer",
-                                  display: "block",
-                                }}
+                                }
+                              `}
+                              key={`${index}_page`}
+                            >
+                              <a
+                                className={`fw-bold paginationStyle paginationNumbers `}
                                 onClick={(e) => {
                                   e.preventDefault();
                                   getProduct(index + 1);
+                                  handleDotStylePagination(index + 1);
                                 }}
                                 href=""
                               >
@@ -583,6 +599,9 @@ export default function TravelSpots() {
                           onClick={(e) => {
                             e.preventDefault();
                             getProduct(pagination.current_page + 1);
+                            handleDotStylePagination(
+                              pagination.current_page + 1
+                            );
                           }}
                         ></a>
                       </li>

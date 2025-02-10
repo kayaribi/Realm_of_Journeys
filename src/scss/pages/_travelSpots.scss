@@ -212,6 +212,29 @@
   }
 }
 
+// .cusDotStylePaginationWrap {
+// }
+
+.cusDotStylePagination.middleDotStyle {
+  display: none;
+}
+
+.middleDotStyleMargin {
+  position: relative;
+  margin-right: 64px;
+
+  &::after {
+    content: "..."; /* 加上省略號 */
+    position: absolute;
+    bottom: 3px;
+    right: -58px;
+    font-size: 20px;
+    color: #3d3d3d;
+    line-height: 1.2;
+    font-weight: 700;
+  }
+}
+
 .paginationNumbers {
   color: #3d3d3d;
 
@@ -221,13 +244,26 @@
   }
 }
 
+.paginationStyle {
+  padding: 4px 10px;
+  font-size: 20px;
+  line-height: 1.2;
+  border-radius: 100px;
+  cursor: pointer;
+  display: block;
+}
+
 .paginationNumbersMargin {
   margin-left: 32px;
 }
 
-.paginationActive {
-  background-color: #e4eefa;
-  color: #1b67ae;
+.cusDotStylePagination.paginationActive {
+  display: block;
+
+  & > a {
+    background-color: #e4eefa;
+    color: #1b67ae;
+  }
 }
 
 @media screen and (max-width: 1399px) {
