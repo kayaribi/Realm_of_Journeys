@@ -13,6 +13,10 @@ export default function TravelSpots() {
   const [productList, setProductList] = useState([]);
   const [pagination, setPagination] = useState({});
   const [bannerChange, setBannerChange] = useState(productPageBanner);
+  // 一開始正確的寫法
+  // const [isGoToTop, setIsGoToTop] = useState(false);
+  // 優化後的寫法
+  const [isGoToTop, setIsGoToTop] = useState(window.innerWidth <= 575);
   // (Api沒提供，所以自己撰寫) 篩選用資料
   const [selected, setSelected] = useState("全部");
   const [initialAllProducts, setInitialAllProducts] = useState({}); // 儲存最初的50筆物件資料
@@ -192,6 +196,62 @@ export default function TravelSpots() {
     }
   };
 
+  //  一開始正確的寫法
+  // window.addEventListener("resize", (event) => {
+  //   if (event.target.innerWidth <= 575) {
+  //     setIsGoToTop(true);
+  //   } else {
+  //     setIsGoToTop(false);
+  //   }
+  // });
+
+  // const handleTravelGoToTop = (e) => {
+  //   e.preventDefault();
+
+  //   if (e.target.className.includes("bg-primary-500") && isGoToTop) {
+  //     window.scrollTo({ top: 0, behavior: "smooth" });
+  //   }
+  // };
+
+  // console.log(window.innerWidth);
+
+  // 優化後的寫法
+  useEffect(() => {
+    // 處理視窗尺寸變化
+    const handleResize = () => {
+      setIsGoToTop(window.innerWidth <= 575);
+    };
+
+    // 使用防抖來限制 resize 事件的處理頻率
+    const debounceResize = debounce(handleResize, 200);
+
+    window.addEventListener("resize", debounceResize);
+
+    // 清理副作用
+    return () => {
+      window.removeEventListener("resize", debounceResize);
+    };
+  }, []); // 只在組件掛載和卸載時執行一次
+
+  // 點擊事件處理函式，只有在滿足條件時觸發滾動
+  const handleTravelGoToTop = (e) => {
+    e.preventDefault();
+
+    // 判斷 class 和 isGoToTop 狀態來決定是否執行滾動
+    if (e.target.className.includes("bg-primary-500") && isGoToTop) {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  };
+
+  // 防抖函數，限制觸發頻率
+  const debounce = (func, delay) => {
+    let timeout;
+    return (...args) => {
+      clearTimeout(timeout); // 每次觸發時清除之前的計時器
+      timeout = setTimeout(() => func(...args), delay); // 設置新的計時器
+    };
+  };
+
   return (
     <>
       {/* banner */}
@@ -221,6 +281,7 @@ export default function TravelSpots() {
                     href=""
                     onClick={(e) => {
                       handleFilterProducts(e, "全部");
+                      handleTravelGoToTop(e);
                     }}
                   >
                     全部
@@ -234,6 +295,7 @@ export default function TravelSpots() {
                     href=""
                     onClick={(e) => {
                       handleFilterProducts(e, "亞洲");
+                      handleTravelGoToTop(e);
                     }}
                   >
                     亞洲
@@ -247,6 +309,7 @@ export default function TravelSpots() {
                     href=""
                     onClick={(e) => {
                       handleFilterProducts(e, "歐洲");
+                      handleTravelGoToTop(e);
                     }}
                   >
                     歐洲
@@ -260,6 +323,7 @@ export default function TravelSpots() {
                     href=""
                     onClick={(e) => {
                       handleFilterProducts(e, "中東");
+                      handleTravelGoToTop(e);
                     }}
                   >
                     中東

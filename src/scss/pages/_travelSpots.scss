@@ -1,4 +1,5 @@
 .travelSpotsBanner {
+  margin-top: 108px;
   width: 100%;
   background-size: cover;
   aspect-ratio: 3 / 1;
@@ -297,6 +298,10 @@
 }
 
 @media screen and (max-width: 991px) {
+  .travelSpotsBanner {
+    margin-top: 80px;
+  }
+
   .productListTranslate {
     padding-top: 80px;
   }
