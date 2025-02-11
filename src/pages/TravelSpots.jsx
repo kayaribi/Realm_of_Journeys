@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import DepartureTimeDecoration from "../components/DepartureTimeDecoration";
 import productPageBanner from "../../public/images/icon/productPageBanner.svg";
@@ -25,6 +25,10 @@ export default function TravelSpots() {
   const itemsPerPage = 10;
   // 判斷是否啟用 ... 分頁功能
   const [isDotPagination, setIsDotPagination] = useState(true);
+  // 改變 ... 的顯示方向
+  const [dotPaginationDirection, setDotPaginationDirection] = useState(
+    "rightDotStyleMargin"
+  );
 
   // (Api沒提供，所以自己撰寫) 計算篩選後的當前頁面要顯示的資料
   const paginatedData = filteredProductData.slice(
@@ -134,9 +138,16 @@ export default function TravelSpots() {
     setCusTotalPages(Math.ceil(filteredProductData.length / itemsPerPage));
   }, [filteredProductData]);
 
-  const handleDotStylePagination = (currentPage = 1) => {
-    if (currentPage === 3) {
+  // 處理分頁 ... 的畫面顯示及功能
+  const handleDotStylePagination = (currentPage) => {
+    if (currentPage < 3) {
+      setIsDotPagination(true);
+      setDotPaginationDirection("rightDotStyleMargin");
+    } else if (currentPage === 3) {
       setIsDotPagination(false);
+    } else if (currentPage > 3) {
+      setIsDotPagination(true);
+      setDotPaginationDirection("leftDotStyleMargin");
     }
   };
 
@@ -173,97 +184,13 @@ export default function TravelSpots() {
       );
       const { products, pagination } = res.data;
 
+      handleDotStylePagination(page);
       setProductList(products);
       setPagination(pagination);
     } catch (error) {
       console.log(error);
     }
   };
-
-  // const [firstHalf, setFirstHalf] = useState(1);
-  // const [secondHalf, setSecondHalf] = useState("");
-
-  // let firstHalf = 1;
-  // let secondHalf = 5;
-  // let half = 3;
-
-  // const filterProducts = async (page, filteredProductsList) => {
-  //   const startIdx = (page - 1) * 10;
-  //   const endIdx = page * 10;
-  //   const filteredProducts = filteredProductsList.slice(startIdx, endIdx);
-
-  //   // setProductList(filteredProducts);
-
-  //   //  根據篩選後的數量，手動更新 pagination
-  //   // setPagination({
-  //   //   total_pages: Math.ceil(filteredProductsList.length / 10), // 每頁 10 筆
-  //   //   current_page: 1, // 預設從第 1 頁開始
-  //   //   has_pre: page > 1,
-  //   //   has_next: page < Math.ceil(filteredProductsList.length / 10),
-  //   //   category: "",
-  //   // });
-
-  //   // console.log(page, filteredProducts);
-  // };
-
-  // useEffect(() => {
-  //   if (pagination.total_pages) {
-  //     setSecondHalf(pagination.total_pages);
-  //   }
-
-  //   // console.log(firstHalf, secondHalf);
-  // }, [pagination]);
-
-  // useEffect(() => {
-  //   if (secondHalf) {
-  //     console.log(secondHalf);
-  //   }
-
-  //   // console.log(firstHalf, secondHalf);
-  // }, [secondHalf]);
-
-  // const handlePaginationProduct = async () => {
-  //   const res = await axios.get(
-  //     `${BASE_URL}/v2/api/${API_PATH}/admin/products`
-  //   );
-
-  //   const { total_pages } = res.data.pagination;
-
-  //   // 點擊分頁標籤後 根據 index去執行相對應的　api pages
-
-  //   console.log(res);
-  //   console.log(total_pages);
-  //   console.log(
-  //     productList.map((item) => {
-  //       return item.title;
-  //     })
-  //   );
-  // };
-
-  // handlePaginationProduct();
-
-  // if (
-  //   pagination.current_page === firstHalf ||
-  //   pagination.current_page === secondHalf
-  // ) {
-  //   // return 陣列長度為3的 firstHalf 以及 ... 以及 secondHalf 的頁碼li
-  // } else if (
-  //   pagination.current_page > firstHalf &&
-  //   pagination.current_page < half
-  // ) {
-  //   if (secondHalf - pagination.current_page >= 3) {
-  //     //  return 陣列長度為4 且為 firstHalf 到 current_page 的所有li 以及 ... 和 secondHalf 的頁碼li
-  //   }
-  // } else if (pagination.current_page === half) {
-  //   //  return 陣列長度為5的所有li
-  // } else if (
-  //   pagination.current_page > half &&
-  //   pagination.current_page < secondHalf
-  // ) {
-  //   if (pagination.current_page - firstHalf >= 3) {
-  //     //  return 陣列長度為4 且為 firstHalf的頁碼li 以及 ... 和 current_page 到 secondHalf 的所有li
-  //   }
-  // }
 
   return (
     <>
@@ -474,7 +401,7 @@ export default function TravelSpots() {
           <div className="row my-15">
             <div className="col">
               <div className="d-flex justify-content-center">
-                <ul className="list-unstyled mb-0 d-flex align-items-center cusDotStylePaginationWrap">
+                <ul className="list-unstyled mb-0 d-flex align-items-center ">
                   {isFilterProducts ? (
                     <>
                       {/* (Api沒提供，所以自己撰寫) 篩選後的分頁功能 */}
@@ -492,25 +419,17 @@ export default function TravelSpots() {
                       {[...new Array(cusTotalPages)].map((_, index) => {
                         return (
                           <li
-                            className={` ${
+                            className={`cusDotStylePagination ${
                               index === 0 ? "" : "paginationNumbersMargin"
+                            } ${
+                              index + 1 === cusCurrentPage
+                                ? "paginationActive"
+                                : ""
                             }`}
                             key={`${index}_page`}
                           >
                             <a
-                              className={`fw-bold paginationNumbers ${
-                                index + 1 === cusCurrentPage
-                                  ? "paginationActive"
-                                  : ""
-                              }`}
-                              style={{
-                                padding: "4px 10px",
-                                fontSize: "20px",
-                                lineHeight: "1.2",
-                                borderRadius: "100px",
-                                cursor: "pointer",
-                                display: "block",
-                              }}
+                              className={`fw-bold paginationStyle paginationNumbers `}
                               onClick={(e) => {
                                 e.preventDefault();
                                 handleCusPageChange(index + 1);
@@ -545,9 +464,6 @@ export default function TravelSpots() {
                           onClick={(e) => {
                             e.preventDefault();
                             getProduct(pagination.current_page - 1);
-                            handleDotStylePagination(
-                              pagination.current_page - 1
-                            );
                           }}
                         ></a>
                       </li>
@@ -563,10 +479,14 @@ export default function TravelSpots() {
                                 isDotPagination &&
                                 index !== 0 &&
                                 index !== pagination.total_pages - 1 &&
-                                "middleDotStyle"
+                                "dotDisplayNone"
                               } 
                               
-                             ${isDotPagination && "middleDotStyleMargin"}
+                             ${
+                               isDotPagination &&
+                               index + 1 === pagination.current_page &&
+                               dotPaginationDirection
+                             }
  
                                 ${
                                   index + 1 === pagination.current_page
@@ -581,7 +501,6 @@ export default function TravelSpots() {
                                 onClick={(e) => {
                                   e.preventDefault();
                                   getProduct(index + 1);
-                                  handleDotStylePagination(index + 1);
                                 }}
                                 href=""
                               >
@@ -599,9 +518,6 @@ export default function TravelSpots() {
                           onClick={(e) => {
                             e.preventDefault();
                             getProduct(pagination.current_page + 1);
-                            handleDotStylePagination(
-                              pagination.current_page + 1
-                            );
                           }}
                         ></a>
                       </li>

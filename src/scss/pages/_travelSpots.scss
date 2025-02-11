@@ -63,12 +63,9 @@
   display: block;
   line-height: 1.2;
   border-radius: 100px;
-  //   padding: 16px 74px;
   text-align: center;
   font-size: 32px;
-
   transition: all 0.3s ease;
-
   &:hover {
     background: #1b67ae;
   }
@@ -212,14 +209,15 @@
   }
 }
 
-// .cusDotStylePaginationWrap {
-// }
-
-.cusDotStylePagination.middleDotStyle {
+.cusDotStylePagination.dotDisplayNone {
   display: none;
 }
 
-.middleDotStyleMargin {
+.paginationNumbersMargin {
+  margin-left: 32px;
+}
+
+.rightDotStyleMargin {
   position: relative;
   margin-right: 64px;
 
@@ -228,6 +226,22 @@
     position: absolute;
     bottom: 3px;
     right: -58px;
+    font-size: 20px;
+    color: #3d3d3d;
+    line-height: 1.2;
+    font-weight: 700;
+  }
+}
+
+.leftDotStyleMargin {
+  position: relative;
+  margin-left: 96px;
+
+  &::after {
+    content: "..."; /* 加上省略號 */
+    position: absolute;
+    bottom: 3px;
+    left: -58px;
     font-size: 20px;
     color: #3d3d3d;
     line-height: 1.2;
@@ -251,10 +265,6 @@
   border-radius: 100px;
   cursor: pointer;
   display: block;
-}
-
-.paginationNumbersMargin {
-  margin-left: 32px;
 }
 
 .cusDotStylePagination.paginationActive {
