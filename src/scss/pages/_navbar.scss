@@ -1,5 +1,7 @@
 .navbar{
     background-color: transparent;
+    transition: all 0.3s ease;
+
     @media (min-width: 992px) {
         background: #fff;
     }

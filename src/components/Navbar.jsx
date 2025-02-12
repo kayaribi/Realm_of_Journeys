@@ -34,19 +34,24 @@ export default function Navbar(){
 
                 {/* link */}
                 <div className="collapse navbar-collapse" id="navbarContent">
-                    <ul className="navbar-nav ms-auto mt-14 mt-lg-0 d-flex  align-items-center">
-                        <li className="nav-item me-lg-8">
-                            <NavLink className={linkActiveColor} to="/guide">攻略指南</NavLink>
-                        </li>
-                        <li>
-                            <div className="nav-item-br"></div>
-                        </li>
+                    <ul className="navbar-nav ms-auto mt-14 mt-lg-0 d-flex align-items-center">
+                        {/*  */}
                         <li className="nav-item me-lg-8">
                             <NavLink className={linkActiveColor} to="/travelSpots">旅遊景點</NavLink>
                         </li>
                         <li>
                             <div className="nav-item-br"></div>
                         </li>
+
+                        {/*  */}
+                        <li className="nav-item me-lg-8">
+                            <NavLink className={linkActiveColor} to="/travelGuide">攻略指南</NavLink>
+                        </li>
+                        <li>
+                            <div className="nav-item-br"></div>
+                        </li>
+
+                        {/*  */}
                         <li className="nav-item">
                             <NavLink className={linkActiveColor} to="/about">關於我們</NavLink>
                         </li>
@@ -55,6 +60,8 @@ export default function Navbar(){
                                 <i className="bi bi-cart color-3D3D3D lh-0 p-2"></i>
                             </NavLink>
                         </li>
+
+                        {/*  */}
                         <li className="nav-item mt-lg-0 login-btn-margin">
                             <button type="button" className="btn btn-primary-600 login-btn">
                                 <NavLink to="/account" className="text-white">登入 / 註冊</NavLink>
