@@ -19,7 +19,7 @@ function App() {
           <Route path='/about' element={<About/>}></Route>               {/* 關於我們 */}
           <Route path='/travelSpots' element={<TravelSpots />}/>     {/* 旅遊景點-商品列表 */}
           <Route path="/travelSpots/:id" element={<TravelSpotsItem />} />         {/* ---各別單一商品-呈現 */}
-          <Route path='/travelGuide' element={<TravelGuide/>} />                {/* 攻略指南 */}
+          <Route path='/travelGuide' element={<TravelGuide/>} />                {/* 攻略指南 */}ㄎ
           <Route path="/travelGuide/:id" element={<TravelGuideItem />} />   
           <Route path='/cart' element={<Cart/>}></Route>                 {/* 購物車 */}
           <Route path='/account' element={<Account/>}></Route>           {/* 登入註冊 */}

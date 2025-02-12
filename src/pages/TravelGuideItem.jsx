@@ -34,7 +34,6 @@ export default function TravelGuideItem(){
                 backgroundRepeat: "no-repeat",
                 backgroundPosition: "center center",
                 backgroundSize: "cover"}}></div>
-                
             <div className="travelGuideItem-main container bg-white shadow-lg">
                 <div className="row justify-content-center">
                     <div className="col-12 col-lg-10">
