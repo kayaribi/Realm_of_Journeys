@@ -338,7 +338,8 @@ export default function TravelSpots() {
                 {paginatedData.map((filterProduct) => {
                   return (
                     <div key={filterProduct.id} className={`col`}>
-                      <a style={{ display: "block", height: "100%" }} href="">
+                      <Link to={`/travelSpots/${filterProduct.id}`} style={{ height: "100%" }}>
+                        {/* <a style={{ display: "block", height: "100%" }} href=""> */}
                         <div className="d-flex flex-column px-xl-6 px-lg-4 px-md-2 px-0 h-100">
                           {/* 上方圖片區域 */}
                           <div className="productListImgWrap overflow-hidden position-relative">
@@ -392,7 +393,8 @@ export default function TravelSpots() {
                             </p>
                           </div>
                         </div>
-                      </a>
+                        {/* </a> */}
+                      </Link>
                     </div>
                   );
                 })}
