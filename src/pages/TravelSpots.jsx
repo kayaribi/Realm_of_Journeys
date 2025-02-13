@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 import DepartureTimeDecoration from "../components/DepartureTimeDecoration";
 import productPageBanner from "../../public/images/icon/productPageBanner.svg";
 import productPageBanner2 from "../../public/images/icon/productPageBanner2.svg";
@@ -280,9 +281,8 @@ export default function TravelSpots() {
               <ul className="list-unstyled mb-0 travelSpotsSelectWrap p-1">
                 <li className="travelSpotsSelectbuttonWrap  ">
                   <a
-                    className={`text-white fw-bold  travelSpotsSelectbutton ${
-                      selected === "全部" ? "bg-primary-500" : ""
-                    } text-nowrap py-xl-4 py-md-3 py-2`}
+                    className={`text-white fw-bold  travelSpotsSelectbutton ${selected === "全部" ? "bg-primary-500" : ""
+                      } text-nowrap py-xl-4 py-md-3 py-2`}
                     href=""
                     onClick={(e) => {
                       handleFilterProducts(e, "全部");
@@ -293,9 +293,8 @@ export default function TravelSpots() {
                 </li>
                 <li className="travelSpotsSelectbuttonWrap">
                   <a
-                    className={`text-white fw-bold ${
-                      selected === "亞洲" ? "bg-primary-500" : ""
-                    } travelSpotsSelectbutton  text-nowrap py-xl-4 py-md-3 py-2`}
+                    className={`text-white fw-bold ${selected === "亞洲" ? "bg-primary-500" : ""
+                      } travelSpotsSelectbutton  text-nowrap py-xl-4 py-md-3 py-2`}
                     href=""
                     onClick={(e) => {
                       handleFilterProducts(e, "亞洲");
@@ -306,9 +305,8 @@ export default function TravelSpots() {
                 </li>
                 <li className="travelSpotsSelectbuttonWrap">
                   <a
-                    className={`text-white fw-bold ${
-                      selected === "歐洲" ? "bg-primary-500" : ""
-                    } travelSpotsSelectbutton  text-nowrap py-xl-4 py-md-3 py-2`}
+                    className={`text-white fw-bold ${selected === "歐洲" ? "bg-primary-500" : ""
+                      } travelSpotsSelectbutton  text-nowrap py-xl-4 py-md-3 py-2`}
                     href=""
                     onClick={(e) => {
                       handleFilterProducts(e, "歐洲");
@@ -319,9 +317,8 @@ export default function TravelSpots() {
                 </li>
                 <li className="travelSpotsSelectbuttonWrap">
                   <a
-                    className={`text-white fw-bold ${
-                      selected === "中東" ? "bg-primary-500" : ""
-                    } travelSpotsSelectbutton  text-nowrap py-xl-4 py-md-3 py-2`}
+                    className={`text-white fw-bold ${selected === "中東" ? "bg-primary-500" : ""
+                      } travelSpotsSelectbutton  text-nowrap py-xl-4 py-md-3 py-2`}
                     href=""
                     onClick={(e) => {
                       handleFilterProducts(e, "中東");
@@ -370,9 +367,8 @@ export default function TravelSpots() {
                                 return (
                                   <p
                                     key={index}
-                                    className={`${
-                                      index === 0 ? "mb-sm-0 mb-2" : ""
-                                    } text-neutral-300 travelSpotCardDescription`}
+                                    className={`${index === 0 ? "mb-sm-0 mb-2" : ""
+                                      } text-neutral-300 travelSpotCardDescription`}
                                   >
                                     {des}
                                   </p>
@@ -406,7 +402,8 @@ export default function TravelSpots() {
               productList.map((product) => {
                 return (
                   <div key={product.id} className={`col`}>
-                    <a style={{ display: "block", height: "100%" }} href="">
+                    <Link to={`/travelSpots/${product.id}`} style={{ display: "block", height: "100%" }}>
+                      {/* <a style={{ display: "block", height: "100%" }} href=""> */}
                       <div className="d-flex flex-column px-xl-6 px-lg-4 px-md-2 px-0 h-100">
                         {/* 上方圖片區域 */}
                         <div className="productListImgWrap overflow-hidden position-relative">
@@ -431,9 +428,8 @@ export default function TravelSpots() {
                             return (
                               <p
                                 key={index}
-                                className={`${
-                                  index === 0 ? "mb-sm-0 mb-2" : ""
-                                } text-neutral-300 travelSpotCardDescription`}
+                                className={`${index === 0 ? "mb-sm-0 mb-2" : ""
+                                  } text-neutral-300 travelSpotCardDescription`}
                               >
                                 {des}
                               </p>
@@ -456,7 +452,7 @@ export default function TravelSpots() {
                           </p>
                         </div>
                       </div>
-                    </a>
+                    </Link>
                   </div>
                 );
               })
@@ -472,9 +468,8 @@ export default function TravelSpots() {
                       {/* (Api沒提供，所以自己撰寫) 篩選後的分頁功能 */}
                       <li>
                         <a
-                          className={`leftArrow ${
-                            cusHasPre ? "" : "disabled"
-                          }  `}
+                          className={`leftArrow ${cusHasPre ? "" : "disabled"
+                            }  `}
                           onClick={(e) => {
                             e.preventDefault();
                             handleCusPageChange(cusCurrentPage - 1);
@@ -484,17 +479,15 @@ export default function TravelSpots() {
                       {[...new Array(cusTotalPages)].map((_, index) => {
                         return (
                           <li
-                            className={`${
-                              index === 0 ? "" : "paginationNumbersMargin"
-                            }`}
+                            className={`${index === 0 ? "" : "paginationNumbersMargin"
+                              }`}
                             key={`${index}_page`}
                           >
                             <a
-                              className={`fw-bold paginationNumbers ${
-                                index + 1 === cusCurrentPage
-                                  ? "paginationActive"
-                                  : ""
-                              }`}
+                              className={`fw-bold paginationNumbers ${index + 1 === cusCurrentPage
+                                ? "paginationActive"
+                                : ""
+                                }`}
                               style={{
                                 padding: "4px 10px",
                                 fontSize: "20px",
@@ -516,9 +509,8 @@ export default function TravelSpots() {
                       })}
                       <li>
                         <a
-                          className={`rightArrow ${
-                            cusHasNext ? "" : "disabled"
-                          }`}
+                          className={`rightArrow ${cusHasNext ? "" : "disabled"
+                            }`}
                           onClick={(e) => {
                             e.preventDefault();
                             handleCusPageChange(cusCurrentPage + 1);
@@ -531,9 +523,8 @@ export default function TravelSpots() {
                       {/* 原始 Api 提供的分頁功能 */}
                       <li>
                         <a
-                          className={`leftArrow ${
-                            pagination.has_pre ? "" : "disabled"
-                          }  `}
+                          className={`leftArrow ${pagination.has_pre ? "" : "disabled"
+                            }  `}
                           onClick={(e) => {
                             e.preventDefault();
                             getProduct(pagination.current_page - 1);
@@ -544,17 +535,15 @@ export default function TravelSpots() {
                         (_, index) => {
                           return (
                             <li
-                              className={`${
-                                index === 0 ? "" : "paginationNumbersMargin"
-                              }`}
+                              className={`${index === 0 ? "" : "paginationNumbersMargin"
+                                }`}
                               key={`${index}_page`}
                             >
                               <a
-                                className={`fw-bold paginationNumbers ${
-                                  index + 1 === pagination.current_page
-                                    ? "paginationActive"
-                                    : ""
-                                }`}
+                                className={`fw-bold paginationNumbers ${index + 1 === pagination.current_page
+                                  ? "paginationActive"
+                                  : ""
+                                  }`}
                                 style={{
                                   padding: "4px 10px",
                                   fontSize: "20px",
@@ -577,9 +566,8 @@ export default function TravelSpots() {
                       )}
                       <li>
                         <a
-                          className={`rightArrow ${
-                            pagination.has_next ? "" : "disabled"
-                          }`}
+                          className={`rightArrow ${pagination.has_next ? "" : "disabled"
+                            }`}
                           onClick={(e) => {
                             e.preventDefault();
                             getProduct(pagination.current_page + 1);
