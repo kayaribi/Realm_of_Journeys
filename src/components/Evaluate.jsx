@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Navigation, Pagination, Mousewheel, Keyboard } from 'swiper/modules';
+import { Navigation, Pagination, Mousewheel, Keyboard, Autoplay } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
@@ -171,8 +171,8 @@ function Evaluate() {
         style={isDesktop
           ? {
             backgroundImage: "url(images/message-bgc.png)",
-            backgroundSize: "100% 100%",
-            backgroundPosition: "center",
+            backgroundSize: "100% 136%",
+            backgroundPosition: "bottom",
             backgroundRepeat: "no-repeat",
             height: "642px"
           }
@@ -184,7 +184,7 @@ function Evaluate() {
           }
         }
       >
-        <div className="container">
+        <div className="container evaluate">
           {/* 主標題 */}
           <div className="title-family h1 text-white text-center pt-10 pt-lg-20 pb-8 pb-lg-15 fs-lg-3">
             我們的旅程，由您見證
@@ -198,7 +198,11 @@ function Evaluate() {
               spaceBetween={24}
               mousewheel={true}
               keyboard={true}
-              modules={[Navigation, Pagination, Mousewheel, Keyboard]}
+              autoplay={{
+                delay: 5000,
+                disableOnInteraction: false,
+              }}
+              modules={[Navigation, Pagination, Mousewheel, Keyboard, Autoplay]}
             >
               {groupedDesktopData.map((group, index) => (
                 <SwiperSlide key={index}>
@@ -259,7 +263,11 @@ function Evaluate() {
               spaceBetween={12} // 卡片間距
               mousewheel={true}
               keyboard={true}
-              modules={[Navigation, Pagination, Mousewheel, Keyboard]}
+              autoplay={{
+                delay: 5000,
+                disableOnInteraction: false,
+              }}
+              modules={[Navigation, Pagination, Mousewheel, Keyboard, Autoplay]}
             >
               {groupedPhoneData.map((group, index) => (
                 <SwiperSlide key={index}>
