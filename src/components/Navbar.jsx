@@ -4,7 +4,7 @@ import { useState } from "react"
 export default function Navbar(){
     const [isNavbarOpen, setIsNavbarOpen] = useState(false);
     const linkActiveColor = ({isActive})=>{
-        return `nav-link ${isActive?"text-danger fw-bold":""}`
+        return `nav-link ${isActive?"text-primary-600 fw-bold":""}`
     }
     const handleNavbarToggle = () => {
         setIsNavbarOpen(prevState => !prevState);

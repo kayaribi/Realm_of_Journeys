@@ -40,12 +40,12 @@ export default function TravelGuide(){
     const filteredData = selectArea ? articlesData.filter((item) => item.area === selectArea)  :  articlesData ;
 
     return(<>
-        <div className="guide">
-            <div className="header-height header-bg d-flex justify-content-center align-items-center">
-                <h3 className="text-white header-title">
+        <div className="travelGuide">
+            <header className="header-height header-bg d-flex justify-content-center align-items-center" id="header">
+                <h3 className="text-white fs-lg-4">
                     帶您探索全球，<br className="d-block d-lg-none"/>最新旅途知識一手掌握
                 </h3>
-            </div>
+            </header>
             <div className="container position-relative">
                 <select className="form-select position-absolute translate-middle top-0 border-primary-500" aria-label="select"
                         onChange={handleSelectChange}>
@@ -59,17 +59,18 @@ export default function TravelGuide(){
                         return (
                             <div className="col-12 col-md-6 col-lg-4 mb-lg-6 mb-8" key={item.id}>
                                 <div className="card border-0">
-                                    <img className="card-img-top card-radius card-img-height" alt="cardImg"
-                                        src={item.image}
-                                    />
-                                    <div className="card-body card-body-mt p-0 mt-5 mb-2 mt-lg-4">
-                                        <h3 className="card-title">【{item.title}】<br />&nbsp;&nbsp;&nbsp;{item.name}</h3>
-                                        <hr className="border-primary-200 w-100 d-lg-none mb-2 "/>
-                                        <p className="card-text">
-                                            {item.description}
-                                        </p>
-                                        <Link className="stretched-link" to={item.id}></Link>
-                                    </div>
+                                    <Link className="image-container" to={item.id}>
+                                        <img className="image-main" alt="cardImg" src={item.image}/>
+                                    </Link>
+                                    <Link to={item.id}>
+                                        <div className="card-body card-body-mt p-0 mt-5 mt-lg-4">
+                                            <h3 className="fs-sm-6 fs-xl-5 text-neutral-black mb-2">【{item.title}】<br/>&nbsp;&nbsp;&nbsp;{item.name}</h3>
+                                            <hr className="border-primary-200 w-100 d-lg-none mb-2 mt-0"/>
+                                            <p className="fs-10 fs-lg-9 text-neutral-300 card-text">
+                                                {item.description}
+                                            </p>
+                                        </div>
+                                    </Link>
                                 </div>
                             </div>
                         )

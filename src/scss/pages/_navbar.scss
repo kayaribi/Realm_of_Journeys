@@ -1,15 +1,13 @@
 .navbar{
     background-color: transparent;
-    transition: all 0.3s ease;
-
-    @media (min-width: 992px) {
+    @media (min-width: 991px) {
         background: #fff;
     }
 }
 .navbarPadding{
     padding-top: 22px;
     padding-bottom: 22px;
-    @media (min-width: 992px) {
+    @media (min-width: 991px) {
         padding-top: 27px;
         padding-bottom: 27px;
     }
@@ -37,7 +35,7 @@
 .navbar-title {
     font-size: 16px;
     margin-left: 4px !important;
-    @media (min-width: 992px) {
+    @media (min-width: 991px) {
         font-size: 40px !important;
         margin-left: 8px !important;
     }
@@ -48,7 +46,7 @@
     color: #1C1C1C;
     font-size: 18px;
     padding: 12px;
-    @media (min-width: 992px) {
+    @media (min-width: 991px) {
         font-size: 16px;
         padding: 15px 12px;
     }
@@ -58,7 +56,7 @@
     height: 1px;
     margin: 32px 0px;
     background-color: #C2DCF5;
-    @media (min-width: 992px) {
+    @media (min-width: 991px) {
         display:none;
     }
 }
@@ -67,7 +65,7 @@
 .login-btn-margin{
     margin-top: 275px;
     margin-bottom: 56px;
-    @media (min-width: 992px) {
+    @media (min-width: 991px) {
         margin: 0px;
     }
 }
@@ -75,7 +73,7 @@
     font-size: 16px;
     padding-left: 16px !important;
     padding-right: 16px !important;
-    @media (min-width: 992px) {
+    @media (min-width: 991px) {
         font-size: 20px;
         padding-left: 20px !important;
         padding-right: 20px !important;
@@ -109,3 +107,6 @@
         box-shadow: none; 
     }
 }
+
+
+

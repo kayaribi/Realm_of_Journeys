@@ -28,3 +28,10 @@
 @import './pages/FAQ';  
 @import './pages/travelGuideItem';
 
+// 補足navbar佔用空間
+.navbar-top{
+    margin-top: 0;
+    @media(min-width:991px){
+        margin-top: 102px;
+    }
+}

@@ -2,8 +2,8 @@
   // header背景圖
     .header-height {
         height: 179px;
-        @media (min-width: 768px) {
-            height: 547px;
+        @media (min-width: 991px) {
+            height: 445px;
         }
     }
     .bg-header {
@@ -16,7 +16,7 @@
         margin-top: -43px;
         border-top-left-radius:24px;
         border-top-right-radius:24px;
-        @media (min-width: 768px) {
+        @media (min-width: 991px) {
             margin-top: -165px;
         }
         // 主要圖片-設定
@@ -25,7 +25,7 @@
           @media(min-width:576px){
             height: 320px;
           }
-          @media(min-width:768px){
+          @media(min-width:991px){
             height: 500px;
           }
         }
@@ -46,7 +46,7 @@
         .btn-padding{
           padding-top: 12px;
           padding-bottom: 12px;
-          @media(min-width:768px){
+          @media(min-width:991px){
             padding: 12px 20px;
           }
         }

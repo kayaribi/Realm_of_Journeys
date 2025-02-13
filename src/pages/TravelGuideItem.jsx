@@ -91,17 +91,16 @@ export default function TravelGuideItem(){
             </div>
         </div>
     )}
-
-            {isScreenLoading && (      
-                    <div className="d-flex justify-content-center align-items-center"
-                    style={{
-                        position: "fixed",
-                        inset: 0,
-                        backgroundColor: "rgba(255,255,255,0.5)",
-                        zIndex: 999,
-                    }}>
-                    <ReactLoading type="spokes" color="black" width="4rem" height="4rem" />
-                    </div>)
-            }
+        {isScreenLoading && (      
+                <div className="d-flex justify-content-center align-items-center"
+                style={{
+                    position: "fixed",
+                    inset: 0,
+                    backgroundColor: "rgba(255,255,255,0.5)",
+                    zIndex: 999,
+                }}>
+                <ReactLoading type="spokes" color="black" width="4rem" height="4rem" />
+                </div>)
+        }
     </>)
 }

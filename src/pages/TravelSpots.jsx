@@ -264,7 +264,7 @@ export default function TravelSpots() {
         className="travelSpotsBanner"
         style={{
           backgroundImage: `url(${bannerChange})`,
-        }}
+        }} id="header"
       >
         <div className="travelSpotsBannerBackDrop"></div>
         <h2 className="title-family  text-white travelSpotsBannerText">
