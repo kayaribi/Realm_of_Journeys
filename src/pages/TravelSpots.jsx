@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 import DepartureTimeDecoration from "../components/DepartureTimeDecoration";
 import productPageBanner from "../../public/images/icon/productPageBanner.svg";
 import productPageBanner2 from "../../public/images/icon/productPageBanner2.svg";
@@ -340,7 +341,11 @@ export default function TravelSpots() {
                 {paginatedData.map((filterProduct) => {
                   return (
                     <div key={filterProduct.id} className={`col`}>
-                      <a style={{ display: "block", height: "100%" }} href="">
+                      <Link
+                        to={`/travelSpots/${filterProduct.id}`}
+                        style={{ height: "100%" }}
+                      >
+                        {/* <a style={{ display: "block", height: "100%" }} href=""> */}
                         <div className="d-flex flex-column px-xl-6 px-lg-4 px-md-2 px-0 h-100">
                           {/* 上方圖片區域 */}
                           <div className="productListImgWrap overflow-hidden position-relative">
@@ -395,7 +400,8 @@ export default function TravelSpots() {
                             </p>
                           </div>
                         </div>
-                      </a>
+                        {/* </a> */}
+                      </Link>
                     </div>
                   );
                 })}
@@ -405,7 +411,11 @@ export default function TravelSpots() {
               productList.map((product) => {
                 return (
                   <div key={product.id} className={`col`}>
-                    <a style={{ display: "block", height: "100%" }} href="">
+                    <Link
+                      to={`/travelSpots/${product.id}`}
+                      style={{ display: "block", height: "100%" }}
+                    >
+                      {/* <a style={{ display: "block", height: "100%" }} href=""> */}
                       <div className="d-flex flex-column px-xl-6 px-lg-4 px-md-2 px-0 h-100">
                         {/* 上方圖片區域 */}
                         <div className="productListImgWrap overflow-hidden position-relative">
@@ -455,7 +465,7 @@ export default function TravelSpots() {
                           </p>
                         </div>
                       </div>
-                    </a>
+                    </Link>
                   </div>
                 );
               })
@@ -493,7 +503,7 @@ export default function TravelSpots() {
                             key={`${index}_page`}
                           >
                             <a
-                              className={`fw-bold paginationStyle paginationNumbers `}
+                              className={`fw-bold paginationNumbers paginationStyle`}
                               onClick={(e) => {
                                 e.preventDefault();
                                 handleCusPageChange(index + 1);
@@ -561,7 +571,7 @@ export default function TravelSpots() {
                               key={`${index}_page`}
                             >
                               <a
-                                className={`fw-bold paginationStyle paginationNumbers `}
+                                className={`fw-bold paginationNumbers paginationStyle`}
                                 onClick={(e) => {
                                   e.preventDefault();
                                   getProduct(index + 1);
