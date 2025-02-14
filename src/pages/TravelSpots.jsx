@@ -1,6 +1,8 @@
 import { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import ReactLoading from 'react-loading';
+
 import DepartureTimeDecoration from "../components/DepartureTimeDecoration";
 import productPageBanner from "../../public/images/icon/productPageBanner.svg";
 import productPageBanner2 from "../../public/images/icon/productPageBanner2.svg";
@@ -23,6 +25,7 @@ export default function TravelSpots() {
   const [cusTotalPages, setCusTotalPages] = useState(1);
   const [cusHasPre, setCusHasPre] = useState(false);
   const [cusHasNext, setCusHasNext] = useState(true);
+  const [isScreenLoading, setIsScreenLoading] = useState(false);
   const itemsPerPage = 10;
 
   // (Api沒提供，所以自己撰寫) 計算篩選後的當前頁面要顯示的資料
@@ -160,6 +163,7 @@ export default function TravelSpots() {
 
   // 取得產品資料
   const getProduct = async (page = 1) => {
+    setIsScreenLoading(true);
     try {
       const res = await axios.get(
         `${BASE_URL}/v2/api/${API_PATH}/admin/products?page=${page}`
@@ -171,6 +175,7 @@ export default function TravelSpots() {
     } catch (error) {
       console.log(error);
     }
+    setIsScreenLoading(false);
   };
 
   // const [firstHalf, setFirstHalf] = useState(1);
@@ -584,6 +589,17 @@ export default function TravelSpots() {
           </div>
         </div>
       </section>
+      {isScreenLoading && (
+        <div className="d-flex justify-content-center align-items-center"
+          style={{
+            position: "fixed",
+            inset: 0,
+            backgroundColor: "rgba(255,255,255,0.5)",
+            zIndex: 999,
+          }}>
+          <ReactLoading type="spokes" color="black" width="4rem" height="4rem" />
+        </div>)
+      }
     </>
   );
 }
