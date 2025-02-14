@@ -1,21 +1,29 @@
 import { useEffect, useState } from 'react';
 import '../scss/all.scss';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
+import { Link, useLocation, useParams } from 'react-router-dom';
 import ReactLoading from 'react-loading';
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 const API_PATH  = import.meta.env.VITE_API_PATH;
 
+
+
 export default function TravelGuideItem(){
-    const {id} = useParams();
-    const [travelGuideItemData,setTravelGuideItemData]=useState(null);
+    const {id:article_id} = useParams();
+    const [travelGuideItemData,setTravelGuideItemData]=useState(null); //當前文章物件
+    const [allArticleData,setAllArticleData] = useState(null);         //所有文章data
+    const [previousArticle, setPreviousArticle] = useState(null);  //上一篇data
+    const [nextArticle, setNextArticle] = useState(null);          //下一篇data
     const [isScreenLoading,setIsScreenLoading] = useState(false);
+    const location = useLocation();
+    // ---------------------------------------------------------------------------------------------- 當前頁面data 
     useEffect(()=>{
         const getTravelGuideItemData = async()=>{
             setIsScreenLoading(true);
             try{
-                const respone = await axios.get(`${BASE_URL}/v2/api/${API_PATH}/article/${id}`);
+                const respone = await axios.get(`${BASE_URL}/v2/api/${API_PATH}/article/${article_id}`);
                 setTravelGuideItemData(respone.data.article);
+                window.scrollTo(0, 0); //置頂
             }catch(error){
                 alert("取得單一產品失敗");
             }finally{
@@ -23,11 +31,49 @@ export default function TravelGuideItem(){
             }
         }
         getTravelGuideItemData();
+    },[article_id,location])
+    // ---------------------------------------------------------------------------------------------- 取得所有文章data
+    useEffect(()=>{
+        const getAllArticleData = async()=>{
+            try{
+                const respone1 = await axios.get(`${BASE_URL}/v2/api/${API_PATH}/articles?page=1`);
+                const respone2 = await axios.get(`${BASE_URL}/v2/api/${API_PATH}/articles?page=2`);
+                const allArticles = [...respone1.data.articles,...respone2.data.articles];
+                setAllArticleData(allArticles);
+            }catch(error){
+                alert("取得所有文章失敗")
+            }
+        }
+        getAllArticleData();
     },[])
+
+    //  ---------------------------------------------------------------------------------------------- 上一篇下一篇
+    useEffect(() => {
+        if(allArticleData){
+            const nowPageIndex = allArticleData.findIndex(item => item.id === article_id);
+            const previousIndex = nowPageIndex - 1;
+            const nextIndex = nowPageIndex + 1;
+            // 上一篇ID
+            if (previousIndex >= 0) {
+                setPreviousArticle(allArticleData[previousIndex]);
+            }
+            if(nowPageIndex === 0){
+                setPreviousArticle(allArticleData[allArticleData.length -1 ]);
+            }
+            // 下一篇ID
+            if (nextIndex < allArticleData.length) {
+                setNextArticle(allArticleData[nextIndex]);
+            }
+            if(nowPageIndex === allArticleData.length-1){
+                setNextArticle(allArticleData[0]);
+            }
+        }
+    }, [allArticleData,article_id]);
+
+
 
     return(<>
     {travelGuideItemData && (
-
         <div className="travelGuideItem">
             <div className="header-height d-flex justify-content-center"style={{
                 backgroundImage: `url(${travelGuideItemData.image})`,
@@ -77,14 +123,16 @@ export default function TravelGuideItem(){
                                     })}
                                 </ul>
                             </div>
-                            <div className="d-flex justify-content-center gap-3">
-                                <button type="button" className="btn btn-outline-secondary-200 fs-lg-7 flex-nowrap  text-truncate btn-padding">
-                                    上一篇｜【京都自由行】清水寺與嵐山祇園一日
-                                </button>
-                                <button type="button" className="btn btn-secondary-200 fs-lg-7 flex-nowrap text-truncate btn-padding">
-                                    下一篇｜【京都自由行】清水寺與嵐山祇園一日
-                                </button>
-                            </div>
+                            {previousArticle && nextArticle &&(
+                                <div className="d-flex justify-content-center gap-3">
+                                    <Link to={`/travelGuide/${previousArticle.id}`} className="btn btn-outline-secondary-200 fs-lg-7 flex-nowrap  text-truncate btn-padding">
+                                        上一篇｜【{previousArticle.title}】{previousArticle.name}
+                                    </Link>
+                                    <Link to={`/travelGuide/${nextArticle.id}`} className="btn btn-secondary-200 fs-lg-7 flex-nowrap text-truncate btn-padding">
+                                        下一篇｜【{nextArticle.title}】{nextArticle.name}
+                                    </Link>
+                                </div>
+                            )}
                         </div>
                     </div>
                 </div>
@@ -92,15 +140,15 @@ export default function TravelGuideItem(){
         </div>
     )}
         {isScreenLoading && (      
-                <div className="d-flex justify-content-center align-items-center"
-                style={{
-                    position: "fixed",
-                    inset: 0,
-                    backgroundColor: "rgba(255,255,255,0.5)",
-                    zIndex: 999,
-                }}>
-                <ReactLoading type="spokes" color="black" width="4rem" height="4rem" />
-                </div>)
+            <div className="d-flex justify-content-center align-items-center"
+            style={{
+                position: "fixed",
+                inset: 0,
+                backgroundColor: "rgba(255,255,255,0.5)",
+                zIndex: 999,
+            }}>
+            <ReactLoading type="spokes" color="black" width="4rem" height="4rem" />
+            </div>)
         }
     </>)
 }
