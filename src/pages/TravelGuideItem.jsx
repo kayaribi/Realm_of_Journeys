@@ -124,19 +124,13 @@ export default function TravelGuideItem(){
                                 </ul>
                             </div>
                             {previousArticle && nextArticle &&(
-                                <div className="d-flex justify-content-center w-100">
-                                    <div className="w-50 d-flex pe-3">
-                                        <Link to={`/travelGuide/${previousArticle.id}`} className="btn btn-outline-secondary-200 fs-lg-7 text-truncate w-100">
-                                            <div className="d-none d-sm-block" style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>上一篇｜【{previousArticle.title}】{previousArticle.name}</div>
-                                            <div className="d-block d-sm-none">上一篇</div>
-                                        </Link>
-                                    </div>
-                                    <div className="w-50 d-flex ps-3">
-                                        <Link to={`/travelGuide/${nextArticle.id}`} className="btn btn-secondary-200 fs-lg-7 text-truncate w-100">
-                                            <div className="text-truncate-style d-none d-sm-block">下一篇｜【{nextArticle.title}】{nextArticle.name}</div>
-                                            <div className="text-truncate-style d-block d-sm-none">下一篇</div>
-                                        </Link>
-                                    </div>
+                                <div className="d-flex justify-content-center gap-3">
+                                    <Link to={`/travelGuide/${previousArticle.id}`} className="btn btn-outline-secondary-200 fs-lg-7 flex-nowrap  text-truncate btn-padding">
+                                        上一篇｜【{previousArticle.title}】{previousArticle.name}
+                                    </Link>
+                                    <Link to={`/travelGuide/${nextArticle.id}`} className="btn btn-secondary-200 fs-lg-7 flex-nowrap text-truncate btn-padding">
+                                        下一篇｜【{nextArticle.title}】{nextArticle.name}
+                                    </Link>
                                 </div>
                             )}
                         </div>
