@@ -42,13 +42,12 @@
         .radius-24px{
           border-radius:24px;
         }
-        // 
-        .btn-padding{
-          padding-top: 12px;
-          padding-bottom: 12px;
-          @media(min-width:991px){
-            padding: 12px 20px;
-          }
+        // 文字省略設定
+        .text-truncate-style{
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
         }
+
     }
 }

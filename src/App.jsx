@@ -11,6 +11,11 @@ import './scss/all.scss';
 
 function App() {
   const location = useLocation(); // 儲存當前頁面
+  const isNotBackTopPage = !(
+    location.pathname === '/cart' || 
+    location.pathname === '/account' || 
+    location.pathname.startsWith('/travelGuide/')
+  );
   return (
     <div>
       <Navbar />
@@ -26,7 +31,7 @@ function App() {
             <Route path='/account' element={<Account/>}></Route>           {/* 登入註冊 */}
           </Routes>
         </div>
-        {location.pathname !== '/cart' && location.pathname !== '/account' && <BackTopBtn />}
+        {isNotBackTopPage && <BackTopBtn />}
       <Footer/>
     </div>
   )
