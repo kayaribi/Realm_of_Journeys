@@ -46,22 +46,28 @@ export default function TravelSpots() {
   const isScrollLoading = useRef(false);
 
   const isGoToTopRef = useRef(window.innerWidth <= 575);
+  const isChangeFilterRef = useRef(false);
 
   useEffect(() => {
     isGoToTopRef.current = isGoToTop;
     // console.log(isGoToTopRef.current);
 
     if (!isGoToTopRef.current) {
-      console.log("觸發是否變換寬度：", isGoToTopRef.current);
+      console.log("目前視窗寬度大於575px");
       setProductList([]);
       getProduct();
     } else {
-      console.log("觸發是否變換寬度：", isGoToTopRef.current);
+      console.log("目前視窗寬度小於等於575px");
+
+      // 將篩選標籤換成全部，並重新取得getScrollProduct()
       scrollCurrentPage.current = 1;
       setProductList([]);
       getScrollProduct();
     }
   }, [isGoToTop]);
+
+  useEffect(() => {}, []);
+  // 依賴狀態應該為  當 某個狀態會變更 <= 575px時， 某個狀態會變更
 
   // (Api沒提供，所以自己撰寫) 若總頁數為 1 時，上一頁、下一頁皆不能點選
   useEffect(() => {
@@ -128,6 +134,15 @@ export default function TravelSpots() {
       setBannerChange(productPageBanner);
       await getProduct();
       setIsFilterProducts(false);
+
+      if (isGoToTopRef.current) {
+        isChangeFilterRef.current = true;
+        console.log("測試多少", isChangeFilterRef.current);
+        scrollCurrentPage.current = 1;
+        setProductList([]);
+        getScrollProduct();
+      }
+
       return;
     }
 
@@ -191,8 +206,14 @@ export default function TravelSpots() {
       axios.defaults.headers.common["Authorization"] = token;
 
       copyInitialAllProducts();
-      getProduct();
-      // getScrollProduct();
+
+      if (isGoToTopRef.current) {
+        console.log("我小於575px 所以執行卷軸涵式");
+        getScrollProduct();
+      } else {
+        console.log("我大於575px 所以執行正常寬度涵式");
+        getProduct();
+      }
     } catch (error) {
       console.log(error);
     }
@@ -304,9 +325,9 @@ export default function TravelSpots() {
   const listRef = useRef(null);
 
   useEffect(() => {
-    window.addEventListener("scroll", () => {
-      // console.log(window.scrollY);
-      // console.dir(listRef.current);
+    console.log("轉為true後執行了");
+
+    const handleScroll = () => {
       const height = listRef.current.offsetHeight + listRef.current.offsetTop;
 
       // 需要滾動到下方，且沒有在讀取中以及瀏覽器視窗寬度小於等於575時
@@ -318,7 +339,15 @@ export default function TravelSpots() {
         scrollCurrentPage.current++;
         getScrollProduct(scrollCurrentPage.current);
       }
-    });
+    };
+
+    // 綁定 scroll 事件
+    window.addEventListener("scroll", handleScroll);
+
+    // 清理副作用，移除 scroll 事件
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
   }, [isGoToTop]);
 
   return (
