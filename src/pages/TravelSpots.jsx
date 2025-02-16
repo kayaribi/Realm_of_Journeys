@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import DepartureTimeDecoration from "../components/DepartureTimeDecoration";
@@ -40,6 +40,28 @@ export default function TravelSpots() {
     (cusCurrentPage - 1) * itemsPerPage,
     cusCurrentPage * itemsPerPage
   );
+
+  const scrollCurrentPage = useRef(1);
+  // const [isScrollLoading, setIsScrollLoading] = useState(false);
+  const isScrollLoading = useRef(false);
+
+  const isGoToTopRef = useRef(window.innerWidth <= 575);
+
+  useEffect(() => {
+    isGoToTopRef.current = isGoToTop;
+    // console.log(isGoToTopRef.current);
+
+    if (!isGoToTopRef.current) {
+      console.log("觸發是否變換寬度：", isGoToTopRef.current);
+      setProductList([]);
+      getProduct();
+    } else {
+      console.log("觸發是否變換寬度：", isGoToTopRef.current);
+      scrollCurrentPage.current = 1;
+      setProductList([]);
+      getScrollProduct();
+    }
+  }, [isGoToTop]);
 
   // (Api沒提供，所以自己撰寫) 若總頁數為 1 時，上一頁、下一頁皆不能點選
   useEffect(() => {
@@ -170,7 +192,7 @@ export default function TravelSpots() {
 
       copyInitialAllProducts();
       getProduct();
-      // getAllProduct();
+      // getScrollProduct();
     } catch (error) {
       console.log(error);
     }
@@ -184,14 +206,38 @@ export default function TravelSpots() {
   // 取得產品資料
   const getProduct = async (page = 1) => {
     try {
+      isScrollLoading.current = true;
       const res = await axios.get(
         `${BASE_URL}/v2/api/${API_PATH}/admin/products?page=${page}`
       );
       const { products, pagination } = res.data;
-
+      setPagination(pagination);
       handleDotStylePagination(page);
       setProductList(products);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  // 滾動卷軸取得產品資料
+  const getScrollProduct = async (page = 1) => {
+    try {
+      isScrollLoading.current = true;
+      const res = await axios.get(
+        `${BASE_URL}/v2/api/${API_PATH}/admin/products?page=${page}`
+      );
+      const { products, pagination } = res.data;
       setPagination(pagination);
+      handleDotStylePagination(page);
+      // setProductList(products);
+      setProductList((preProductsList) => {
+        console.log("更新資料觸發");
+        return [...preProductsList, ...products];
+      });
+
+      setTimeout(() => {
+        isScrollLoading.current = false;
+      }, 3000);
     } catch (error) {
       console.log(error);
     }
@@ -252,6 +298,28 @@ export default function TravelSpots() {
       timeout = setTimeout(() => func(...args), delay); // 設置新的計時器
     };
   };
+
+  //
+
+  const listRef = useRef(null);
+
+  useEffect(() => {
+    window.addEventListener("scroll", () => {
+      // console.log(window.scrollY);
+      // console.dir(listRef.current);
+      const height = listRef.current.offsetHeight + listRef.current.offsetTop;
+
+      // 需要滾動到下方，且沒有在讀取中以及瀏覽器視窗寬度小於等於575時
+      if (
+        !isScrollLoading.current &&
+        window.scrollY > height &&
+        scrollCurrentPage.current < pagination.total_pages
+      ) {
+        scrollCurrentPage.current++;
+        getScrollProduct(scrollCurrentPage.current);
+      }
+    });
+  }, [isGoToTop]);
 
   return (
     <>
@@ -334,7 +402,10 @@ export default function TravelSpots() {
             </div>
           </div>
           {/* 產品列表 */}
-          <div className="row row-cols-sm-2 row-cols-1 productListTranslate">
+          <div
+            ref={listRef}
+            className="row row-cols-sm-2 row-cols-1 productListTranslate"
+          >
             {isFilterProducts ? (
               <>
                 {/* (Api沒提供，所以自己撰寫) 篩選後的資料渲染畫面 */}
@@ -472,7 +543,7 @@ export default function TravelSpots() {
             )}
           </div>
           {/* 分頁元件 */}
-          <div className="row my-15">
+          <div className="row my-15 d-sm-block d-none">
             <div className="col">
               <div className="d-flex justify-content-center">
                 <ul className="list-unstyled mb-0 d-flex align-items-center ">
