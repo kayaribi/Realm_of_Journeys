@@ -1,4 +1,9 @@
 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<<<<<<< HEAD
+<path d="M12 4V21" stroke="#3D3D3D" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M16.075 7H9.8875C9.12169 7 8.38724 7.28973 7.84573 7.80546C7.30422 8.32118 7 9.02065 7 9.75C7 10.4793 7.30422 11.1788 7.84573 11.6945C8.38724 12.2103 9.12169 12.5 9.8875 12.5H14.0125C14.7783 12.5 15.5128 12.7897 16.0543 13.3055C16.5958 13.8212 16.9 14.5207 16.9 15.25C16.9 15.9793 16.5958 16.6788 16.0543 17.1945C15.5128 17.7103 14.7783 18 14.0125 18H7" stroke="#3D3D3D" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+=======
 <path d="M12 4V21" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
 <path d="M16.075 7H9.8875C9.12169 7 8.38724 7.28973 7.84573 7.80546C7.30422 8.32118 7 9.02065 7 9.75C7 10.4793 7.30422 11.1788 7.84573 11.6945C8.38724 12.2103 9.12169 12.5 9.8875 12.5H14.0125C14.7783 12.5 15.5128 12.7897 16.0543 13.3055C16.5958 13.8212 16.9 14.5207 16.9 15.25C16.9 15.9793 16.5958 16.6788 16.0543 17.1945C15.5128 17.7103 14.7783 18 14.0125 18H7" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+>>>>>>> 24cd48371bf027f5ae460399d1a3f2bc694caac4
 </svg>
