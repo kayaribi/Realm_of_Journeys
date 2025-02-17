@@ -1,13 +1,12 @@
 import DepartureTimeDecoration from "./DepartureTimeDecoration";
-
+import { Link } from "react-router-dom";
 function FeaturedCard({ featuredItem, index }) {
   return (
     <div
-      className={`col ${
-        index % 2 === 0 ? "mt-lg-16 mt-0 mb-lg-0 mb-6" : "mb-lg-16 mb-6"
-      }`}
+      className={`col ${index % 2 === 0 ? "mt-lg-16 mt-0 mb-lg-0 mb-6" : "mb-lg-16 mb-6"
+        }`}
     >
-      <a href="">
+      <Link to={`/travelSpots/${featuredItem.id}`}>
         <div className="d-flex flex-lg-row flex-column px-xxl-6 px-xl-4 px-lg-2 px-0 ">
           {/* 左邊圖片區域 */}
           <div className="me-lg-8 me-0  featuredLeftFlex ">
@@ -35,9 +34,8 @@ function FeaturedCard({ featuredItem, index }) {
               return (
                 <p
                   key={index}
-                  className={`${
-                    index === 0 ? "mb-xl-3 mb-2" : ""
-                  } text-neutral-300 featuredCardDescription`}
+                  className={`${index === 0 ? "mb-xl-3 mb-2" : ""
+                    } text-neutral-300 featuredCardDescription`}
                 >
                   {des}
                 </p>
@@ -61,7 +59,7 @@ function FeaturedCard({ featuredItem, index }) {
             </div>
           </div>
         </div>
-      </a>
+      </Link>
     </div>
   );
 }
