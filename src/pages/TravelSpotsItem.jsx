@@ -128,6 +128,11 @@ const TravelSpotsItem = () => {
                                         delay: 3000,
                                         disableOnInteraction: false,
                                     }}
+                                    breakpoints={{
+                                        992: {
+                                            spaceBetween: 24
+                                        }
+                                    }}
                                     className="mySwiper"
                                 >
                                     <SwiperSlide>
