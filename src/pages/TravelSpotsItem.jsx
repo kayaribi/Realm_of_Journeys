@@ -280,67 +280,6 @@ const TravelSpotsItem = () => {
                     </div>
                     <div className="product-card pb-8 pb-lg-14">
                         <h3 className="title-family fs-lg-5 py-4 pb-lg-8">您可能會喜歡⋯⋯</h3>
-                        {/* <div className="d-flex flex-column gap-8">
-                            {randomProducts.map((filterProduct) => {
-                                return (
-                                    <div key={filterProduct.id}>
-                                        <Link to={`/travelSpots/${filterProduct.id}`} style={{ height: "100%" }}>
-                                            <div className="d-flex flex-column">
-                                                <div className="productListImgWrap overflow-hidden position-relative">
-                                                    <img
-                                                        className="productListImg"
-                                                        src={filterProduct.imageUrl}
-                                                        alt={filterProduct.title}
-                                                    />
-                                                    <DepartureTimeDecoration
-                                                        featuredItem={filterProduct}
-                                                    />
-                                                </div>
-                                                <div className="mt-4 mb-2">
-                                                    <h3
-                                                        className="title-family travelSpotCardTitle text-neutral-black"
-                                                        style={{ whiteSpace: "pre-line" }}
-                                                    >
-                                                        {filterProduct.title}
-                                                    </h3>
-                                                </div>
-                                                <div className="mb-3">
-                                                    {filterProduct.description
-                                                        .split("\n")
-                                                        .map((des, index) => {
-                                                            return (
-                                                                <p
-                                                                    key={index}
-                                                                    className={`${index === 0 ? "mb-sm-0 mb-2" : ""
-                                                                        } text-neutral-300 travelSpotCardDescription`}
-                                                                >
-                                                                    {des}
-                                                                </p>
-                                                            );
-                                                        })}
-                                                </div>
-                                                <div className="mt-auto">
-                                                    <p
-                                                        style={{ fontSize: "14px" }}
-                                                        className="text-decoration-line-through text-neutral-200"
-                                                    >
-                                                        原價 NT{" "}
-                                                        {filterProduct.origin_price.toLocaleString()}
-                                                    </p>
-                                                    <p
-                                                        style={{ lineHeight: "1.2" }}
-                                                        className="text-secondary-200 travelSpotCardDiscountPrice fw-bold"
-                                                    >
-                                                        優惠價 NT {filterProduct.price.toLocaleString()}/
-                                                        {filterProduct.unit}
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </Link>
-                                    </div>
-                                );
-                            })}
-                        </div> */}
                         {isLargeScreen ? (
                             // 🟢 992px 以上，使用 Swiper 滑動
                             <Swiper
