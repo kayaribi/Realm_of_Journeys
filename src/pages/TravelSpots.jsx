@@ -42,15 +42,20 @@ export default function TravelSpots() {
   );
 
   // 判斷瀏覽器寬度
-  const initialWindowWidth = useRef(window.innerWidth <= 575);
+  const initialWindowWidthRef = useRef(window.innerWidth <= 575);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth <= 575);
+  const [initialWindowWidth, setInitialWindowWidth] = useState(false);
 
   const scrollCurrentPage = useRef(1);
   // const [isScrollLoading, setIsScrollLoading] = useState(false);
-  const isScrollLoading = useRef(false);
+  const isScrollLoadingRef = useRef(false);
 
   // const isGoToTopRef = useRef(window.innerWidth <= 575);
   const isChangeFilterRef = useRef(false);
+
+  // const height = listRef.current.offsetHeight + listRef.current.offsetTop - 715;
+
+  const listRef = useRef(null);
 
   // useEffect(() => {
   //   isGoToTopRef.current = isGoToTop;
@@ -132,7 +137,7 @@ export default function TravelSpots() {
   const handleFilterProducts = async (e, category) => {
     e.preventDefault();
     setSelected(category);
-    getProduct();
+    // getProduct();
 
     if (category === "全部") {
       setBannerChange(productPageBanner);
@@ -223,9 +228,10 @@ export default function TravelSpots() {
       copyInitialAllProducts();
       // console.log(initialWindowWidth.current);
 
-      if (initialWindowWidth.current) {
+      if (initialWindowWidthRef.current) {
         console.log("我小於575px 所以執行getScrollProduct");
         getScrollProduct();
+        setInitialWindowWidth(true);
       } else {
         console.log("我大於575px 所以執行正常getProduct");
         getProduct();
@@ -259,7 +265,7 @@ export default function TravelSpots() {
   const getProduct = async (page = 1) => {
     try {
       console.log("執行getProduct");
-      isScrollLoading.current = true;
+      // isScrollLoadingRef.current = true;
       const res = await axios.get(
         `${BASE_URL}/v2/api/${API_PATH}/admin/products?page=${page}`
       );
@@ -277,7 +283,7 @@ export default function TravelSpots() {
   const getScrollProduct = async (page = 1) => {
     try {
       console.log("執行getScrollProduct");
-      isScrollLoading.current = true;
+      isScrollLoadingRef.current = true;
       const res = await axios.get(
         `${BASE_URL}/v2/api/${API_PATH}/admin/products?page=${page}`
       );
@@ -291,22 +297,10 @@ export default function TravelSpots() {
       });
 
       setTimeout(() => {
-        isScrollLoading.current = false;
+        isScrollLoadingRef.current = false;
       }, 1000);
     } catch (error) {
       console.log(error);
-    }
-  };
-
-  // 根據寬度變化判斷要取得哪種資料
-  const handleGetProductType = (e) => {
-    e.preventDefault();
-    if (windowWidth) {
-      scrollCurrentPage.current = 1;
-      setProductList([]);
-      getScrollProduct();
-    } else {
-      getProduct();
     }
   };
 
@@ -368,44 +362,128 @@ export default function TravelSpots() {
     };
   };
 
-  // 點擊事件處理函式，只有在滿足條件時觸發滾動
-  const handleTravelGoToTop = (e) => {
-    e.preventDefault();
+  // 點擊事件處理函式，只有在滿足條件時觸發滾動  應該用不到了 已經整合到 handleGetProductType
+  // const handleTravelGoToTop = (e) => {
+  //   e.preventDefault();
 
-    // 判斷 class 和 isGoToTop 狀態來決定是否執行滾動
-    if (e.target.className.includes("bg-primary-500") && windowWidth) {
-      window.scrollTo({ top: 0, behavior: "smooth" });
+  //   // 判斷 class 和 isGoToTop 狀態來決定是否執行滾動
+  //   if (e.target.className.includes("bg-primary-500") && windowWidth) {
+  //     window.scrollTo({ top: 0, behavior: "smooth" });
+  //   }
+  // };
+
+  // 根據寬度變化判斷要取得哪種資料
+  const handleGetProductType = (e) => {
+    e.preventDefault();
+    if (windowWidth) {
+      if (e.target.className.includes("bg-primary-500")) {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      } else {
+        scrollCurrentPage.current = 1;
+        setProductList([]);
+        getScrollProduct();
+      }
+    } else {
+      if (e.target.className.includes("bg-primary-500")) {
+        return;
+      } else {
+        getProduct();
+      }
     }
   };
 
-  const listRef = useRef(null);
+  // 卷軸渲染效果
+  // const handleScroll = () => {
+  //   // console.log("執行卷軸渲染效果");
 
-  // useEffect(() => {
-  //   console.log("isGoToTop狀態變更，執行以下程式碼");
+  //   // const height =
+  //   //   listRef.current.offsetHeight + listRef.current.offsetTop - 715;
 
-  //   const handleScroll = () => {
-  //     const height =
-  //       listRef.current.offsetHeight + listRef.current.offsetTop - 715;
+  //   // 需要滾動到下方，且沒有在讀取中以及瀏覽器視窗寬度小於等於575時
+  //   if (
+  //     !isScrollLoadingRef.current &&
+  //     window.scrollY > height &&
+  //     scrollCurrentPage.current < pagination.total_pages
+  //   ) {
+  //     scrollCurrentPage.current++;
+  //     getScrollProduct(scrollCurrentPage.current);
+  //   }
+  // };
 
-  //     // 需要滾動到下方，且沒有在讀取中以及瀏覽器視窗寬度小於等於575時
-  //     if (
-  //       !isScrollLoading.current &&
-  //       window.scrollY > height &&
-  //       scrollCurrentPage.current < pagination.total_pages
-  //     ) {
-  //       scrollCurrentPage.current++;
-  //       getScrollProduct(scrollCurrentPage.current);
-  //     }
-  //   };
+  // 卷軸渲染效果
+  useEffect(() => {
+    // console.log(height);
 
-  //   // 綁定 scroll 事件
-  //   window.addEventListener("scroll", handleScroll);
+    const handleScroll = () => {
+      // console.log(initialWindowWidthRef);
 
-  //   // 清理副作用，移除 scroll 事件
-  //   return () => {
-  //     window.removeEventListener("scroll", handleScroll);
-  //   };
-  // }, [isGoToTop]);
+      if (initialWindowWidthRef.current) {
+        console.log("執行卷軸功能");
+
+        const height =
+          listRef.current.offsetHeight + listRef.current.offsetTop - 715;
+
+        // 需要滾動到下方，且沒有在讀取中以及瀏覽器視窗寬度小於等於575時
+
+        if (
+          !isScrollLoadingRef.current &&
+          window.scrollY > height &&
+          scrollCurrentPage.current < pagination.total_pages
+        ) {
+          scrollCurrentPage.current++;
+          getScrollProduct(scrollCurrentPage.current);
+        }
+      }
+    };
+
+    // 綁定 scroll 事件
+    window.addEventListener("scroll", handleScroll);
+
+    // 清理副作用，移除 scroll 事件
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [pagination]);
+
+  useEffect(() => {
+    console.log("windowWidth", windowWidth, typeof windowWidth);
+
+    const handleScroll = () => {
+      // console.log(initialWindowWidthRef);
+
+      console.log("執行卷軸功能");
+
+      const height =
+        listRef.current.offsetHeight + listRef.current.offsetTop - 715;
+
+      // 需要滾動到下方，且沒有在讀取中以及瀏覽器視窗寬度小於等於575時
+      if (
+        !isScrollLoadingRef.current &&
+        window.scrollY > height &&
+        scrollCurrentPage.current < pagination.total_pages
+      ) {
+        scrollCurrentPage.current++;
+        getScrollProduct(scrollCurrentPage.current);
+      }
+    };
+
+    if (!windowWidth) {
+      console.log("我視窗變成575以上了");
+      scrollCurrentPage.current = 1;
+      window.removeEventListener("scroll", handleScroll);
+      getProduct();
+      return;
+    }
+
+    console.log("我視窗變成575以下了");
+    window.addEventListener("scroll", handleScroll);
+    setProductList([]);
+    getScrollProduct();
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [windowWidth]);
 
   return (
     <>
@@ -436,7 +514,6 @@ export default function TravelSpots() {
                     href=""
                     onClick={(e) => {
                       handleFilterProducts(e, "全部");
-                      handleTravelGoToTop(e);
                       handleGetProductType(e);
                     }}
                   >
@@ -451,7 +528,6 @@ export default function TravelSpots() {
                     href=""
                     onClick={(e) => {
                       handleFilterProducts(e, "亞洲");
-                      handleTravelGoToTop(e);
                       handleGetProductType(e);
                     }}
                   >
@@ -466,7 +542,6 @@ export default function TravelSpots() {
                     href=""
                     onClick={(e) => {
                       handleFilterProducts(e, "歐洲");
-                      handleTravelGoToTop(e);
                       handleGetProductType(e);
                     }}
                   >
@@ -481,7 +556,6 @@ export default function TravelSpots() {
                     href=""
                     onClick={(e) => {
                       handleFilterProducts(e, "中東");
-                      handleTravelGoToTop(e);
                       handleGetProductType(e);
                     }}
                   >
