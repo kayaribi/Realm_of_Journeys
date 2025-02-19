@@ -12,7 +12,7 @@ export default function CartPayment() {
               style={{ width: "32px", height: "32px" }}
             >
               <img
-                src="../public/images/icon/check.svg"
+                src="images/icon/check.svg"
                 alt=""
                 style={{ verticalAlign: "sub" }}
               />
@@ -26,7 +26,7 @@ export default function CartPayment() {
               style={{ width: "32px", height: "32px" }}
             >
               <img
-                src="../public/images/icon/check.svg"
+                src="images/icon/check.svg"
                 alt=""
                 style={{ verticalAlign: "sub" }}
               />
@@ -77,7 +77,7 @@ export default function CartPayment() {
           <div className="col-md-10 mb-6">
             <div className="d-lg-flex justify-content-center align-items-center text-lg-start text-center">
               <img
-                src="../public/images/banner_img_01.jpg"
+                src="images/banner_img_01.jpg"
                 alt=""
                 className="me-lg-10 my-3 my-lg-0 cartImg"
               />

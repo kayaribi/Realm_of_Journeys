@@ -12,7 +12,7 @@ export default function CartOrder() {
               style={{ width: "32px", height: "32px" }}
             >
               <img
-                src="../public/images/icon/check.svg"
+                src="images/icon/check.svg"
                 alt=""
                 style={{ verticalAlign: "sub" }}
               />
@@ -303,7 +303,7 @@ export default function CartOrder() {
                 <p className="fs-7">泰國清邁文化美食悠遊4日</p>
                 <div className="d-flex justify-content-between align-items-center mt-3 fs-7">
                   <div className="d-flex justify-content-between align-items-center">
-                    <img src="../public/images/icon/price.svg" alt="" />
+                    <img src="images/icon/price.svg" alt="" />
                     <p>28,000</p>
                   </div>
                   <p>2人</p>
@@ -467,7 +467,7 @@ export default function CartOrder() {
               <h3 className="title-family">訂單明細</h3>
               <div className="d-flex justify-content-center align-items-center">
                 <small className="text-neutral-200 fs-12 me-1">展開明細</small>
-                <img src="../public/images/icon/minimize_16px.svg" alt="" />
+                <img src="images/icon/minimize_16px.svg" alt="" />
               </div>
             </div>
             {/* 折疊內容 */}
@@ -475,7 +475,7 @@ export default function CartOrder() {
               <p className="mb-3">泰國清邁文化美食悠遊4日</p>
               <div class="d-flex justify-content-between align-items-center text-neutral-300">
                 <div className="d-flex justify-content-center align-items-center">
-                  <img src="../public/images/icon/price.svg" alt="" />
+                  <img src="images/icon/price.svg" alt="" />
                   <p>28,000</p>
                 </div>
                 <p>2人</p>
@@ -484,7 +484,7 @@ export default function CartOrder() {
               <div className="d-flex justify-content-between align-items-center">
                 <div className="d-flex justify-content-center align-items.center">
                   <img
-                    src="../public/images/icon/alert-circle_16px.svg"
+                    src="images/icon/alert-circle_16px.svg"
                     alt="" className="me-1"
                   />
                   <p>提醒</p>

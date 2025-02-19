@@ -12,7 +12,7 @@ export default function CompletePayment() {
               style={{ width: "32px", height: "32px" }}
             >
               <img
-                src="../public/images/icon/check.svg"
+                src="images/icon/check.svg"
                 alt=""
                 style={{ verticalAlign: "sub" }}
               />
@@ -26,7 +26,7 @@ export default function CompletePayment() {
               style={{ width: "32px", height: "32px" }}
             >
               <img
-                src="../public/images/icon/check.svg"
+                src="images/icon/check.svg"
                 alt=""
                 style={{ verticalAlign: "sub" }}
               />
@@ -40,7 +40,7 @@ export default function CompletePayment() {
               style={{ width: "32px", height: "32px" }}
             >
               <img
-                src="../public/images/icon/check.svg"
+                src="images/icon/check.svg"
                 alt=""
                 style={{ verticalAlign: "sub" }}
               />
