@@ -44,39 +44,12 @@ export default function TravelSpots() {
   // 判斷瀏覽器寬度
   const initialWindowWidthRef = useRef(window.innerWidth <= 575);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth <= 575);
-  const [initialWindowWidth, setInitialWindowWidth] = useState(false);
-
   const scrollCurrentPage = useRef(1);
-  // const [isScrollLoading, setIsScrollLoading] = useState(false);
   const isScrollLoadingRef = useRef(false);
-
-  // const isGoToTopRef = useRef(window.innerWidth <= 575);
-  const isChangeFilterRef = useRef(false);
-
-  // const height = listRef.current.offsetHeight + listRef.current.offsetTop - 715;
+  const isInitialSwitchRef = useRef(false);
 
   const listRef = useRef(null);
   const [isSignIn, setIsSignIn] = useState(false);
-
-  // useEffect(() => {
-  //   isGoToTopRef.current = isGoToTop;
-  //   // console.log(isGoToTopRef.current);
-
-  //   if (!isGoToTopRef.current) {
-  //     console.log("目前視窗寬度大於575px");
-  //     setProductList([]);
-  //     getProduct();
-  //   } else {
-  //     console.log("目前視窗寬度小於等於575px");
-
-  //     // 將篩選標籤換成全部，並重新取得getScrollProduct()
-  //     scrollCurrentPage.current = 1;
-  //     setProductList([]);
-  //     getScrollProduct();
-  //   }
-  // }, [isGoToTop]);
-
-  // 依賴狀態應該為  當 某個狀態會變更 <= 575px時， 某個狀態會變更
 
   // (Api沒提供，所以自己撰寫) 若總頁數為 1 時，上一頁、下一頁皆不能點選
   useEffect(() => {
@@ -142,25 +115,6 @@ export default function TravelSpots() {
 
     if (category === "全部") {
       setBannerChange(productPageBanner);
-
-      // if (isGoToTopRef.current) {
-      //   isChangeFilterRef.current = true;
-      //   console.log(
-      //     "寬度 <= 575px時點擊全部按鈕，isChangeFilterRef.current狀態為：",
-      //     isChangeFilterRef.current
-      //   );
-      //   scrollCurrentPage.current = 1;
-      //   setProductList([]);
-
-      //   await getScrollProduct();
-      // } else {
-      //   console.log(
-      //     "寬度 > 575px時點擊全部按鈕，isChangeFilterRef.current狀態為：",
-      //     isChangeFilterRef.current
-      //   );
-      //   await getProduct();
-      // }
-
       setIsFilterProducts(false);
       return;
     }
@@ -199,29 +153,6 @@ export default function TravelSpots() {
     // console.log("filteredProductData", filteredProductData);
     setCusTotalPages(Math.ceil(filteredProductData.length / itemsPerPage));
   }, [filteredProductData]);
-
-  // 處理篩選資料後的卷軸渲染效果
-  // useEffect(() => {
-  //   console.log("initialWindowWidthRef.current", initialWindowWidthRef.current);
-
-  //   if (initialWindowWidthRef.current) {
-  //     console.log("執行卷軸功能");
-
-  //     // const height =
-  //     //   listRef.current.offsetHeight + listRef.current.offsetTop - 715;
-
-  //     // // 需要滾動到下方，且沒有在讀取中以及瀏覽器視窗寬度小於等於575時
-
-  //     // if (
-  //     //   !isScrollLoadingRef.current &&
-  //     //   window.scrollY > height &&
-  //     //   scrollCurrentPage.current < pagination.total_pages
-  //     // ) {
-  //     //   scrollCurrentPage.current++;
-  //     //   getScrollProduct(scrollCurrentPage.current);
-  //     // }
-  //   }
-  // }, [cusTotalPages]);
 
   // 處理分頁 ... 的畫面顯示及功能
   const handleDotStylePagination = (currentPage) => {
@@ -264,16 +195,6 @@ export default function TravelSpots() {
     signIn();
     console.log("登入成功");
   }, []);
-
-  // useEffect(() => {
-  //   if (isGoToTopRef.current) {
-  //     console.log("我小於575px 所以執行卷軸涵式");
-  //     getScrollProduct();
-  //   } else {
-  //     console.log("我大於575px 所以執行正常寬度涵式");
-  //     getProduct();
-  //   }
-  // }, [token]);
 
   // 取得產品資料
   const getProduct = async (page = 1) => {
@@ -318,39 +239,8 @@ export default function TravelSpots() {
     }
   };
 
-  //  一開始正確的寫法
-  // window.addEventListener("resize", (event) => {
-  //   if (event.target.innerWidth <= 575) {
-  //     setIsGoToTop(true);
-  //   } else {
-  //     setIsGoToTop(false);
-  //   }
-  // });
-
-  // const handleTravelGoToTop = (e) => {
-  //   e.preventDefault();
-
-  //   if (e.target.className.includes("bg-primary-500") && isGoToTop) {
-  //     window.scrollTo({ top: 0, behavior: "smooth" });
-  //   }
-  // };
-
-  // console.log(window.innerWidth);
-
   // 優化後的寫法
   useEffect(() => {
-    // console.log(
-    //   "登入後，註冊視窗寬度變化監聽器，setIsGoToTop會根據是否<=575px變更true或false狀態"
-    // );
-
-    // // 測試
-    // if (window.innerWidth <= 575) {
-    //   console.log("window.innerWidth <= 575px?", window.innerWidth <= 575);
-    //   scrollCurrentPage.current = 1;
-    //   setProductList([]);
-    //   getScrollProduct();
-    // }
-
     // 處理視窗尺寸變化
     const handleResize = () => {
       setWindowWidth(window.innerWidth <= 575);
@@ -485,7 +375,6 @@ export default function TravelSpots() {
       if (initialWindowWidthRef.current) {
         console.log("我小於575px 所以執行getScrollProduct");
         getScrollProduct();
-        setInitialWindowWidth(true);
       } else {
         console.log("我大於575px 所以執行正常getProduct");
         getProduct();
@@ -511,10 +400,32 @@ export default function TravelSpots() {
   }, [isSignIn]);
 
   useEffect(() => {
+    if (isInitialSwitchRef.current) {
+      console.log("執行過第一次了，所以不再執行");
+      return;
+    }
+
+    if (pagination.total_pages) {
+      console.log(
+        "變更了pagination狀態，執行第一次，initialWindowWidthRef.current為",
+        initialWindowWidthRef.current
+      );
+      if (initialWindowWidthRef.current) {
+        console.log("初始加載畫面寬度 <= 575 px，註冊 scroll 事件");
+      } else {
+        console.log("初始加載畫面寬度 > 575 px，直接 return 跳出 useEffect");
+      }
+
+      isInitialSwitchRef.current = true;
+    }
+  }, [pagination]);
+
+  useEffect(() => {
     console.log("windowWidth", windowWidth, typeof windowWidth);
+    console.log(initialWindowWidthRef.current);
 
     const handleScroll = () => {
-      // console.log(initialWindowWidthRef);
+      4;
 
       console.log("執行卷軸功能");
 
@@ -534,14 +445,15 @@ export default function TravelSpots() {
 
     if (isSignIn) {
       if (!windowWidth) {
-        console.log("我視窗變成575以上了");
+        console.log("我視窗變成575以上了，移除 scroll 監聽事件");
         scrollCurrentPage.current = 1;
         window.removeEventListener("scroll", handleScroll);
         getProduct();
+        handleCusPageChange(1);
         return;
       }
 
-      console.log("我視窗變成575以下了");
+      console.log("我視窗變成575以下了，註冊 scroll 監聽事件");
       window.addEventListener("scroll", handleScroll);
       setProductList([]);
       getScrollProduct();
