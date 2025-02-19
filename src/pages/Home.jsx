@@ -80,7 +80,7 @@ export default function Home() {
           }}
         ></div>
         {/* 標題 */}
-        <div className="container text-state text-md-center text-white position-relative py-md-xl pb-lg pt-22">
+        <div className="container text-state text-md-center text-white position-relative d-md-flex flex-column justify-content-center h-100 headerPadding">
           <h2
             className="fs-md-1 fs-2 title-family position-relative z-3 py-xl-2"
             style={{
@@ -91,7 +91,7 @@ export default function Home() {
             of <br className="d-md-none" />
             Journeys
             <span
-              className="fs-5 d-xl-block d-none position-absolute bottom-0 start-50 translate-middle-x"
+              className="fs-5 d-xl-block d-none position-absolute bottom-0 start-50 translate-middle-x text-nowrap"
               style={{
                 textShadow: "0 0 10px rgba(23, 70, 117, 1)",
               }}
@@ -101,7 +101,7 @@ export default function Home() {
           </h2>
 
           <h3
-            className="fs-md-5 fs-8 position-relative z-2 d-xl-none d-block mt-8"
+            className="fs-md-5 fs-8 position-relative z-3 d-xl-none d-block mt-8 text-nowrap"
             style={{
               textShadow: "0 0 10px rgba(23, 70, 117, 1)",
             }}

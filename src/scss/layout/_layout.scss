@@ -12,6 +12,7 @@
   /* 僅裁剪背景 */
   -webkit-text-fill-color: transparent;
   /* 將文字填充設為透明 */
+  position: relative;
 }
 
 .gradient-brown {
@@ -151,4 +152,11 @@ $gradient-brown: linear-gradient(270deg, #C8B2A4 0%, #B1855D 100%);
 
 .form-check-input[type="radio"]:disabled + .form-check-label {
   color: $neutral-100;
+}
+
+// 將 input type="number" 的上下箭頭隱藏
+input[type=number]::-webkit-outer-spin-button,
+input[type=number]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
