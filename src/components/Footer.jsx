@@ -1,19 +1,19 @@
 import { NavLink } from 'react-router-dom';
 import '../scss/all.scss';
 
-export default function Footer(){
+export default function Footer() {
 
-    const linkActiveColor = ({isActive})=>{
-        return `${isActive?"text-danger":""}`
+    const linkActiveColor = ({ isActive }) => {
+        return `${isActive ? "text-danger" : ""}`
     }
 
-    return(<>
+    return (<>
         <footer className="footer bg-primary-600">
             <div className="container py-10">
                 <div className="d-flex justify-content-center flex-column flex-lg-row justify-content-lg-center align-items-center mb-8">
                     {/* logo + title */}
                     <div className="d-flex align-items-center mb-14 my-lg-4 me-xl-15 me-lg-10">
-                        <img src="../public/images/logo-light-L.svg" />
+                        <img src="images/logo-light-L.svg" />
                     </div>
                     {/* link page */}
                     <ul className="list-unstyled d-flex flex-column align-items-center flex-lg-row gap-6 mb-15 mb-lg-0 text-20px">
@@ -24,7 +24,7 @@ export default function Footer(){
                             <NavLink className="text-white link-warning" to="/travelSpots">行程列表</NavLink>
                         </li>
                         <li>
-                            <NavLink className="text-white link-warning" to="/guide">旅遊攻略</NavLink>
+                            <NavLink className="text-white link-warning" to="/travelGuide">旅遊攻略</NavLink>
                         </li>
                         <li>
                             <NavLink className="text-white link-warning" to="/about">關於我們</NavLink>
@@ -53,7 +53,7 @@ export default function Footer(){
                         管理員登入<i className="bi bi-box-arrow-in-right ms-2"></i>
                     </a>
                 </div>
-                <hr className="footer-hr mb-8"/>
+                <hr className="footer-hr mb-8" />
                 <div className="footer-text d-flex flex-column flex-lg-row align-items-start justify-content-lg-center">
                     <p className="mb-2 mb-lg-0">行旅之境 ©2024 Copyrights All Reserved</p>
                     <p className="mb-0 ms-lg-auto">本專題為面試作品使用，無商業行為，圖片來源請見GitHub Repo</p>

@@ -1,3 +1,138 @@
+// Header - Hailey
+.slideshow-container {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  @media (min-width: 768px) {
+    height: calc(100vh - 108px);
+  }
+}
+
+.headerPadding{
+  padding-top: 88px;
+  padding-bottom: 439px;
+  @media (min-width: 768px) {
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+}
+
+.slideshow-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background-size: cover;
+  background-position: center;
+  transform: scale(1.1);
+}
+
+/* 動畫效果 */
+.slideshow-image-enter-0 {
+  opacity: 0;
+  transform: scale(1.1) translateX(-5%);
+}
+
+.slideshow-image-enter-active-0 {
+  opacity: 1;
+  transform: scale(1.1) translateX(0);
+  transition: opacity 2.5s ease-in-out, transform 2.5s linear;
+}
+
+.slideshow-image-exit-0 {
+  opacity: 1;
+  transform: scale(1.1) translateX(0);
+}
+
+.slideshow-image-exit-active-0 {
+  opacity: 0;
+  transform: scale(1.1) translateX(5%);
+  transition: opacity 2.5s ease-in-out, transform 2.5s linear;
+}
+
+/* 第二張圖片動畫：淡入並往上移動 */
+.slideshow-image-enter-1 {
+  opacity: 0;
+  transform: scale(1.1) translateY(5%);
+}
+
+.slideshow-image-enter-active-1 {
+  opacity: 1;
+  transform: scale(1.1) translateY(0);
+  transition: opacity 2.5s ease-in-out, transform 2.5s linear;
+}
+
+.slideshow-image-exit-1 {
+  opacity: 1;
+  transform: scale(1.1) translateY(0);
+}
+
+.slideshow-image-exit-active-1 {
+  opacity: 0;
+  transform: scale(1.1) translateY(-5%);
+  transition: opacity 2.5s ease-in-out, transform 2.5s linear;
+}
+
+/* 第三張圖片動畫：淡入並往左移動 */
+.slideshow-image-enter-2 {
+  opacity: 0;
+  transform: scale(1.1) translateX(5%);
+}
+
+.slideshow-image-enter-active-2 {
+  opacity: 1;
+  transform: scale(1.1) translateX(0);
+  transition: opacity 2.5s ease-in-out, transform 2.5s linear;
+}
+
+.slideshow-image-exit-2 {
+  opacity: 1;
+  transform: scale(1.1) translateX(0);
+}
+
+.slideshow-image-exit-active-2 {
+  opacity: 0;
+  transform: scale(1.1) translateX(-5%);
+  transition: opacity 2.5s ease-in-out, transform 2.5s linear;
+}
+
+/* 第四張圖片動畫：淡入並放大 */
+.slideshow-image-enter-3 {
+  opacity: 0;
+  transform: scale(0.9);
+}
+
+.slideshow-image-enter-active-3 {
+  opacity: 1;
+  transform: scale(1.1);
+  transition: opacity 2.5s ease-in-out, transform 2.5s linear;
+}
+
+.slideshow-image-exit-3 {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.slideshow-image-exit-active-3 {
+  opacity: 0;
+  transform: scale(0.9);
+  transition: opacity 2.5s ease-in-out, transform 2.5s linear;
+}
+
+.slideshow-image-appear-0 {
+  /* 第一張圖片的 appear 效果 */
+  opacity: 0;
+  transform: scale(1.1) translateX(-5%);
+}
+
+.slideshow-image-appear-active-0 {
+  opacity: 1;
+  transform: scale(1.1) translateX(0);
+  transition: opacity 2.5s ease-in-out, transform 2.5s linear;
+}
+
 // 精選行程 - 倫倫
 .featuredTitleIcon {
   width: 48px;
@@ -97,19 +232,31 @@
   }
 }
 // ↓ Hailey
-.buttonShadow{
-  transition: transform .3s, box-shadow .3s;
+
+.buttonShadow:hover {
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 50%;
+    z-index: -1;
+  }
 }
 
-.buttonShadow:hover{
-  transform: translateY(-5px);
-  box-shadow: 0 0 10px rgba(23, 70, 117, 1);
-}
-
-.buttonShadowDesktop{
-  transition: box-shadow .3s;
-}
-
-.buttonShadowDesktop:hover{
-  box-shadow: 0 -5px 10px rgba(23, 70, 117, 1);
+.buttonShadowDesktop:hover {
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 320px 320px 0 0;
+    z-index: -1;
+  }
 }

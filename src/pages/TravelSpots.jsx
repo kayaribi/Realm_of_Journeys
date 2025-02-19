@@ -1,6 +1,8 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import ReactLoading from 'react-loading';
+
 import DepartureTimeDecoration from "../components/DepartureTimeDecoration";
 import productPageBanner from "../../public/images/icon/productPageBanner.svg";
 import productPageBanner2 from "../../public/images/icon/productPageBanner2.svg";
@@ -23,6 +25,7 @@ export default function TravelSpots() {
   const [cusTotalPages, setCusTotalPages] = useState(1);
   const [cusHasPre, setCusHasPre] = useState(false);
   const [cusHasNext, setCusHasNext] = useState(true);
+  const [isScreenLoading, setIsScreenLoading] = useState(false);
   const itemsPerPage = 10;
   // 判斷是否啟用 ... 分頁功能
   const [isDotPagination, setIsDotPagination] = useState(true);
@@ -228,6 +231,7 @@ export default function TravelSpots() {
 
   // 取得產品資料
   const getProduct = async (page = 1) => {
+    setIsScreenLoading(true);
     try {
       console.log("執行getProduct");
       // isScrollLoadingRef.current = true;
@@ -267,6 +271,7 @@ export default function TravelSpots() {
     } catch (error) {
       console.log(error);
     }
+    setIsScreenLoading(false);
   };
 
   // 優化後的寫法
@@ -478,7 +483,7 @@ export default function TravelSpots() {
         className="travelSpotsBanner"
         style={{
           backgroundImage: `url(${bannerChange})`,
-        }}
+        }} id="header"
       >
         <div className="travelSpotsBannerBackDrop"></div>
         <h2 className="title-family  text-white travelSpotsBannerText">
@@ -824,6 +829,17 @@ export default function TravelSpots() {
           </div>
         </div>
       </section>
+      {isScreenLoading && (
+        <div className="d-flex justify-content-center align-items-center"
+          style={{
+            position: "fixed",
+            inset: 0,
+            backgroundColor: "rgba(255,255,255,0.5)",
+            zIndex: 999,
+          }}>
+          <ReactLoading type="spokes" color="black" width="4rem" height="4rem" />
+        </div>)
+      }
     </>
   );
 }

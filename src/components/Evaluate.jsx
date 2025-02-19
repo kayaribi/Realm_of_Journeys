@@ -54,7 +54,7 @@ const CustomPagination = ({ totalPages, currentPage, onClickPage, swiperInstance
         className={`pagination-button prev ${currentPage === 1 ? "disabled" : ""}`}
         onClick={() => swiperInstance?.slidePrev()}
       >
-        <img src="/images/icon/chevrons-left.svg" alt="Previous" />
+        <img src="images/icon/chevrons-left.svg" alt="Previous" />
       </button>
 
       {/* 分頁數字與省略號部分 */}
@@ -89,7 +89,7 @@ const CustomPagination = ({ totalPages, currentPage, onClickPage, swiperInstance
         className={`pagination-button next ${currentPage === totalPages ? "disabled" : ""}`}
         onClick={() => swiperInstance?.slideNext()}
       >
-        <img src="/images/icon/chevrons-right.svg" alt="Next" />
+        <img src="images/icon/chevrons-right.svg" alt="Next" />
       </button>
     </div>
   );
