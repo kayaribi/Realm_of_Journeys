@@ -2,8 +2,20 @@
 .slideshow-container {
   position: relative;
   width: 100vw;
-  height: 100%;
+  height: 100vh;
   overflow: hidden;
+  @media (min-width: 768px) {
+    height: calc(100vh - 108px);
+  }
+}
+
+.headerPadding{
+  padding-top: 88px;
+  padding-bottom: 439px;
+  @media (min-width: 768px) {
+    padding-top: 0;
+    padding-bottom: 0;
+  }
 }
 
 .slideshow-image {
@@ -11,7 +23,7 @@
   top: 0;
   left: 0;
   width: 100%;
-  height: 100%;
+  height: 100vh;
   background-size: cover;
   background-position: center;
   transform: scale(1.1);

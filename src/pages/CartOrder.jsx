@@ -4,7 +4,7 @@ export default function CartOrder() {
   return (
     <>
       {/* 進度條 */}
-      <div className="container position-relative mt-md-20 mb-lg-10 my-6">
+      <div className="container position-relative mt-md-20 mt-22 mb-lg-10 my-6">
         <div className="row row-cols-4 text-center">
           <div className="col d-flex justify-content-center align-items-center flex-column py-md-4 py-3">
             <div
@@ -64,7 +64,7 @@ export default function CartOrder() {
         </div>
       </div>
       {/* 填寫訂單頁 */}
-      <div className="container">
+      <div className="container mb-lg-20 mb-8">
         {/* 訂單 */}
         <div className="row">
           {/* 聯絡人資料 */}
@@ -75,7 +75,7 @@ export default function CartOrder() {
                 <span className="text-danger">*</span> 此為必填項目
               </p>
             </div>
-            <div className="border border-primary-200 my-md-5 my-2"></div>
+            <div className="border-top border-primary-200 my-md-5 my-2"></div>
             <div className="row gy-3 mt-3 mt-md-0">
               {/* 姓名 */}
               <div className="col-md-6 mb-md-7">
@@ -210,7 +210,7 @@ export default function CartOrder() {
                       手機
                     </label>
                   </div>
-                  <div className="form-check form-check-inline mb-0">
+                  <div className="form-check form-check-inline mb-0 mt-6 mt-xxl-0">
                     <input
                       className="form-check-input"
                       type="radio"
@@ -282,13 +282,13 @@ export default function CartOrder() {
               <div className="col d-flex justify-content-center mt-6">
                 <Link
                   to="/cart"
-                  className="btn btn-outline-secondary-200 py-3 px-md-5 px-4 fs-md-7 fs-9 me-6"
+                  className="btn btn-outline-secondary-200 py-3 px-md-5 px-4 fs-md-7 fs-10 me-md-6 me-3"
                 >
                   上一步：選擇人數
                 </Link>
                 <Link
                   to="/cartPayment"
-                  className="btn btn-secondary-200 py-3 px-md-5 px-4 fs-md-7 fs-9"
+                  className="btn btn-secondary-200 py-3 px-md-5 px-4 fs-md-7 fs-10"
                 >
                   下一步：前往付款
                 </Link>
@@ -296,7 +296,7 @@ export default function CartOrder() {
             </div>
           </div>
           {/* 訂單明細 */}
-          <div className="col-md-4">
+          <div className="col-md-4 d-none d-md-block">
             <div className="border border-primary-300 bg-primary-50 rounded-3 p-6 shadow-sm">
               <h3 className="title-family fs-5">訂單明細</h3>
               <div className="my-6">
@@ -309,7 +309,7 @@ export default function CartOrder() {
                   <p>2人</p>
                 </div>
               </div>
-              <div className="border border-primary-200 mb-6"></div>
+              <div className="border-top border-primary-200 mb-6"></div>
               <h5 className="fs-7 text-primary-600 text-end">總計 NT 56,000</h5>
             </div>
             <div className="text-neutral-200 fs-11 mt-6">
@@ -348,29 +348,32 @@ export default function CartOrder() {
                 aria-label="Close"
                 style={{ padding: "18px" }}
               ></button>
-              <div className="px-20 pb-20">
-                <div className="modal-header border-0 py-8 px-0">
-                  <h4 className="modal-title fs-6" id="exampleModalLabel">
+              <div className="px-md-20 px-6 pb-20">
+                <div className="modal-header border-0 py-md-8 pt-3 pb-6 px-0">
+                  <h4
+                    className="modal-title fs-md-6 fs-8"
+                    id="exampleModalLabel"
+                  >
                     會員權益說明
                   </h4>
                 </div>
                 <div className="modal-body p-0">
                   <ul className="mb-0 text-neutral-300">
                     <li>
-                      <h5 className="fs-7 mb-2">服務範圍</h5>
-                      <p>
+                      <h5 className="fs-md-7 fs-9 mb-2">服務範圍</h5>
+                      <p className="fs-10 fs-md-9">
                         本網站為旅遊資訊展示及預訂模擬平台，旨在提供模擬體驗，無實際商業交易行為。
                       </p>
                     </li>
                     <li className="my-6">
-                      <h5 className="fs-7 mb-2">會員資格</h5>
-                      <p>
+                      <h5 className="fs-md-7 fs-9 mb-2">會員資格</h5>
+                      <p className="fs-10 fs-md-9">
                         註冊為會員即表示您同意本網站的使用條款與規範。會員資訊僅用於展示和測試，不涉及任何實際用途。
                       </p>
                     </li>
                     <li>
-                      <h5 className="fs-7 mb-2">模擬預定</h5>
-                      <p>
+                      <h5 className="fs-md-7 fs-9 mb-2">模擬預定</h5>
+                      <p className="fs-10 fs-md-9">
                         所有預定資料僅為展示功能，您提交的個人資訊不會被用於真實交易。
                       </p>
                     </li>
@@ -400,17 +403,20 @@ export default function CartOrder() {
                 aria-label="Close"
                 style={{ padding: "18px" }}
               ></button>
-              <div className="px-20 pb-20">
-                <div className="modal-header border-0 py-8 px-0">
-                  <h4 className="modal-title fs-6" id="exampleModalLabel">
+              <div className="px-md-20 px-6 pb-20">
+                <div className="modal-header border-0 py-md-8 pt-3 pb-6 px-0">
+                  <h4
+                    className="modal-title fs-md-6 fs-8"
+                    id="exampleModalLabel"
+                  >
                     隱私權政策
                   </h4>
                 </div>
                 <div className="modal-body p-0">
                   <ol className="mb-0 text-neutral-300">
                     <li>
-                      <h5 className="fs-7 mb-2">資料收集與使用：</h5>
-                      <ul className="ps-4">
+                      <h5 className="fs-md-7 fs-9 mb-2">資料收集與使用：</h5>
+                      <ul className="ps-4 fs-10 fs-md-9">
                         <li type="disc">
                           本網站僅收集用於測試的模擬資料，如姓名、聯絡資訊，所有數據不會用於商業用途。
                         </li>
@@ -420,8 +426,8 @@ export default function CartOrder() {
                       </ul>
                     </li>
                     <li className="my-6">
-                      <h5 className="fs-7 mb-2">資料保護：</h5>
-                      <ul className="ps-4">
+                      <h5 className="fs-md-7 fs-9 mb-2">資料保護：</h5>
+                      <ul className="ps-4 fs-10 fs-md-9">
                         <li type="disc">
                           所有提供的個人資料僅用於本平台模擬測試，並將定期清除以確保隱私安全。
                         </li>
@@ -431,8 +437,8 @@ export default function CartOrder() {
                       </ul>
                     </li>
                     <li>
-                      <h5 className="fs-7 mb-2">同意與更新：</h5>
-                      <ul className="ps-4">
+                      <h5 className="fs-md-7 fs-9 mb-2">同意與更新：</h5>
+                      <ul className="ps-4 fs-10 fs-md-9">
                         <li type="disc">
                           訪問或使用本網站及表示您同意隱私政策。
                         </li>
@@ -446,6 +452,49 @@ export default function CartOrder() {
               </div>
             </div>
           </div>
+        </div>
+        {/* 手機版明細 */}
+        <div className="fixed-bottom d-md-none">
+          <button
+            class="btn btn-primary-50 w-100 rounded-0 border-top border-primary-300 py-0"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#collapseDetails"
+            aria-expanded="false"
+            aria-controls="collapseDetails"
+          >
+            <div className="d-flex justify-content-between align-items-center py-4">
+              <h3 className="title-family">訂單明細</h3>
+              <div className="d-flex justify-content-center align-items-center">
+                <small className="text-neutral-200 fs-12 me-1">展開明細</small>
+                <img src="../public/images/icon/minimize_16px.svg" alt="" />
+              </div>
+            </div>
+            {/* 折疊內容 */}
+            <div class="collapse text-start mb-4" id="collapseDetails">
+              <p className="mb-3">泰國清邁文化美食悠遊4日</p>
+              <div class="d-flex justify-content-between align-items-center text-neutral-300">
+                <div className="d-flex justify-content-center align-items-center">
+                  <img src="../public/images/icon/price.svg" alt="" />
+                  <p>28,000</p>
+                </div>
+                <p>2人</p>
+              </div>
+              <div className="border-top my-4 border-primary-200"></div>
+              <div className="d-flex justify-content-between align-items-center">
+                <div className="d-flex justify-content-center align-items.center">
+                  <img
+                    src="../public/images/icon/alert-circle_16px.svg"
+                    alt="" className="me-1"
+                  />
+                  <p>提醒</p>
+                </div>
+                <h5 className="text-primary-600">
+                  總計<span className="ms-3"></span>NT 56,000
+                </h5>
+              </div>
+            </div>
+          </button>
         </div>
       </div>
     </>

@@ -3,8 +3,75 @@ import { Link } from "react-router-dom";
 export default function CompletePayment() {
   return (
     <>
+      {/* 進度條 */}
+      <div className="container position-relative mt-md-20 mt-22 mb-lg-10 my-6">
+        <div className="row row-cols-4 text-center">
+          <div className="col d-flex justify-content-center align-items-center flex-column py-md-4 py-3">
+            <div
+              className="bg-primary-500 mb-4 rounded-circle"
+              style={{ width: "32px", height: "32px" }}
+            >
+              <img
+                src="../public/images/icon/check.svg"
+                alt=""
+                style={{ verticalAlign: "sub" }}
+              />
+            </div>
+            <p className="text-primary-500 fs-md-9 fs-12">購物車明細</p>
+          </div>
+
+          <div className="col d-flex justify-content-center align-items-center flex-column py-md-4 py-3">
+            <div
+              className="bg-primary-500 mb-4 rounded-circle"
+              style={{ width: "32px", height: "32px" }}
+            >
+              <img
+                src="../public/images/icon/check.svg"
+                alt=""
+                style={{ verticalAlign: "sub" }}
+              />
+            </div>
+            <p className="text-primary-500 fs-md-9 fs-12">填寫資料</p>
+          </div>
+
+          <div className="col d-flex justify-content-center align-items-center flex-column py-md-4 py-3">
+            <div
+              className="bg-primary-500 mb-4 rounded-circle"
+              style={{ width: "32px", height: "32px" }}
+            >
+              <img
+                src="../public/images/icon/check.svg"
+                alt=""
+                style={{ verticalAlign: "sub" }}
+              />
+            </div>
+            <p className="text-primary-500 fs-md-9 fs-12">付款方式</p>
+          </div>
+
+          <div className="col d-flex justify-content-center align-items-center flex-column py-md-4 py-3">
+            <div
+              className="bg-primary-500 mb-4 rounded-circle d-flex justify-content-center align-items-center"
+              style={{ width: "32px", height: "32px" }}
+            >
+              <p className="text-white">4</p>
+            </div>
+            <p className="text-primary-500 fs-md-9 fs-12">訂單完成</p>
+          </div>
+        </div>
+        <div className="position-absolute z-n1 translate-middle start-50 progressWidth">
+          <div className="progress" style={{ height: "2px", width: "100%" }}>
+            <div
+              className="progress-bar bg-primary-500"
+              role="progressbar"
+              aria-valuenow="100"
+              aria-valuemin="0"
+              aria-valuemax="100"
+              style={{ height: "2px", width: "100%" }}
+            ></div>
+          </div>
+        </div>
+      </div>
       {/* 支付成功頁面 */}
-      <div className="mt-50"></div>
       <div className="container position-relative mt-6 mb-8 my-md-20">
         <div className="text-center mb-md-6 mb-5">
           <h3 className="title-family fs-md-5 fs-8">完成付款</h3>
@@ -27,25 +94,7 @@ export default function CompletePayment() {
       </div>
 
       {/* 支付成功頁面-ATM */}
-      <div className="mt-50"></div>
-      <div className="container position-relative mt-6 mb-8 my-md-20">
-        {/* 進度條 */}
-        <div className="row row-cols-4 text-center mb-6 mb-md-10">
-          <div className="col d-flex justify-content-center align-items-center flex-column py-md-4 py-3">
-            <div
-              className="bg-primary-500 mb-4 rounded-circle"
-              style={{ width: "32px", height: "32px" }}
-            >
-              <img
-                src="../public/images/icon/check.svg"
-                alt=""
-                style={{ verticalAlign: "sub" }}
-              />
-            </div>
-            <p className="text-primary-500 fs-md-9 fs-11">購物車明細</p>
-          </div>
-        </div>
-
+      {/* <div className="container position-relative mt-6 mb-8 my-md-20">
         <div className="text-center mb-md-6 mb-5">
           <h3 className="title-family fs-md-5 fs-8">訂單完成</h3>
         </div>
@@ -65,19 +114,16 @@ export default function CompletePayment() {
         <div className="row justify-content-center mt-md-18 mt-7">
           <div className="col-lg-3">
             <div className="d-flex justify-content-center">
-              <button
-                type="button"
-                className="btn btn-outline-secondary-200 me-6 w-100"
-              >
+              <Link to="/" className="btn btn-outline-secondary-200 me-6 w-100">
                 回到首頁
-              </button>
-              <button type="button" className="btn btn-secondary-200 w-100">
+              </Link>
+              <Link to="/" className="btn btn-secondary-200 w-100">
                 前往訂單
-              </button>
+              </Link>
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
     </>
   );
 }

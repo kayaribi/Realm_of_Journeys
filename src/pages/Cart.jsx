@@ -4,7 +4,7 @@ export default function Cart() {
   return (
     <>
       {/* 進度條 */}
-      <div className="container position-relative mt-md-20 mb-lg-10 my-6">
+      <div className="container position-relative mt-md-20 mt-22 mb-lg-10 my-6">
         <div className="row row-cols-4 text-center">
           <div className="col d-flex justify-content-center align-items-center flex-column py-md-4 py-3">
             <div
@@ -63,7 +63,7 @@ export default function Cart() {
       <div className="container mb-lg-20 mb-6">
         {/* 標題 */}
         <h3 className="title-family fs-md-5 fs-8">購物車</h3>
-        <div className="border border-primary-200 my-md-5 my-2"></div>
+        <div className="border-top border-primary-200 my-md-5 my-2"></div>
         <div className="row justify-content-center align-items-center my-md-7">
           <div className="col-md-11">
             <div className="d-lg-flex justify-content-center align-items-center text-lg-start text-center">
@@ -72,7 +72,7 @@ export default function Cart() {
                 alt=""
                 className="me-lg-6 my-3 my-lg-0 cartImg"
               />
-              <p className="w-100 my-5 mt-lg-0">
+              <p className="w-100 my-5 my-lg-0 fw-bold">
                 泰國清邁
                 <br />
                 文化美食悠遊4日
@@ -112,7 +112,7 @@ export default function Cart() {
             </div>
           </div>
         </div>
-        <div className="border border-primary-200 mb-md-8 my-7"></div>
+        <div className="border-top border-primary-200 mb-md-8 my-7"></div>
         <div className="d-lg-flex justify-content-between align-items-center">
           <div className="d-flex align-items-center justify-content-lg-center">
             <div className="form-check me-9">
@@ -164,7 +164,7 @@ export default function Cart() {
       {/* 購物車品項頁-空 */}
       {/* <div className="container mb-20">
         <h3 className="title-family fs-md-5 fs-8">購物車</h3>
-        <div className="border border-primary-200 my-md-5 my-2"></div>
+        <div className="border-top border-primary-200 my-md-5 my-2"></div>
         <div className="text-center mt-md-14 mt-18">
           <img
             src="../public/images/icon/cart.svg"
