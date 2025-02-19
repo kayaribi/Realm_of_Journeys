@@ -68,7 +68,7 @@ export default function Cart() {
           <div className="col-md-11">
             <div className="d-lg-flex justify-content-center align-items-center text-lg-start text-center">
               <img
-                src="../public/images/banner_img_01.jpg"
+                src="images/banner_img_01.jpg"
                 alt=""
                 className="me-lg-6 my-3 my-lg-0 cartImg"
               />
