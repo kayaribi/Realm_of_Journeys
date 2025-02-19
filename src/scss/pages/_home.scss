@@ -220,19 +220,31 @@
   }
 }
 // ↓ Hailey
-.buttonShadow {
-  transition: transform 0.3s, box-shadow 0.3s;
-}
 
 .buttonShadow:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 0 10px rgba(23, 70, 117, 1);
-}
-
-.buttonShadowDesktop {
-  transition: box-shadow 0.3s;
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 50%;
+    z-index: -1;
+  }
 }
 
 .buttonShadowDesktop:hover {
-  box-shadow: 0 -5px 10px rgba(23, 70, 117, 1);
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 320px 320px 0 0;
+    z-index: -1;
+  }
 }

@@ -1,6 +1,6 @@
 import { Route, Routes, useLocation } from 'react-router-dom';
 // 匯入頁面(pages>index.jsx做匯入喔)
-import {Home,About,Cart,Account,TravelGuide,TravelSpots,TravelSpotsItem,TravelGuideItem} from './pages';
+import {Home,About,Cart,CartOrder,CartPayment,Account,TravelGuide,TravelSpots,TravelSpotsItem,TravelGuideItem, CompletePayment} from './pages';
 // 匯入元件(去components>index.jsx做匯入喔)
 import { BackTopBtn, Footer, Navbar } from './components';
 
@@ -28,6 +28,9 @@ function App() {
             <Route path='/travelGuide' element={<TravelGuide/>} />                {/* 攻略指南 */}
             <Route path="/travelGuide/:id" element={<TravelGuideItem />} />   
             <Route path='/cart' element={<Cart/>}></Route>                 {/* 購物車 */}
+            <Route path='/cartOrder' element={<CartOrder/>}></Route>                 {/* 購物車訂單 */}
+            <Route path='/cartPayment' element={<CartPayment/>}></Route>                 {/* 購物車支付頁 */}
+            <Route path='/completePayment' element={<CompletePayment/>}></Route>                 {/* 完成付款 */}
             <Route path='/account' element={<Account/>}></Route>           {/* 登入註冊 */}
           </Routes>
         </div>
