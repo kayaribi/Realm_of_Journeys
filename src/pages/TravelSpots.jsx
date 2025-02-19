@@ -56,6 +56,7 @@ export default function TravelSpots() {
   // const height = listRef.current.offsetHeight + listRef.current.offsetTop - 715;
 
   const listRef = useRef(null);
+  const [isSignIn, setIsSignIn] = useState(false);
 
   // useEffect(() => {
   //   isGoToTopRef.current = isGoToTop;
@@ -195,8 +196,32 @@ export default function TravelSpots() {
 
   // (Api沒提供，所以自己撰寫) 根據篩選出來的資料設定總頁數
   useEffect(() => {
+    // console.log("filteredProductData", filteredProductData);
     setCusTotalPages(Math.ceil(filteredProductData.length / itemsPerPage));
   }, [filteredProductData]);
+
+  // 處理篩選資料後的卷軸渲染效果
+  // useEffect(() => {
+  //   console.log("initialWindowWidthRef.current", initialWindowWidthRef.current);
+
+  //   if (initialWindowWidthRef.current) {
+  //     console.log("執行卷軸功能");
+
+  //     // const height =
+  //     //   listRef.current.offsetHeight + listRef.current.offsetTop - 715;
+
+  //     // // 需要滾動到下方，且沒有在讀取中以及瀏覽器視窗寬度小於等於575時
+
+  //     // if (
+  //     //   !isScrollLoadingRef.current &&
+  //     //   window.scrollY > height &&
+  //     //   scrollCurrentPage.current < pagination.total_pages
+  //     // ) {
+  //     //   scrollCurrentPage.current++;
+  //     //   getScrollProduct(scrollCurrentPage.current);
+  //     // }
+  //   }
+  // }, [cusTotalPages]);
 
   // 處理分頁 ... 的畫面顯示及功能
   const handleDotStylePagination = (currentPage) => {
@@ -214,6 +239,7 @@ export default function TravelSpots() {
   // 登入功能
   const signIn = async () => {
     try {
+      console.log("進入登入function內部");
       const res = await axios.post(`${BASE_URL}/v2/admin/signin`, {
         username: "RealmOfJourneys@gmail.com",
         password: "RealmOfJourneys",
@@ -226,20 +252,8 @@ export default function TravelSpots() {
       // setToken(token);
 
       copyInitialAllProducts();
+      setIsSignIn(true);
       // console.log(initialWindowWidth.current);
-
-      if (initialWindowWidthRef.current) {
-        console.log("我小於575px 所以執行getScrollProduct");
-        getScrollProduct();
-        setInitialWindowWidth(true);
-      } else {
-        console.log("我大於575px 所以執行正常getProduct");
-        getProduct();
-      }
-
-      // if (!isGoToTopRef.current) {
-      //   getProduct();
-      // }
     } catch (error) {
       console.log(error);
     }
@@ -411,39 +425,90 @@ export default function TravelSpots() {
   // };
 
   // 卷軸渲染效果
+  // useEffect(() => {
+  //   // console.log(height);
+
+  //   const handleScroll = () => {
+  //     // console.log(initialWindowWidthRef);
+
+  //     if (initialWindowWidthRef.current) {
+  //       console.log("執行卷軸功能");
+
+  //       const height =
+  //         listRef.current.offsetHeight + listRef.current.offsetTop - 715;
+
+  //       // 需要滾動到下方，且沒有在讀取中以及瀏覽器視窗寬度小於等於575時
+
+  //       if (
+  //         !isScrollLoadingRef.current &&
+  //         window.scrollY > height &&
+  //         scrollCurrentPage.current < pagination.total_pages
+  //       ) {
+  //         scrollCurrentPage.current++;
+  //         getScrollProduct(scrollCurrentPage.current);
+  //       }
+  //     }
+  //   };
+
+  //   // 綁定 scroll 事件
+  //   window.addEventListener("scroll", handleScroll);
+
+  //   // 清理副作用，移除 scroll 事件
+  //   return () => {
+  //     window.removeEventListener("scroll", handleScroll);
+  //   };
+  // }, [pagination]);
+
   useEffect(() => {
-    // console.log(height);
+    // console.log("windowWidth", windowWidth, typeof windowWidth);
 
-    const handleScroll = () => {
-      // console.log(initialWindowWidthRef);
+    // const handleScroll = () => {
+    //   // console.log(initialWindowWidthRef);
 
+    //   console.log("執行卷軸功能");
+
+    //   const height =
+    //     listRef.current.offsetHeight + listRef.current.offsetTop - 715;
+
+    //   // 需要滾動到下方，且沒有在讀取中以及瀏覽器視窗寬度小於等於575時
+    //   if (
+    //     !isScrollLoadingRef.current &&
+    //     window.scrollY > height &&
+    //     scrollCurrentPage.current < pagination.total_pages
+    //   ) {
+    //     scrollCurrentPage.current++;
+    //     getScrollProduct(scrollCurrentPage.current);
+    //   }
+    // };
+
+    if (isSignIn) {
       if (initialWindowWidthRef.current) {
-        console.log("執行卷軸功能");
-
-        const height =
-          listRef.current.offsetHeight + listRef.current.offsetTop - 715;
-
-        // 需要滾動到下方，且沒有在讀取中以及瀏覽器視窗寬度小於等於575時
-
-        if (
-          !isScrollLoadingRef.current &&
-          window.scrollY > height &&
-          scrollCurrentPage.current < pagination.total_pages
-        ) {
-          scrollCurrentPage.current++;
-          getScrollProduct(scrollCurrentPage.current);
-        }
+        console.log("我小於575px 所以執行getScrollProduct");
+        getScrollProduct();
+        setInitialWindowWidth(true);
+      } else {
+        console.log("我大於575px 所以執行正常getProduct");
+        getProduct();
       }
-    };
+    }
 
-    // 綁定 scroll 事件
-    window.addEventListener("scroll", handleScroll);
+    // if (!windowWidth) {
+    //   console.log("我視窗變成575以上了");
+    //   scrollCurrentPage.current = 1;
+    //   window.removeEventListener("scroll", handleScroll);
+    //   getProduct();
+    //   return;
+    // }
 
-    // 清理副作用，移除 scroll 事件
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, [pagination]);
+    // console.log("我視窗變成575以下了");
+    // window.addEventListener("scroll", handleScroll);
+    // setProductList([]);
+    // getScrollProduct();
+
+    // return () => {
+    //   window.removeEventListener("scroll", handleScroll);
+    // };
+  }, [isSignIn]);
 
   useEffect(() => {
     console.log("windowWidth", windowWidth, typeof windowWidth);
@@ -467,18 +532,20 @@ export default function TravelSpots() {
       }
     };
 
-    if (!windowWidth) {
-      console.log("我視窗變成575以上了");
-      scrollCurrentPage.current = 1;
-      window.removeEventListener("scroll", handleScroll);
-      getProduct();
-      return;
-    }
+    if (isSignIn) {
+      if (!windowWidth) {
+        console.log("我視窗變成575以上了");
+        scrollCurrentPage.current = 1;
+        window.removeEventListener("scroll", handleScroll);
+        getProduct();
+        return;
+      }
 
-    console.log("我視窗變成575以下了");
-    window.addEventListener("scroll", handleScroll);
-    setProductList([]);
-    getScrollProduct();
+      console.log("我視窗變成575以下了");
+      window.addEventListener("scroll", handleScroll);
+      setProductList([]);
+      getScrollProduct();
+    }
 
     return () => {
       window.removeEventListener("scroll", handleScroll);
