@@ -40,33 +40,19 @@ export default function TravelSpots() {
     cusCurrentPage * itemsPerPage
   );
 
-  // 判斷瀏覽器寬度
+  // 卷軸渲染畫面功能
   const initialWindowWidthRef = useRef(window.innerWidth <= 575);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth <= 575);
   const scrollCurrentPage = useRef(1);
   const isScrollLoadingRef = useRef(false);
-  const isInitialSwitchRef = useRef(false);
+  const initialSwitchRef = useRef(false);
   const listRef = useRef(null);
   const [isSignIn, setIsSignIn] = useState(false);
-  const [hasPagination, setHasPagination] = useState(false);
-  const [test, setTest] = useState(false);
-  const testSwitchRef = useRef(false);
-
-  // 測試 GPT
-  const [gptWindowWidth, setGptWindowWidth] = useState(
-    window.innerWidth <= 575
-  );
-  const isScrollRegisteredRef = useRef(false);
-  const gptTotalPageRef = useRef(null);
-  const gptInitialRef = useRef(window.innerWidth <= 575);
-  const gptInitialSwitchRef = useRef(false);
-  const [gptForTest, setGptForTest] = useState(false);
-  const gptForTestRef = useRef(false);
-  // console.log(gptTotalPageRef.current);
+  const paginationTotalPageRef = useRef(null);
 
   useEffect(() => {
     if (pagination.total_pages) {
-      gptTotalPageRef.current = pagination.total_pages;
+      paginationTotalPageRef.current = pagination.total_pages;
     }
   }, [pagination]);
 
@@ -80,7 +66,7 @@ export default function TravelSpots() {
     if (
       !isScrollLoadingRef.current &&
       window.scrollY > height &&
-      scrollCurrentPage.current < gptTotalPageRef.current
+      scrollCurrentPage.current < paginationTotalPageRef.current
     ) {
       // scrollCurrentPage.current = 0;
       scrollCurrentPage.current++;
@@ -90,40 +76,20 @@ export default function TravelSpots() {
   };
 
   useEffect(() => {
-    // console.log(gptWindowWidth);
-
-    // if (!gptInitialSwitchRef.current) {
-    //   gptInitialSwitchRef.current = true;
-    //   if (gptInitialRef.current) {
-    //     console.log("gpt 初始畫面小於575px，註冊了監聽事件");
-    //     // window.addEventListener("scroll", handleScroll);
-    //   } else {
-    //     console.log("gpt 初始畫面大於575px");
-    //   }
-    // } else {
-    //   return;
-    // }
-    // window.addEventListener("scroll", handleScroll);
-
     // 登入之後 會執行這一段
-
     // 假設初始為 小於 575px
 
-    if (gptForTestRef.current) {
-      if (gptWindowWidth) {
+    if (initialSwitchRef.current) {
+      if (windowWidth) {
         // 小於 575px
         console.log("gpt 視窗寬度畫面變更小於575px，註冊了監聽事件");
         scrollCurrentPage.current = 1;
         setProductList([]);
         getScrollProduct();
         window.addEventListener("scroll", handleScroll);
-        // setProductList([]);
-        // scrollCurrentPage.current = 1;
-        // setProductList([]);
       } else {
         // 大於 575px
         console.log("gpt 視窗寬度畫面變更大於575px，移除了監聽事件");
-        // scrollCurrentPage.current = 1;
         window.removeEventListener("scroll", handleScroll);
         handleCusPageChange(1);
         setProductList([]);
@@ -132,12 +98,12 @@ export default function TravelSpots() {
     } else {
       // 初始加載 會執行這一段
       console.log(
-        "初始預設會跑這一段此時的gptForTestRef.current為false",
-        gptForTestRef.current
+        "初始預設會跑這一段，此時的initialSwitchRef.current為false",
+        initialSwitchRef.current
       );
 
       // 如果初始寬度小於 575 px  就註冊監聽事件
-      if (gptInitialRef.current) {
+      if (initialWindowWidthRef.current) {
         console.log("因為初始預設寬度小於 575 px 所以執行監聽註冊");
         window.addEventListener("scroll", handleScroll);
       } else {
@@ -148,63 +114,7 @@ export default function TravelSpots() {
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, [gptWindowWidth]);
-
-  // 測試 GPT 作法
-  // const handleScroll = () => {
-  //   console.log("執行卷軸功能");
-
-  //   const height =
-  //     listRef.current.offsetHeight + listRef.current.offsetTop - 715;
-
-  //   // 需要滾動到下方，且沒有在讀取中以及瀏覽器視窗寬度小於等於575時
-  //   if (
-  //     !isScrollLoadingRef.current &&
-  //     window.scrollY > height &&
-  //     scrollCurrentPage.current < pagination.total_pages
-  //   ) {
-  //     scrollCurrentPage.current++;
-  //     getScrollProduct(scrollCurrentPage.current);
-  //   }
-  // };
-  // const handleScroll = useCallback(() => {
-  //   console.log("執行卷軸功能，我是寬度變化跟初始都會有的");
-
-  //   if (!listRef.current) return;
-
-  //   const height =
-  //     listRef.current.offsetHeight + listRef.current.offsetTop - 715;
-
-  //   // 需要滾動到底部，且不在讀取中且視窗寬度小於等於575px
-
-  //   if (pagination.total_pages) {
-  //     console.log(
-  //       "listRef.current.offsetHeight",
-  //       listRef.current.offsetHeight,
-  //       "listRef.current.offsetTop",
-  //       listRef.current.offsetTop,
-  //       "height",
-  //       height,
-  //       "isScrollLoadingRef.current",
-  //       isScrollLoadingRef.current,
-  //       "window.scrollY",
-  //       window.scrollY,
-  //       "scrollCurrentPage.current",
-  //       scrollCurrentPage.current,
-  //       "pagination.total_pages",
-  //       pagination.total_pages
-  //     );
-
-  //     if (
-  //       !isScrollLoadingRef.current &&
-  //       window.scrollY > height &&
-  //       scrollCurrentPage.current < pagination.total_pages
-  //     ) {
-  //       scrollCurrentPage.current++;
-  //       getScrollProduct(scrollCurrentPage.current);
-  //     }
-  //   }
-  // }, [hasPagination]);
+  }, [windowWidth]);
 
   // (Api沒提供，所以自己撰寫) 若總頁數為 1 時，上一頁、下一頁皆不能點選
   useEffect(() => {
@@ -334,12 +244,9 @@ export default function TravelSpots() {
       const { token, expired } = res.data;
       // document.cookie = `hexToken=${token}; expires=${new Date(expired)}`;
       axios.defaults.headers.common["Authorization"] = token;
-
       // setToken(token);
-
       copyInitialAllProducts();
       setIsSignIn(true);
-      // console.log(initialWindowWidth.current);
     } catch (error) {
       console.log(error);
     }
@@ -364,7 +271,6 @@ export default function TravelSpots() {
       setPagination(pagination);
       handleDotStylePagination(page);
       setProductList(products);
-      // setIsSignIn(true);
     } catch (error) {
       console.log("資料抓取失敗");
       console.log(error);
@@ -387,7 +293,6 @@ export default function TravelSpots() {
         console.log("更新卷軸渲染資料");
         return [...preProductsList, ...products];
       });
-      // setIsSignIn(true);
 
       setTimeout(() => {
         isScrollLoadingRef.current = false;
@@ -402,8 +307,7 @@ export default function TravelSpots() {
   useEffect(() => {
     // 處理視窗尺寸變化
     const handleResize = () => {
-      // setWindowWidth(window.innerWidth <= 575);
-      setGptWindowWidth(window.innerWidth <= 575);
+      setWindowWidth(window.innerWidth <= 575);
     };
 
     // 使用防抖來限制 resize 事件的處理頻率
@@ -448,7 +352,6 @@ export default function TravelSpots() {
 
   useEffect(() => {
     if (isSignIn) {
-      // setGptForTest(true);
       if (initialWindowWidthRef.current) {
         console.log("我小於575px 所以執行getScrollProduct");
         window.scrollTo({ top: 0, behavior: "smooth" });
@@ -458,226 +361,9 @@ export default function TravelSpots() {
         window.scrollTo({ top: 0, behavior: "smooth" });
         getProduct();
       }
-      gptForTestRef.current = true;
+      initialSwitchRef.current = true;
     }
   }, [isSignIn]);
-
-  // useEffect(() => {
-  //   if (isInitialSwitchRef.current) {
-  //     console.log("執行過第一次了，所以不再執行");
-  //     // window.removeEventListener("scroll", handleScroll);
-  //     return;
-  //   }
-
-  //   const handleScroll = () => {
-  //     console.log("執行卷軸功能，我是初始畫面時加載的");
-
-  //     const height =
-  //       listRef.current.offsetHeight + listRef.current.offsetTop - 715;
-
-  //     // 需要滾動到下方，且沒有在讀取中以及瀏覽器視窗寬度小於等於575時
-  //     if (
-  //       !isScrollLoadingRef.current &&
-  //       window.scrollY > height &&
-  //       scrollCurrentPage.current < pagination.total_pages
-  //     ) {
-  //       scrollCurrentPage.current++;
-  //       getScrollProduct(scrollCurrentPage.current);
-  //     }
-  //   };
-
-  //   // if (pagination.total_pages) {
-  //   //   console.log(
-  //   //     "變更了pagination狀態，執行第一次，initialWindowWidthRef.current為",
-  //   //     initialWindowWidthRef.current
-  //   //   );
-
-  //   //   // 先移除 照著 gpt 作法
-  //   //   // const handleScroll = () => {
-  //   //   //   console.log("執行卷軸功能，我是初始畫面時加載的");
-
-  //   //   //   const height =
-  //   //   //     listRef.current.offsetHeight + listRef.current.offsetTop - 715;
-
-  //   //   //   // 需要滾動到下方，且沒有在讀取中以及瀏覽器視窗寬度小於等於575時
-  //   //   //   if (
-  //   //   //     !isScrollLoadingRef.current &&
-  //   //   //     window.scrollY > height &&
-  //   //   //     scrollCurrentPage.current < pagination.total_pages
-  //   //   //   ) {
-  //   //   //     scrollCurrentPage.current++;
-  //   //   //     getScrollProduct(scrollCurrentPage.current);
-  //   //   //   }
-  //   //   // };
-
-  //   //   if (initialWindowWidthRef.current) {
-  //   //     console.log("初始加載畫面寬度 <= 575 px，註冊 scroll 事件");
-  //   //     setHasPagination(true);
-  //   //     window.addEventListener("scroll", handleScroll);
-  //   //   } else {
-  //   //     console.log("初始加載畫面寬度 > 575 px，直接 return 跳出 useEffect");
-  //   //   }
-
-  //   //   isInitialSwitchRef.current = true;
-  //   // }
-
-  //   // 測試看看
-  //   // if (!test) {
-  //   //   console.log("pagination.total_pages還沒有值，先跳出 function");
-  //   //   return;
-  //   // }
-
-  //   // // if (!initialWindowWidthRef.current) {
-  //   // //   return;
-  //   // // }
-
-  //   // console.log("test有值了，且我在575px以下，所以我被執行到");
-
-  //   // window.addEventListener("scroll", handleScroll);
-
-  //   if (test) {
-  //     if (testSwitchRef.current) {
-  //       console.log(
-  //         "test",
-  //         test,
-  //         "pagination.total_pages",
-  //         pagination.total_pages
-  //       );
-  //       console.log("初始加載的事件監聽註冊");
-  //       window.addEventListener("scroll", handleScroll);
-  //     } else {
-  //       window.removeEventListener("scroll", handleScroll);
-  //       return;
-  //     }
-  //   }
-
-  //   return () => {
-  //     window.removeEventListener("scroll", handleScroll);
-  //     console.log("初始加載的事件監聽移除");
-  //   };
-  // }, [test]);
-
-  // useEffect(() => {
-  //   if (pagination.total_pages) {
-  //     if (initialWindowWidthRef.current) {
-  //       // 小於575px 註冊監聽事件
-  //       testSwitchRef.current = true;
-  //       setTest(true);
-  //       // initialWindowWidthRef.current = false;
-  //     } else {
-  //       testSwitchRef.current = false;
-  //       setTest(false);
-  //     }
-  //   }
-  // }, [pagination]);
-
-  // useEffect(() => {
-  //   // console.log("windowWidth", windowWidth, typeof windowWidth);
-  //   // console.log(initialWindowWidthRef.current);
-
-  //   // 先移除 照著 GPT 作法
-  //   // const handleScroll = () => {
-  //   //   console.log("執行卷軸功能，我是寬度變化後加載的");
-
-  //   //   const height =
-  //   //     listRef.current.offsetHeight + listRef.current.offsetTop - 715;
-
-  //   //   // 需要滾動到下方，且沒有在讀取中以及瀏覽器視窗寬度小於等於575時
-  //   //   if (
-  //   //     !isScrollLoadingRef.current &&
-  //   //     window.scrollY > height &&
-  //   //     scrollCurrentPage.current < pagination.total_pages
-  //   //   ) {
-  //   //     scrollCurrentPage.current++;
-  //   //     getScrollProduct(scrollCurrentPage.current);
-  //   //   }
-  //   // };
-
-  //   if (isSignIn) {
-  //     // isInitialSwitchRef.current = true;
-
-  //     // if (initialWindowWidthRef.current) {
-  //     //   // 初始加載畫面小於575px
-  //     // } else {
-  //     //   // 初始加載畫面大於575px
-  //     //   setTest(true);
-  //     // }
-
-  //     if (!windowWidth) {
-  //       console.log("我視窗變成575以上了，移除 scroll 監聽事件");
-  //       // window.removeEventListener("scroll", handleScroll);
-
-  //       scrollCurrentPage.current = 1;
-  //       window.scrollTo({ top: 0, behavior: "smooth" });
-  //       setProductList([]);
-  //       getProduct();
-  //       handleCusPageChange(1);
-  //     } else {
-  //       console.log("我視窗變成575以下了，註冊 scroll 監聽事件");
-  //       window.scrollTo({ top: 0, behavior: "smooth" });
-  //       // window.addEventListener("scroll", handleScroll);
-  //       setProductList([]);
-  //       getScrollProduct();
-  //     }
-  //   }
-
-  //   // return () => {
-  //   //   window.removeEventListener("scroll", handleScroll);
-  //   // };
-  // }, [windowWidth]);
-
-  // 合併測試
-
-  // useEffect(() => {
-  //   console.log("windowWidth", windowWidth, typeof windowWidth);
-  //   console.log(
-  //     "initialWindowWidthRef.current:",
-  //     initialWindowWidthRef.current
-  //   );
-
-  //   // 🔹 如果 `pagination.total_pages` 存在，且還沒執行過，則執行初始化邏輯
-  //   if (pagination.total_pages && !isInitialSwitchRef.current) {
-  //     console.log(
-  //       "變更了 pagination 狀態，執行第一次，initialWindowWidthRef.current 為",
-  //       initialWindowWidthRef.current
-  //     );
-
-  //     if (initialWindowWidthRef.current) {
-  //       console.log("初始加載畫面寬度 <= 575 px，註冊 scroll 事件");
-  //       window.addEventListener("scroll", handleScroll);
-  //     } else {
-  //       console.log("初始加載畫面寬度 > 575 px，直接 return 跳出 useEffect");
-  //     }
-
-  //     isInitialSwitchRef.current = true;
-  //   }
-
-  //   // 🔹 當 `windowWidth` 變化時，根據新寬度決定是否移除或添加 `scroll` 事件
-  //   if (isSignIn) {
-  //     window.removeEventListener("scroll", handleScroll); // 先確保移除監聽，避免重複綁定
-
-  //     if (windowWidth > 575) {
-  //       console.log("視窗變成 > 575 px，移除 scroll 監聽事件");
-  //       scrollCurrentPage.current = 1;
-
-  //       window.scrollTo({ top: 0, behavior: "smooth" });
-  //       setProductList([]);
-  //       getProduct();
-  //       handleCusPageChange(1);
-  //     } else {
-  //       console.log("視窗變成 ≤ 575 px，註冊 scroll 監聽事件");
-  //       window.scrollTo({ top: 0, behavior: "smooth" });
-  //       window.addEventListener("scroll", handleScroll);
-  //       setProductList([]);
-  //       getScrollProduct();
-  //     }
-  //   }
-
-  //   // 🔹 清理函式：當 `pagination` 或 `windowWidth` 變化時，確保移除 `scroll` 監聽事件
-  //   return () => {
-  //     window.removeEventListener("scroll", handleScroll);
-  //   };
-  // }, [pagination, windowWidth]); // 監聽 `pagination` 和 `windowWidth`
 
   return (
     <>
