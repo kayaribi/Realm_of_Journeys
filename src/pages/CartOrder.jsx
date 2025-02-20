@@ -1,6 +1,9 @@
+import { useContext } from "react";
 import { Link } from "react-router-dom";
+import { CartContext } from "../store/store";
 
 export default function CartOrder() {
+  const [state, dispatch] = useContext(CartContext)
   return (
     <>
       {/* 進度條 */}
@@ -8,13 +11,12 @@ export default function CartOrder() {
         <div className="row row-cols-4 text-center">
           <div className="col d-flex justify-content-center align-items-center flex-column py-md-4 py-3">
             <div
-              className="bg-primary-500 mb-4 rounded-circle"
+              className="bg-primary-500 mb-4 rounded-circle d-flex justify-content-center align-items-center"
               style={{ width: "32px", height: "32px" }}
             >
               <img
                 src="images/icon/check.svg"
                 alt=""
-                style={{ verticalAlign: "sub" }}
               />
             </div>
             <p className="text-primary-500 fs-md-9 fs-12">購物車明細</p>
@@ -456,7 +458,7 @@ export default function CartOrder() {
         {/* 手機版明細 */}
         <div className="fixed-bottom d-md-none">
           <button
-            class="btn btn-primary-50 w-100 rounded-0 border-top border-primary-300 py-0"
+            className="btn btn-primary-50 w-100 rounded-0 border-top border-primary-300 py-0"
             type="button"
             data-bs-toggle="collapse"
             data-bs-target="#collapseDetails"
@@ -471,9 +473,9 @@ export default function CartOrder() {
               </div>
             </div>
             {/* 折疊內容 */}
-            <div class="collapse text-start mb-4" id="collapseDetails">
+            <div className="collapse text-start mb-4" id="collapseDetails">
               <p className="mb-3">泰國清邁文化美食悠遊4日</p>
-              <div class="d-flex justify-content-between align-items-center text-neutral-300">
+              <div className="d-flex justify-content-between align-items-center text-neutral-300">
                 <div className="d-flex justify-content-center align-items-center">
                   <img src="images/icon/price.svg" alt="" />
                   <p>28,000</p>

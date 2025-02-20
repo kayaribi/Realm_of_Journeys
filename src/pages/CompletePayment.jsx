@@ -8,13 +8,12 @@ export default function CompletePayment() {
         <div className="row row-cols-4 text-center">
           <div className="col d-flex justify-content-center align-items-center flex-column py-md-4 py-3">
             <div
-              className="bg-primary-500 mb-4 rounded-circle"
+              className="bg-primary-500 mb-4 rounded-circle d-flex justify-content-center align-items-center"
               style={{ width: "32px", height: "32px" }}
             >
               <img
                 src="images/icon/check.svg"
                 alt=""
-                style={{ verticalAlign: "sub" }}
               />
             </div>
             <p className="text-primary-500 fs-md-9 fs-12">購物車明細</p>
@@ -22,13 +21,12 @@ export default function CompletePayment() {
 
           <div className="col d-flex justify-content-center align-items-center flex-column py-md-4 py-3">
             <div
-              className="bg-primary-500 mb-4 rounded-circle"
+              className="bg-primary-500 mb-4 rounded-circle d-flex justify-content-center align-items-center"
               style={{ width: "32px", height: "32px" }}
             >
               <img
                 src="images/icon/check.svg"
                 alt=""
-                style={{ verticalAlign: "sub" }}
               />
             </div>
             <p className="text-primary-500 fs-md-9 fs-12">填寫資料</p>
@@ -36,13 +34,12 @@ export default function CompletePayment() {
 
           <div className="col d-flex justify-content-center align-items-center flex-column py-md-4 py-3">
             <div
-              className="bg-primary-500 mb-4 rounded-circle"
+              className="bg-primary-500 mb-4 rounded-circle d-flex justify-content-center align-items-center"
               style={{ width: "32px", height: "32px" }}
             >
               <img
                 src="images/icon/check.svg"
                 alt=""
-                style={{ verticalAlign: "sub" }}
               />
             </div>
             <p className="text-primary-500 fs-md-9 fs-12">付款方式</p>
