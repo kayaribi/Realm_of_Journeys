@@ -28,8 +28,19 @@ function App() {
   const isNotBackTopPage = !(
     location.pathname === "/cart" ||
     location.pathname === "/account" ||
-    location.pathname.startsWith("/travelGuide/")
+    location.pathname === '/cartOrder' ||
+    location.pathname === '/cartPayment' ||
+    location.pathname === '/completePayment' ||
+    location.pathname.startsWith('/travelGuide/')
   );
+
+  // 排除購物車頁面navbar
+  const isCartPages = [
+    '/cart',
+    '/cartOrder',
+    '/cartPayment',
+    '/completePayment'
+  ].includes(location.pathname);
 
   const cartReducer = useReducer((state, action) => {
     const cartList = [...state.cartList]
@@ -51,33 +62,24 @@ function App() {
   
   return (
     <CartContext.Provider value={cartReducer}>
-      <Navbar />
+       <Navbar isCartPages={isCartPages}/>
       <div className="navbar-top">
-        <Routes>
-          <Route path="/" element={<Home />}></Route> {/* 首頁 */}
-          <Route path="/about" element={<About />}></Route> {/* 關於我們 */}
-          <Route path="/travelSpots" element={<TravelSpots />} />{" "}
-          {/* 旅遊景點-商品列表 */}
-          <Route path="/travelSpots/:id" element={<TravelSpotsItem />} />{" "}
-          {/* ---各別單一商品-呈現 */}
-          <Route path="/travelGuide" element={<TravelGuide />} />{" "}
-          {/* 攻略指南 */}
-          <Route path="/travelGuide/:id" element={<TravelGuideItem />} />
-          <Route path="/cart" element={<Cart />}></Route> {/* 購物車 */}
-          <Route path="/cartOrder" element={<CartOrder />}></Route>{" "}
-          {/* 購物車訂單 */}
-          <Route path="/cartPayment" element={<CartPayment />}></Route>{" "}
-          {/* 購物車支付頁 */}
-          <Route
-            path="/completePayment"
-            element={<CompletePayment />}
-          ></Route>{" "}
-          {/* 完成付款 */}
-          <Route path="/account" element={<Account />}></Route> {/* 登入註冊 */}
-        </Routes>
-      </div>
-      {isNotBackTopPage && <BackTopBtn />}
-      <Footer />
+          <Routes>
+            <Route path='/' element={<Home />}></Route>                    {/* 首頁 */}
+            <Route path='/about' element={<About/>}></Route>               {/* 關於我們 */}
+            <Route path='/travelSpots' element={<TravelSpots />}/>     {/* 旅遊景點-商品列表 */}
+            <Route path="/travelSpots/:id" element={<TravelSpotsItem />} />         {/* ---各別單一商品-呈現 */}
+            <Route path='/travelGuide' element={<TravelGuide/>} />                {/* 攻略指南 */}
+            <Route path="/travelGuide/:id" element={<TravelGuideItem />} />   
+            <Route path='/cart' element={<Cart/>}></Route>                 {/* 購物車 */}
+            <Route path='/cartOrder' element={<CartOrder/>}></Route>                 {/* 購物車訂單 */}
+            <Route path='/cartPayment' element={<CartPayment/>}></Route>                 {/* 購物車支付頁 */}
+            <Route path='/completePayment' element={<CompletePayment/>}></Route>                 {/* 完成付款 */}
+            <Route path='/account' element={<Account/>}></Route>           {/* 登入註冊 */}
+          </Routes>
+        </div>
+        {isNotBackTopPage && <BackTopBtn />}
+      <Footer/>
     </CartContext.Provider>
   );
 }

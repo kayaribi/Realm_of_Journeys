@@ -6,8 +6,7 @@
         }
     }
     .header-bg {
-        background: url("https://s3-alpha-sig.figma.com/img/42b6/889b/75aeae951a56137c68bbdc7d0fb41f83?Expires=1739750400&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=A24cFv3gJp2VRmQnc5H8eB6-ybItukStcJDnqJ411CHwVZoTWdT8~M3xG-KGBxfGCXBGRHzItyuJgDlfpB8oxHY15Pph8vYBopdyHdm5-y0ubZuQvGaCp-bnO2LfQ4vK~OBHx-gvbBMTgK5skGMmD0TYfZekvvbvo6jklPCriXjYG-U5c62CndexD7edAIJr~lDhR0xgHUxI~2hisCK79NM7OKE79vL4ORnjySLq8KXEelXscHcts0L3RPDjDT6YJO5DMg3gqLt5ML9-bKu8X6U7mgpVQxVTJ-UtmRV21JcZg4~bLAyt2G15Kco3gyLEwvdO~6OLF86Y~nJHgi2kJw__")
-            no-repeat center center / cover;
+        background: url("/public/images/banner_TravelGuide.jpg") no-repeat center center / cover;
     } 
     // 下拉選單
     .form-select {
@@ -16,7 +15,7 @@
         color: #808080;
         margin-left: 106px;
         width: 141px;
-        height: 28px;
+        // height: 28.4px;
         padding: 7px 0px 7px 13px;
         @media (min-width: 991px) {
             font-size: 24px;

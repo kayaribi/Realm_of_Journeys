@@ -186,7 +186,7 @@ export default function CartPayment() {
             上一步：填寫訂單
           </Link>
           <Link
-            to="/CompletePayment"
+            to="/completePayment"
             className="btn btn-secondary-200 py-3 px-md-5 px-4 fs-md-7 fs-10"
           >
             下一步：完成付款

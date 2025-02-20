@@ -125,10 +125,10 @@ export default function TravelGuideItem(){
                             </div>
                             {previousArticle && nextArticle &&(
                                 <div className="d-flex justify-content-center gap-3">
-                                    <Link to={`/travelGuide/${previousArticle.id}`} className="btn btn-outline-secondary-200 fs-lg-7 flex-nowrap  text-truncate btn-padding">
+                                    <Link to={`/travelGuide/${previousArticle.id}`} className="btn btn-outline-secondary-200 fs-10 fs-lg-7 flex-nowrap  text-truncate btn-padding">
                                         上一篇｜【{previousArticle.title}】{previousArticle.name}
                                     </Link>
-                                    <Link to={`/travelGuide/${nextArticle.id}`} className="btn btn-secondary-200 fs-lg-7 flex-nowrap text-truncate btn-padding">
+                                    <Link to={`/travelGuide/${nextArticle.id}`} className="btn btn-secondary-200 fs-10 fs-lg-7 flex-nowrap text-truncate btn-padding">
                                         下一篇｜【{nextArticle.title}】{nextArticle.name}
                                     </Link>
                                 </div>
