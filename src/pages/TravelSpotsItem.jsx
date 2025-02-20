@@ -46,6 +46,7 @@ const TravelSpotsItem = () => {
         fetchSpot();
     }, [id]);
 
+    // 下方隨機推薦
     useEffect(() => {
         const fetchProducts = async () => {
             try {
