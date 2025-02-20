@@ -133,7 +133,7 @@ export default function Home() {
               <div className="d-flex justify-content-center align-items-center">
                 <h5 className="my-2 me-2 fs-7">尋找行程</h5>
                 <img
-                  src="../public/images/icon/right-arrow.svg"
+                  src="images/icon/right-arrow.svg"
                   alt="尋找行程"
                 />
               </div>
@@ -155,7 +155,7 @@ export default function Home() {
                 輕鬆出發！
               </p>
               <h5 className="fs-9">尋找行程</h5>
-              <img src="../public/images/icon/right-arrow.svg" alt="尋找行程" />
+              <img src="images/icon/right-arrow.svg" alt="尋找行程" />
             </div>
           </Link>
         </div>
@@ -168,7 +168,7 @@ export default function Home() {
           <div className="row">
             <div className="col-lg-4">
               <img
-                src="../public/images/icon/Vector.svg"
+                src="images/icon/Vector.svg"
                 alt="全包服務，無憂旅程"
               />
               <h4 className="my-3 my-md-5 gradient-blue fs-8 fs-md-6">
@@ -180,7 +180,7 @@ export default function Home() {
             </div>
             <div className="col-lg-4 my-lg-0 my-10">
               <img
-                src="../public/images/icon/Vector-1.svg"
+                src="images/icon/Vector-1.svg"
                 alt="精選小團體，靈活自由"
               />
               <h4 className="my-3 my-md-5 gradient-blue fs-8 fs-md-6">
@@ -192,7 +192,7 @@ export default function Home() {
             </div>
             <div className="col-lg-4">
               <img
-                src="../public/images/icon/Vector-2.svg"
+                src="images/icon/Vector-2.svg"
                 alt="快速預定，隨時出發"
               />
               <h4 className="my-3 my-md-5 gradient-blue fs-8 fs-md-6">

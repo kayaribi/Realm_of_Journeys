@@ -18,7 +18,7 @@ export default function FAQ() {
   return (
     <div className=' position-relative'>
       <div className="container px-lg-0 py-15 py-lg-30">
-        <h1 className="d-flex align-items-center justify-content-lg-center gap-2 gap-lg-4 pb-8 pb-lg-15 fs-lg-3 title-family"><img src="/images/icon/question_48px.svg" width={isLarge ? "48px" : "24px"} height={isLarge ? "48px" : "24px"} alt="問題icon" />常見問題</h1>
+        <h1 className="d-flex align-items-center justify-content-lg-center gap-2 gap-lg-4 pb-8 pb-lg-15 fs-lg-3 title-family"><img src="images/icon/question_48px.svg" width={isLarge ? "48px" : "24px"} height={isLarge ? "48px" : "24px"} alt="問題icon" />常見問題</h1>
         <ul className="list-unstyled m-0">
           <li className='px-2 pb-14 pb-lg-18'>
             <h3 className="text-primary-600 pb-4 pb-lg-6 fs-lg-5 title-family" style={{ borderBottom: "1px solid #C2DCF5" }}>Q. 如何快速預訂旅行行程？</h3>

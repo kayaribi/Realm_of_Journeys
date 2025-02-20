@@ -153,28 +153,28 @@ const TravelSpotsItem = () => {
                                 </div>
                                 <div className="pt-2 pt-lg-4">
                                     <div className="pb-4 pb-lg-8">
-                                        <div className="d-flex align-items-center gap-1 pb-2">
+                                        <div className="d-flex align-items-center gap-1 pb-1 pb-lg-2">
                                             <img src="/images/icon/calendar-black.svg" width={24} height={24} alt="行程圖片" />
-                                            <span className="fs-10 fs-lg-9">出發日期:</span>
+                                            <span className="fs-10 fs-lg-9">行程日期:</span>
                                         </div>
                                         <h5 className="text-primary-500 fs-lg-7">2025/{product.travelDate}</h5>
                                     </div>
                                     <div className="pb-4 pb-lg-8">
-                                        <div className="d-flex align-items-center gap-1 pb-2">
+                                        <div className="d-flex align-items-center gap-1 pb-1 pb-lg-2">
                                             <img src="/images/icon/city.svg" width={24} height={24} alt="城市圖片" />
                                             <span className="fs-10 fs-lg-9">出發城市：</span>
                                         </div>
                                         <h5 className="text-primary-500 fs-lg-7">{product.departureCity}</h5>
                                     </div>
                                     <div className="pb-4 pb-lg-8">
-                                        <div className="d-flex align-items-center gap-1 pb-2">
+                                        <div className="d-flex align-items-center gap-1 pb-1 pb-lg-2">
                                             <img src="/images/icon/People.svg" width={24} height={24} alt="成團圖片" />
                                             <span className="fs-10 fs-lg-9">成團人數：</span>
                                         </div>
                                         <h5 className="text-primary-500 fs-lg-7">{product.leastPeopleNum}</h5>
                                     </div>
                                     <div className="pb-4  pb-lg-8">
-                                        <div className="d-flex align-items-center gap-1 pb-2">
+                                        <div className="d-flex align-items-center gap-1 pb-1 pb-lg-2">
                                             <img src="/images/icon/food.svg" width={24} height={24} alt="餐食圖片" />
                                             <span className="fs-10 fs-lg-9">餐食：</span>
                                         </div>
