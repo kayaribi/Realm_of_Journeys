@@ -48,7 +48,9 @@ export default function Home() {
       <header id="header" className="position-relative slideshow-container">
         {images.map((image, index) => (
           <CSSTransition
-            key={index}
+            // key={index}
+            // in={currentImageIndex === index}
+            key={image} // 改成使用圖片 URL
             in={currentImageIndex === index}
             timeout={2500}
             classNames={{
@@ -61,6 +63,7 @@ export default function Home() {
             }}
             appear={true}
             unmountOnExit
+            
           >
             <div
               className="slideshow-image"
@@ -110,7 +113,7 @@ export default function Home() {
           </h3>
 
           {/* 按鈕 - Desktop */}
-          <Link to='/travelSpots' className="text-white d-none d-md-block">
+          <Link to="/travelSpots" className="text-white d-none d-md-block">
             <div
               className="gradient-brown position-absolute z-3 end-0 bottom-0 text-center buttonShadowDesktop"
               style={{
@@ -137,7 +140,7 @@ export default function Home() {
             </div>
           </Link>
           {/* 按鈕 - Mobile */}
-          <Link to='/travelSpots' className="text-white d-md-none d-block">
+          <Link to="/travelSpots" className="text-white d-md-none d-block">
             <div
               className="gradient-brown position-absolute z-3 end-0 bottom-0 text-center mb-6 me-6 buttonShadow"
               style={{

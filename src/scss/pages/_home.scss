@@ -1,7 +1,6 @@
 // Header - Hailey
 .slideshow-container {
   position: relative;
-  width: 100vw;
   height: 100vh;
   overflow: hidden;
   @media (min-width: 768px) {
@@ -36,9 +35,11 @@
 }
 
 .slideshow-image-enter-active-0 {
+  transition-delay: 0.2s;
   opacity: 1;
   transform: scale(1.1) translateX(0);
-  transition: opacity 2.5s ease-in-out, transform 2.5s linear;
+  // transition: opacity 2.5s ease-in-out, transform 2.5s linear;
+  transition: all 3s ease-in-out;
 }
 
 .slideshow-image-exit-0 {
@@ -49,7 +50,8 @@
 .slideshow-image-exit-active-0 {
   opacity: 0;
   transform: scale(1.1) translateX(5%);
-  transition: opacity 2.5s ease-in-out, transform 2.5s linear;
+  // transition: opacity 2.5s ease-in-out, transform 2.5s linear;
+  transition: all 2.4s ease-in-out;
 }
 
 /* 第二張圖片動畫：淡入並往上移動 */
@@ -59,9 +61,11 @@
 }
 
 .slideshow-image-enter-active-1 {
+  transition-delay: 0.2s;
   opacity: 1;
   transform: scale(1.1) translateY(0);
-  transition: opacity 2.5s ease-in-out, transform 2.5s linear;
+  // transition: opacity 2.5s ease-in-out, transform 2.5s linear;
+  transition: all 2.4s ease-in-out;
 }
 
 .slideshow-image-exit-1 {
@@ -72,7 +76,8 @@
 .slideshow-image-exit-active-1 {
   opacity: 0;
   transform: scale(1.1) translateY(-5%);
-  transition: opacity 2.5s ease-in-out, transform 2.5s linear;
+  // transition: opacity 2.5s ease-in-out, transform 2.5s linear;
+  transition: all 2.4s ease-in-out;
 }
 
 /* 第三張圖片動畫：淡入並往左移動 */
@@ -82,9 +87,11 @@
 }
 
 .slideshow-image-enter-active-2 {
+  transition-delay: 0.2s;
   opacity: 1;
   transform: scale(1.1) translateX(0);
-  transition: opacity 2.5s ease-in-out, transform 2.5s linear;
+  // transition: opacity 2.5s ease-in-out, transform 2.5s linear;
+  transition: all 2.4s ease-in-out;
 }
 
 .slideshow-image-exit-2 {
@@ -95,7 +102,8 @@
 .slideshow-image-exit-active-2 {
   opacity: 0;
   transform: scale(1.1) translateX(-5%);
-  transition: opacity 2.5s ease-in-out, transform 2.5s linear;
+  // transition: opacity 2.5s ease-in-out, transform 2.5s linear;
+  transition: all 2.4s ease-in-out;
 }
 
 /* 第四張圖片動畫：淡入並放大 */
@@ -105,20 +113,23 @@
 }
 
 .slideshow-image-enter-active-3 {
+  transition-delay: 0.2s;
   opacity: 1;
   transform: scale(1.1);
-  transition: opacity 2.5s ease-in-out, transform 2.5s linear;
+  // transition: opacity 2.5s ease-in-out, transform 2.5s linear;
+  transition: all 2.4s ease-in-out;
 }
 
 .slideshow-image-exit-3 {
   opacity: 1;
-  transform: scale(1);
+  transform: scale(1.1);
 }
 
 .slideshow-image-exit-active-3 {
   opacity: 0;
   transform: scale(0.9);
-  transition: opacity 2.5s ease-in-out, transform 2.5s linear;
+  // transition: opacity 2.5s ease-in-out, transform 2.5s linear;
+  transition: all 2.4s ease-in-out;
 }
 
 .slideshow-image-appear-0 {
@@ -130,7 +141,8 @@
 .slideshow-image-appear-active-0 {
   opacity: 1;
   transform: scale(1.1) translateX(0);
-  transition: opacity 2.5s ease-in-out, transform 2.5s linear;
+  // transition: opacity 2.5s ease-in-out, transform 2.5s linear;
+  transition: all 2.4s ease-in-out;
 }
 
 // 精選行程 - 倫倫

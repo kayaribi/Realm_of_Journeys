@@ -1,25 +1,39 @@
-import { Route, Routes, useLocation } from 'react-router-dom';
+import { Route, Routes, useLocation } from "react-router-dom";
+import { useReducer } from "react";
 // 匯入頁面(pages>index.jsx做匯入喔)
-import {Home,About,Cart,CartOrder,CartPayment,Account,TravelGuide,TravelSpots,TravelSpotsItem,TravelGuideItem, CompletePayment} from './pages';
+import {
+  Home,
+  About,
+  Cart,
+  CartOrder,
+  CartPayment,
+  Account,
+  TravelGuide,
+  TravelSpots,
+  TravelSpotsItem,
+  TravelGuideItem,
+  CompletePayment,
+} from "./pages";
 // 匯入元件(去components>index.jsx做匯入喔)
-import { BackTopBtn, Footer, Navbar } from './components';
+import { BackTopBtn, Footer, Navbar } from "./components";
 
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-import './scss/all.scss';
+import "./scss/all.scss";
+import { CartContext} from "./store/store";
 
 function App() {
   const location = useLocation(); // 儲存當前頁面
   const isNotBackTopPage = !(
-    location.pathname === '/cart' || 
-    location.pathname === '/account' || 
-    location.pathname === '/cart' ||
+    location.pathname === "/cart" ||
+    location.pathname === "/account" ||
     location.pathname === '/cartOrder' ||
     location.pathname === '/cartPayment' ||
     location.pathname === '/completePayment' ||
     location.pathname.startsWith('/travelGuide/')
   );
+
   // 排除購物車頁面navbar
   const isCartPages = [
     '/cart',
@@ -28,9 +42,27 @@ function App() {
     '/completePayment'
   ].includes(location.pathname);
 
+  const cartReducer = useReducer((state, action) => {
+    const cartList = [...state.cartList]
+    console.log(cartList);
+    
+    switch(action.type){
+      case 'ADD_TO_CART':
+        cartList.push(action.payload)
+        return {
+          ...state,
+          cartList
+        }
+      default:
+        return state
+    }
+  }, {
+    cartList: []
+  })
+  
   return (
-    <div>
-      <Navbar isCartPages={isCartPages}/>
+    <CartContext.Provider value={cartReducer}>
+       <Navbar isCartPages={isCartPages}/>
       <div className="navbar-top">
           <Routes>
             <Route path='/' element={<Home />}></Route>                    {/* 首頁 */}
@@ -48,9 +80,8 @@ function App() {
         </div>
         {isNotBackTopPage && <BackTopBtn />}
       <Footer/>
-    </div>
-  )
+    </CartContext.Provider>
+  );
 }
 
-export default App
-
+export default App;
