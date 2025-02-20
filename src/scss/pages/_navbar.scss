@@ -12,6 +12,15 @@
         padding-bottom: 27px;
     }
 }
+.opacity-85 {
+    background-color: rgba(255, 255, 255, 0.85);
+}
+.backdrop-blur {
+    backdrop-filter: blur(10px);
+}
+.bg-F2F7FD{
+    background: #F2F7FD !important;
+}
 
 // 【行旅之境】
 .navbar-brand{
@@ -29,6 +38,11 @@
     .logo-size-s{
         width: 88px; 
         height: 20px;
+    }
+    .logo-sm-light{
+        background-image: url("/public/images/logo-light-S.svg");
+    }
+    .logo-sm-dark{
         background-image: url("/public/images/logo-dark-S.svg");
     }
 }
@@ -80,21 +94,14 @@
     }
 }
 
-// 購物車icon
-.color-3D3D3D{
-    color: #3D3D3D
-}
-.cart-lg-icon{
-    font-size: 24px;
+.cart-lg-margin{
     margin-left: 100px !important;
     margin-right: 32px !important;
     i{
         line-height: 0;
     }
 }
-.cart-sm-icon{
-    font-size: 24px;
-}
+
 
 // 漢堡選單icon
 .hamburg-icon{

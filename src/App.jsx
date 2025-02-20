@@ -14,11 +14,23 @@ function App() {
   const isNotBackTopPage = !(
     location.pathname === '/cart' || 
     location.pathname === '/account' || 
+    location.pathname === '/cart' ||
+    location.pathname === '/cartOrder' ||
+    location.pathname === '/cartPayment' ||
+    location.pathname === '/completePayment' ||
     location.pathname.startsWith('/travelGuide/')
   );
+  // 排除購物車頁面navbar
+  const isCartPages = [
+    '/cart',
+    '/cartOrder',
+    '/cartPayment',
+    '/completePayment'
+  ].includes(location.pathname);
+
   return (
     <div>
-      <Navbar />
+      <Navbar isCartPages={isCartPages}/>
       <div className="navbar-top">
           <Routes>
             <Route path='/' element={<Home />}></Route>                    {/* 首頁 */}
