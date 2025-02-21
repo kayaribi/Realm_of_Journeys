@@ -55,6 +55,22 @@ export default function TravelSpots() {
   //應該暫時沒用到
   const [cusFilterTotalPages, setCusFilterTotalPages] = useState(1);
   const cusFilterTotalPagesInitialSwitchRef = useRef(false);
+  const switchFilterScrollRender = useRef(false);
+  const [handleRenderScrollProduct, setHandleRenderScrollProduct] = useState(
+    []
+  );
+  const [handleFilterRenderProduct, setHandleFilterRenderProduct] = useState(
+    []
+  );
+
+  const [handleFilterRenderProductSwitch, setHandleFilterRenderProductSwitch] =
+    useState(false);
+
+  const [test, setTest] = useState([]);
+
+  const [a, setA] = useState({});
+
+  // const [paginatedData, setPaginatedData] = useState([]);
 
   useEffect(() => {
     // 做個開關吧 只觸發第一次
@@ -84,12 +100,18 @@ export default function TravelSpots() {
       window.scrollY > height &&
       scrollCurrentPage.current < paginationTotalPageRef.current
     ) {
-      console.log(
-        "paginationTotalPageRef.current",
-        paginationTotalPageRef.current
-      );
-      scrollCurrentPage.current++;
-      getScrollProduct(scrollCurrentPage.current);
+      if (switchFilterScrollRender.current) {
+        console.log("觸發篩選按鈕");
+        console.log(paginatedData);
+        setCusCurrentPage((pre) => pre++);
+        getFilferScrollProduct(cusCurrentPage);
+        // cusCurrentPage++;
+        // getScrollProduct(cusCurrentPage);
+      } else {
+        console.log("尚未觸發篩選按鈕");
+        scrollCurrentPage.current++;
+        getScrollProduct(scrollCurrentPage.current);
+      }
     }
   };
 
@@ -103,6 +125,7 @@ export default function TravelSpots() {
       if (windowWidth) {
         // 小於 575px
         console.log("gpt 視窗寬度畫面變更小於575px，註冊了監聽事件");
+        setHandleFilterRenderProductSwitch(true);
         setCusCurrentPage(1);
         scrollCurrentPage.current = 1;
         setProductList([]);
@@ -111,6 +134,7 @@ export default function TravelSpots() {
       } else {
         // 大於 575px
         console.log("gpt 視窗寬度畫面變更大於575px，移除了監聽事件");
+        setHandleFilterRenderProductSwitch(false);
         window.removeEventListener("scroll", debounceScroll);
         handleCusPageChange(1);
         setProductList([]);
@@ -202,10 +226,11 @@ export default function TravelSpots() {
     if (category === "全部") {
       setBannerChange(productPageBanner);
       setIsFilterProducts(false);
+      switchFilterScrollRender.current = false;
       paginationTotalPageRef.current = 5;
       return;
     }
-
+    switchFilterScrollRender.current = true;
     setIsFilterProducts(true);
     let filteredProductsList = [];
 
@@ -228,23 +253,70 @@ export default function TravelSpots() {
         item.category.includes("中東")
       );
     }
-
+    // const test = filteredProductsList.slice(
+    //   (cusCurrentPage - 1) * itemsPerPage,
+    //   cusCurrentPage * itemsPerPage
+    // );
+    // handleGetProductType(e, category, test);
+    // setA({ e, category, filteredProductsList });
     setCusCurrentPage(1);
     setCusHasPre(false);
     setCusHasNext(true);
     setFilteredProductData(filteredProductsList);
+    setHandleRenderScrollProduct(filteredProductsList);
   };
+
+  // 參考模板
+  // const b = useCallback(() => {
+  //   console.log(
+  //     "a",
+  //     a,
+  //     "a.e.target.value",
+  //     a.e.target.value,
+  //     "a.category",
+  //     a.category
+  //   );
+  // }, [a]);
+
+  // useEffect(() => {
+  //   if (Object.keys(a).length !== 0) {
+  //     b();
+  //   }
+  // }, [a]);
+
+  // 測試
+  useEffect(() => {
+    if (handleRenderScrollProduct.length > 0) {
+      console.log("handleRenderScrollProduct", handleRenderScrollProduct);
+
+      const test = handleRenderScrollProduct.slice(
+        (cusCurrentPage - 1) * itemsPerPage,
+        cusCurrentPage * itemsPerPage
+      );
+
+      const test2 = handleRenderScrollProduct.slice(
+        (2 - 1) * itemsPerPage,
+        2 * itemsPerPage
+      );
+      // 點擊後要將 test 的資料傳到  getFilferScrollProduct 內
+      // setTest(test);
+      // getFilferScrollProduct(test);
+
+      // setCusTotalPages(Math.ceil(filteredProductData.length / itemsPerPage));
+      // paginationTotalPageRef.current = Math.ceil(
+      //   filteredProductData.length / itemsPerPage
+      // );
+    }
+  }, [handleRenderScrollProduct]);
 
   // (Api沒提供，所以自己撰寫) 根據篩選出來的資料設定總頁數
   useEffect(() => {
     if (filteredProductData.length > 0) {
+      console.log(filteredProductData);
+
       setCusTotalPages(Math.ceil(filteredProductData.length / itemsPerPage));
       paginationTotalPageRef.current = Math.ceil(
         filteredProductData.length / itemsPerPage
-      );
-      console.log(
-        "篩選資料後，paginationTotalPageRef.current更新後為",
-        paginationTotalPageRef.current
       );
     }
   }, [filteredProductData]);
@@ -333,6 +405,38 @@ export default function TravelSpots() {
     setIsScreenLoading(false);
   };
 
+  // 滾動卷軸取得篩選後的產品資料
+  const getFilferScrollProduct = async () => {
+    try {
+      console.log("執行getFilferScrollProduct");
+      isScrollLoadingRef.current = true;
+
+      //應該用不到
+      // const res = await axios.get(
+      //   `${BASE_URL}/v2/api/${API_PATH}/admin/products?page=${page}`
+      // );
+      // const { products, pagination } = res.data;
+      // setPagination(pagination);
+      // handleDotStylePagination(page);
+      // setProductList(products);
+
+      // 這裡丟入的資料應該要是篩選後且分割好的前10筆資料
+      // setProductList([]);
+      // setProductList([]);
+      setHandleFilterRenderProduct((preFilterProductsList) => {
+        console.log("更新篩選後的卷軸渲染資料");
+        return [...preFilterProductsList, ...filteredProductData];
+      });
+
+      setTimeout(() => {
+        isScrollLoadingRef.current = false;
+      }, 1000);
+    } catch (error) {
+      console.log(error);
+    }
+    setIsScreenLoading(false);
+  };
+
   // 優化視窗寬度變化
   useEffect(() => {
     // 處理視窗尺寸變化
@@ -361,15 +465,26 @@ export default function TravelSpots() {
   };
 
   // 根據寬度變化判斷要取得哪種資料
-  const handleGetProductType = (e) => {
+  const handleGetProductType = (e, category, test) => {
     e.preventDefault();
     if (windowWidth) {
       if (e.target.className.includes("bg-primary-500")) {
         window.scrollTo({ top: 0, behavior: "smooth" });
       } else {
-        scrollCurrentPage.current = 1;
-        setProductList([]);
-        getScrollProduct();
+        // 這裡應該還要再做一個判斷 是要執行 getScrollProduct 還是 getFilferScrollProduct
+
+        if (category === "全部") {
+          console.log("視窗小於575px且點擊篩選為全部");
+          scrollCurrentPage.current = 1;
+          setProductList([]);
+          getScrollProduct();
+        } else {
+          console.log("視窗小於575px且點擊篩選為其他");
+          scrollCurrentPage.current = 1;
+          setProductList([]);
+          getFilferScrollProduct();
+          // getScrollProduct();
+        }
       }
     } else {
       if (e.target.className.includes("bg-primary-500")) {
@@ -425,7 +540,7 @@ export default function TravelSpots() {
                     href=""
                     onClick={(e) => {
                       handleFilterProducts(e, "全部");
-                      handleGetProductType(e);
+                      handleGetProductType(e, "全部");
                     }}
                   >
                     全部
@@ -439,7 +554,7 @@ export default function TravelSpots() {
                     href=""
                     onClick={(e) => {
                       handleFilterProducts(e, "亞洲");
-                      handleGetProductType(e);
+                      handleGetProductType(e, "亞洲");
                     }}
                   >
                     亞洲
@@ -453,7 +568,7 @@ export default function TravelSpots() {
                     href=""
                     onClick={(e) => {
                       handleFilterProducts(e, "歐洲");
-                      handleGetProductType(e);
+                      handleGetProductType(e, "歐洲");
                     }}
                   >
                     歐洲
@@ -467,7 +582,7 @@ export default function TravelSpots() {
                     href=""
                     onClick={(e) => {
                       handleFilterProducts(e, "中東");
-                      handleGetProductType(e);
+                      handleGetProductType(e, "中東");
                     }}
                   >
                     中東
@@ -484,73 +599,143 @@ export default function TravelSpots() {
             {isFilterProducts ? (
               <>
                 {/* (Api沒提供，所以自己撰寫) 篩選後的資料渲染畫面 */}
-                {paginatedData.map((filterProduct) => {
-                  return (
-                    <div key={filterProduct.id} className={`col`}>
-                      <Link
-                        to={`/travelSpots/${filterProduct.id}`}
-                        style={{ height: "100%" }}
-                      >
-                        {/* <a style={{ display: "block", height: "100%" }} href=""> */}
-                        <div className="d-flex flex-column px-xl-6 px-lg-4 px-md-2 px-0 h-100">
-                          {/* 上方圖片區域 */}
-                          <div className="productListImgWrap overflow-hidden position-relative">
-                            <img
-                              className="productListImg"
-                              src={filterProduct.imageUrl}
-                              alt={filterProduct.title}
-                            />
-                            <DepartureTimeDecoration
-                              featuredItem={filterProduct}
-                            />
-                          </div>
-                          {/* 下方文字區域 */}
-                          <div className="mt-4 mb-2">
-                            <h3
-                              className="title-family travelSpotCardTitle text-neutral-black"
-                              style={{ whiteSpace: "pre-line" }}
-                            >
-                              {filterProduct.title}
-                            </h3>
-                          </div>
-                          <div className="mb-3">
-                            {filterProduct.description
-                              .split("\n")
-                              .map((des, index) => {
-                                return (
-                                  <p
-                                    key={index}
-                                    className={`${
-                                      index === 0 ? "mb-sm-0 mb-2" : ""
-                                    } text-neutral-300 travelSpotCardDescription`}
-                                  >
-                                    {des}
-                                  </p>
-                                );
-                              })}
-                          </div>
-                          <div className="mt-auto">
-                            <p
-                              style={{ fontSize: "14px" }}
-                              className="text-decoration-line-through text-neutral-200"
-                            >
-                              原價 NT{" "}
-                              {filterProduct.origin_price.toLocaleString()}
-                            </p>
-                            <p
-                              style={{ lineHeight: "1.2" }}
-                              className="text-secondary-200 travelSpotCardDiscountPrice fw-bold"
-                            >
-                              優惠價 NT {filterProduct.price.toLocaleString()}/
-                              {filterProduct.unit}
-                            </p>
-                          </div>
+                {handleFilterRenderProductSwitch
+                  ? test.map((filterProduct) => {
+                      return (
+                        <div key={filterProduct.id} className={`col`}>
+                          <Link
+                            to={`/travelSpots/${filterProduct.id}`}
+                            style={{ height: "100%" }}
+                          >
+                            {/* <a style={{ display: "block", height: "100%" }} href=""> */}
+                            <div className="d-flex flex-column px-xl-6 px-lg-4 px-md-2 px-0 h-100">
+                              {/* 上方圖片區域 */}
+                              <div className="productListImgWrap overflow-hidden position-relative">
+                                <img
+                                  className="productListImg"
+                                  src={filterProduct.imageUrl}
+                                  alt={filterProduct.title}
+                                />
+                                <DepartureTimeDecoration
+                                  featuredItem={filterProduct}
+                                />
+                              </div>
+                              {/* 下方文字區域 */}
+                              <div className="mt-4 mb-2">
+                                <h3
+                                  className="title-family travelSpotCardTitle text-neutral-black"
+                                  style={{ whiteSpace: "pre-line" }}
+                                >
+                                  {filterProduct.title} 測試階段
+                                </h3>
+                              </div>
+                              <div className="mb-3">
+                                {filterProduct.description
+                                  .split("\n")
+                                  .map((des, index) => {
+                                    return (
+                                      <p
+                                        key={index}
+                                        className={`${
+                                          index === 0 ? "mb-sm-0 mb-2" : ""
+                                        } text-neutral-300 travelSpotCardDescription`}
+                                      >
+                                        {des}
+                                      </p>
+                                    );
+                                  })}
+                              </div>
+                              <div className="mt-auto">
+                                <p
+                                  style={{ fontSize: "14px" }}
+                                  className="text-decoration-line-through text-neutral-200"
+                                >
+                                  原價 NT{" "}
+                                  {filterProduct.origin_price.toLocaleString()}
+                                </p>
+                                <p
+                                  style={{ lineHeight: "1.2" }}
+                                  className="text-secondary-200 travelSpotCardDiscountPrice fw-bold"
+                                >
+                                  優惠價 NT{" "}
+                                  {filterProduct.price.toLocaleString()}/
+                                  {filterProduct.unit}
+                                </p>
+                              </div>
+                            </div>
+                            {/* </a> */}
+                          </Link>
                         </div>
-                        {/* </a> */}
-                      </Link>
-                    </div>
-                  );
-                })}
+                      );
+                    })
+                  : paginatedData.map((filterProduct) => {
+                      return (
+                        <div key={filterProduct.id} className={`col`}>
+                          <Link
+                            to={`/travelSpots/${filterProduct.id}`}
+                            style={{ height: "100%" }}
+                          >
+                            {/* <a style={{ display: "block", height: "100%" }} href=""> */}
+                            <div className="d-flex flex-column px-xl-6 px-lg-4 px-md-2 px-0 h-100">
+                              {/* 上方圖片區域 */}
+                              <div className="productListImgWrap overflow-hidden position-relative">
+                                <img
+                                  className="productListImg"
+                                  src={filterProduct.imageUrl}
+                                  alt={filterProduct.title}
+                                />
+                                <DepartureTimeDecoration
+                                  featuredItem={filterProduct}
+                                />
+                              </div>
+                              {/* 下方文字區域 */}
+                              <div className="mt-4 mb-2">
+                                <h3
+                                  className="title-family travelSpotCardTitle text-neutral-black"
+                                  style={{ whiteSpace: "pre-line" }}
+                                >
+                                  {filterProduct.title}
+                                </h3>
+                              </div>
+                              <div className="mb-3">
+                                {filterProduct.description
+                                  .split("\n")
+                                  .map((des, index) => {
+                                    return (
+                                      <p
+                                        key={index}
+                                        className={`${
+                                          index === 0 ? "mb-sm-0 mb-2" : ""
+                                        } text-neutral-300 travelSpotCardDescription`}
+                                      >
+                                        {des}
+                                      </p>
+                                    );
+                                  })}
+                              </div>
+                              <div className="mt-auto">
+                                <p
+                                  style={{ fontSize: "14px" }}
+                                  className="text-decoration-line-through text-neutral-200"
+                                >
+                                  原價 NT{" "}
+                                  {filterProduct.origin_price.toLocaleString()}
+                                </p>
+                                <p
+                                  style={{ lineHeight: "1.2" }}
+                                  className="text-secondary-200 travelSpotCardDiscountPrice fw-bold"
+                                >
+                                  優惠價 NT{" "}
+                                  {filterProduct.price.toLocaleString()}/
+                                  {filterProduct.unit}
+                                </p>
+                              </div>
+                            </div>
+                            {/* </a> */}
+                          </Link>
+                        </div>
+                      );
+                    })}
               </>
             ) : (
               // 原始 Api 的資料渲染畫面
