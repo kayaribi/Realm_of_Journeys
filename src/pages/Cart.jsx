@@ -7,9 +7,9 @@ const BASE_URL = import.meta.env.VITE_BASE_URL;
 const API_PATH = import.meta.env.VITE_API_PATH;
 
 export default function Cart() {
-  const [state, dispatch] = useContext(CartContext);
+  // const [state, dispatch] = useContext(CartContext);
   const [cart, setCart] = useState({});
-
+  
   // 取得購物車列表
   useEffect(() => {
     (async () => {
@@ -42,8 +42,11 @@ export default function Cart() {
     }
   };
 
+
   return (
     <>
+
+
       {/* 進度條 */}
       <div className="container position-relative mt-md-20 mt-22 mb-lg-10 my-6">
         <div className="row row-cols-4 text-center">
@@ -319,6 +322,8 @@ export default function Cart() {
           </div>
         </div>
       </div>
+
+      
     </>
   );
 }
