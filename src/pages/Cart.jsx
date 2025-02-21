@@ -295,7 +295,7 @@ export default function Cart() {
                   .toLocaleString()}
               </h3>
               <Link
-                to="/CartOrder"
+                to="/cartOrder"
                 className="btn btn-secondary-200 fs-7 ms-6 d-lg-block d-none"
               >
                 下一步：填寫訂單
@@ -310,7 +310,7 @@ export default function Cart() {
                 清空購物車品項
               </button>
               <Link
-                to="/CartOrder"
+                to="/cartOrder"
                 className="btn btn-secondary-200 fs-lg-7 fs-10 w-100"
               >
                 下一步：填寫訂單
