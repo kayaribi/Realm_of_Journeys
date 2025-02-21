@@ -194,7 +194,7 @@ const TravelSpotsItem = () => {
                                     <div className="pb-4 pb-lg-8">
                                         <div className="d-flex align-items-center gap-1 pb-1 pb-lg-2">
                                             <img
-                                                src="/images/icon/calendar-black.svg"
+                                                src="images/icon/calendar-black.svg"
                                                 width={24}
                                                 height={24}
                                                 alt="行程圖片"
@@ -208,7 +208,7 @@ const TravelSpotsItem = () => {
                                     <div className="pb-4 pb-lg-8">
                                         <div className="d-flex align-items-center gap-1 pb-1 pb-lg-2">
                                             <img
-                                                src="/images/icon/city.svg"
+                                                src="images/icon/city.svg"
                                                 width={24}
                                                 height={24}
                                                 alt="城市圖片"
@@ -222,7 +222,7 @@ const TravelSpotsItem = () => {
                                     <div className="pb-4 pb-lg-8">
                                         <div className="d-flex align-items-center gap-1 pb-1 pb-lg-2">
                                             <img
-                                                src="/images/icon/People.svg"
+                                                src="images/icon/People.svg"
                                                 width={24}
                                                 height={24}
                                                 alt="成團圖片"
@@ -236,7 +236,7 @@ const TravelSpotsItem = () => {
                                     <div className="pb-4  pb-lg-8">
                                         <div className="d-flex align-items-center gap-1 pb-1 pb-lg-2">
                                             <img
-                                                src="/images/icon/food.svg"
+                                                src="images/icon/food.svg"
                                                 width={24}
                                                 height={24}
                                                 alt="餐食圖片"
@@ -250,7 +250,7 @@ const TravelSpotsItem = () => {
                                             <div className="d-flex flex-column pb-4 pb-lg-0">
                                                 <div className="d-flex align-items-center gap-1 pb-2 pb-lg-3">
                                                     <img
-                                                        src="/images/icon/price.svg"
+                                                        src="images/icon/price.svg"
                                                         width={24}
                                                         height={24}
                                                         alt="金錢圖片"
@@ -479,7 +479,7 @@ const TravelSpotsItem = () => {
                                                     />
                                                     <div className="px-lg-3 py-lg-1 d-lg-flex position-absolute bottom-0 end-0 bg-primary-500">
                                                         <img
-                                                            src="/images/icon/calendar-white.svg"
+                                                            src="images/icon/calendar-white.svg"
                                                             alt="行程圖片"
                                                             style={{
                                                                 marginRight: "10px",
