@@ -52,6 +52,7 @@ export default function TravelSpots() {
 
   // 測試 使用渲染篩選資料的 Ref 變數
   const cusFilterCurrentPage = useRef(1);
+  //應該暫時沒用到
   const [cusFilterTotalPages, setCusFilterTotalPages] = useState(1);
   const cusFilterTotalPagesInitialSwitchRef = useRef(false);
 
@@ -102,6 +103,7 @@ export default function TravelSpots() {
       if (windowWidth) {
         // 小於 575px
         console.log("gpt 視窗寬度畫面變更小於575px，註冊了監聽事件");
+        setCusCurrentPage(1);
         scrollCurrentPage.current = 1;
         setProductList([]);
         getScrollProduct();
