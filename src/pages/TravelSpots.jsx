@@ -72,6 +72,7 @@ export default function TravelSpots() {
 
   const testRef = useRef([]);
   const testCurrentPage = useRef(1);
+  const testtestRef = useRef(null);
 
   // handleRenderScrollProduct.slice(
   //   (cusCurrentPage - 1) * itemsPerPage,
@@ -110,9 +111,12 @@ export default function TravelSpots() {
     ) {
       if (switchFilterScrollRender.current) {
         console.log("觸發篩選按鈕");
-        console.log(paginatedData);
-        setCusCurrentPage((pre) => pre++);
-        getFilferScrollProduct(cusCurrentPage);
+        // console.log(paginatedData);
+        // setCusCurrentPage((pre) => pre++);
+
+        // 這裡或許可以使用getFilferScrollProduct();傳參數
+        testCurrentPage.current++;
+        getFilferScrollProduct(handleRenderScrollProduct);
         // cusCurrentPage++;
         // getScrollProduct(cusCurrentPage);
       } else {
@@ -312,12 +316,12 @@ export default function TravelSpots() {
       // 點擊後要將 test 的資料傳到  getFilferScrollProduct 內
       // setTest(test);
 
-      testRef.current = handleRenderScrollProduct.slice(
-        (testCurrentPage.current - 1) * itemsPerPage,
-        testCurrentPage.current * itemsPerPage
-      );
-      console.log("testRef.current", testRef.current);
-
+      // testRef.current = handleRenderScrollProduct.slice(
+      //   (testCurrentPage.current - 1) * itemsPerPage,
+      //   testCurrentPage.current * itemsPerPage
+      // );
+      // console.log("testRef.current", testRef.current);
+      testtestRef.current = handleRenderScrollProduct;
       getFilferScrollProduct();
 
       // setCusTotalPages(Math.ceil(filteredProductData.length / itemsPerPage));
@@ -441,14 +445,33 @@ export default function TravelSpots() {
       // 這裡丟入的資料應該要是篩選後且分割好的前10筆資料
       // setProductList([]);
       // setProductList([]);
-      console.log(
-        "我是在getFilferScrollProduct內部要執行setHandleFilterRenderProduct前的handleRenderScrollProduct，看是否有先取得正確資料",
-        handleRenderScrollProduct
-      );
+      // console.log(
+      //   "我是在getFilferScrollProduct內部要執行setHandleFilterRenderProduct前的handleRenderScrollProduct，看是否有先取得正確資料",
+      //   handleRenderScrollProduct
+      // );
 
       console.log(
-        "我是在getFilferScrollProduct內部要執行setHandleFilterRenderProduct前的testRef.current",
-        testRef.current
+        "我是在getFilferScrollProduct內部要執行setHandleFilterRenderProduct前的testtestRef.current，看是否有先取得正確資料",
+        testtestRef.current
+      );
+
+      let testData = [];
+
+      if (testCurrentPage.current === 1) {
+        testData = testtestRef.current.slice(
+          (testCurrentPage.current - 1) * itemsPerPage,
+          testCurrentPage.current * itemsPerPage
+        );
+      } else {
+        testData = testtestRef.current.slice(
+          (testCurrentPage.current - 1) * itemsPerPage,
+          testCurrentPage.current * itemsPerPage
+        );
+      }
+
+      console.log(
+        "我是在getFilferScrollProduct內部要執行setHandleFilterRenderProduct前的testData",
+        testData
       );
 
       // setHandleFilterRenderProduct((preFilterProductsList) => {
@@ -458,9 +481,14 @@ export default function TravelSpots() {
 
       // setHandleFilterRenderProduct(testRef.current);
 
+      // console.log(
+      //   "我是在getFilferScrollProduct內部要執行setHandleFilterRenderProduct前的testRef.current",
+      //   testRef.current
+      // );
+
       setHandleFilterRenderProduct((preFilterProduct) => {
         console.log("更新卷軸渲染資料");
-        return [...preFilterProduct, ...testRef.current];
+        return [...preFilterProduct, ...testData];
       });
 
       setTimeout(() => {
