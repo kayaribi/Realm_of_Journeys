@@ -50,9 +50,24 @@ export default function TravelSpots() {
   const [isSignIn, setIsSignIn] = useState(false);
   const paginationTotalPageRef = useRef(null);
 
+  // 測試 使用渲染篩選資料的 Ref 變數
+  const cusFilterCurrentPage = useRef(1);
+  const [cusFilterTotalPages, setCusFilterTotalPages] = useState(1);
+  const cusFilterTotalPagesInitialSwitchRef = useRef(false);
+
   useEffect(() => {
-    if (pagination.total_pages) {
-      paginationTotalPageRef.current = pagination.total_pages;
+    // 做個開關吧 只觸發第一次
+    if (!cusFilterTotalPagesInitialSwitchRef) {
+      if (pagination.total_pages) {
+        console.log(
+          "我觸發了paginationTotalPageRef.current = pagination.total_pages，所以數值變5",
+          paginationTotalPageRef.current
+        );
+
+        paginationTotalPageRef.current = pagination.total_pages;
+
+        cusFilterTotalPagesInitialSwitchRef = false;
+      }
     }
   }, [pagination]);
 
@@ -68,6 +83,10 @@ export default function TravelSpots() {
       window.scrollY > height &&
       scrollCurrentPage.current < paginationTotalPageRef.current
     ) {
+      console.log(
+        "paginationTotalPageRef.current",
+        paginationTotalPageRef.current
+      );
       scrollCurrentPage.current++;
       getScrollProduct(scrollCurrentPage.current);
     }
@@ -181,6 +200,7 @@ export default function TravelSpots() {
     if (category === "全部") {
       setBannerChange(productPageBanner);
       setIsFilterProducts(false);
+      paginationTotalPageRef.current = 5;
       return;
     }
 
@@ -215,8 +235,16 @@ export default function TravelSpots() {
 
   // (Api沒提供，所以自己撰寫) 根據篩選出來的資料設定總頁數
   useEffect(() => {
-    // console.log("filteredProductData", filteredProductData);
-    setCusTotalPages(Math.ceil(filteredProductData.length / itemsPerPage));
+    if (filteredProductData.length > 0) {
+      setCusTotalPages(Math.ceil(filteredProductData.length / itemsPerPage));
+      paginationTotalPageRef.current = Math.ceil(
+        filteredProductData.length / itemsPerPage
+      );
+      console.log(
+        "篩選資料後，paginationTotalPageRef.current更新後為",
+        paginationTotalPageRef.current
+      );
+    }
   }, [filteredProductData]);
 
   // 處理分頁 ... 的畫面顯示及功能
