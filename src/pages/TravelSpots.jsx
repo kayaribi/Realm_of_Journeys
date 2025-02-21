@@ -68,14 +68,14 @@ export default function TravelSpots() {
       window.scrollY > height &&
       scrollCurrentPage.current < paginationTotalPageRef.current
     ) {
-      // scrollCurrentPage.current = 0;
       scrollCurrentPage.current++;
-      // console.log("scrollCurrentPage.current", scrollCurrentPage.current);
       getScrollProduct(scrollCurrentPage.current);
     }
   };
 
   useEffect(() => {
+    const debounceScroll = debounce(handleScroll, 200);
+
     // 登入之後 會執行這一段
     // 假設初始為 小於 575px
 
@@ -86,11 +86,11 @@ export default function TravelSpots() {
         scrollCurrentPage.current = 1;
         setProductList([]);
         getScrollProduct();
-        window.addEventListener("scroll", handleScroll);
+        window.addEventListener("scroll", debounceScroll);
       } else {
         // 大於 575px
         console.log("gpt 視窗寬度畫面變更大於575px，移除了監聽事件");
-        window.removeEventListener("scroll", handleScroll);
+        window.removeEventListener("scroll", debounceScroll);
         handleCusPageChange(1);
         setProductList([]);
         getProduct();
@@ -105,14 +105,14 @@ export default function TravelSpots() {
       // 如果初始寬度小於 575 px  就註冊監聽事件
       if (initialWindowWidthRef.current) {
         console.log("因為初始預設寬度小於 575 px 所以執行監聽註冊");
-        window.addEventListener("scroll", handleScroll);
+        window.addEventListener("scroll", debounceScroll);
       } else {
         console.log("因為初始預設寬度大於 575 px 所以不執行監聽註冊");
       }
     }
 
     return () => {
-      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("scroll", debounceScroll);
     };
   }, [windowWidth]);
 
@@ -303,7 +303,7 @@ export default function TravelSpots() {
     setIsScreenLoading(false);
   };
 
-  // 優化後的寫法
+  // 優化視窗寬度變化
   useEffect(() => {
     // 處理視窗尺寸變化
     const handleResize = () => {
