@@ -74,6 +74,15 @@ export default function TravelSpots() {
   const testCurrentPage = useRef(1);
   const testtestRef = useRef(null);
   const filterTotalPageRef = useRef(null);
+  const filterTagRefs = useRef([]);
+
+  useEffect(() => {
+    filterTagRefs.current.forEach((h2, index) => {
+      if (h2) {
+        console.log(`h2-${index}:`, h2.textContent);
+      }
+    });
+  }, []);
 
   // const [paginatedData, setPaginatedData] = useState([]);
 
@@ -121,7 +130,7 @@ export default function TravelSpots() {
         // 這裡或許可以使用getFilferScrollProduct();傳參數
         scrollCurrentPage.current++;
         testCurrentPage.current++;
-        getFilferScrollProduct(handleRenderScrollProduct);
+        getFilferScrollProduct();
         // cusCurrentPage++;
         // getScrollProduct(cusCurrentPage);
       }
@@ -138,6 +147,8 @@ export default function TravelSpots() {
     }
   };
 
+  // 這三大段需要修改 (開頭)  上面那一段不確定是否需要修改
+
   useEffect(() => {
     const debounceScroll = debounce(handleScroll, 200);
 
@@ -147,13 +158,21 @@ export default function TravelSpots() {
     if (initialSwitchRef.current) {
       if (windowWidth) {
         // 小於 575px
+
+        // 在這邊做一個判斷，若在 575 px 以上時，篩選標籤為 全部 或是 其他時 執行不同狀況
         console.log("gpt 視窗寬度畫面變更小於575px，註冊了監聽事件");
         setHandleFilterRenderProductSwitch(true);
         setCusCurrentPage(1);
         scrollCurrentPage.current = 1;
         setProductList([]);
-        // getScrollProduct();
-        getFilferScrollProduct();
+        setHandleFilterRenderProduct([]);
+
+        if (selected === "全部") {
+          getScrollProduct();
+        } else {
+          getFilferScrollProduct();
+        }
+
         window.addEventListener("scroll", debounceScroll);
       } else {
         // 大於 575px
@@ -184,6 +203,92 @@ export default function TravelSpots() {
       window.removeEventListener("scroll", debounceScroll);
     };
   }, [windowWidth]);
+
+  // (Api沒提供，所以自己撰寫) 篩選資料、變更 banner 圖片、重置分頁相關參數
+  const handleFilterProducts = async (e, category) => {
+    e.preventDefault();
+    setSelected(category);
+    // getProduct();
+
+    if (category === "全部") {
+      setBannerChange(productPageBanner);
+      // setIsFilterProducts(false);
+      setHandleFilterRenderProductSwitch(false);
+      switchFilterScrollRender.current = false;
+      paginationTotalPageRef.current = 5;
+      return;
+    }
+
+    switchFilterScrollRender.current = true;
+    // setIsFilterProducts(true);
+    setHandleFilterRenderProductSwitch(true);
+    let filteredProductsList = [];
+
+    if (category === "亞洲") {
+      setBannerChange(productPageBanner2);
+
+      filteredProductsList = Object.values(initialAllProducts).filter((item) =>
+        item.category.includes("亞洲")
+      );
+    } else if (category === "歐洲") {
+      setBannerChange(productPageBanner3);
+
+      filteredProductsList = Object.values(initialAllProducts).filter((item) =>
+        item.category.includes("歐洲")
+      );
+    } else if (category === "中東") {
+      setBannerChange(productPageBanner4);
+
+      filteredProductsList = Object.values(initialAllProducts).filter((item) =>
+        item.category.includes("中東")
+      );
+    }
+
+    setCusCurrentPage(1);
+    setCusHasPre(false);
+    setCusHasNext(true);
+
+    if (windowWidth) {
+      setHandleRenderScrollProduct(filteredProductsList);
+    } else {
+      setFilteredProductData(filteredProductsList);
+    }
+  };
+
+  // 根據寬度變化判斷要取得哪種資料
+  const handleGetProductType = (e, category) => {
+    e.preventDefault();
+    if (windowWidth) {
+      setIsFilterProducts(true);
+      if (e.target.className.includes("bg-primary-500")) {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      } else {
+        // 這裡應該還要再做一個判斷 是要執行 getScrollProduct 還是 getFilferScrollProduct
+
+        if (category === "全部") {
+          console.log("視窗小於575px且點擊篩選為全部");
+          scrollCurrentPage.current = 1;
+          setProductList([]);
+          getScrollProduct();
+        } else {
+          console.log("視窗小於575px且點擊篩選為其他");
+          scrollCurrentPage.current = 1;
+          // setHandleFilterRenderProduct([]);
+          // getFilferScrollProduct();
+          // getScrollProduct();
+        }
+      }
+    } else {
+      if (e.target.className.includes("bg-primary-500")) {
+        return;
+      } else {
+        setIsFilterProducts(false);
+        getProduct();
+      }
+    }
+  };
+
+  // 這三大段需要修改 (結尾)
 
   // (Api沒提供，所以自己撰寫) 若總頁數為 1 時，上一頁、下一頁皆不能點選
   useEffect(() => {
@@ -241,107 +346,15 @@ export default function TravelSpots() {
     }
   }, [initialAllProducts]);
 
-  // (Api沒提供，所以自己撰寫) 篩選資料、變更 banner 圖片、重置分頁相關參數
-  const handleFilterProducts = async (e, category) => {
-    e.preventDefault();
-    setSelected(category);
-    // getProduct();
-
-    if (category === "全部") {
-      setBannerChange(productPageBanner);
-      setIsFilterProducts(false);
-      setHandleFilterRenderProductSwitch(false);
-      switchFilterScrollRender.current = false;
-      paginationTotalPageRef.current = 5;
-      return;
-    }
-    switchFilterScrollRender.current = true;
-    setIsFilterProducts(true);
-    setHandleFilterRenderProductSwitch(true);
-    let filteredProductsList = [];
-
-    if (category === "亞洲") {
-      setBannerChange(productPageBanner2);
-
-      filteredProductsList = Object.values(initialAllProducts).filter((item) =>
-        item.category.includes("亞洲")
-      );
-    } else if (category === "歐洲") {
-      setBannerChange(productPageBanner3);
-
-      filteredProductsList = Object.values(initialAllProducts).filter((item) =>
-        item.category.includes("歐洲")
-      );
-    } else if (category === "中東") {
-      setBannerChange(productPageBanner4);
-
-      filteredProductsList = Object.values(initialAllProducts).filter((item) =>
-        item.category.includes("中東")
-      );
-    }
-    // const test = filteredProductsList.slice(
-    //   (cusCurrentPage - 1) * itemsPerPage,
-    //   cusCurrentPage * itemsPerPage
-    // );
-    // handleGetProductType(e, category, test);
-    // setA({ e, category, filteredProductsList });
-    setCusCurrentPage(1);
-    setCusHasPre(false);
-    setCusHasNext(true);
-    setFilteredProductData(filteredProductsList);
-    setHandleRenderScrollProduct(filteredProductsList);
-  };
-
-  // 參考模板
-  // const b = useCallback(() => {
-  //   console.log(
-  //     "a",
-  //     a,
-  //     "a.e.target.value",
-  //     a.e.target.value,
-  //     "a.category",
-  //     a.category
-  //   );
-  // }, [a]);
-
-  // useEffect(() => {
-  //   if (Object.keys(a).length !== 0) {
-  //     b();
-  //   }
-  // }, [a]);
-
   // 測試
   useEffect(() => {
     if (handleRenderScrollProduct.length > 0) {
       console.log("handleRenderScrollProduct", handleRenderScrollProduct);
-
-      // const test = handleRenderScrollProduct.slice(
-      //   (cusCurrentPage - 1) * itemsPerPage,
-      //   cusCurrentPage * itemsPerPage
-      // );
-
-      // const test2 = handleRenderScrollProduct.slice(
-      //   (2 - 1) * itemsPerPage,
-      //   2 * itemsPerPage
-      // );
-      // 點擊後要將 test 的資料傳到  getFilferScrollProduct 內
-      // setTest(test);
-
-      // testRef.current = handleRenderScrollProduct.slice(
-      //   (testCurrentPage.current - 1) * itemsPerPage,
-      //   testCurrentPage.current * itemsPerPage
-      // );
-      // console.log("testRef.current", testRef.current);
       setHandleFilterRenderProduct([]);
       scrollCurrentPage.current = 1;
       testCurrentPage.current = 1;
       testtestRef.current = handleRenderScrollProduct;
       getFilferScrollProduct();
-
-      // setCusTotalPages(Math.ceil(filteredProductData.length / itemsPerPage));
-      // paginationTotalPageRef.current = Math.ceil(
-      //   filteredProductData.length / itemsPerPage
-      // );
     }
   }, [handleRenderScrollProduct]);
 
@@ -450,30 +463,7 @@ export default function TravelSpots() {
       console.log("執行getFilferScrollProduct");
       isScrollLoadingRef.current = true;
 
-      //應該用不到
-      // const res = await axios.get(
-      //   `${BASE_URL}/v2/api/${API_PATH}/admin/products?page=${page}`
-      // );
-      // const { products, pagination } = res.data;
-      // setPagination(pagination);
-      // handleDotStylePagination(page);
-      // setProductList(products);
-
-      // 這裡丟入的資料應該要是篩選後且分割好的前10筆資料
-      // setProductList([]);
-      // setProductList([]);
-      // console.log(
-      //   "我是在getFilferScrollProduct內部要執行setHandleFilterRenderProduct前的handleRenderScrollProduct，看是否有先取得正確資料",
-      //   handleRenderScrollProduct
-      // );
-
-      console.log(
-        "我是在getFilferScrollProduct內部要執行setHandleFilterRenderProduct前的testtestRef.current，看是否有先取得正確資料",
-        testtestRef.current
-      );
-
       let testData = [];
-
       if (testCurrentPage.current === 1) {
         testData = testtestRef.current.slice(
           (testCurrentPage.current - 1) * itemsPerPage,
@@ -485,23 +475,6 @@ export default function TravelSpots() {
           testCurrentPage.current * itemsPerPage
         );
       }
-
-      console.log(
-        "我是在getFilferScrollProduct內部要執行setHandleFilterRenderProduct前的testData",
-        testData
-      );
-
-      // setHandleFilterRenderProduct((preFilterProductsList) => {
-      //   console.log("更新篩選後的卷軸渲染資料");
-      //   return [...preFilterProductsList, ...testRef.current];
-      // });
-
-      // setHandleFilterRenderProduct(testRef.current);
-
-      // console.log(
-      //   "我是在getFilferScrollProduct內部要執行setHandleFilterRenderProduct前的testRef.current",
-      //   testRef.current
-      // );
 
       setHandleFilterRenderProduct((preFilterProduct) => {
         console.log("更新卷軸渲染資料");
@@ -544,37 +517,6 @@ export default function TravelSpots() {
     };
   };
 
-  // 根據寬度變化判斷要取得哪種資料
-  const handleGetProductType = (e, category, test) => {
-    e.preventDefault();
-    if (windowWidth) {
-      if (e.target.className.includes("bg-primary-500")) {
-        window.scrollTo({ top: 0, behavior: "smooth" });
-      } else {
-        // 這裡應該還要再做一個判斷 是要執行 getScrollProduct 還是 getFilferScrollProduct
-
-        if (category === "全部") {
-          console.log("視窗小於575px且點擊篩選為全部");
-          scrollCurrentPage.current = 1;
-          setProductList([]);
-          getScrollProduct();
-        } else {
-          console.log("視窗小於575px且點擊篩選為其他");
-          scrollCurrentPage.current = 1;
-          setProductList([]);
-          // getFilferScrollProduct();
-          // getScrollProduct();
-        }
-      }
-    } else {
-      if (e.target.className.includes("bg-primary-500")) {
-        return;
-      } else {
-        getProduct();
-      }
-    }
-  };
-
   useEffect(() => {
     if (isSignIn) {
       if (initialWindowWidthRef.current) {
@@ -614,7 +556,7 @@ export default function TravelSpots() {
               <ul className="list-unstyled mb-0 travelSpotsSelectWrap p-1">
                 <li className="travelSpotsSelectbuttonWrap  ">
                   <a
-                    className={`text-white fw-bold  travelSpotsSelectbutton ${
+                    className={`filterTagRefs text-white fw-bold travelSpotsSelectbutton ${
                       selected === "全部" ? "bg-primary-500" : ""
                     } text-nowrap py-xl-4 py-md-3 py-2`}
                     href=""
@@ -628,7 +570,7 @@ export default function TravelSpots() {
                 </li>
                 <li className="travelSpotsSelectbuttonWrap">
                   <a
-                    className={`text-white fw-bold ${
+                    className={`filterTagRefs text-white fw-bold ${
                       selected === "亞洲" ? "bg-primary-500" : ""
                     } travelSpotsSelectbutton  text-nowrap py-xl-4 py-md-3 py-2`}
                     href=""
@@ -642,7 +584,7 @@ export default function TravelSpots() {
                 </li>
                 <li className="travelSpotsSelectbuttonWrap">
                   <a
-                    className={`text-white fw-bold ${
+                    className={`filterTagRefs text-white fw-bold ${
                       selected === "歐洲" ? "bg-primary-500" : ""
                     } travelSpotsSelectbutton  text-nowrap py-xl-4 py-md-3 py-2`}
                     href=""
@@ -656,7 +598,7 @@ export default function TravelSpots() {
                 </li>
                 <li className="travelSpotsSelectbuttonWrap">
                   <a
-                    className={`text-white fw-bold ${
+                    className={`filterTagRefs text-white fw-bold ${
                       selected === "中東" ? "bg-primary-500" : ""
                     } travelSpotsSelectbutton  text-nowrap py-xl-4 py-md-3 py-2`}
                     href=""
