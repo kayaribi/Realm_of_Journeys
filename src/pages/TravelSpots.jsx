@@ -70,6 +70,14 @@ export default function TravelSpots() {
 
   const [a, setA] = useState({});
 
+  const testRef = useRef([]);
+  const testCurrentPage = useRef(1);
+
+  // handleRenderScrollProduct.slice(
+  //   (cusCurrentPage - 1) * itemsPerPage,
+  //   cusCurrentPage * itemsPerPage
+  // );
+
   // const [paginatedData, setPaginatedData] = useState([]);
 
   useEffect(() => {
@@ -129,7 +137,8 @@ export default function TravelSpots() {
         setCusCurrentPage(1);
         scrollCurrentPage.current = 1;
         setProductList([]);
-        getScrollProduct();
+        // getScrollProduct();
+        getFilferScrollProduct();
         window.addEventListener("scroll", debounceScroll);
       } else {
         // 大於 575px
@@ -226,12 +235,14 @@ export default function TravelSpots() {
     if (category === "全部") {
       setBannerChange(productPageBanner);
       setIsFilterProducts(false);
+      setHandleFilterRenderProductSwitch(false);
       switchFilterScrollRender.current = false;
       paginationTotalPageRef.current = 5;
       return;
     }
     switchFilterScrollRender.current = true;
     setIsFilterProducts(true);
+    setHandleFilterRenderProductSwitch(true);
     let filteredProductsList = [];
 
     if (category === "亞洲") {
@@ -289,18 +300,25 @@ export default function TravelSpots() {
     if (handleRenderScrollProduct.length > 0) {
       console.log("handleRenderScrollProduct", handleRenderScrollProduct);
 
-      const test = handleRenderScrollProduct.slice(
-        (cusCurrentPage - 1) * itemsPerPage,
-        cusCurrentPage * itemsPerPage
-      );
+      // const test = handleRenderScrollProduct.slice(
+      //   (cusCurrentPage - 1) * itemsPerPage,
+      //   cusCurrentPage * itemsPerPage
+      // );
 
-      const test2 = handleRenderScrollProduct.slice(
-        (2 - 1) * itemsPerPage,
-        2 * itemsPerPage
-      );
+      // const test2 = handleRenderScrollProduct.slice(
+      //   (2 - 1) * itemsPerPage,
+      //   2 * itemsPerPage
+      // );
       // 點擊後要將 test 的資料傳到  getFilferScrollProduct 內
       // setTest(test);
-      // getFilferScrollProduct(test);
+
+      testRef.current = handleRenderScrollProduct.slice(
+        (testCurrentPage.current - 1) * itemsPerPage,
+        testCurrentPage.current * itemsPerPage
+      );
+      console.log("testRef.current", testRef.current);
+
+      getFilferScrollProduct();
 
       // setCusTotalPages(Math.ceil(filteredProductData.length / itemsPerPage));
       // paginationTotalPageRef.current = Math.ceil(
@@ -312,7 +330,7 @@ export default function TravelSpots() {
   // (Api沒提供，所以自己撰寫) 根據篩選出來的資料設定總頁數
   useEffect(() => {
     if (filteredProductData.length > 0) {
-      console.log(filteredProductData);
+      // console.log(filteredProductData);
 
       setCusTotalPages(Math.ceil(filteredProductData.length / itemsPerPage));
       paginationTotalPageRef.current = Math.ceil(
@@ -423,9 +441,26 @@ export default function TravelSpots() {
       // 這裡丟入的資料應該要是篩選後且分割好的前10筆資料
       // setProductList([]);
       // setProductList([]);
-      setHandleFilterRenderProduct((preFilterProductsList) => {
-        console.log("更新篩選後的卷軸渲染資料");
-        return [...preFilterProductsList, ...filteredProductData];
+      console.log(
+        "我是在getFilferScrollProduct內部要執行setHandleFilterRenderProduct前的handleRenderScrollProduct，看是否有先取得正確資料",
+        handleRenderScrollProduct
+      );
+
+      console.log(
+        "我是在getFilferScrollProduct內部要執行setHandleFilterRenderProduct前的testRef.current",
+        testRef.current
+      );
+
+      // setHandleFilterRenderProduct((preFilterProductsList) => {
+      //   console.log("更新篩選後的卷軸渲染資料");
+      //   return [...preFilterProductsList, ...testRef.current];
+      // });
+
+      // setHandleFilterRenderProduct(testRef.current);
+
+      setHandleFilterRenderProduct((preFilterProduct) => {
+        console.log("更新卷軸渲染資料");
+        return [...preFilterProduct, ...testRef.current];
       });
 
       setTimeout(() => {
@@ -482,7 +517,7 @@ export default function TravelSpots() {
           console.log("視窗小於575px且點擊篩選為其他");
           scrollCurrentPage.current = 1;
           setProductList([]);
-          getFilferScrollProduct();
+          // getFilferScrollProduct();
           // getScrollProduct();
         }
       }
@@ -600,7 +635,7 @@ export default function TravelSpots() {
               <>
                 {/* (Api沒提供，所以自己撰寫) 篩選後的資料渲染畫面 */}
                 {handleFilterRenderProductSwitch
-                  ? test.map((filterProduct) => {
+                  ? handleFilterRenderProduct.map((filterProduct) => {
                       return (
                         <div key={filterProduct.id} className={`col`}>
                           <Link
@@ -626,7 +661,7 @@ export default function TravelSpots() {
                                   className="title-family travelSpotCardTitle text-neutral-black"
                                   style={{ whiteSpace: "pre-line" }}
                                 >
-                                  {filterProduct.title} 測試階段
+                                  {filterProduct.title} 篩選後的測試階段
                                 </h3>
                               </div>
                               <div className="mb-3">
@@ -694,7 +729,7 @@ export default function TravelSpots() {
                                   className="title-family travelSpotCardTitle text-neutral-black"
                                   style={{ whiteSpace: "pre-line" }}
                                 >
-                                  {filterProduct.title}
+                                  {filterProduct.title} 正式的資料階段
                                 </h3>
                               </div>
                               <div className="mb-3">
