@@ -73,11 +73,7 @@ export default function TravelSpots() {
   const testRef = useRef([]);
   const testCurrentPage = useRef(1);
   const testtestRef = useRef(null);
-
-  // handleRenderScrollProduct.slice(
-  //   (cusCurrentPage - 1) * itemsPerPage,
-  //   cusCurrentPage * itemsPerPage
-  // );
+  const filterTotalPageRef = useRef(null);
 
   // const [paginatedData, setPaginatedData] = useState([]);
 
@@ -104,22 +100,37 @@ export default function TravelSpots() {
       listRef.current.offsetHeight + listRef.current.offsetTop - 715;
 
     // 需要滾動到下方，且沒有在讀取中以及瀏覽器視窗寬度小於等於575時
-    if (
-      !isScrollLoadingRef.current &&
-      window.scrollY > height &&
-      scrollCurrentPage.current < paginationTotalPageRef.current
-    ) {
-      if (switchFilterScrollRender.current) {
+
+    if (switchFilterScrollRender.current) {
+      if (
+        !isScrollLoadingRef.current &&
+        window.scrollY > height &&
+        scrollCurrentPage.current < filterTotalPageRef.current
+      ) {
         console.log("觸發篩選按鈕");
         // console.log(paginatedData);
         // setCusCurrentPage((pre) => pre++);
 
+        console.log(
+          "scrollCurrentPage.current",
+          scrollCurrentPage.current,
+          "filterTotalPageRef.current",
+          filterTotalPageRef.current
+        );
+
         // 這裡或許可以使用getFilferScrollProduct();傳參數
+        scrollCurrentPage.current++;
         testCurrentPage.current++;
         getFilferScrollProduct(handleRenderScrollProduct);
         // cusCurrentPage++;
         // getScrollProduct(cusCurrentPage);
-      } else {
+      }
+    } else {
+      if (
+        !isScrollLoadingRef.current &&
+        window.scrollY > height &&
+        scrollCurrentPage.current < paginationTotalPageRef.current
+      ) {
         console.log("尚未觸發篩選按鈕");
         scrollCurrentPage.current++;
         getScrollProduct(scrollCurrentPage.current);
@@ -321,6 +332,9 @@ export default function TravelSpots() {
       //   testCurrentPage.current * itemsPerPage
       // );
       // console.log("testRef.current", testRef.current);
+      setHandleFilterRenderProduct([]);
+      scrollCurrentPage.current = 1;
+      testCurrentPage.current = 1;
       testtestRef.current = handleRenderScrollProduct;
       getFilferScrollProduct();
 
@@ -338,6 +352,9 @@ export default function TravelSpots() {
 
       setCusTotalPages(Math.ceil(filteredProductData.length / itemsPerPage));
       paginationTotalPageRef.current = Math.ceil(
+        filteredProductData.length / itemsPerPage
+      );
+      filterTotalPageRef.current = Math.ceil(
         filteredProductData.length / itemsPerPage
       );
     }
