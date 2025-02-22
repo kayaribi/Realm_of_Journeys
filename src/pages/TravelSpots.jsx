@@ -213,6 +213,7 @@ export default function TravelSpots() {
     if (category === "全部") {
       setBannerChange(productPageBanner);
       // setIsFilterProducts(false);
+      // setIsFilterProducts(false);
       setHandleFilterRenderProductSwitch(false);
       switchFilterScrollRender.current = false;
       paginationTotalPageRef.current = 5;
@@ -250,7 +251,16 @@ export default function TravelSpots() {
 
     if (windowWidth) {
       // 小於 575px 時，點擊篩選標籤
-      setHandleRenderScrollProduct(filteredProductsList);
+      if (e.target.className.includes("bg-primary-500")) {
+        return;
+      } else {
+        if (category === "全部") {
+          setIsFilterProducts(false);
+          getScrollProduct();
+        } else {
+          setHandleRenderScrollProduct(filteredProductsList);
+        }
+      }
     } else {
       // 大於 575px 時，點擊篩選標籤
       setFilteredProductData(filteredProductsList);
@@ -264,12 +274,14 @@ export default function TravelSpots() {
       setIsFilterProducts(true);
       if (e.target.className.includes("bg-primary-500")) {
         window.scrollTo({ top: 0, behavior: "smooth" });
+        return;
       } else {
         // 這裡應該還要再做一個判斷 是要執行 getScrollProduct 還是 getFilferScrollProduct
         console.log("小於575px，且分類標籤沒有被點擊過，執行以下程式碼");
         if (category === "全部") {
           console.log("視窗小於575px且點擊篩選為全部");
           scrollCurrentPage.current = 1;
+          setIsFilterProducts(false);
           setProductList([]);
           getScrollProduct();
         } else {
@@ -282,6 +294,16 @@ export default function TravelSpots() {
       }
     } else {
       if (e.target.className.includes("bg-primary-500")) {
+        if (category === "全部") {
+          setIsFilterProducts(false);
+          setHandleFilterRenderProductSwitch(true);
+          getProduct();
+        } else {
+          setIsFilterProducts(true);
+          setHandleFilterRenderProductSwitch(false);
+          getProduct();
+        }
+
         return;
       } else {
         console.log("大於575px，且分類標籤沒有被點擊過");
@@ -365,6 +387,10 @@ export default function TravelSpots() {
       scrollCurrentPage.current = 1;
       testCurrentPage.current = 1;
       testtestRef.current = handleRenderScrollProduct;
+      filterTotalPageRef.current = Math.ceil(
+        handleRenderScrollProduct.length / itemsPerPage
+      );
+
       getFilferScrollProduct();
     }
   }, [handleRenderScrollProduct]);
