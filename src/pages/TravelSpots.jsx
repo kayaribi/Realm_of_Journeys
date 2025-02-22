@@ -249,8 +249,10 @@ export default function TravelSpots() {
     setCusHasNext(true);
 
     if (windowWidth) {
+      // 小於 575px 時，點擊篩選標籤
       setHandleRenderScrollProduct(filteredProductsList);
     } else {
+      // 大於 575px 時，點擊篩選標籤
       setFilteredProductData(filteredProductsList);
     }
   };
@@ -264,7 +266,7 @@ export default function TravelSpots() {
         window.scrollTo({ top: 0, behavior: "smooth" });
       } else {
         // 這裡應該還要再做一個判斷 是要執行 getScrollProduct 還是 getFilferScrollProduct
-
+        console.log("小於575px，且分類標籤沒有被點擊過，執行以下程式碼");
         if (category === "全部") {
           console.log("視窗小於575px且點擊篩選為全部");
           scrollCurrentPage.current = 1;
@@ -282,8 +284,17 @@ export default function TravelSpots() {
       if (e.target.className.includes("bg-primary-500")) {
         return;
       } else {
-        setIsFilterProducts(false);
-        getProduct();
+        console.log("大於575px，且分類標籤沒有被點擊過");
+
+        if (category === "全部") {
+          setIsFilterProducts(false);
+          setHandleFilterRenderProductSwitch(true);
+          getProduct();
+        } else {
+          setIsFilterProducts(true);
+          setHandleFilterRenderProductSwitch(false);
+          getProduct();
+        }
       }
     }
   };
@@ -648,7 +659,8 @@ export default function TravelSpots() {
                                   className="title-family travelSpotCardTitle text-neutral-black"
                                   style={{ whiteSpace: "pre-line" }}
                                 >
-                                  {filterProduct.title} 篩選後的測試階段
+                                  {filterProduct.title} 篩選後的測試階段(小於
+                                  575px 的篩選資料)
                                 </h3>
                               </div>
                               <div className="mb-3">
@@ -716,7 +728,7 @@ export default function TravelSpots() {
                                   className="title-family travelSpotCardTitle text-neutral-black"
                                   style={{ whiteSpace: "pre-line" }}
                                 >
-                                  {filterProduct.title} 正式的資料階段
+                                  {filterProduct.title} 大於 575px 的篩選資料
                                 </h3>
                               </div>
                               <div className="mb-3">
