@@ -274,6 +274,19 @@ export default function TravelSpots() {
       setIsFilterProducts(true);
       if (e.target.className.includes("bg-primary-500")) {
         window.scrollTo({ top: 0, behavior: "smooth" });
+        if (category === "全部") {
+          console.log("視窗小於575px且篩選按鈕已經點擊過，篩選為全部");
+          scrollCurrentPage.current = 1;
+          setIsFilterProducts(false);
+          setProductList([]);
+          getScrollProduct();
+        } else {
+          console.log("視窗小於575px且篩選按鈕已經點擊過，篩選為其他");
+          scrollCurrentPage.current = 1;
+          // setHandleFilterRenderProduct([]);
+          // getFilferScrollProduct();
+          // getScrollProduct();
+        }
         return;
       } else {
         // 這裡應該還要再做一個判斷 是要執行 getScrollProduct 還是 getFilferScrollProduct
