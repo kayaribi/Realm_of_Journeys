@@ -28,3 +28,15 @@
     height: 36px;
   }
 }
+
+.above-footer {
+  position: absolute !important;
+  bottom: calc(100% + 10px); /* 讓它在 footer 之上 */
+}
+
+.fixed-bottom {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+}

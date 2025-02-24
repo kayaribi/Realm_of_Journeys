@@ -1,23 +1,22 @@
 import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { CartContext } from "../store/store";
+import FloatingButton from "../components/FloatingButton";
 
 export default function CartOrder() {
-  const [state, dispatch] = useContext(CartContext)
+  const { cartList } = useContext(CartContext);
+
   return (
     <>
       {/* 進度條 */}
-      <div className="container position-relative mt-md-20 mt-22 mb-lg-10 my-6">
+      <div className="container position-relative mt-md-40 mt-22 mb-lg-10 my-6">
         <div className="row row-cols-4 text-center">
           <div className="col d-flex justify-content-center align-items-center flex-column py-md-4 py-3">
             <div
               className="bg-primary-500 mb-4 rounded-circle d-flex justify-content-center align-items-center"
               style={{ width: "32px", height: "32px" }}
             >
-              <img
-                src="images/icon/check.svg"
-                alt=""
-              />
+              <img src="images/icon/check.svg" alt="" />
             </div>
             <p className="text-primary-500 fs-md-9 fs-12">購物車明細</p>
           </div>
@@ -301,18 +300,27 @@ export default function CartOrder() {
           <div className="col-md-4 d-none d-md-block">
             <div className="border border-primary-300 bg-primary-50 rounded-3 p-6 shadow-sm">
               <h3 className="title-family fs-5">訂單明細</h3>
-              <div className="my-6">
-                <p className="fs-7">泰國清邁文化美食悠遊4日</p>
-                <div className="d-flex justify-content-between align-items-center mt-3 fs-7">
-                  <div className="d-flex justify-content-between align-items-center">
-                    <img src="images/icon/price.svg" alt="" />
-                    <p>28,000</p>
+              {cartList.map((item) => {
+                return (
+                  <div className="my-6" key={item.id}>
+                    <p className="fs-7">{item.product.title}</p>
+                    <div className="d-flex justify-content-between align-items-center mt-3 fs-7">
+                      <div className="d-flex justify-content-between align-items-center">
+                        <img src="images/icon/price.svg" alt="" />
+                        <p>{item.total.toLocaleString()}</p>
+                      </div>
+                      <p>{item.qty}人</p>
+                    </div>
                   </div>
-                  <p>2人</p>
-                </div>
-              </div>
+                );
+              })}
               <div className="border-top border-primary-200 mb-6"></div>
-              <h5 className="fs-7 text-primary-600 text-end">總計 NT 56,000</h5>
+              <h5 className="fs-7 text-primary-600 text-end">
+                總計 NT
+                {cartList
+                  .reduce((sum, cartItem) => sum + cartItem.total, 0)
+                  .toLocaleString()}
+              </h5>
             </div>
             <div className="text-neutral-200 fs-11 mt-6">
               <p>提醒：</p>
@@ -456,48 +464,7 @@ export default function CartOrder() {
           </div>
         </div>
         {/* 手機版明細 */}
-        <div className="fixed-bottom d-md-none">
-          <button
-            className="btn btn-primary-50 w-100 rounded-0 border-top border-primary-300 py-0"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#collapseDetails"
-            aria-expanded="false"
-            aria-controls="collapseDetails"
-          >
-            <div className="d-flex justify-content-between align-items-center py-4">
-              <h3 className="title-family">訂單明細</h3>
-              <div className="d-flex justify-content-center align-items-center">
-                <small className="text-neutral-200 fs-12 me-1">展開明細</small>
-                <img src="images/icon/minimize_16px.svg" alt="" />
-              </div>
-            </div>
-            {/* 折疊內容 */}
-            <div className="collapse text-start mb-4" id="collapseDetails">
-              <p className="mb-3">泰國清邁文化美食悠遊4日</p>
-              <div className="d-flex justify-content-between align-items-center text-neutral-300">
-                <div className="d-flex justify-content-center align-items-center">
-                  <img src="images/icon/price.svg" alt="" />
-                  <p>28,000</p>
-                </div>
-                <p>2人</p>
-              </div>
-              <div className="border-top my-4 border-primary-200"></div>
-              <div className="d-flex justify-content-between align-items-center">
-                <div className="d-flex justify-content-center align-items.center">
-                  <img
-                    src="images/icon/alert-circle_16px.svg"
-                    alt="" className="me-1"
-                  />
-                  <p>提醒</p>
-                </div>
-                <h5 className="text-primary-600">
-                  總計<span className="ms-3"></span>NT 56,000
-                </h5>
-              </div>
-            </div>
-          </button>
-        </div>
+        <FloatingButton />
       </div>
     </>
   );

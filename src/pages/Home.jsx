@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { CSSTransition } from "react-transition-group";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import { motion, AnimatePresence } from "framer-motion";
 import featuredData from "../featuredData";
 import featuredTitleIcon from "../../public/images/icon/shiny_48px.svg";
 import FeaturedCard from "../components/FeaturedCard";
@@ -48,9 +49,7 @@ export default function Home() {
       <header id="header" className="position-relative slideshow-container">
         {images.map((image, index) => (
           <CSSTransition
-            // key={index}
-            // in={currentImageIndex === index}
-            key={image} // 改成使用圖片 URL
+            key={index} // 改成使用圖片 URL
             in={currentImageIndex === index}
             timeout={2500}
             classNames={{
@@ -132,10 +131,7 @@ export default function Home() {
               </p>
               <div className="d-flex justify-content-center align-items-center">
                 <h5 className="my-2 me-2 fs-7">尋找行程</h5>
-                <img
-                  src="images/icon/right-arrow.svg"
-                  alt="尋找行程"
-                />
+                <img src="images/icon/right-arrow.svg" alt="尋找行程" />
               </div>
             </div>
           </Link>
@@ -167,10 +163,7 @@ export default function Home() {
           </h3>
           <div className="row">
             <div className="col-lg-4">
-              <img
-                src="images/icon/Vector.svg"
-                alt="全包服務，無憂旅程"
-              />
+              <img src="images/icon/Vector.svg" alt="全包服務，無憂旅程" />
               <h4 className="my-3 my-md-5 gradient-blue fs-8 fs-md-6">
                 全包服務，無憂旅程
               </h4>
@@ -179,10 +172,7 @@ export default function Home() {
               </p>
             </div>
             <div className="col-lg-4 my-lg-0 my-10">
-              <img
-                src="images/icon/Vector-1.svg"
-                alt="精選小團體，靈活自由"
-              />
+              <img src="images/icon/Vector-1.svg" alt="精選小團體，靈活自由" />
               <h4 className="my-3 my-md-5 gradient-blue fs-8 fs-md-6">
                 精選小團體，靈活自由
               </h4>
@@ -191,10 +181,7 @@ export default function Home() {
               </p>
             </div>
             <div className="col-lg-4">
-              <img
-                src="images/icon/Vector-2.svg"
-                alt="快速預定，隨時出發"
-              />
+              <img src="images/icon/Vector-2.svg" alt="快速預定，隨時出發" />
               <h4 className="my-3 my-md-5 gradient-blue fs-8 fs-md-6">
                 快速預定，隨時出發
               </h4>

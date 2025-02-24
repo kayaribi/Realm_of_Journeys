@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import ReactLoading from "react-loading";
@@ -14,7 +14,7 @@ import { CartContext } from "../store/store";
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 const API_PATH = import.meta.env.VITE_API_PATH;
 
-const TravelSpotsItem = () => {
+const TravelSpotsItem = ({ cartProduct }) => {
   const { id } = useParams(); // 取得網址中的產品 ID
   const [product, setProduct] = useState(null);
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
@@ -24,8 +24,7 @@ const TravelSpotsItem = () => {
   const [isLargeScreen, setIsLargeScreen] = useState(window.innerWidth >= 992);
 
   const [quantity, setQuantity] = useState(1); // 預設數量為 1
-
-  const [state, dispatch] = useContext(CartContext);
+  const { addCartItem } = useContext(CartContext); // 加入購物車
 
   const handleIncrease = () => setQuantity(quantity + 1);
   const handleDecrease = () => {
@@ -85,17 +84,12 @@ const TravelSpotsItem = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  const navigate = useNavigate();
 
-  // 加入購物車
-  const addCartItem = async (product_id, quantity) => {
-    console.log(product_id, quantity);
+  const handleBuyNow = async () => {
     try {
-      const res = await axios.post(`${BASE_URL}/v2/api/${API_PATH}/cart`, {
-        data: {
-          product_id,
-          qty: Number(quantity),
-        },
-      });
+      await addCartItem(id, quantity); // 確保購物車資料更新
+      navigate("/cart"); // 更新完成後再跳轉
     } catch (error) {
       alert("加入購物車失敗");
     }
@@ -284,6 +278,7 @@ const TravelSpotsItem = () => {
                           <button
                             type="button"
                             className="quantity-btn plus"
+                            disabled={quantity >= 10}
                             onClick={handleIncrease}
                           >
                             <svg
@@ -333,9 +328,7 @@ const TravelSpotsItem = () => {
                     <button
                       type="button"
                       className="btn btn-secondary-200 custom-btn-secondary-200 w-100 py-lg-3 px-0"
-                      onClick={() => {
-                        addCartItem(id, quantity);
-                      }}
+                      onClick={handleBuyNow}
                     >
                       直接購買
                     </button>
