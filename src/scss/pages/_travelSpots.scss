@@ -1,5 +1,5 @@
 .travelSpotsBanner {
-  margin-top: 108px;
+  // margin-top: 108px;
   width: 100%;
   background-size: cover;
   aspect-ratio: 3 / 1;
@@ -261,7 +261,8 @@
 
 .paginationStyle {
   padding: 4px 10px;
-  font-size: 20px;
+  // font-size: 20px;
+  font-size: 16px;
   line-height: 1.2;
   border-radius: 100px;
   cursor: pointer;
@@ -298,9 +299,9 @@
 }
 
 @media screen and (max-width: 991px) {
-  .travelSpotsBanner {
-    margin-top: 80px;
-  }
+  // .travelSpotsBanner {
+  //   margin-top: 80px;
+  // }
 
   .productListTranslate {
     padding-top: 80px;
