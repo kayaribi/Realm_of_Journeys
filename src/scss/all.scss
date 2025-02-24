@@ -25,16 +25,19 @@
 @import './pages/evaluate';
 @import './pages/travelGuide';
 @import './pages/backtopbtn';
-@import './pages/FAQ';  
+@import './pages/FAQ';
 @import './pages/travelGuideItem';
 @import './pages/travelSpotsItem';
 @import './pages/cart';
 @import './pages/cartOrder';
+@import './pages/about';
+
 // 補足navbar佔用空間
-.navbar-top{
+.navbar-top {
     margin-top: 0;
-    @media(min-width:991px){
+
+    @media(min-width:991px) {
         margin-top: 102px;
     }
-    
+
 }

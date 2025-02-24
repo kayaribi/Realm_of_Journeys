@@ -1,0 +1,142 @@
+.about {
+  .about-banner {
+    position: relative;
+    background-image: url("images/about_banner.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 210px;
+    background-position: center;
+
+    @media screen and (min-width: 992px) {
+      height: 640px;
+    }
+  }
+
+  .about-banner::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #1C1C1C;
+    opacity: 0.3;
+    z-index: 1;
+  }
+
+  .about-banner-content {
+    position: relative;
+    z-index: 2;
+    left: 0;
+    top: 60%;
+
+    @media screen and (min-width: 992px) {
+      padding-left: 110px;
+      top: 50%;
+    }
+  }
+
+  .content-img-feature {
+    background-image: url("images/about_feature.jpg");
+    width: 100%;
+    height: 106px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    border-radius: 16px;
+
+    @media screen and (min-width: 992px) {
+      height: 226px;
+      max-width: 1296px;
+    }
+  }
+
+  .content-img-vision {
+    background-image: url("images/about_vision.jpg");
+    width: 100%;
+    height: 106px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    border-radius: 16px;
+
+    @media screen and (min-width: 992px) {
+      height: 219px;
+      max-width: 416px;
+      margin-right: 110px;
+    }
+  }
+
+  .vision-content {
+    @media screen and (min-width: 992px) {
+      margin-left: 110px;
+    }
+  }
+
+  .swiper {
+    width: 294px;
+    height: auto;
+
+    @media screen and (min-width: 1400px) {
+      width: 100%;
+    }
+  }
+
+  .swiper-slide img {
+    display: block;
+    width: 294px;
+    height: 294px;
+    object-fit: cover;
+    border-radius: 20px;
+  }
+
+  .content-img-sub {
+    position: relative;
+    background-image: url("images/about_sub.jpg");
+    width: 100%;
+    height: 208px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+
+    @media screen and (min-width: 992px) {
+      height: 298px;
+    }
+  }
+
+  .content-img-sub::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #1C1C1C;
+    opacity: 0.3;
+    z-index: 1;
+  }
+
+  .content-sub-content {
+    position: relative;
+    z-index: 2;
+    left: 0;
+    top: 41px;
+
+    @media screen and (min-width: 992px) {
+      top: 84px;
+    }
+
+    .form-control {
+      @media screen and (min-width: 992px) {
+        padding: 12px 13px;
+      }
+    }
+
+    .input-group {
+      @media screen and (min-width: 992px) {
+        width: 501px;
+      }
+    }
+  }
+
+}
