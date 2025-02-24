@@ -1,13 +1,47 @@
-import { useContext } from "react";
-import { Link } from "react-router-dom";
+import { useContext, useEffect, useRef } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import { Modal } from "bootstrap";
 import { CartContext } from "../store/store";
 import FloatingButton from "../components/FloatingButton";
+import CartOrderModal from "../components/CartOrderModal";
 
 export default function CartOrder() {
   const { cartList } = useContext(CartContext);
 
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    formState,
+  } = useForm({ mode: "onChange" });
+  const navigate = useNavigate();
+  const startSubmit = (data) => {
+    navigate('/cartPayment');
+  };
+
+  // 提交下一步警告
+  const cartOrderModal = useRef(null);
+  // // nextSubmitModal.current = new Modal('#nextSubmitModal');
+  useEffect(() => {
+    cartOrderModal.current = new Modal("#cartOrderModal");
+  }, []);
+
+  const openBackSubmitModal = () => {
+    cartOrderModal.current.show();
+  };
+  const closeBackSubmitModal = () => {
+    cartOrderModal.current.hide();
+  };
+
   return (
     <>
+      {/* 確認下一步modal */}
+      <CartOrderModal
+        closeBackSubmitModal={closeBackSubmitModal}
+        cartOrderModal={cartOrderModal}
+      />
+
       {/* 進度條 */}
       <div className="container position-relative mt-md-40 mt-22 mb-lg-10 my-6">
         <div className="row row-cols-4 text-center">
@@ -65,7 +99,10 @@ export default function CartOrder() {
         </div>
       </div>
       {/* 填寫訂單頁 */}
-      <div className="container mb-lg-20 mb-8">
+      <form
+        className="container mb-lg-20 mb-8"
+        onSubmit={handleSubmit(startSubmit)}
+      >
         {/* 訂單 */}
         <div className="row">
           {/* 聯絡人資料 */}
@@ -81,22 +118,52 @@ export default function CartOrder() {
               {/* 姓名 */}
               <div className="col-md-6 mb-md-7">
                 <div className="mb-md-3 mb-2">
-                  <label htmlFor="username" className="form-label">
-                    姓名<span className="text-danger ms-2">*</span>
-                  </label>
+                  <div className="d-flex">
+                    <label htmlFor="username" className="form-label">
+                      姓名<span className="text-danger ms-2">*</span>
+                    </label>
+                    <p
+                      className="text-danger d-md-none ms-auto mb-auto"
+                      style={{ fontSize: "12px" }}
+                    >
+                      {errors.name ? errors.name.message : ""}
+                    </p>
+                  </div>
                   <input
                     type="text"
                     className="form-control"
                     id="username"
                     placeholder="請輸入姓名"
+                    {...register("name", {
+                      required: "這是必填欄位。",
+                      pattern: {
+                        value: /^[\u4e00-\u9fa5]{2,10}$/,
+                        message: "須超過一個字，且為中文",
+                      },
+                    })}
                   />
+                  <p
+                    className="text-danger mt-2 d-none d-md-block position-absolute"
+                    style={{ fontSize: "12px" }}
+                  >
+                    {errors.name ? errors.name.message : ""}
+                  </p>
                 </div>
               </div>
               {/* 性別 */}
               <div className="col-md-6 mb-md-7 mb-2">
-                <label htmlFor="male" className="form-label">
-                  姓別<span className="text-danger ms-2">*</span>
-                </label>
+                <div className="d-flex">
+                  <label htmlFor="male" className="form-label">
+                    姓別<span className="text-danger ms-2">*</span>
+                  </label>
+                  <p
+                    className="text-danger d-md-none ms-auto mb-auto"
+                    style={{ fontSize: "12px" }}
+                  >
+                    {errors.gender ? errors.gender.message : ""}
+                  </p>
+                </div>
+
                 <div className="mt-md-2">
                   <div className="form-check form-check-inline mb-0 me-6">
                     <input
@@ -105,11 +172,20 @@ export default function CartOrder() {
                       name="gender"
                       id="male"
                       value="male"
+                      {...register("gender", {
+                        required: "這是必填欄位。",
+                      })}
                     />
                     <label className="form-check-label" htmlFor="male">
                       男性
                     </label>
                   </div>
+                  <p
+                    className="text-danger mt-5 d-none d-md-block position-absolute"
+                    style={{ fontSize: "12px" }}
+                  >
+                    {errors.gender ? errors.gender.message : ""}
+                  </p>
                   <div className="form-check form-check-inline mb-0">
                     <input
                       className="form-check-input"
@@ -117,6 +193,9 @@ export default function CartOrder() {
                       name="gender"
                       id="female"
                       value="female"
+                      {...register("gender", {
+                        required: "這是必填欄位。",
+                      })}
                     />
                     <label className="form-check-label" htmlFor="female">
                       女性
@@ -127,50 +206,121 @@ export default function CartOrder() {
               {/* Email */}
               <div className="col-md-6 mb-md-7 mb-2">
                 <div className="mb-md-3 mb-2">
-                  <label htmlFor="email" className="form-label">
-                    E-mail<span className="text-danger ms-2">*</span>
-                  </label>
+                  <div className="d-flex">
+                    <label htmlFor="email" className="form-label">
+                      E-mail<span className="text-danger ms-2">*</span>
+                    </label>
+                    <p
+                      className="text-danger d-md-none ms-auto mb-auto"
+                      style={{ fontSize: "12px" }}
+                    >
+                      {errors.email ? errors.email.message : ""}
+                    </p>
+                  </div>
+
                   <input
                     type="email"
                     className="form-control"
                     id="email"
                     placeholder="請輸入E-mail"
+                    {...register("email", {
+                      required: "這是必填欄位。",
+                      pattern: {
+                        value: /^[^@]+@[^@]+$/,
+                        message: "必須為電子郵件格式",
+                      },
+                    })}
                   />
+                  <p
+                    className="text-danger mt-2 d-none d-md-block position-absolute"
+                    style={{ fontSize: "12px" }}
+                  >
+                    {errors.email ? errors.email.message : ""}
+                  </p>
                 </div>
               </div>
               {/* 手機號碼 */}
               <div className="col-md-6 mb-md-7 mb-2">
                 <div className="mb-md-3 mb-2">
-                  <label htmlFor="tel" className="form-label">
-                    手機號碼<span className="text-danger ms-2">*</span>
-                  </label>
+                  <div className="d-flex">
+                    <label htmlFor="tel" className="form-label">
+                      手機號碼<span className="text-danger ms-2">*</span>
+                    </label>
+                    <p
+                      className="text-danger d-md-none ms-auto mb-auto"
+                      style={{ fontSize: "12px" }}
+                    >
+                      {errors.tel ? errors.tel.message : ""}
+                    </p>
+                  </div>
+
                   <input
                     type="tel"
                     className="form-control"
                     id="tel"
                     placeholder="請輸入手機號碼"
+                    {...register("tel", {
+                      required: "此欄位為必填。",
+                      pattern: {
+                        value: /^09\d{8}$/,
+                        message: "必須為09開頭，且為10位數",
+                      },
+                    })}
                   />
+                  <p
+                    className="text-danger mt-2 d-none d-md-block position-absolute"
+                    style={{ fontSize: "12px" }}
+                  >
+                    {errors.tel ? errors.tel.message : ""}
+                  </p>
                 </div>
               </div>
               {/* LINE */}
               <div className="col-md-6 mb-md-7 mb-2">
                 <div className="mb-md-3 mb-2">
-                  <label htmlFor="lineID" className="form-label">
-                    LINE ID<span className="text-danger ms-2">*</span>
-                  </label>
+                  <div className="d-flex">
+                    <label htmlFor="lineID" className="form-label">
+                      LINE ID<span className="text-danger ms-2">*</span>
+                    </label>
+                    <p
+                      className="text-danger d-md-none ms-auto mb-auto"
+                      style={{ fontSize: "12px" }}
+                    >
+                      {errors.line ? errors.line.message : ""}
+                    </p>
+                  </div>
+
                   <input
                     type="text"
                     className="form-control"
                     id="lineID"
                     placeholder="請輸入LINE ID"
+                    {...register("line", {
+                      required: "這是必填欄位。",
+                    })}
                   />
+                  <p
+                    className="text-danger mt-2 d-none d-md-block position-absolute"
+                    style={{ fontSize: "12px" }}
+                  >
+                    {errors.line ? errors.line.message : ""}
+                  </p>
                 </div>
               </div>
               {/* 偏好 */}
               <div className="col-md-6 mb-md-7 mb-2">
-                <label htmlFor="preferenceAll" className="form-label">
-                  偏好方式<span className="text-danger ms-2">*</span>
-                </label>
+                <div className="d-flex">
+                  <label htmlFor="preferenceAll" className="form-label">
+                    偏好方式<span className="text-danger ms-2">*</span>
+                  </label>
+                  <p
+                    className="text-danger d-md-none ms-auto mb-auto"
+                    style={{ fontSize: "12px" }}
+                  >
+                    {errors.likeContact ? errors.likeContact.message : ""}
+                  </p>
+                </div>
+                {/* 偏好-選項 */}
                 <div className="mt-2">
                   <div className="form-check form-check-inline mb-0 me-6">
                     <input
@@ -179,6 +329,9 @@ export default function CartOrder() {
                       name="preference"
                       id="preferenceAll"
                       value="preferenceAll"
+                      {...register("likeContact", {
+                        required: "這是必填欄位。",
+                      })}
                     />
                     <label className="form-check-label" htmlFor="preferenceAll">
                       都可以
@@ -191,6 +344,9 @@ export default function CartOrder() {
                       name="preference"
                       id="preferenceEmail"
                       value="Email"
+                      {...register("likeContact", {
+                        required: "這是必填欄位。",
+                      })}
                     />
                     <label
                       className="form-check-label"
@@ -206,6 +362,9 @@ export default function CartOrder() {
                       name="preference"
                       id="preferenceTel"
                       value="tel"
+                      {...register("likeContact", {
+                        required: "這是必填欄位。",
+                      })}
                     />
                     <label className="form-check-label" htmlFor="preferenceTel">
                       手機
@@ -218,6 +377,9 @@ export default function CartOrder() {
                       name="preference"
                       id="preferenceLine"
                       value="LineID"
+                      {...register("likeContact", {
+                        required: "這是必填欄位。",
+                      })}
                     />
                     <label
                       className="form-check-label"
@@ -226,6 +388,12 @@ export default function CartOrder() {
                       LINE ID
                     </label>
                   </div>
+                  <p
+                    className="text-danger mt-md-2 mt-lg-4 mt-xxl-6 position-absolute d-none d-md-block"
+                    style={{ fontSize: "12px" }}
+                  >
+                    {errors.likeContact ? errors.likeContact.message : ""}
+                  </p>
                 </div>
               </div>
               {/* 備註 */}
@@ -242,6 +410,7 @@ export default function CartOrder() {
                       height: "186px",
                       resize: "none",
                     }}
+                    {...register("userMessage")}
                   />
                 </div>
               </div>
@@ -253,6 +422,9 @@ export default function CartOrder() {
                     type="checkbox"
                     value=""
                     id="membershipRights"
+                    {...register("isAgree", {
+                      required: "請瀏覽上述資訊，並勾選以示同意。",
+                    })}
                   />
                   <label
                     className="form-check-label"
@@ -278,21 +450,30 @@ export default function CartOrder() {
                     </a>
                   </label>
                 </div>
+                <p
+                  className="text-danger text-center mt-8 d-none d-lg-block position-absolute"
+                  style={{ fontSize: "12px" }}
+                >
+                  {errors.isAgree ? errors.isAgree.message : ""}
+                </p>
               </div>
               {/* 按鈕 */}
               <div className="col d-flex justify-content-center mt-6">
-                <Link
-                  to="/cart"
+                <button
+                  type="button"
                   className="btn btn-outline-secondary-200 py-3 px-md-5 px-4 fs-md-7 fs-10 me-md-6 me-3"
+                  onClick={openBackSubmitModal}
                 >
                   上一步：選擇人數
-                </Link>
-                <Link
-                  to="/cartPayment"
-                  className="btn btn-secondary-200 py-3 px-md-5 px-4 fs-md-7 fs-10"
+                </button>
+
+                <button
+                  type="submit"
+                  className="btn btn-secondary-200 py-3 px-md-5 px-4 fs-md-7 fs-10 text-white"
+                  disabled={!formState.isValid}
                 >
                   下一步：前往付款
-                </Link>
+                </button>
               </div>
             </div>
           </div>
@@ -465,7 +646,7 @@ export default function CartOrder() {
         </div>
         {/* 手機版明細 */}
         <FloatingButton />
-      </div>
+      </form>
     </>
   );
 }

@@ -94,7 +94,7 @@ export default function BackTopBtn() {
             bottom: `${buttonPosition}px`, // 距離底部動態變化
           }}
           onClick={scrollToTop}
-          src="/images/icon/up-arrow_48px.svg"
+          src="images/icon/up-arrow_48px.svg"
           alt="置頂按鍵"
         />
       )}
