@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Navigation, Pagination, Mousewheel, Keyboard, Autoplay } from 'swiper/modules';
+import { Navigation, Pagination, Autoplay } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
@@ -196,13 +196,11 @@ function Evaluate() {
               onSwiper={setSwiperInstance}
               slidesPerView={1}
               spaceBetween={24}
-              mousewheel={true}
-              keyboard={true}
               autoplay={{
                 delay: 5000,
                 disableOnInteraction: false,
               }}
-              modules={[Navigation, Pagination, Mousewheel, Keyboard, Autoplay]}
+              modules={[Navigation, Pagination, Autoplay]}
             >
               {groupedDesktopData.map((group, index) => (
                 <SwiperSlide key={index}>
@@ -261,13 +259,11 @@ function Evaluate() {
               onSwiper={setSwiperInstance}
               slidesPerView={1}
               spaceBetween={12} // 卡片間距
-              mousewheel={true}
-              keyboard={true}
               autoplay={{
                 delay: 5000,
                 disableOnInteraction: false,
               }}
-              modules={[Navigation, Pagination, Mousewheel, Keyboard, Autoplay]}
+              modules={[Navigation, Pagination, Autoplay]}
             >
               {groupedPhoneData.map((group, index) => (
                 <SwiperSlide key={index}>
