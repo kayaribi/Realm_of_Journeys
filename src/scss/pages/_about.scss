@@ -1,7 +1,7 @@
 .about {
   .about-banner {
     position: relative;
-    background-image: url("images/about_banner.jpg");
+    background-image: url("/public/images/about_banner.jpg");
     background-size: cover;
     background-repeat: no-repeat;
     height: 210px;
@@ -37,7 +37,7 @@
   }
 
   .content-img-feature {
-    background-image: url("images/about_feature.jpg");
+    background-image: url("/public/images/about_feature.jpg");
     width: 100%;
     height: 106px;
     background-size: cover;
@@ -52,7 +52,7 @@
   }
 
   .content-img-vision {
-    background-image: url("images/about_vision.jpg");
+    background-image: url("/public/images/about_vision.jpg");
     width: 100%;
     height: 106px;
     background-size: cover;
@@ -92,7 +92,7 @@
 
   .content-img-sub {
     position: relative;
-    background-image: url("images/about_sub.jpg");
+    background-image: url("/public/images/about_sub.jpg");
     width: 100%;
     height: 208px;
     background-size: cover;
