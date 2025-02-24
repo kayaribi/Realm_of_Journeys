@@ -1,23 +1,31 @@
-import { useContext } from "react";
-import { Link } from "react-router-dom";
+import { useContext, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { CartContext } from "../store/store";
 
 export default function CartPayment() {
-  const [state, dispatch] = useContext(CartContext)
+  const { cartList } = useContext(CartContext);
+  const [paymentMethod, setPaymentMethod] = useState("");
+  const navigate = useNavigate();
+
+  const handleNextStep = () => {
+    if (!paymentMethod) {
+      alert("請選擇付款方式");
+      return;
+    }
+    navigate("/completePayment", { state: { paymentMethod } });
+  };
+
   return (
     <>
       {/* 進度條 */}
-      <div className="container position-relative mt-md-20 mt-22 mb-lg-10 my-6">
+      <div className="container position-relative mt-md-40 mt-22 mb-lg-10 my-6">
         <div className="row row-cols-4 text-center">
           <div className="col d-flex justify-content-center align-items-center flex-column py-md-4 py-3">
             <div
               className="bg-primary-500 mb-4 rounded-circle d-flex justify-content-center align-items-center"
               style={{ width: "32px", height: "32px" }}
             >
-              <img
-                src="images/icon/check.svg"
-                alt=""
-              />
+              <img src="images/icon/check.svg" alt="" />
             </div>
             <p className="text-primary-500 fs-md-9 fs-12">購物車明細</p>
           </div>
@@ -27,10 +35,7 @@ export default function CartPayment() {
               className="bg-primary-500 mb-4 rounded-circle d-flex justify-content-center align-items-center"
               style={{ width: "32px", height: "32px" }}
             >
-              <img
-                src="images/icon/check.svg"
-                alt=""
-              />
+              <img src="images/icon/check.svg" alt="" />
             </div>
             <p className="text-primary-500 fs-md-9 fs-12">填寫資料</p>
           </div>
@@ -75,34 +80,50 @@ export default function CartPayment() {
         <h3 className="title-family fs-md-5 fs-8">訂單明細</h3>
         <div className="border-top border-primary-200 my-md-5 my-2"></div>
         <div className="row justify-content-center align-items-center my-md-7">
-          <div className="col-md-10 mb-6">
-            <div className="d-lg-flex justify-content-center align-items-center text-lg-start text-center">
-              <img
-                src="images/banner_img_01.jpg"
-                alt=""
-                className="me-lg-10 my-3 my-lg-0 cartImg"
-              />
-              <p className="w-100 my-5 my-lg-0 fw-bold">
-                泰國清邁
-                <br />
-                文化美食悠遊4日
-              </p>
-              <p className="w-100">出發日期 2025 / 5 / 10</p>
-              <p className="mx-lg-8 d-none d-lg-block">1</p>
-              <div className="d-flex justify-content-between align-items-center mt-7 mt-lg-0">
-                <p className="d-block d-lg-none">1</p>
-                <h4 className="fs-lg-6 fs-8 text-primary-500 mx-lg-8 text-nowrap">
-                  NT 28,000
-                </h4>
+          {cartList.map((item) => {
+            return (
+              <div className="col-lg-10 mb-6" key={item.id}>
+                <div className="row flex-column flex-md-row d-lg-flex justify-content-center align-items-center text-lg-start text-center">
+                  <div className="col">
+                    <img
+                      src={item.product.imageUrl}
+                      alt={item.product.title}
+                      className="me-lg-10 my-3 my-lg-0 cartImg"
+                    />
+                  </div>
+                  <div className="col">
+                    <p
+                      className="w-100 my-5 my-lg-0 fw-bold"
+                      style={{ whiteSpace: "pre-line" }}
+                    >
+                      {item.product.title}
+                    </p>
+                  </div>
+                  <div className="col">
+                    <p className="w-100">
+                      出發日期 2025/{item.product.travelDate.split(" - ")[0]}
+                    </p>
+                  </div>
+                  <div className="col d-none d-md-block text-center">
+                    <p>{item.qty}</p>
+                  </div>
+                  <div className="col text-md-end d-flex d-md-block justify-content-between mt-9 mt-md-0">
+                    <p className="d-md-none">{item.qty}</p>
+                    <h4 className="fs-lg-6 fs-8 text-primary-500 text-nowrap">
+                      NT {item.total.toLocaleString()}
+                    </h4>
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
-          <div className="col-md-10">
-            <div className="d-lg-flex justify-content-lg-end">
-              <h3 className="fs-lg-5 fs-7 title-family text-primary-600 d-lg-block d-flex align-items-end mb-5 mb-lg-13 mx-lg-8">
-                <span className="fs-lg-7 fs-9 me-auto">總計</span> NT 28,000
-              </h3>
-            </div>
+            );
+          })}
+          <div className="col-lg-10 text-end">
+            <h3 className="fs-lg-5 fs-7 title-family text-primary-600 d-lg-block d-flex align-items-end mb-5 mb-lg-13 ms-lg-8">
+              <span className="fs-lg-7 fs-9 me-auto">總計</span> NT{" "}
+              {cartList
+                .reduce((sum, cartItem) => sum + cartItem.total, 0)
+                .toLocaleString()}
+            </h3>
           </div>
         </div>
 
@@ -114,6 +135,8 @@ export default function CartPayment() {
             type="radio"
             name="payment"
             id="paymentAtm"
+            onChange={() => setPaymentMethod("atm")}
+            checked={paymentMethod === "atm"}
           />
           <label className="form-check-label" htmlFor="paymentAtm">
             ATM 轉帳
@@ -125,12 +148,18 @@ export default function CartPayment() {
             type="radio"
             name="payment"
             id="paymentCard"
+            onChange={() => setPaymentMethod("card")}
+            checked={paymentMethod === "card"}
           />
           <label className="form-check-label" htmlFor="paymentCard">
             信用卡一次付清 Visa, Mastercard, AMEX
           </label>
         </div>
-        <div className="row flex-column gy-3 mt-3 mt-md-0">
+        <div
+          // className="row flex-column gy-3 mt-3 mt-md-0 collapse"
+          className={`collapse ${paymentMethod === "card" ? "show" : ""}`}
+          id="paymentCardCollapse"
+        >
           {/* 信用卡卡號 */}
           <div className="col-lg-4 col-md-6 ms-md-7">
             <div className="mb-md-3 mb-2">
@@ -178,6 +207,7 @@ export default function CartPayment() {
             </div>
           </div>
         </div>
+
         <div className="col d-flex justify-content-center mt-6">
           <Link
             to="/cartOrder"
@@ -185,12 +215,13 @@ export default function CartPayment() {
           >
             上一步：填寫訂單
           </Link>
-          <Link
-            to="/completePayment"
+          <button
+            type="button"
             className="btn btn-secondary-200 py-3 px-md-5 px-4 fs-md-7 fs-10"
+            onClick={handleNextStep}
           >
             下一步：完成付款
-          </Link>
+          </button>
         </div>
       </div>
     </>
