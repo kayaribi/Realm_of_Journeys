@@ -1,13 +1,14 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import ReactLoading from 'react-loading';
+import ReactLoading from "react-loading";
 
 import DepartureTimeDecoration from "../components/DepartureTimeDecoration";
 import productPageBanner from "../../public/images/icon/productPageBanner.svg";
 import productPageBanner2 from "../../public/images/icon/productPageBanner2.svg";
 import productPageBanner3 from "../../public/images/icon/productPageBanner3.svg";
 import productPageBanner4 from "../../public/images/icon/productPageBanner4.svg";
+import { use } from "react";
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 const API_PATH = import.meta.env.VITE_API_PATH;
@@ -16,129 +17,137 @@ export default function TravelSpots() {
   const [productList, setProductList] = useState([]);
   const [pagination, setPagination] = useState({});
   const [bannerChange, setBannerChange] = useState(productPageBanner);
-  // (Api沒提供，所以自己撰寫) 篩選用資料
-  const [selected, setSelected] = useState("全部");
-  const [initialAllProducts, setInitialAllProducts] = useState({}); // 儲存最初的50筆物件資料
-  const [filteredProductData, setFilteredProductData] = useState([]); // 儲存篩選後的陣列資料
+  const [selected, setSelected] = useState("");
   const [isFilterProducts, setIsFilterProducts] = useState(false);
-  const [cusCurrentPage, setCusCurrentPage] = useState(1);
-  const [cusTotalPages, setCusTotalPages] = useState(1);
-  const [cusHasPre, setCusHasPre] = useState(false);
-  const [cusHasNext, setCusHasNext] = useState(true);
-  const [isScreenLoading, setIsScreenLoading] = useState(false);
-  const itemsPerPage = 10;
-
-  // (Api沒提供，所以自己撰寫) 計算篩選後的當前頁面要顯示的資料
-  const paginatedData = filteredProductData.slice(
-    (cusCurrentPage - 1) * itemsPerPage,
-    cusCurrentPage * itemsPerPage
+  // const [isScreenLoading, setIsScreenLoading] = useState(false);
+  // // 判斷是否啟用 ... 分頁功能
+  const [isDotPagination, setIsDotPagination] = useState(true);
+  // // 改變 ... 的顯示方向
+  const [dotPaginationDirection, setDotPaginationDirection] = useState(
+    "rightDotStyleMargin"
   );
+  // // 卷軸渲染畫面功能
+  const initialWindowWidthRef = useRef(window.innerWidth <= 575);
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth <= 575);
+  const isScrollLoadingRef = useRef(false);
+  const initialSwitchRef = useRef(false);
+  const listRef = useRef(null);
+  const [isSignIn, setIsSignIn] = useState(false);
+  const paginationCurrentPageRef = useRef(null);
+  const paginationTotalPageRef = useRef(null);
+  const categoryRef = useRef("");
 
-  // (Api沒提供，所以自己撰寫) 若總頁數為 1 時，上一頁、下一頁皆不能點選
   useEffect(() => {
-    if (cusTotalPages === 1) {
-      setCusHasPre(false);
-      setCusHasNext(false);
-    } else {
-      setCusHasPre(false);
-      setCusHasNext(true);
+    if (windowWidth) {
+      paginationCurrentPageRef.current = pagination.current_page;
+      paginationTotalPageRef.current = pagination.total_pages;
     }
-  }, [cusTotalPages]);
+  }, [pagination]);
 
-  // (Api沒提供，所以自己撰寫) 變更點擊頁碼後的相關效果 (是否可點擊上一頁、下一頁)
-  const handleCusPageChange = (page) => {
-    if (page >= 1 && page <= cusTotalPages) {
-      setCusCurrentPage(page);
-    }
+  const handleScroll = () => {
+    console.log("執行卷軸功能");
 
-    if (cusTotalPages === 1) {
-      return;
-    }
+    const height =
+      listRef.current.offsetHeight + listRef.current.offsetTop - 715;
 
-    if (page === 1) {
-      setCusHasPre(false);
-      setCusHasNext(true);
-    } else if (page > 1 && page < cusTotalPages) {
-      setCusHasPre(true);
-      setCusHasNext(true);
-    } else if (page === cusTotalPages) {
-      setCusHasPre(true);
-      setCusHasNext(false);
+    // 需要滾動到下方，且沒有在讀取中以及瀏覽器視窗寬度小於等於575時
+    if (
+      !isScrollLoadingRef.current &&
+      window.scrollY > height &&
+      paginationCurrentPageRef.current < paginationTotalPageRef.current
+    ) {
+      paginationCurrentPageRef.current += 1;
+      console.log("categoryRef.current", categoryRef.current);
+      getProduct(paginationCurrentPageRef.current, categoryRef.current);
     }
   };
 
-  // (Api沒提供，所以自己撰寫) 備份初始資料功能
-  const copyInitialAllProducts = async () => {
-    try {
-      const res = await axios.get(
-        `${BASE_URL}/v2/api/${API_PATH}/admin/products/all`
-      );
+  useEffect(() => {
+    const debounceScroll = debounce(handleScroll, 200);
 
-      if (Object.keys(initialAllProducts).length === 0) {
-        setInitialAllProducts(res.data.products);
+    // 登入之後 會執行這一段
+    if (initialSwitchRef.current) {
+      console.log("initialSwitchRef.current轉為true", initialSwitchRef.current);
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      if (windowWidth) {
+        // 小於 575px
+        console.log("視窗變更為575px以下了，所以執行卷軸監聽事件");
+        window.addEventListener("scroll", debounceScroll);
+        setProductList([]);
+        getProduct(1, categoryRef.current);
+      } else {
+        // 大於 575px
+        console.log("視窗變更為575px以上了，所以移除卷軸監聽事件");
+        window.removeEventListener("scroll", debounceScroll);
+        setProductList([]);
+        getProduct(1, categoryRef.current);
       }
-    } catch (error) {
-      console.error(error); // 處理錯誤
+    } else {
+      // 初始加載 會執行這一段
+      if (initialWindowWidthRef.current) {
+        // 如果初始寬度小於 575 px  就註冊監聽事件
+        console.log("因為初始預設寬度小於 575 px 所以執行監聽註冊");
+        window.addEventListener("scroll", debounceScroll);
+      } else {
+        // 如果初始寬度大於 575 px  就註冊監聽事件
+        console.log("因為初始預設寬度大於 575 px 所以不執行監聽註冊");
+      }
     }
-  };
 
-  // (Api沒提供，所以自己撰寫) 初始資料備份完成時執行
-  useEffect(() => {
-    if (Object.keys(initialAllProducts).length !== 0) {
-      // 50筆原始物件資料轉陣列
-      setFilteredProductData(Object.values(initialAllProducts));
-    }
-  }, [initialAllProducts]);
+    return () => {
+      window.removeEventListener("scroll", debounceScroll);
+    };
+  }, [windowWidth]);
 
-  // (Api沒提供，所以自己撰寫) 篩選資料、變更 banner 圖片、重置分頁相關參數
+  // 篩選資料、變更 banner 圖片、重置分頁相關參數
   const handleFilterProducts = async (e, category) => {
     e.preventDefault();
     setSelected(category);
+    categoryRef.current = category;
 
-    if (category === "全部") {
+    if (category === "") {
       setBannerChange(productPageBanner);
-      await getProduct();
-      setIsFilterProducts(false);
-      return;
-    }
-
-    setIsFilterProducts(true);
-    let filteredProductsList = [];
-
-    if (category === "亞洲") {
+    } else if (category === "亞洲") {
       setBannerChange(productPageBanner2);
-
-      filteredProductsList = Object.values(initialAllProducts).filter((item) =>
-        item.category.includes("亞洲")
-      );
     } else if (category === "歐洲") {
       setBannerChange(productPageBanner3);
-
-      filteredProductsList = Object.values(initialAllProducts).filter((item) =>
-        item.category.includes("歐洲")
-      );
     } else if (category === "中東") {
       setBannerChange(productPageBanner4);
-
-      filteredProductsList = Object.values(initialAllProducts).filter((item) =>
-        item.category.includes("中東")
-      );
     }
 
-    setCusCurrentPage(1);
-    setCusHasPre(false);
-    setCusHasNext(true);
-    setFilteredProductData(filteredProductsList);
+    if (windowWidth) {
+      // 小於 575px 時，點擊篩選標籤
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      if (!e.target.className.includes("bg-primary-500")) {
+        setProductList([]);
+        getProduct(1, category);
+      }
+    } else {
+      // 大於 575px 時，點擊篩選標籤
+      if (!e.target.className.includes("bg-primary-500")) {
+        setProductList([]);
+        getProduct(1, category);
+      }
+    }
   };
 
-  // (Api沒提供，所以自己撰寫) 根據篩選出來的資料設定總頁數
-  useEffect(() => {
-    setCusTotalPages(Math.ceil(filteredProductData.length / itemsPerPage));
-  }, [filteredProductData]);
+  // 處理分頁 ... 的畫面顯示及功能
+  const handleDotStylePagination = (currentPage) => {
+    if (currentPage < 3) {
+      setIsDotPagination(true);
+      setDotPaginationDirection("rightDotStyleMargin");
+    } else if (currentPage === 3) {
+      setIsDotPagination(false);
+    } else if (currentPage > 3) {
+      setIsDotPagination(true);
+      setDotPaginationDirection("leftDotStyleMargin");
+    }
+  };
 
   // 登入功能
   const signIn = async () => {
     try {
+      console.log("進入登入function內部");
       const res = await axios.post(`${BASE_URL}/v2/admin/signin`, {
         username: "RealmOfJourneys@gmail.com",
         password: "RealmOfJourneys",
@@ -147,10 +156,7 @@ export default function TravelSpots() {
       const { token, expired } = res.data;
       // document.cookie = `hexToken=${token}; expires=${new Date(expired)}`;
       axios.defaults.headers.common["Authorization"] = token;
-
-      copyInitialAllProducts();
-      getProduct();
-      // getAllProduct();
+      setIsSignIn(true);
     } catch (error) {
       console.log(error);
     }
@@ -159,109 +165,72 @@ export default function TravelSpots() {
   // 執行登入以及備份初始資料
   useEffect(() => {
     signIn();
+    console.log("登入成功");
   }, []);
 
+  useEffect(() => {
+    if (isSignIn) {
+      getProduct();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  }, [isSignIn]);
+
   // 取得產品資料
-  const getProduct = async (page = 1) => {
-    setIsScreenLoading(true);
+  const getProduct = async (page = 1, category = "") => {
+    // setIsScreenLoading(true);
     try {
+      console.log("執行getProduct");
+      isScrollLoadingRef.current = true;
       const res = await axios.get(
-        `${BASE_URL}/v2/api/${API_PATH}/admin/products?page=${page}`
+        `${BASE_URL}/v2/api/${API_PATH}/admin/products?page=${page}&category=${category}`
       );
       const { products, pagination } = res.data;
-
-      setProductList(products);
       setPagination(pagination);
+      handleDotStylePagination(page);
+      initialSwitchRef.current = true;
+      if (windowWidth) {
+        setProductList((preProductsList) => {
+          console.log("更新卷軸渲染資料");
+          return [...preProductsList, ...products];
+        });
+      } else {
+        setProductList(products);
+      }
+      setTimeout(() => {
+        isScrollLoadingRef.current = false;
+      }, 1000);
     } catch (error) {
+      console.log("資料抓取失敗");
       console.log(error);
     }
-    setIsScreenLoading(false);
   };
 
-  // const [firstHalf, setFirstHalf] = useState(1);
-  // const [secondHalf, setSecondHalf] = useState("");
+  // 優化視窗寬度變化
+  useEffect(() => {
+    // 處理視窗尺寸變化
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth <= 575);
+    };
 
-  // let firstHalf = 1;
-  // let secondHalf = 5;
-  // let half = 3;
+    // 使用防抖來限制 resize 事件的處理頻率
+    const debounceResize = debounce(handleResize, 200);
 
-  // const filterProducts = async (page, filteredProductsList) => {
-  //   const startIdx = (page - 1) * 10;
-  //   const endIdx = page * 10;
-  //   const filteredProducts = filteredProductsList.slice(startIdx, endIdx);
+    window.addEventListener("resize", debounceResize);
 
-  //   // setProductList(filteredProducts);
+    // 清理副作用
+    return () => {
+      window.removeEventListener("resize", debounceResize);
+    };
+  }, []); // 只在組件掛載和卸載時執行一次
 
-  //   //  根據篩選後的數量，手動更新 pagination
-  //   // setPagination({
-  //   //   total_pages: Math.ceil(filteredProductsList.length / 10), // 每頁 10 筆
-  //   //   current_page: 1, // 預設從第 1 頁開始
-  //   //   has_pre: page > 1,
-  //   //   has_next: page < Math.ceil(filteredProductsList.length / 10),
-  //   //   category: "",
-  //   // });
-
-  //   // console.log(page, filteredProducts);
-  // };
-
-  // useEffect(() => {
-  //   if (pagination.total_pages) {
-  //     setSecondHalf(pagination.total_pages);
-  //   }
-
-  //   // console.log(firstHalf, secondHalf);
-  // }, [pagination]);
-
-  // useEffect(() => {
-  //   if (secondHalf) {
-  //     console.log(secondHalf);
-  //   }
-
-  //   // console.log(firstHalf, secondHalf);
-  // }, [secondHalf]);
-
-  // const handlePaginationProduct = async () => {
-  //   const res = await axios.get(
-  //     `${BASE_URL}/v2/api/${API_PATH}/admin/products`
-  //   );
-
-  //   const { total_pages } = res.data.pagination;
-
-  //   // 點擊分頁標籤後 根據 index去執行相對應的　api pages
-
-  //   console.log(res);
-  //   console.log(total_pages);
-  //   console.log(
-  //     productList.map((item) => {
-  //       return item.title;
-  //     })
-  //   );
-  // };
-
-  // handlePaginationProduct();
-
-  // if (
-  //   pagination.current_page === firstHalf ||
-  //   pagination.current_page === secondHalf
-  // ) {
-  //   // return 陣列長度為3的 firstHalf 以及 ... 以及 secondHalf 的頁碼li
-  // } else if (
-  //   pagination.current_page > firstHalf &&
-  //   pagination.current_page < half
-  // ) {
-  //   if (secondHalf - pagination.current_page >= 3) {
-  //     //  return 陣列長度為4 且為 firstHalf 到 current_page 的所有li 以及 ... 和 secondHalf 的頁碼li
-  //   }
-  // } else if (pagination.current_page === half) {
-  //   //  return 陣列長度為5的所有li
-  // } else if (
-  //   pagination.current_page > half &&
-  //   pagination.current_page < secondHalf
-  // ) {
-  //   if (pagination.current_page - firstHalf >= 3) {
-  //     //  return 陣列長度為4 且為 firstHalf的頁碼li 以及 ... 和 current_page 到 secondHalf 的所有li
-  //   }
-  // }
+  // 防抖函數，限制觸發頻率
+  const debounce = (func, delay) => {
+    let timeout;
+    return (...args) => {
+      clearTimeout(timeout); // 每次觸發時清除之前的計時器
+      timeout = setTimeout(() => func(...args), delay); // 設置新的計時器
+    };
+  };
 
   return (
     <>
@@ -270,10 +239,11 @@ export default function TravelSpots() {
         className="travelSpotsBanner"
         style={{
           backgroundImage: `url(${bannerChange})`,
-        }} id="header"
+        }}
+        id="header"
       >
         <div className="travelSpotsBannerBackDrop"></div>
-        <h2 className="title-family  text-white travelSpotsBannerText">
+        <h2 className="title-family  text-white travelSpotsBannerText z-3">
           精選旅遊行程，開啟你的夢想旅途
         </h2>
       </div>
@@ -286,11 +256,12 @@ export default function TravelSpots() {
               <ul className="list-unstyled mb-0 travelSpotsSelectWrap p-1">
                 <li className="travelSpotsSelectbuttonWrap  ">
                   <a
-                    className={`text-white fw-bold  travelSpotsSelectbutton ${selected === "全部" ? "bg-primary-500" : ""
-                      } text-nowrap py-xl-4 py-md-3 py-2`}
+                    className={`filterTagRefs text-white fw-bold travelSpotsSelectbutton ${
+                      selected === "" ? "bg-primary-500" : ""
+                    } text-nowrap py-xl-4 py-md-3 py-2`}
                     href=""
                     onClick={(e) => {
-                      handleFilterProducts(e, "全部");
+                      handleFilterProducts(e, "");
                     }}
                   >
                     全部
@@ -298,8 +269,9 @@ export default function TravelSpots() {
                 </li>
                 <li className="travelSpotsSelectbuttonWrap">
                   <a
-                    className={`text-white fw-bold ${selected === "亞洲" ? "bg-primary-500" : ""
-                      } travelSpotsSelectbutton  text-nowrap py-xl-4 py-md-3 py-2`}
+                    className={`filterTagRefs text-white fw-bold ${
+                      selected === "亞洲" ? "bg-primary-500" : ""
+                    } travelSpotsSelectbutton  text-nowrap py-xl-4 py-md-3 py-2`}
                     href=""
                     onClick={(e) => {
                       handleFilterProducts(e, "亞洲");
@@ -310,8 +282,9 @@ export default function TravelSpots() {
                 </li>
                 <li className="travelSpotsSelectbuttonWrap">
                   <a
-                    className={`text-white fw-bold ${selected === "歐洲" ? "bg-primary-500" : ""
-                      } travelSpotsSelectbutton  text-nowrap py-xl-4 py-md-3 py-2`}
+                    className={`filterTagRefs text-white fw-bold ${
+                      selected === "歐洲" ? "bg-primary-500" : ""
+                    } travelSpotsSelectbutton  text-nowrap py-xl-4 py-md-3 py-2`}
                     href=""
                     onClick={(e) => {
                       handleFilterProducts(e, "歐洲");
@@ -322,8 +295,9 @@ export default function TravelSpots() {
                 </li>
                 <li className="travelSpotsSelectbuttonWrap">
                   <a
-                    className={`text-white fw-bold ${selected === "中東" ? "bg-primary-500" : ""
-                      } travelSpotsSelectbutton  text-nowrap py-xl-4 py-md-3 py-2`}
+                    className={`filterTagRefs text-white fw-bold ${
+                      selected === "中東" ? "bg-primary-500" : ""
+                    } travelSpotsSelectbutton  text-nowrap py-xl-4 py-md-3 py-2`}
                     href=""
                     onClick={(e) => {
                       handleFilterProducts(e, "中東");
@@ -336,205 +310,89 @@ export default function TravelSpots() {
             </div>
           </div>
           {/* 產品列表 */}
-          <div className="row row-cols-sm-2 row-cols-1 productListTranslate">
-            {isFilterProducts ? (
-              <>
-                {/* (Api沒提供，所以自己撰寫) 篩選後的資料渲染畫面 */}
-                {paginatedData.map((filterProduct) => {
-                  return (
-                    <div key={filterProduct.id} className={`col`}>
-                      <Link to={`/travelSpots/${filterProduct.id}`} style={{ height: "100%" }}>
-                        {/* <a style={{ display: "block", height: "100%" }} href=""> */}
-                        <div className="d-flex flex-column px-xl-6 px-lg-4 px-md-2 px-0 h-100">
-                          {/* 上方圖片區域 */}
-                          <div className="productListImgWrap overflow-hidden position-relative">
-                            <img
-                              className="productListImg"
-                              src={filterProduct.imageUrl}
-                              alt={filterProduct.title}
-                            />
-                            <DepartureTimeDecoration
-                              featuredItem={filterProduct}
-                            />
-                          </div>
-                          {/* 下方文字區域 */}
-                          <div className="mt-4 mb-2">
-                            <h3
-                              className="title-family travelSpotCardTitle text-neutral-black"
-                              style={{ whiteSpace: "pre-line" }}
-                            >
-                              {filterProduct.title}
-                            </h3>
-                          </div>
-                          <div className="mb-3">
-                            {filterProduct.description
-                              .split("\n")
-                              .map((des, index) => {
-                                return (
-                                  <p
-                                    key={index}
-                                    className={`${index === 0 ? "mb-sm-0 mb-2" : ""
-                                      } text-neutral-300 travelSpotCardDescription`}
-                                  >
-                                    {des}
-                                  </p>
-                                );
-                              })}
-                          </div>
-                          <div className="mt-auto">
-                            <p
-                              style={{ fontSize: "14px" }}
-                              className="text-decoration-line-through text-neutral-200"
-                            >
-                              原價 NT{" "}
-                              {filterProduct.origin_price.toLocaleString()}
-                            </p>
-                            <p
-                              style={{ lineHeight: "1.2" }}
-                              className="text-secondary-200 travelSpotCardDiscountPrice fw-bold"
-                            >
-                              優惠價 NT {filterProduct.price.toLocaleString()}/
-                              {filterProduct.unit}
-                            </p>
-                          </div>
-                        </div>
-                        {/* </a> */}
-                      </Link>
-                    </div>
-                  );
-                })}
-              </>
-            ) : (
-              // 原始 Api 的資料渲染畫面
-              productList.map((product) => {
-                return (
-                  <div key={product.id} className={`col`}>
-                    <Link to={`/travelSpots/${product.id}`} style={{ display: "block", height: "100%" }}>
-                      {/* <a style={{ display: "block", height: "100%" }} href=""> */}
-                      <div className="d-flex flex-column px-xl-6 px-lg-4 px-md-2 px-0 h-100">
-                        {/* 上方圖片區域 */}
-                        <div className="productListImgWrap overflow-hidden position-relative">
-                          <img
-                            className="productListImg"
-                            src={product.imageUrl}
-                            alt={product.title}
-                          />
-                          <DepartureTimeDecoration featuredItem={product} />
-                        </div>
-                        {/* 下方文字區域 */}
-                        <div className="mt-4 mb-2">
-                          <h3
-                            className="title-family travelSpotCardTitle text-neutral-black"
-                            style={{ whiteSpace: "pre-line" }}
-                          >
-                            {product.title}
-                          </h3>
-                        </div>
-                        <div className="mb-3">
-                          {product.description.split("\n").map((des, index) => {
-                            return (
-                              <p
-                                key={index}
-                                className={`${index === 0 ? "mb-sm-0 mb-2" : ""
-                                  } text-neutral-300 travelSpotCardDescription`}
-                              >
-                                {des}
-                              </p>
-                            );
-                          })}
-                        </div>
-                        <div className="mt-auto">
-                          <p
-                            style={{ fontSize: "14px" }}
-                            className="text-decoration-line-through text-neutral-200"
-                          >
-                            原價 NT {product.origin_price.toLocaleString()}
-                          </p>
-                          <p
-                            style={{ lineHeight: "1.2" }}
-                            className="text-secondary-200 travelSpotCardDiscountPrice fw-bold"
-                          >
-                            優惠價 NT {product.price.toLocaleString()}/
-                            {product.unit}
-                          </p>
-                        </div>
+          <div
+            ref={listRef}
+            className="row row-cols-sm-2 row-cols-1 productListTranslate"
+          >
+            {/*原始 Api 的資料渲染畫面*/}
+            {productList.map((product) => {
+              return (
+                <div key={product.id} className={`col`}>
+                  <Link
+                    to={`/travelSpots/${product.id}`}
+                    style={{ display: "block", height: "100%" }}
+                  >
+                    {/* <a style={{ display: "block", height: "100%" }} href=""> */}
+                    <div className="d-flex flex-column px-xl-6 px-lg-4 px-md-2 px-0 h-100">
+                      {/* 上方圖片區域 */}
+                      <div className="productListImgWrap overflow-hidden position-relative">
+                        <img
+                          className="productListImg"
+                          src={product.imageUrl}
+                          alt={product.title}
+                        />
+                        <DepartureTimeDecoration featuredItem={product} />
                       </div>
-                    </Link>
-                  </div>
-                );
-              })
-            )}
+                      {/* 下方文字區域 */}
+                      <div className="mt-4 mb-2">
+                        <h3
+                          className="title-family travelSpotCardTitle text-neutral-black"
+                          style={{ whiteSpace: "pre-line" }}
+                        >
+                          {product.title}
+                        </h3>
+                      </div>
+                      <div className="mb-3">
+                        {product.description.split("\n").map((des, index) => {
+                          return (
+                            <p
+                              key={index}
+                              className={`${
+                                index === 0 ? "mb-sm-0 mb-2" : ""
+                              } text-neutral-300 travelSpotCardDescription`}
+                            >
+                              {des}
+                            </p>
+                          );
+                        })}
+                      </div>
+                      <div className="mt-auto">
+                        <p
+                          style={{ fontSize: "14px" }}
+                          className="text-decoration-line-through text-neutral-200"
+                        >
+                          原價 NT {product.origin_price.toLocaleString()}
+                        </p>
+                        <p
+                          style={{ lineHeight: "1.2" }}
+                          className="text-secondary-200 travelSpotCardDiscountPrice fw-bold"
+                        >
+                          優惠價 NT {product.price.toLocaleString()}/
+                          {product.unit}
+                        </p>
+                      </div>
+                    </div>
+                  </Link>
+                </div>
+              );
+            })}
           </div>
           {/* 分頁元件 */}
-          <div className="row my-15">
+          <div className="row my-15 d-sm-block d-none">
             <div className="col">
               <div className="d-flex justify-content-center">
-                <ul className="list-unstyled mb-0 d-flex align-items-center">
-                  {isFilterProducts ? (
+                <ul className="list-unstyled mb-0 d-flex align-items-center ">
+                  {pagination.total_pages <= 3 ? (
                     <>
-                      {/* (Api沒提供，所以自己撰寫) 篩選後的分頁功能 */}
+                      {/* 總頁數小於等於 3 */}
                       <li>
                         <a
-                          className={`leftArrow ${cusHasPre ? "" : "disabled"
-                            }  `}
+                          className={`leftArrow ${
+                            pagination.has_pre ? "" : "disabled"
+                          }  `}
                           onClick={(e) => {
                             e.preventDefault();
-                            handleCusPageChange(cusCurrentPage - 1);
-                          }}
-                        ></a>
-                      </li>
-                      {[...new Array(cusTotalPages)].map((_, index) => {
-                        return (
-                          <li
-                            className={`${index === 0 ? "" : "paginationNumbersMargin"
-                              }`}
-                            key={`${index}_page`}
-                          >
-                            <a
-                              className={`fw-bold paginationNumbers ${index + 1 === cusCurrentPage
-                                ? "paginationActive"
-                                : ""
-                                }`}
-                              style={{
-                                padding: "4px 10px",
-                                fontSize: "20px",
-                                lineHeight: "1.2",
-                                borderRadius: "100px",
-                                cursor: "pointer",
-                                display: "block",
-                              }}
-                              onClick={(e) => {
-                                e.preventDefault();
-                                handleCusPageChange(index + 1);
-                              }}
-                              href=""
-                            >
-                              {index + 1}
-                            </a>
-                          </li>
-                        );
-                      })}
-                      <li>
-                        <a
-                          className={`rightArrow ${cusHasNext ? "" : "disabled"
-                            }`}
-                          onClick={(e) => {
-                            e.preventDefault();
-                            handleCusPageChange(cusCurrentPage + 1);
-                          }}
-                        ></a>
-                      </li>
-                    </>
-                  ) : (
-                    <>
-                      {/* 原始 Api 提供的分頁功能 */}
-                      <li>
-                        <a
-                          className={`leftArrow ${pagination.has_pre ? "" : "disabled"
-                            }  `}
-                          onClick={(e) => {
-                            e.preventDefault();
-                            getProduct(pagination.current_page - 1);
+                            getProduct(pagination.current_page - 1, selected);
                           }}
                         ></a>
                       </li>
@@ -542,26 +400,20 @@ export default function TravelSpots() {
                         (_, index) => {
                           return (
                             <li
-                              className={`${index === 0 ? "" : "paginationNumbersMargin"
-                                }`}
+                              className={`cusDotStylePagination ${
+                                index === 0 ? "" : "paginationNumbersMargin"
+                              } ${
+                                index + 1 === pagination.current_page
+                                  ? "paginationActive"
+                                  : ""
+                              }`}
                               key={`${index}_page`}
                             >
                               <a
-                                className={`fw-bold paginationNumbers ${index + 1 === pagination.current_page
-                                  ? "paginationActive"
-                                  : ""
-                                  }`}
-                                style={{
-                                  padding: "4px 10px",
-                                  fontSize: "20px",
-                                  lineHeight: "1.2",
-                                  borderRadius: "100px",
-                                  cursor: "pointer",
-                                  display: "block",
-                                }}
+                                className={`fw-bold paginationNumbers paginationStyle`}
                                 onClick={(e) => {
                                   e.preventDefault();
-                                  getProduct(index + 1);
+                                  getProduct(index + 1, selected);
                                 }}
                                 href=""
                               >
@@ -573,11 +425,81 @@ export default function TravelSpots() {
                       )}
                       <li>
                         <a
-                          className={`rightArrow ${pagination.has_next ? "" : "disabled"
-                            }`}
+                          className={`rightArrow ${
+                            pagination.has_next ? "" : "disabled"
+                          }`}
                           onClick={(e) => {
                             e.preventDefault();
-                            getProduct(pagination.current_page + 1);
+                            getProduct(pagination.current_page + 1, selected);
+                          }}
+                        ></a>
+                      </li>
+                    </>
+                  ) : (
+                    <>
+                      {/* 總頁數大於 3 */}
+                      <li>
+                        <a
+                          className={`leftArrow ${
+                            pagination.has_pre ? "" : "disabled"
+                          }  `}
+                          onClick={(e) => {
+                            e.preventDefault();
+                            getProduct(pagination.current_page - 1, selected);
+                          }}
+                        ></a>
+                      </li>
+                      {[...new Array(pagination.total_pages)].map(
+                        (_, index) => {
+                          return (
+                            <li
+                              className={`cusDotStylePagination ${
+                                index === 0 ? "" : "paginationNumbersMargin"
+                              } 
+
+                              ${
+                                isDotPagination &&
+                                index !== 0 &&
+                                index !== pagination.total_pages - 1 &&
+                                "dotDisplayNone"
+                              } 
+                              
+                             ${
+                               isDotPagination &&
+                               index + 1 === pagination.current_page &&
+                               dotPaginationDirection
+                             }
+ 
+                                ${
+                                  index + 1 === pagination.current_page
+                                    ? "paginationActive"
+                                    : ""
+                                }
+                              `}
+                              key={`${index}_page`}
+                            >
+                              <a
+                                className={`fw-bold paginationNumbers paginationStyle`}
+                                onClick={(e) => {
+                                  e.preventDefault();
+                                  getProduct(index + 1, selected);
+                                }}
+                                href=""
+                              >
+                                {index + 1}
+                              </a>
+                            </li>
+                          );
+                        }
+                      )}
+                      <li>
+                        <a
+                          className={`rightArrow ${
+                            pagination.has_next ? "" : "disabled"
+                          }`}
+                          onClick={(e) => {
+                            e.preventDefault();
+                            getProduct(pagination.current_page + 1, selected);
                           }}
                         ></a>
                       </li>
@@ -589,17 +511,19 @@ export default function TravelSpots() {
           </div>
         </div>
       </section>
-      {isScreenLoading && (
-        <div className="d-flex justify-content-center align-items-center"
+      {/* {isScreenLoading && (
+        <div
+          className="d-flex justify-content-center align-items-center"
           style={{
             position: "fixed",
             inset: 0,
             backgroundColor: "rgba(255,255,255,0.5)",
             zIndex: 999,
-          }}>
+          }}
+        >
           <ReactLoading type="spokes" color="black" width="4rem" height="4rem" />
-        </div>)
-      }
+        </div>
+      )} */}
     </>
   );
 }
