@@ -72,13 +72,25 @@ export default function TravelSpots() {
 
     const height =
       listRef.current.offsetHeight + listRef.current.offsetTop - 715;
+    const currentTop = parseInt(selectBarRef.current.style.top, 10) || 0; // 轉數字，避免字串比較問題
 
     //在等於總頁數後的執行動作
     if (paginationCurrentPageRef.current === paginationTotalPageRef.current) {
       console.log("我是在卷軸觸發等於總頁數後，才執行的動作");
       console.log("height", height, "window.scrollY", window.scrollY);
-      if (waitSelectHeight.current && window.scrollY >= height) {
+      if (waitSelectHeight.current && window.scrollY >= height + 100) {
         console.log("我要讓fixed固定在height", height);
+        selectBarRef.current.style.position = "absolute";
+        selectBarRef.current.style.top = `${height + 695}px`;
+        // selectBarRef.current.style.bottom = "0px";
+        selectBarRef.current.style.bottom = "auto"; // 確保 `bottom` 被清除
+      }
+
+      if (currentTop === height + 695 && window.scrollY <= height + 100) {
+        selectBarRef.current.style.position = "fixed";
+        // selectBarRef.current.style.top = "0px";
+        selectBarRef.current.style.top = "auto"; // 清除 top
+        selectBarRef.current.style.bottom = "32px";
       }
     }
 
@@ -98,7 +110,8 @@ export default function TravelSpots() {
   };
 
   useEffect(() => {
-    const debounceScroll = debounce(handleScroll, 200);
+    // const debounceScroll = debounce(handleScroll, 200);
+    const debounceScroll = debounce(handleScroll, 0);
 
     // 登入之後 會執行這一段
     if (initialSwitchRef.current) {
@@ -110,12 +123,18 @@ export default function TravelSpots() {
         window.addEventListener("scroll", debounceScroll);
         setProductList([]);
         getProduct(1, categoryRef.current);
+        selectBarRef.current.style.position = "fixed";
+        selectBarRef.current.style.top = "auto";
+        selectBarRef.current.style.bottom = "32px";
       } else {
         // 大於 575px
         console.log("視窗變更為575px以上了，所以移除卷軸監聽事件");
         window.removeEventListener("scroll", debounceScroll);
         setProductList([]);
         getProduct(1, categoryRef.current);
+        selectBarRef.current.style.position = "absolute";
+        selectBarRef.current.style.top = "auto";
+        selectBarRef.current.style.bottom = "auto";
       }
     } else {
       // 初始加載 會執行這一段
@@ -137,6 +156,7 @@ export default function TravelSpots() {
   // 篩選資料、變更 banner 圖片、重置分頁相關參數
   const handleFilterProducts = async (e, category) => {
     e.preventDefault();
+
     waitSelectHeight.current = false;
     setSelected(category);
     categoryRef.current = category;
@@ -158,6 +178,9 @@ export default function TravelSpots() {
         setProductList([]);
         getProduct(1, category);
       }
+      selectBarRef.current.style.position = "fixed";
+      selectBarRef.current.style.top = "auto";
+      selectBarRef.current.style.bottom = "32px";
     } else {
       // 大於 575px 時，點擊篩選標籤
       if (!e.target.className.includes("bg-primary-500")) {
@@ -238,10 +261,6 @@ export default function TravelSpots() {
         setProductList(products);
       }
 
-      // if (initialWaitRef.current) {
-
-      // }
-
       setTimeout(() => {
         isScrollLoadingRef.current = false;
         if (
@@ -254,7 +273,7 @@ export default function TravelSpots() {
           // }, 5000);
           // }
         }
-      }, 2000);
+      }, 1000);
     } catch (error) {
       console.log("資料抓取失敗");
       console.log(error);
