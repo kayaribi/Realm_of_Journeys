@@ -19,7 +19,7 @@ export default function TravelSpots() {
   const [bannerChange, setBannerChange] = useState(productPageBanner);
   const [selected, setSelected] = useState("");
   const [isFilterProducts, setIsFilterProducts] = useState(false);
-  // const [isScreenLoading, setIsScreenLoading] = useState(false);
+  const [isScreenLoading, setIsScreenLoading] = useState(false);
   // // 判斷是否啟用 ... 分頁功能
   const [isDotPagination, setIsDotPagination] = useState(true);
   // // 改變 ... 的顯示方向
@@ -236,7 +236,7 @@ export default function TravelSpots() {
 
   // 取得產品資料
   const getProduct = async (page = 1, category = "") => {
-    // setIsScreenLoading(true);
+    setIsScreenLoading(true);
     try {
       console.log("執行getProduct");
 
@@ -274,6 +274,7 @@ export default function TravelSpots() {
           // }
         }
       }, 1000);
+      setIsScreenLoading(false);
     } catch (error) {
       console.log("資料抓取失敗");
       console.log(error);
@@ -586,7 +587,7 @@ export default function TravelSpots() {
           </div>
         </div>
       </section>
-      {/* {isScreenLoading && (
+      {isScreenLoading && (
         <div
           className="d-flex justify-content-center align-items-center"
           style={{
@@ -596,9 +597,14 @@ export default function TravelSpots() {
             zIndex: 999,
           }}
         >
-          <ReactLoading type="spokes" color="black" width="4rem" height="4rem" />
+          <ReactLoading
+            type="spokes"
+            color="black"
+            width="4rem"
+            height="4rem"
+          />
         </div>
-      )} */}
+      )}
     </>
   );
 }
