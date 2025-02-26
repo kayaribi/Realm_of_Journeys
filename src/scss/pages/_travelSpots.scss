@@ -299,9 +299,10 @@
 }
 
 @media screen and (max-width: 991px) {
-  // .travelSpotsBanner {
-  //   margin-top: 80px;
-  // }
+  .travelSpotsBanner {
+    padding-top: 80px;
+    padding-bottom: 80px;
+  }
 
   .productListTranslate {
     padding-top: 80px;
@@ -309,6 +310,10 @@
 }
 
 @media screen and (max-width: 767px) {
+  .travelSpotsBanner {
+    padding-top: 99px;
+  }
+
   .travelSpotsSelectbutton {
     font-size: 24px;
   }
@@ -323,6 +328,11 @@
 }
 
 @media screen and (max-width: 575px) {
+  .travelSpotsBanner {
+    padding-top: 118px;
+    padding-bottom: 101px;
+  }
+
   .travelSpotsSelectbutton {
     font-size: 20px;
   }

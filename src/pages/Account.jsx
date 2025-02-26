@@ -44,7 +44,7 @@ export default function Account() {
     // console.log(data.email);
     // console.log(data.password);
 
-    // const account = { email, password };
+    const account = { username: email, password };
     // const account2 = {
     //   email: "RealmOfJourneys@gmail.com",
     //   password: "RealmOfJourneys",
@@ -64,23 +64,20 @@ export default function Account() {
     //   typeof account2.password
     // );
 
-    // try {
-    //   console.log("進入登入function內部");
-    //   const res = await axios.post(`${BASE_URL}/v2/admin/signin`, {
-    //     email: "RealmOfJourneys@gmail.com",
-    //     password: "RealmOfJourneys",
-    //   });
+    try {
+      console.log("進入登入function內部");
+      const res = await axios.post(`${BASE_URL}/v2/admin/signin`, account);
 
-    //   const { token, expired } = res.data;
-    //   // document.cookie = `hexToken=${token}; expires=${new Date(expired)}`;
-    //   axios.defaults.headers.common["Authorization"] = token;
-    //   //   setIsSignIn(true);
+      const { token, expired } = res.data;
+      // document.cookie = `hexToken=${token}; expires=${new Date(expired)}`;
+      axios.defaults.headers.common["Authorization"] = token;
+      //   setIsSignIn(true);
 
-    //   console.log(res);
-    // } catch (error) {
-    //   console.log(error);
-    // }
-
+      console.log(res);
+    } catch (error) {
+      console.log(error);
+    }
+    // handleSignIn();
     // console.log("使用者帳密", account);
   };
 
@@ -105,26 +102,47 @@ export default function Account() {
   //       return { ...pre, [name]: value };
   //     });
   //   };
+  // useEffect(() => {
+  //   test();
+  // }, []);
 
-  const handleSignIn = async (e) => {
-    e.preventDefault();
-    try {
-      console.log("進入登入function內部");
-      const res = await axios.post(`${BASE_URL}/v2/admin/signin`, {
-        email: "RealmOfJourneys@gmail.com",
-        password: "RealmOfJourneys",
-      });
+  // const test = async () => {
+  //   try {
+  //     console.log("進入登入function內部");
+  //     const res = await axios.post(`${BASE_URL}/v2/admin/signin`, {
+  //       username: "RealmOfJourneys@gmail.com",
+  //       password: "RealmOfJourneys",
+  //     });
 
-      const { token, expired } = res.data;
-      // document.cookie = `hexToken=${token}; expires=${new Date(expired)}`;
-      axios.defaults.headers.common["Authorization"] = token;
-      //   setIsSignIn(true);
+  //     const { token, expired } = res.data;
+  //     // document.cookie = `hexToken=${token}; expires=${new Date(expired)}`;
+  //     axios.defaults.headers.common["Authorization"] = token;
+  //     //   setIsSignIn(true);
 
-      console.log(res);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  //     console.log(res);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
+
+  // const handleSignIn = async () => {
+  //   try {
+  //     console.log("進入登入function內部");
+  //     const res = await axios.post(`${BASE_URL}/v2/admin/signin`, {
+  //       email: "RealmOfJourneys@gmail.com",
+  //       password: "RealmOfJourneys",
+  //     });
+
+  //     const { token, expired } = res.data;
+  //     // document.cookie = `hexToken=${token}; expires=${new Date(expired)}`;
+  //     axios.defaults.headers.common["Authorization"] = token;
+  //     //   setIsSignIn(true);
+
+  //     console.log(res);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
   return (
     <section className="py-lg-20 pt-26 pb-6">
@@ -219,12 +237,7 @@ export default function Account() {
                     </label>
                   </div>
                 </div>
-                <button
-                  className="loginInButton w-100 fs-sm-7 fs-9 py-3"
-                  onClick={(e) => {
-                    handleSignIn(e);
-                  }}
-                >
+                <button className="loginInButton w-100 fs-sm-7 fs-9 py-3">
                   登入
                 </button>
               </form>

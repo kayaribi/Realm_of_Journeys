@@ -37,10 +37,33 @@ export default function TravelSpots() {
   const paginationTotalPageRef = useRef(null);
   const categoryRef = useRef("");
 
+  const selectBarRef = useRef(null);
+  const waitSelectHeight = useRef(false);
+  const initialWaitRef = useRef(false);
+  // const testSwitch
+
   useEffect(() => {
     if (windowWidth) {
       paginationCurrentPageRef.current = pagination.current_page;
       paginationTotalPageRef.current = pagination.total_pages;
+
+      // if (
+      //   paginationCurrentPageRef.current !== undefined &&
+      //   paginationTotalPageRef.current !== undefined
+      // ) {
+      //   if (
+      //     paginationCurrentPageRef.current === paginationTotalPageRef.current
+      //   ) {
+      //     console.log(
+      //       "已經渲染完，paginationCurrentPageRef.current應該等於總頁數"
+      //     );
+
+      //     console.log(
+      //       paginationCurrentPageRef.current,
+      //       paginationTotalPageRef.current
+      //     );
+      //   }
+      // }
     }
   }, [pagination]);
 
@@ -50,15 +73,27 @@ export default function TravelSpots() {
     const height =
       listRef.current.offsetHeight + listRef.current.offsetTop - 715;
 
+    //在等於總頁數後的執行動作
+    if (paginationCurrentPageRef.current === paginationTotalPageRef.current) {
+      console.log("我是在卷軸觸發等於總頁數後，才執行的動作");
+      console.log("height", height, "window.scrollY", window.scrollY);
+      if (waitSelectHeight.current && window.scrollY >= height) {
+        console.log("我要讓fixed固定在height", height);
+      }
+    }
+
     // 需要滾動到下方，且沒有在讀取中以及瀏覽器視窗寬度小於等於575時
     if (
       !isScrollLoadingRef.current &&
-      window.scrollY > height &&
+      window.scrollY >= height &&
       paginationCurrentPageRef.current < paginationTotalPageRef.current
     ) {
       paginationCurrentPageRef.current += 1;
       console.log("categoryRef.current", categoryRef.current);
       getProduct(paginationCurrentPageRef.current, categoryRef.current);
+
+      console.log("我是在卷軸觸發等於總頁數之前，就執行的動作");
+      console.log("height", height, "window.scrollY", window.scrollY);
     }
   };
 
@@ -102,6 +137,7 @@ export default function TravelSpots() {
   // 篩選資料、變更 banner 圖片、重置分頁相關參數
   const handleFilterProducts = async (e, category) => {
     e.preventDefault();
+    waitSelectHeight.current = false;
     setSelected(category);
     categoryRef.current = category;
 
@@ -180,6 +216,11 @@ export default function TravelSpots() {
     // setIsScreenLoading(true);
     try {
       console.log("執行getProduct");
+
+      setTimeout(() => {
+        initialWaitRef.current = true;
+      }, 5000);
+
       isScrollLoadingRef.current = true;
       const res = await axios.get(
         `${BASE_URL}/v2/api/${API_PATH}/admin/products?page=${page}&category=${category}`
@@ -196,9 +237,24 @@ export default function TravelSpots() {
       } else {
         setProductList(products);
       }
+
+      // if (initialWaitRef.current) {
+
+      // }
+
       setTimeout(() => {
         isScrollLoadingRef.current = false;
-      }, 1000);
+        if (
+          paginationCurrentPageRef.current === paginationTotalPageRef.current
+        ) {
+          // if (initialWaitRef.current) {
+          // setTimeout(() => {
+          waitSelectHeight.current = true;
+          // initialWaitRef.current = false;
+          // }, 5000);
+          // }
+        }
+      }, 2000);
     } catch (error) {
       console.log("資料抓取失敗");
       console.log(error);
@@ -251,7 +307,7 @@ export default function TravelSpots() {
       <section>
         <div className="container position-relative ">
           {/* 切換國家地區 */}
-          <div className="row travelSpotsSelectWrapPosition">
+          <div ref={selectBarRef} className="row travelSpotsSelectWrapPosition">
             <div className="col-lg-8 col-md-10  mx-auto ">
               <ul className="list-unstyled mb-0 travelSpotsSelectWrap p-1">
                 <li className="travelSpotsSelectbuttonWrap  ">
