@@ -35,7 +35,7 @@ export default function Account() {
 
   const navigate = useNavigate();
 
-  //   console.log(watchForm);
+  //   console.log(watchForm); /account/register
 
   useEffect(() => {
     console.log(watchForm);
@@ -50,34 +50,8 @@ export default function Account() {
   }, []);
 
   const onSubmit = async (data) => {
-    // console.log(data);
-
     const { email, password } = data;
-
-    // setUserAccount({ email, password });
-
-    // console.log(data.email);
-    // console.log(data.password);
-
     const account = { username: email, password };
-    // const account2 = {
-    //   email: "RealmOfJourneys@gmail.com",
-    //   password: "RealmOfJourneys",
-    // };
-
-    // console.log(
-    //   "account",
-    //   typeof account,
-    //   typeof account.email,
-    //   typeof account.password
-    // );
-
-    // console.log(
-    //   "account2",
-    //   typeof account2,
-    //   typeof account2.email,
-    //   typeof account2.password
-    // );
 
     try {
       console.log("進入登入function內部");
@@ -90,8 +64,6 @@ export default function Account() {
 
       console.log(res);
 
-      // console.log(data.rememberMe);
-
       if (data.rememberMe) {
         // 如果勾選記住我，存帳號和密碼
         sessionStorage.setItem("savedEmail", data.email);
@@ -103,10 +75,6 @@ export default function Account() {
         sessionStorage.removeItem("savedPassword");
         sessionStorage.removeItem("savedRememberMe");
       }
-      // console.log(emailInputRef);
-
-      // console.log("getItem", sessionStorage.getItem("savedEmail"));
-      // console.log(document.getElementById("email"));
 
       await Swal.fire({
         title: res.data.message,
@@ -296,7 +264,13 @@ export default function Account() {
                 </button>
               </form>
               <div className="d-flex justify-content-between align-items-center mt-lg-0 mt-1">
-                <a className="text-primary-400 text-decoration-underline loginInATag">
+                <a
+                  className="text-primary-400 text-decoration-underline loginInATag"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    navigate("/account/register");
+                  }}
+                >
                   立即註冊
                 </a>
                 <a className="text-neutral-300 text-decoration-underline loginInATag">

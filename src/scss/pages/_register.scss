@@ -3,9 +3,18 @@
   margin-top: 0px;
 }
 
+.cusGenderFeedBackPosition {
+  top: 40px;
+  margin-top: 0px;
+}
+
 @media screen and (max-width: 575px) {
   .cusWidth {
     width: 100%;
+  }
+
+  .cusGenderFeedBackPosition {
+    top: 24px;
   }
 }
 
