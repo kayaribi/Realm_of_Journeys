@@ -3,7 +3,7 @@ import { useForm, useWatch } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 
-export default function ForgotPassword() {
+export default function ChangePassword() {
   const {
     register,
     handleSubmit,
@@ -12,13 +12,15 @@ export default function ForgotPassword() {
     formState: { errors },
   } = useForm({
     defaultValues: {
-      emailForFindPassword: "",
-      verificationCode: "",
+      newPassword: "",
+      confirmNewPassword: "",
     },
     mode: "onTouched",
   });
 
   const navigate = useNavigate();
+
+  const password = watch("newPassword");
 
   console.log("errors", errors);
 
@@ -27,17 +29,17 @@ export default function ForgotPassword() {
       console.log("進入function內部");
 
       await Swal.fire({
-        title: "驗證成功！跳轉至修改密碼頁面",
+        title: "密碼修改成功！",
         icon: "success",
         showConfirmButton: false,
         timer: 1500,
       });
-      // // 跳轉修改密碼頁面
-      navigate("/account/changePassword");
+      // // 跳轉首頁
+      navigate("/");
     } catch (error) {
       console.log(error);
       Swal.fire({
-        title: "發送失敗！",
+        title: "密碼修改失敗！",
         text: "請重新輸入",
         icon: "error",
         confirmButtonText: "確定",
@@ -60,7 +62,7 @@ export default function ForgotPassword() {
           <div className="row">
             <div className="col-lg-8 col-12 mx-auto">
               <h3 className="text-center fs-5 title-family text-neutral-black mb-5">
-                忘記密碼
+                修改密碼
               </h3>
               <hr style={{ border: "1px solid #C2DCF5", margin: "0px" }} />
             </div>
@@ -69,82 +71,84 @@ export default function ForgotPassword() {
                 <form action="" onSubmit={handleSubmit(onSubmit)}>
                   <div className="position-relative mt-5">
                     <label
-                      htmlFor="emailForFindPassword"
+                      htmlFor="newPassword"
                       className="mb-2 fw-bold fs-10 text-neutral-black"
                       style={{ lineHeight: "1.4" }}
                     >
-                      電子郵件
+                      新密碼
                       <span className="ms-1" style={{ color: "#D30000" }}>
                         *
                       </span>
                     </label>
                     <input
-                      type="email"
-                      id="emailForFindPassword"
-                      placeholder="請輸入電子郵件"
+                      type="password"
+                      id="newPassword"
+                      placeholder="請輸入新密碼"
                       className={` form-control ${
-                        errors.emailForFindPassword ? "is-invalid" : ""
+                        errors.newPassword ? "is-invalid" : ""
                       } px-3 py-2 loginInInput w-100  d-inline-block`}
-                      name="emailForFindPassword"
-                      {...register("emailForFindPassword", {
+                      name="newPassword"
+                      {...register("newPassword", {
                         required: {
                           value: true,
-                          message: "請輸入電子郵件",
+                          message: "請輸入新密碼",
                         },
-                        pattern: {
-                          value: /^\S+@\S+$/i,
-                          message: "電子郵件格式不正確",
+                        minLength: {
+                          value: 6,
+                          message: "密碼不能少於6碼",
                         },
                       })}
                     />
-                    {errors.emailForFindPassword && (
+                    {errors.newPassword && (
                       <div
                         className="invalid-feedback position-absolute "
                         style={{ top: "74px", marginTop: "0px" }}
                       >
-                        {errors?.emailForFindPassword?.message}
+                        {errors?.newPassword?.message}
                       </div>
                     )}
                   </div>
 
                   <div className="position-relative mt-10">
                     <label
-                      htmlFor="verificationCode"
+                      htmlFor="confirmNewPassword"
                       className="mb-2 fw-bold fs-10 text-neutral-black"
                       style={{ lineHeight: "1.4" }}
                     >
-                      驗證碼
+                      再次輸入密碼
                       <span className="ms-1" style={{ color: "#D30000" }}>
                         *
                       </span>
                     </label>
                     <input
-                      type="text"
-                      id="verificationCode"
-                      placeholder="請輸入驗證碼"
+                      type="password"
+                      id="confirmNewPassword"
+                      placeholder="請再次輸入新密碼"
                       className={` form-control ${
-                        errors.verificationCode ? "is-invalid" : ""
+                        errors.confirmNewPassword ? "is-invalid" : ""
                       } px-3 py-2 loginInInput w-100  d-inline-block`}
-                      name="verificationCode"
-                      {...register("verificationCode", {
+                      name="confirmNewPassword"
+                      {...register("confirmNewPassword", {
                         required: {
                           value: true,
-                          message: "請輸入驗證碼",
+                          message: "請再次輸入新密碼",
                         },
+
+                        validate: (value) => value === password || "密碼不一樣",
                       })}
                     />
-                    {errors.verificationCode && (
+                    {errors.confirmNewPassword && (
                       <div
                         className="invalid-feedback position-absolute "
                         style={{ top: "74px", marginTop: "0px" }}
                       >
-                        {errors?.verificationCode?.message}
+                        {errors?.confirmNewPassword?.message}
                       </div>
                     )}
                   </div>
 
                   <button className="mt-12 loginInButton w-100 fs-sm-7 fs-9 py-3">
-                    驗證
+                    確定修改
                   </button>
                 </form>
               </div>

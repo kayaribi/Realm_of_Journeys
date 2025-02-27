@@ -9,11 +9,6 @@ const BASE_URL = import.meta.env.VITE_BASE_URL;
 const API_PATH = import.meta.env.VITE_API_PATH;
 
 export default function Account() {
-  //   const [userAccount, setUserAccount] = useState({
-  //     email: "",
-  //     password: "",
-  //   });
-
   const {
     register,
     handleSubmit,
@@ -34,8 +29,6 @@ export default function Account() {
   });
 
   const navigate = useNavigate();
-
-  //   console.log(watchForm); /account/register
 
   useEffect(() => {
     console.log(watchForm);
@@ -94,69 +87,6 @@ export default function Account() {
       });
     }
   };
-
-  //   const signIn = async () => {
-  //     try {
-  //       console.log("進入登入function內部");
-  //       console.log(userAccount);
-  //       const res = await axios.post(`${BASE_URL}/v2/admin/signin`, userAccount);
-
-  //       const { token, expired } = res.data;
-  //       // document.cookie = `hexToken=${token}; expires=${new Date(expired)}`;
-  //       axios.defaults.headers.common["Authorization"] = token;
-  //       //   setIsSignIn(true);
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //   };
-
-  //   const handleUserAccount = (e) => {
-  //     const { name, value } = e.target;
-  //     setUserAccount((pre) => {
-  //       return { ...pre, [name]: value };
-  //     });
-  //   };
-  // useEffect(() => {
-  //   test();
-  // }, []);
-
-  // const test = async () => {
-  //   try {
-  //     console.log("進入登入function內部");
-  //     const res = await axios.post(`${BASE_URL}/v2/admin/signin`, {
-  //       username: "RealmOfJourneys@gmail.com",
-  //       password: "RealmOfJourneys",
-  //     });
-
-  //     const { token, expired } = res.data;
-  //     // document.cookie = `hexToken=${token}; expires=${new Date(expired)}`;
-  //     axios.defaults.headers.common["Authorization"] = token;
-  //     //   setIsSignIn(true);
-
-  //     console.log(res);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
-
-  // const handleSignIn = async () => {
-  //   try {
-  //     console.log("進入登入function內部");
-  //     const res = await axios.post(`${BASE_URL}/v2/admin/signin`, {
-  //       email: "RealmOfJourneys@gmail.com",
-  //       password: "RealmOfJourneys",
-  //     });
-
-  //     const { token, expired } = res.data;
-  //     // document.cookie = `hexToken=${token}; expires=${new Date(expired)}`;
-  //     axios.defaults.headers.common["Authorization"] = token;
-  //     //   setIsSignIn(true);
-
-  //     console.log(res);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
 
   return (
     <section className="py-lg-20 pt-26 pb-6">
@@ -273,7 +203,13 @@ export default function Account() {
                 >
                   立即註冊
                 </a>
-                <a className="text-neutral-300 text-decoration-underline loginInATag">
+                <a
+                  className="text-neutral-300 text-decoration-underline loginInATag"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    navigate("/account/forgotPassword");
+                  }}
+                >
                   忘記密碼
                 </a>
               </div>
