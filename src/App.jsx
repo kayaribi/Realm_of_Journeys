@@ -14,6 +14,7 @@ import {
   TravelSpotsItem,
   TravelGuideItem,
   CompletePayment,
+  Register,
 } from "./pages";
 // 匯入元件(去components>index.jsx做匯入喔)
 import { BackTopBtn, Footer, Navbar } from "./components";
@@ -42,7 +43,6 @@ function App() {
     "/completePayment",
   ].includes(location.pathname);
 
-
   return (
     <CartProvider>
       <Navbar isCartPages={isCartPages} />
@@ -68,6 +68,8 @@ function App() {
           ></Route>{" "}
           {/* 完成付款 */}
           <Route path="/account" element={<Account />}></Route> {/* 登入註冊 */}
+          <Route path="/account/register" element={<Register />}></Route>{" "}
+          {/* 註冊測試 */}
         </Routes>
       </div>
       {isNotBackTopPage && <BackTopBtn />}

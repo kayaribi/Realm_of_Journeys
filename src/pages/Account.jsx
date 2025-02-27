@@ -108,12 +108,12 @@ export default function Account() {
       // console.log("getItem", sessionStorage.getItem("savedEmail"));
       // console.log(document.getElementById("email"));
 
-      // await Swal.fire({
-      //   title: res.data.message,
-      //   icon: "success",
-      //   showConfirmButton: false,
-      //   timer: 1500,
-      // });
+      await Swal.fire({
+        title: res.data.message,
+        icon: "success",
+        showConfirmButton: false,
+        timer: 1500,
+      });
       // // 跳轉首頁
       // navigate("/");
     } catch (error) {
