@@ -10,6 +10,7 @@ import TravelGuideItem from "./TravelGuideItem";
 import CartPayment from "./CartPayment";
 import CompletePayment from "./CompletePayment";
 import Register from "./Register";
+import ForgotPassword from "./ForgotPassword";
 
 export {
   Home,
@@ -24,4 +25,5 @@ export {
   TravelSpotsItem,
   TravelGuideItem,
   Register,
+  ForgotPassword,
 };
