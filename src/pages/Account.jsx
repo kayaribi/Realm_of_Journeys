@@ -1,6 +1,6 @@
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { useEffect } from "react";
 import axios from "axios";
-import { set, useForm, useWatch } from "react-hook-form";
+import { useForm, useWatch } from "react-hook-form";
 import loginInImage from "../../public/images/loginInImage.svg";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
@@ -14,7 +14,6 @@ export default function Account() {
     handleSubmit,
     control,
     setValue,
-    getValues,
     formState: { errors },
   } = useForm({
     defaultValues: {
@@ -53,7 +52,6 @@ export default function Account() {
       const { token, expired } = res.data;
       // document.cookie = `hexToken=${token}; expires=${new Date(expired)}`;
       axios.defaults.headers.common["Authorization"] = token;
-      //   setIsSignIn(true);
 
       console.log(res);
 
@@ -76,7 +74,7 @@ export default function Account() {
         timer: 1500,
       });
       // // 跳轉首頁
-      // navigate("/");
+      navigate("/");
     } catch (error) {
       console.log(error);
       Swal.fire({
