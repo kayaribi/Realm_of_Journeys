@@ -1,7 +1,9 @@
-import { useEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import axios from "axios";
 import { set, useForm, useWatch } from "react-hook-form";
 import loginInImage from "../../public/images/loginInImage.svg";
+import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 const API_PATH = import.meta.env.VITE_API_PATH;
@@ -16,6 +18,8 @@ export default function Account() {
     register,
     handleSubmit,
     control,
+    setValue,
+    getValues,
     formState: { errors },
   } = useForm({
     defaultValues: {
@@ -28,11 +32,22 @@ export default function Account() {
   const watchForm = useWatch({
     control,
   });
+
+  const navigate = useNavigate();
+
   //   console.log(watchForm);
 
   useEffect(() => {
     console.log(watchForm);
   }, [watchForm]);
+
+  useEffect(() => {
+    if (sessionStorage.getItem("savedEmail")) {
+      setValue("email", sessionStorage.getItem("savedEmail"));
+      setValue("password", sessionStorage.getItem("savedPassword"));
+      setValue("rememberMe", sessionStorage.getItem("savedRememberMe"));
+    }
+  }, []);
 
   const onSubmit = async (data) => {
     // console.log(data);
@@ -74,11 +89,42 @@ export default function Account() {
       //   setIsSignIn(true);
 
       console.log(res);
+
+      // console.log(data.rememberMe);
+
+      if (data.rememberMe) {
+        // 如果勾選記住我，存帳號和密碼
+        sessionStorage.setItem("savedEmail", data.email);
+        sessionStorage.setItem("savedPassword", data.password);
+        sessionStorage.setItem("savedRememberMe", true);
+      } else {
+        // 如果沒勾選記住我，就移除 sessionStorage
+        sessionStorage.removeItem("savedEmail");
+        sessionStorage.removeItem("savedPassword");
+        sessionStorage.removeItem("savedRememberMe");
+      }
+      // console.log(emailInputRef);
+
+      // console.log("getItem", sessionStorage.getItem("savedEmail"));
+      // console.log(document.getElementById("email"));
+
+      // await Swal.fire({
+      //   title: res.data.message,
+      //   icon: "success",
+      //   showConfirmButton: false,
+      //   timer: 1500,
+      // });
+      // // 跳轉首頁
+      // navigate("/");
     } catch (error) {
       console.log(error);
+      Swal.fire({
+        title: error.response.data.message,
+        text: "請重新登入！",
+        icon: "error",
+        confirmButtonText: "確定",
+      });
     }
-    // handleSignIn();
-    // console.log("使用者帳密", account);
   };
 
   //   const signIn = async () => {
