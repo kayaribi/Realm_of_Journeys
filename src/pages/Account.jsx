@@ -155,9 +155,8 @@ export default function Account() {
               alt="登入頁面圖片"
             />
           </div>
-
           <div className="col-xl-5 col-12">
-            <div className="px-xl-17  px-0 pt-xxl-11 pt-xl-0 pt-sm-6 pt-0 pb-sm-0">
+            <div className="h-100 d-flex flex-column justify-content-center pt-xl-0 pt-sm-6 pt-0">
               <h3 className="text-neutral-black fs-xXl-5 fs-xl-6 fs-sm-6 fs-8  title-family text-center">
                 會員登入
               </h3>
@@ -167,59 +166,68 @@ export default function Account() {
                 className=" py-xxl-5 py-xl-4 py-3"
                 onSubmit={handleSubmit(onSubmit)}
               >
-                <div>
-                  <label htmlFor="email"></label>
+                <div className="">
+                  <div className="position-relative mb-7  ">
+                    <label htmlFor="email"></label>
+                    <input
+                      type="email"
+                      id="email"
+                      placeholder="email"
+                      className={` form-control ${
+                        errors.email ? "is-invalid" : ""
+                      } px-3 py-2 loginInInput w-100  d-inline-block`}
+                      name="email"
+                      {...register("email", {
+                        required: {
+                          value: true,
+                          message: "email為必填",
+                        },
+                        pattern: {
+                          value: /^\S+@\S+$/i,
+                          message: "email 格式不正確",
+                        },
+                      })}
+                    />
+                    {errors.email && (
+                      <div
+                        className="invalid-feedback position-absolute "
+                        style={{ top: "42px", marginTop: "0px" }}
+                      >
+                        {errors?.email?.message}
+                      </div>
+                    )}
+                  </div>
 
-                  <input
-                    type="email"
-                    id="email"
-                    placeholder="email"
-                    className={` form-control ${
-                      errors.email ? "is-invalid" : "mb-lg-6 mb-5"
-                    } px-3 py-2 loginInInput w-100  d-inline-block`}
-                    name="email"
-                    {...register("email", {
-                      required: {
-                        value: true,
-                        message: "email為必填",
-                      },
-                      pattern: {
-                        value: /^\S+@\S+$/i,
-                        message: "email 格式不正確",
-                      },
-                    })}
-                  />
-                  {errors.email && (
-                    <div className="invalid-feedback mb-lg-6 mb-5">
-                      {errors?.email?.message}
-                    </div>
-                  )}
-
-                  <label htmlFor="password"></label>
-                  <input
-                    type="password"
-                    id="password"
-                    placeholder="Password"
-                    className={`form-control ${
-                      errors.password ? "is-invalid" : "mb-xl-5 mb-4 "
-                    } px-3 py-2 loginInInput w-100 d-inline-block`}
-                    name="password"
-                    {...register("password", {
-                      required: {
-                        value: true,
-                        message: "密碼為必填",
-                      },
-                      minLength: {
-                        value: 6,
-                        message: "密碼不能少於6碼",
-                      },
-                    })}
-                  />
-                  {errors.password && (
-                    <div className="invalid-feedback mb-lg-6 mb-5">
-                      {errors?.password?.message}
-                    </div>
-                  )}
+                  <div className="position-relative mb-7  ">
+                    <label htmlFor="password"></label>
+                    <input
+                      type="password"
+                      id="password"
+                      placeholder="Password"
+                      className={`form-control ${
+                        errors.password ? "is-invalid" : ""
+                      } px-3 py-2 loginInInput w-100  d-inline-block`}
+                      name="password"
+                      {...register("password", {
+                        required: {
+                          value: true,
+                          message: "密碼為必填",
+                        },
+                        minLength: {
+                          value: 6,
+                          message: "密碼不能少於6碼",
+                        },
+                      })}
+                    />
+                    {errors.password && (
+                      <div
+                        className="invalid-feedback position-absolute"
+                        style={{ top: "42px", marginTop: "0px" }}
+                      >
+                        {errors?.password?.message}
+                      </div>
+                    )}
+                  </div>
 
                   <div className="d-flex align-items-center mb-xxl-6 mb-xl-5 mb-lg-4 mb-6  mt-lg-0 mt-3">
                     <input
