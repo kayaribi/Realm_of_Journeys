@@ -1,0 +1,16 @@
+.cusAgreeTermFeedBackPosition {
+  top: 24px;
+  margin-top: 0px;
+}
+
+@media screen and (max-width: 575px) {
+  .cusWidth {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 386px) {
+  .cusAgreeTermFeedBackPosition {
+    top: 48px;
+  }
+}
