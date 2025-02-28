@@ -14,9 +14,6 @@ import {
   TravelSpotsItem,
   TravelGuideItem,
   CompletePayment,
-  Register,
-  ForgotPassword,
-  ChangePassword,
 } from "./pages";
 // 匯入元件(去components>index.jsx做匯入喔)
 import { BackTopBtn, Footer, Navbar } from "./components";
@@ -28,6 +25,7 @@ import "./scss/all.scss";
 
 function App() {
   const location = useLocation(); // 儲存當前頁面
+  
   const isNotBackTopPage = !(
     location.pathname === "/cart" ||
     location.pathname === "/account" ||
@@ -45,6 +43,7 @@ function App() {
     "/cartPayment",
     "/completePayment",
   ].includes(location.pathname);
+
 
   return (
     <CartProvider>
@@ -71,18 +70,6 @@ function App() {
           ></Route>{" "}
           {/* 完成付款 */}
           <Route path="/account" element={<Account />}></Route> {/* 登入註冊 */}
-          <Route path="/account/register" element={<Register />}></Route>{" "}
-          {/* 註冊 */}
-          <Route
-            path="/account/forgotPassword"
-            element={<ForgotPassword />}
-          ></Route>{" "}
-          {/* 忘記密碼 */}
-          <Route
-            path="/account/changePassword"
-            element={<ChangePassword />}
-          ></Route>{" "}
-          {/* 修改密碼 */}
         </Routes>
       </div>
       {isNotBackTopPage && <BackTopBtn />}
