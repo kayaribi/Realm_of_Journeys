@@ -19,7 +19,7 @@ export default function TravelSpots() {
   const [bannerChange, setBannerChange] = useState(productPageBanner);
   const [selected, setSelected] = useState("");
   const [isFilterProducts, setIsFilterProducts] = useState(false);
-  // const [isScreenLoading, setIsScreenLoading] = useState(false);
+  const [isScreenLoading, setIsScreenLoading] = useState(false);
   // // 判斷是否啟用 ... 分頁功能
   const [isDotPagination, setIsDotPagination] = useState(true);
   // // 改變 ... 的顯示方向
@@ -37,10 +37,33 @@ export default function TravelSpots() {
   const paginationTotalPageRef = useRef(null);
   const categoryRef = useRef("");
 
+  const selectBarRef = useRef(null);
+  const waitSelectHeight = useRef(false);
+  const initialWaitRef = useRef(false);
+  // const testSwitch
+
   useEffect(() => {
     if (windowWidth) {
       paginationCurrentPageRef.current = pagination.current_page;
       paginationTotalPageRef.current = pagination.total_pages;
+
+      // if (
+      //   paginationCurrentPageRef.current !== undefined &&
+      //   paginationTotalPageRef.current !== undefined
+      // ) {
+      //   if (
+      //     paginationCurrentPageRef.current === paginationTotalPageRef.current
+      //   ) {
+      //     console.log(
+      //       "已經渲染完，paginationCurrentPageRef.current應該等於總頁數"
+      //     );
+
+      //     console.log(
+      //       paginationCurrentPageRef.current,
+      //       paginationTotalPageRef.current
+      //     );
+      //   }
+      // }
     }
   }, [pagination]);
 
@@ -49,21 +72,46 @@ export default function TravelSpots() {
 
     const height =
       listRef.current.offsetHeight + listRef.current.offsetTop - 715;
+    const currentTop = parseInt(selectBarRef.current.style.top, 10) || 0; // 轉數字，避免字串比較問題
+
+    //在等於總頁數後的執行動作
+    if (paginationCurrentPageRef.current === paginationTotalPageRef.current) {
+      console.log("我是在卷軸觸發等於總頁數後，才執行的動作");
+      console.log("height", height, "window.scrollY", window.scrollY);
+      if (waitSelectHeight.current && window.scrollY >= height + 100) {
+        console.log("我要讓fixed固定在height", height);
+        selectBarRef.current.style.position = "absolute";
+        selectBarRef.current.style.top = `${height + 695}px`;
+        // selectBarRef.current.style.bottom = "0px";
+        selectBarRef.current.style.bottom = "auto"; // 確保 `bottom` 被清除
+      }
+
+      if (currentTop === height + 695 && window.scrollY <= height + 100) {
+        selectBarRef.current.style.position = "fixed";
+        // selectBarRef.current.style.top = "0px";
+        selectBarRef.current.style.top = "auto"; // 清除 top
+        selectBarRef.current.style.bottom = "32px";
+      }
+    }
 
     // 需要滾動到下方，且沒有在讀取中以及瀏覽器視窗寬度小於等於575時
     if (
       !isScrollLoadingRef.current &&
-      window.scrollY > height &&
+      window.scrollY >= height &&
       paginationCurrentPageRef.current < paginationTotalPageRef.current
     ) {
       paginationCurrentPageRef.current += 1;
       console.log("categoryRef.current", categoryRef.current);
       getProduct(paginationCurrentPageRef.current, categoryRef.current);
+
+      console.log("我是在卷軸觸發等於總頁數之前，就執行的動作");
+      console.log("height", height, "window.scrollY", window.scrollY);
     }
   };
 
   useEffect(() => {
-    const debounceScroll = debounce(handleScroll, 200);
+    // const debounceScroll = debounce(handleScroll, 200);
+    const debounceScroll = debounce(handleScroll, 0);
 
     // 登入之後 會執行這一段
     if (initialSwitchRef.current) {
@@ -75,12 +123,18 @@ export default function TravelSpots() {
         window.addEventListener("scroll", debounceScroll);
         setProductList([]);
         getProduct(1, categoryRef.current);
+        selectBarRef.current.style.position = "fixed";
+        selectBarRef.current.style.top = "auto";
+        selectBarRef.current.style.bottom = "32px";
       } else {
         // 大於 575px
         console.log("視窗變更為575px以上了，所以移除卷軸監聽事件");
         window.removeEventListener("scroll", debounceScroll);
         setProductList([]);
         getProduct(1, categoryRef.current);
+        selectBarRef.current.style.position = "absolute";
+        selectBarRef.current.style.top = "auto";
+        selectBarRef.current.style.bottom = "auto";
       }
     } else {
       // 初始加載 會執行這一段
@@ -102,6 +156,8 @@ export default function TravelSpots() {
   // 篩選資料、變更 banner 圖片、重置分頁相關參數
   const handleFilterProducts = async (e, category) => {
     e.preventDefault();
+
+    waitSelectHeight.current = false;
     setSelected(category);
     categoryRef.current = category;
 
@@ -122,6 +178,9 @@ export default function TravelSpots() {
         setProductList([]);
         getProduct(1, category);
       }
+      selectBarRef.current.style.position = "fixed";
+      selectBarRef.current.style.top = "auto";
+      selectBarRef.current.style.bottom = "32px";
     } else {
       // 大於 575px 時，點擊篩選標籤
       if (!e.target.className.includes("bg-primary-500")) {
@@ -177,9 +236,14 @@ export default function TravelSpots() {
 
   // 取得產品資料
   const getProduct = async (page = 1, category = "") => {
-    // setIsScreenLoading(true);
+    setIsScreenLoading(true);
     try {
       console.log("執行getProduct");
+
+      setTimeout(() => {
+        initialWaitRef.current = true;
+      }, 5000);
+
       isScrollLoadingRef.current = true;
       const res = await axios.get(
         `${BASE_URL}/v2/api/${API_PATH}/admin/products?page=${page}&category=${category}`
@@ -196,9 +260,21 @@ export default function TravelSpots() {
       } else {
         setProductList(products);
       }
+
       setTimeout(() => {
         isScrollLoadingRef.current = false;
+        if (
+          paginationCurrentPageRef.current === paginationTotalPageRef.current
+        ) {
+          // if (initialWaitRef.current) {
+          // setTimeout(() => {
+          waitSelectHeight.current = true;
+          // initialWaitRef.current = false;
+          // }, 5000);
+          // }
+        }
       }, 1000);
+      setIsScreenLoading(false);
     } catch (error) {
       console.log("資料抓取失敗");
       console.log(error);
@@ -251,7 +327,7 @@ export default function TravelSpots() {
       <section>
         <div className="container position-relative ">
           {/* 切換國家地區 */}
-          <div className="row travelSpotsSelectWrapPosition">
+          <div ref={selectBarRef} className="row travelSpotsSelectWrapPosition">
             <div className="col-lg-8 col-md-10  mx-auto ">
               <ul className="list-unstyled mb-0 travelSpotsSelectWrap p-1">
                 <li className="travelSpotsSelectbuttonWrap  ">
@@ -511,7 +587,7 @@ export default function TravelSpots() {
           </div>
         </div>
       </section>
-      {/* {isScreenLoading && (
+      {isScreenLoading && (
         <div
           className="d-flex justify-content-center align-items-center"
           style={{
@@ -521,9 +597,14 @@ export default function TravelSpots() {
             zIndex: 999,
           }}
         >
-          <ReactLoading type="spokes" color="black" width="4rem" height="4rem" />
+          <ReactLoading
+            type="spokes"
+            color="black"
+            width="4rem"
+            height="4rem"
+          />
         </div>
-      )} */}
+      )}
     </>
   );
 }
