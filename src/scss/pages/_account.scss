@@ -1,0 +1,44 @@
+.cusLoginInHr {
+  border: 1px solid #c2dcf5;
+  margin: 0;
+}
+
+.loginInInput {
+  border: 1px solid #878787;
+  border-radius: 4px;
+  &::placeholder {
+    font-size: 16px;
+    line-height: 1.5;
+    color: #c3c3c3; /* 調整顏色 */
+    font-weight: 400;
+  }
+}
+
+.loginInCheckBox {
+  appearance: none; /* 移除瀏覽器的預設樣式 */
+  width: 24px;
+  height: 24px;
+  border: 1px solid #3d3d3d;
+  border-radius: 6px;
+  position: relative;
+  cursor: pointer;
+
+  &:checked {
+    background: url(../../../public/images/loginInRememberMe.svg) no-repeat
+      center;
+    background-size: contain;
+  }
+}
+
+.loginInButton {
+  color: #fff;
+  border-radius: 8px;
+  background-color: #b1855d;
+  border: none;
+}
+
+.loginInATag {
+  &:hover {
+    cursor: pointer;
+  }
+}
