@@ -84,12 +84,12 @@ export default function TravelGuideItem(){
                 <div className="row justify-content-center">
                     <div className="col-12 col-lg-10">
                         <div className="py-8 pt-lg-12 pb-lg-27">
-                            <h3 className="fs-8 fs-lg-5 mb-3 mb-lg-7">【{travelGuideItemData.title}】</h3>
+                            <h3 className="title-family fs-8 fs-lg-5 mb-3 mb-lg-7">【{travelGuideItemData.title}】</h3>
                             <p className="fs-10 fs-lg-7 mb-4 mb-lg-6">
                                 {travelGuideItemData.content}
                             </p>
                             <img className="travelGuideItem-img-height object-img mb-4 mb-lg-15 w-100" src={travelGuideItemData.images}/>
-                            <h3 className="mb-4 fs-8 fs-lg-5">必去景點</h3>
+                            <h3 className="title-family mb-4 fs-8 fs-lg-5">必去景點</h3>
                             <hr className="travelGuideItem-hr"/>
                             <ul className="list-unstyled d-grid gap-4 mb-8 mb-lg-15">
                                 {travelGuideItemData.attractions.map((item)=>{
@@ -101,7 +101,7 @@ export default function TravelGuideItem(){
                                     )
                                 })}
                             </ul>
-                            <h3 className="mb-3 fs-8 fs-lg-5">購物推薦</h3>
+                            <h3 className="title-family title-family mb-3 fs-8 fs-lg-5">購物推薦</h3>
                             <hr className="travelGuideItem-hr"/>
                             <ul className="list-unstyled d-grid gap-4 mb-8 mb-lg-15">
                                 {travelGuideItemData.shopping.map((item)=>{
@@ -114,7 +114,7 @@ export default function TravelGuideItem(){
                                 })}
                             </ul>
                             <div className="border border-primary-500 radius-24px mb-8 mb-lg-15 py-8 py-lg-10 px-3 px-lg-8 bg-primary-50">
-                                <h3 className="fs-8 fs-lg-5 mb-3 mb-lg-6">遊玩小貼士</h3>
+                                <h3 className="title-family fs-8 fs-lg-5 mb-3 mb-lg-6">遊玩小貼士</h3>
                                 <ul className="mb-0">
                                     {travelGuideItemData.things.map((item,index)=>{
                                         return(
