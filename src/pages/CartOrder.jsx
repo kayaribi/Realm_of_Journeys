@@ -1,5 +1,5 @@
-import { useContext, useEffect, useRef } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useContext, useEffect, useRef, useState } from "react";
+import {  useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { Modal } from "bootstrap";
 import { CartContext } from "../store/store";
@@ -14,15 +14,19 @@ export default function CartOrder() {
     handleSubmit,
     formState: { errors },
     formState,
+    watch ,
+    setValue
   } = useForm({ mode: "onChange" });
+
   const navigate = useNavigate();
+
   const startSubmit = (data) => {
     navigate('/cartPayment');
+    saveFormData(data);
   };
 
   // 提交下一步警告
   const cartOrderModal = useRef(null);
-  // // nextSubmitModal.current = new Modal('#nextSubmitModal');
   useEffect(() => {
     cartOrderModal.current = new Modal("#cartOrderModal");
   }, []);
@@ -33,6 +37,38 @@ export default function CartOrder() {
   const closeBackSubmitModal = () => {
     cartOrderModal.current.hide();
   };
+
+  // =========== 表單資料暫時儲存 ===========
+  // 表單變化
+  const formData = watch();
+  const saveFormData = (data) => {
+    localStorage.setItem('formData', JSON.stringify(data));
+  };
+  // 頁面更新時儲存資料
+  useEffect(() => {
+    const handleBeforeUnload = () => {
+      saveFormData(formData);
+    };
+
+    window.addEventListener('beforeunload', handleBeforeUnload);
+
+    // 清除事件監聽器
+    return () => {
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+    };
+  }, [formData]);
+
+  // 當頁面載入時檢查是否有儲存的資料
+  useEffect(() => {
+    const savedData = localStorage.getItem('formData');
+    if (savedData) {
+      const parsedData = JSON.parse(savedData);
+      // 將儲存的資料帶入表單
+      Object.keys(parsedData).forEach((key) => {
+        setValue(key, parsedData[key]);
+      });
+    }
+  }, [setValue]);
 
   return (
     <>
@@ -134,6 +170,7 @@ export default function CartOrder() {
                     className="form-control"
                     id="username"
                     placeholder="請輸入姓名"
+            
                     {...register("name", {
                       required: "這是必填欄位。",
                       pattern: {
@@ -172,6 +209,8 @@ export default function CartOrder() {
                       name="gender"
                       id="male"
                       value="male"
+              
+                      
                       {...register("gender", {
                         required: "這是必填欄位。",
                       })}
@@ -193,6 +232,8 @@ export default function CartOrder() {
                       name="gender"
                       id="female"
                       value="female"
+              
+                      
                       {...register("gender", {
                         required: "這是必填欄位。",
                       })}
@@ -223,6 +264,8 @@ export default function CartOrder() {
                     className="form-control"
                     id="email"
                     placeholder="請輸入E-mail"
+            
+                    
                     {...register("email", {
                       required: "這是必填欄位。",
                       pattern: {
@@ -259,6 +302,8 @@ export default function CartOrder() {
                     className="form-control"
                     id="tel"
                     placeholder="請輸入手機號碼"
+            
+                    
                     {...register("tel", {
                       required: "此欄位為必填。",
                       pattern: {
@@ -295,6 +340,8 @@ export default function CartOrder() {
                     className="form-control"
                     id="lineID"
                     placeholder="請輸入LINE ID"
+            
+                    
                     {...register("line", {
                       required: "這是必填欄位。",
                     })}
@@ -329,6 +376,8 @@ export default function CartOrder() {
                       name="preference"
                       id="preferenceAll"
                       value="preferenceAll"
+              
+                      
                       {...register("likeContact", {
                         required: "這是必填欄位。",
                       })}
@@ -344,6 +393,8 @@ export default function CartOrder() {
                       name="preference"
                       id="preferenceEmail"
                       value="Email"
+              
+                      
                       {...register("likeContact", {
                         required: "這是必填欄位。",
                       })}
@@ -362,6 +413,8 @@ export default function CartOrder() {
                       name="preference"
                       id="preferenceTel"
                       value="tel"
+              
+                      
                       {...register("likeContact", {
                         required: "這是必填欄位。",
                       })}
@@ -377,6 +430,8 @@ export default function CartOrder() {
                       name="preference"
                       id="preferenceLine"
                       value="LineID"
+              
+                      
                       {...register("likeContact", {
                         required: "這是必填欄位。",
                       })}
@@ -410,6 +465,8 @@ export default function CartOrder() {
                       height: "186px",
                       resize: "none",
                     }}
+            
+                    
                     {...register("userMessage")}
                   />
                 </div>
@@ -422,6 +479,8 @@ export default function CartOrder() {
                     type="checkbox"
                     value=""
                     id="membershipRights"
+            
+                    
                     {...register("isAgree", {
                       required: "請瀏覽上述資訊，並勾選以示同意。",
                     })}

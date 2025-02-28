@@ -110,7 +110,7 @@ export default function Navbar({ isCartPages }) {
               <i className="bi bi-cart position-relative">
                 {cartItemCount > 0 && (
                   <span
-                    class="position-absolute translate-middle badge rounded-pill bg-danger fs-11 start-100"
+                    className="position-absolute translate-middle badge rounded-pill bg-danger fs-11 start-100"
                     style={{
                       top: "35%",
                     }}
@@ -186,7 +186,7 @@ export default function Navbar({ isCartPages }) {
                   <i className="bi bi-cart text-neutral-300 lh-0 p-2 position-relative">
                     {cartItemCount > 0 && (
                       <span
-                        class="position-absolute translate-middle badge rounded-pill bg-danger fs-10"
+                        className="position-absolute translate-middle badge rounded-pill bg-danger fs-10"
                         style={{
                           top: "30%",
                           left: "80%",

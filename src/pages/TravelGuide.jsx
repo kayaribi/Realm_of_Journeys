@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import '../scss/all.scss';
 import axios from 'axios';
 import ReactLoading from 'react-loading';
@@ -11,7 +11,6 @@ export default function TravelGuide(){
     const [articlesData,setArticlesData]=useState([]);
     const [selectArea, setSelectArea] = useState("");
     const [isScreenLoading,setIsScreenLoading] = useState(false);
-    
     // ============================================================================== 取得文章data
     useEffect(()=>{
         const getArticles = async()=>{
@@ -41,11 +40,15 @@ export default function TravelGuide(){
 
     return(<>
         <div className="travelGuide">
-            <header className="header-height header-bg d-flex justify-content-center align-items-center" id="header">
-                <h3 className="text-white fs-lg-4">
-                    帶您探索全球，<br className="d-block d-lg-none"/>最新旅途知識一手掌握
-                </h3>
+            <header className="header-height header-bg position-relative" id="header">
+                <div className="header-mask"></div>
+                <div className="container d-flex align-items-center justify-content-start justify-content-lg-center h-100">
+                    <h3 className="header-title text-white fs-lg-4 title-family">
+                        帶您探索全球，<br className="d-block d-lg-none"/>最新旅途知識一手掌握
+                    </h3>
+                </div>
             </header>
+
             <div className="container position-relative">
                 <select className="form-select position-absolute translate-middle top-0 border-primary-500" aria-label="select"
                         onChange={handleSelectChange}>
@@ -64,7 +67,7 @@ export default function TravelGuide(){
                                     </Link>
                                     <Link to={item.id}>
                                         <div className="card-body card-body-mt p-0 mt-5 mt-lg-4">
-                                            <h3 className="fs-sm-6 fs-xl-5 text-neutral-black mb-2">【{item.title}】<br/>&nbsp;&nbsp;&nbsp;{item.name}</h3>
+                                            <h3 className="title-family fs-sm-6 fs-xl-5 text-neutral-black mb-2">【{item.title}】<br/>&nbsp;&nbsp;&nbsp;{item.name}</h3>
                                             <hr className="border-primary-200 w-100 d-lg-none mb-2 mt-0"/>
                                             <p className="fs-10 fs-lg-9 text-neutral-300 card-text">
                                                 {item.description}

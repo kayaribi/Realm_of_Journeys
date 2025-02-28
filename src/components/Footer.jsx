@@ -21,7 +21,7 @@ export default function Footer() {
                             <NavLink className="text-white link-warning" to="/">首頁</NavLink>
                         </li>
                         <li>
-                            <NavLink className="text-white link-warning" to="/travelSpots">行程列表</NavLink>
+                            <NavLink className="text-white link-warning" to="/travelSpots">旅遊景點</NavLink>
                         </li>
                         <li>
                             <NavLink className="text-white link-warning" to="/travelGuide">旅遊攻略</NavLink>

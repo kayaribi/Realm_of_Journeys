@@ -34,6 +34,7 @@ function App() {
     location.pathname === "/cartOrder" ||
     location.pathname === "/cartPayment" ||
     location.pathname === "/completePayment" ||
+    location.pathname === "/about" ||
     location.pathname.startsWith("/travelGuide/")
   );
 
