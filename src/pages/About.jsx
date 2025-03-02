@@ -127,7 +127,11 @@ export default function About() {
               disableOnInteraction: false,
             }}
             breakpoints={{
-              1400: {
+              768: {
+                slidesPerView: 2, // 1400px 以上顯示 4 個卡片
+                spaceBetween: 24,
+              },
+              992: {
                 slidesPerView: 4, // 1400px 以上顯示 4 個卡片
                 spaceBetween: 24,
                 autoplay: false,
@@ -137,19 +141,19 @@ export default function About() {
           >
             <SwiperSlide>
               <img className="mb-4" src="images/Hailey.jpg" alt="Hailey" />
-              <p className='text-black text-center fs-lg-5'>Hailey</p>
+              <p className='text-black text-center fs-md-6 fs-xl-5'>Hailey</p>
             </SwiperSlide>
             <SwiperSlide>
               <img className="mb-4" src="images/Kaya.jpeg" alt="Kaya" />
-              <p className="text-black text-center fs-lg-5">Kaya</p>
+              <p className="text-black text-center fs-md-6 fs-xl-5">Kaya</p>
             </SwiperSlide>
             <SwiperSlide>
               <img className="mb-4" src="images/star.jpg" alt="star" />
-              <p className="text-black text-center fs-lg-5">蘑菇星星</p>
+              <p className="text-black text-center fs-md-6 fs-xl-5">蘑菇星星</p>
             </SwiperSlide>
             <SwiperSlide>
               <img className="mb-4" src="images/lunlun.jpeg" alt="lunlun" />
-              <p className="text-black text-center fs-lg-5">倫倫</p>
+              <p className="text-black text-center fs-md-6 fs-xl-5">倫倫</p>
             </SwiperSlide>
           </Swiper>
         </section>
