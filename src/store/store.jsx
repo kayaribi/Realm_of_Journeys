@@ -49,6 +49,16 @@ export const CartContext = createContext();
 export const CartProvider = ({ children }) => {
   const [state, dispatch] = useReducer(cartReducer, initialState);
   const [isScreenLoading, setIsScreenLoading] = useState(false);
+  const [toastMessage, setToastMessage] = useState({ type: '', text: '' }); // toast狀態
+ 
+  // toast開啟
+  const showToast = (message, type) => {
+    setToastMessage({ text: message, type }); // 顯示訊息
+    setTimeout(() => setToastMessage({ 
+      text: '', 
+      type: '' 
+    }), 3000); // 3秒後清除
+  };
 
   // 取得購物車列表
   const getCart = async () => {
@@ -57,7 +67,7 @@ export const CartProvider = ({ children }) => {
       const res = await axios.get(`${BASE_URL}/v2/api/${API_PATH}/cart`);
       dispatch({ type: "GET_CART", payload: res.data.data });
     } catch (error) {
-      alert("取得購物車列表失敗");
+      showToast('取得購物車列表失敗', 'danger');
     } finally {
       setIsScreenLoading(false);
     }
@@ -79,7 +89,7 @@ export const CartProvider = ({ children }) => {
 
         // 🔴 限制數量最多 10
         if (updatedQty > 10) {
-          alert("該商品最多只能購買 10 件！");
+          showToast('該商品最多只能購買 10 件！', 'danger');
           return;
         }
 
@@ -93,7 +103,7 @@ export const CartProvider = ({ children }) => {
       } else {
         // 如果商品不存在，則新增
         if (Number(quantity) > 10) {
-          alert("該商品最多只能購買 10 件！");
+          showToast('該商品最多只能購買 10 件！', 'danger');
           return;
         }
 
@@ -103,8 +113,9 @@ export const CartProvider = ({ children }) => {
       }
 
       await getCart(); // 更新購物車列表
+      showToast('加入購物車成功！', 'success');
     } catch (error) {
-      alert("加入購物車失敗");
+      showToast('加入購物車失敗', 'danger');
     }
   };
 
@@ -113,8 +124,9 @@ export const CartProvider = ({ children }) => {
     try {
       const res = await axios.delete(`${BASE_URL}/v2/api/${API_PATH}/carts`);
       dispatch({ type: "REMOVE_CART" });
+      showToast('購物車已清空', 'success');
     } catch (error) {
-      alert("刪除購物車失敗");
+      showToast('刪除購物車失敗', 'danger');
     }
   };
 
@@ -125,8 +137,9 @@ export const CartProvider = ({ children }) => {
         `${BASE_URL}/v2/api/${API_PATH}/cart/${cartItem_id}`
       );
       dispatch({ type: "REMOVE_CART_ITEM", payload: cartItem_id });
+      showToast('商品已從購物車中移除', 'success');
     } catch (error) {
-      alert("刪除購物車失敗");
+      showToast('刪除購物車品項失敗', 'danger');
     }
   };
 
@@ -140,8 +153,9 @@ export const CartProvider = ({ children }) => {
         }
       );
       dispatch({ type: "UPDATE_QUANTITY", payload: res.data.data });
+      showToast('數量更新成功', 'success');
     } catch (error) {
-      console.log(error);
+      showToast('數量更新失敗', 'danger');
     }
   };
 
@@ -155,6 +169,7 @@ export const CartProvider = ({ children }) => {
         updateQuantity,
         isScreenLoading,
         setIsScreenLoading,
+        toastMessage, // toast訊息
       }}
     >
       {children}

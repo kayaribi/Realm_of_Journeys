@@ -6,14 +6,17 @@ import { CartContext } from "../store/store";
 export default function Navbar({ isCartPages }) {
   const [isNavbarOpen, setIsNavbarOpen] = useState(false);
 
+// 連結被選中的樣式
   const linkActiveColor = ({ isActive }) => {
     return `nav-link ${isActive ? "text-primary-600 fw-bold" : ""}`;
   };
-
+  
+// 漢堡選單 - 開關
   const handleNavbarToggle = () => {
     setIsNavbarOpen((prevState) => !prevState);
   };
 
+// 點擊選單內鏈接時，隱藏漢堡選單
   const handleLinkClick = () => {
     setIsNavbarOpen(false);
     // 手動觸發 Bootstrap 的 collapse 隱藏
@@ -22,8 +25,8 @@ export default function Navbar({ isCartPages }) {
       collapseElement.classList.remove("show");
     }
   };
-  //
-  // 滑動1px啟動
+
+// 滑動1px啟動 ( 透明度變化 ) 
   const [isScrolled, setIsScrolled] = useState(false);
   useEffect(() => {
     const handleScroll = () => {
@@ -39,7 +42,7 @@ export default function Navbar({ isCartPages }) {
     };
   }, []);
 
-  // 螢幕大於991啟動
+// 螢幕大於991啟動
   const [screenWidth, setScreenWidth] = useState(false);
   useEffect(() => {
     const handleResize = () => {
@@ -57,18 +60,22 @@ export default function Navbar({ isCartPages }) {
     };
   }, []);
 
-  // 漢堡選單style
+// 漢堡選單icon style，根據狀態(navbar開啟、滾動狀態)調整顏色
   const hamburgIconClass =
     isNavbarOpen || isScrolled
       ? `hamburg-icon text-neutral-300`
       : `hamburg-icon text-white`;
-  // 購物車style
+
+// 購物車icon樣式，根據狀態調整顏色
   const cartIconClass =
     isNavbarOpen || isScrolled ? "text-neutral-300" : "text-white";
-  // logo顯示圖片
+
+// 滾動顯示不同的logo
   const logoImg = isScrolled ? "logo-sm-dark" : "logo-sm-light";
 
-  const { cartList } = useContext(CartContext);
+  const { cartList } = useContext(CartContext); // 獲取購物車資料
+
+// 計算購物車中商品的數量
   const cartItemCount = cartList.reduce((total, item) => total + item.qty, 0);
 
   return (
@@ -85,11 +92,8 @@ export default function Navbar({ isCartPages }) {
               <h1 className="d-none d-lg-block log-style logo-size-l">
                 行旅之境
               </h1>
-              <h1
-                className={`d-block d-lg-none log-style logo-size-s
-                                        ${
-                                          isCartPages ? "logo-sm-dark" : logoImg
-                                        }`}
+              <h1 className={`d-block d-lg-none log-style logo-size-s
+                  ${isCartPages ? "logo-sm-dark" : logoImg}`}
               >
                 行旅之境
               </h1>
@@ -101,11 +105,7 @@ export default function Navbar({ isCartPages }) {
               to="/cart"
               onClick={handleLinkClick}
               className={`d-block d-lg-none me-4 fs-6 d-flex align-items-center
-                                    ${
-                                      isCartPages
-                                        ? "text-neutral-300"
-                                        : cartIconClass
-                                    }`}
+              ${ isCartPages ? "text-neutral-300" : cartIconClass }`}
             >
               <i className="bi bi-cart position-relative">
                 {cartItemCount > 0 && (
@@ -131,13 +131,8 @@ export default function Navbar({ isCartPages }) {
               aria-label="Toggle navigation"
               onClick={handleNavbarToggle}
             >
-              <i
-                className={`${isNavbarOpen ? "bi bi-x" : "bi bi-list"} 
-                                        ${
-                                          isCartPages
-                                            ? "text-neutral-300"
-                                            : hamburgIconClass
-                                        }`}
+              <i className={`${isNavbarOpen ? "bi bi-x" : "bi bi-list"} 
+                ${ isCartPages ? "text-neutral-300" : hamburgIconClass }`}
               ></i>
             </button>
           </div>

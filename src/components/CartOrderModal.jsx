@@ -1,8 +1,9 @@
 import { useNavigate } from "react-router-dom"
 
-export default function CartOrderModal({cartOrderModal,closeBackSubmitModal}){
+export default function CartOrderModal({cartOrderModal,closeBackSubmitModal,saveFormData, formData}){
     const navigate = useNavigate();
     const backBtn = (data)=>{
+        saveFormData(formData);// 儲存表單資料到 localStorage
         navigate('/cart');
         cartOrderModal.current.hide();
     }

@@ -19,7 +19,7 @@ import {
   ChangePassword,
 } from "./pages";
 // 匯入元件(去components>index.jsx做匯入喔)
-import { BackTopBtn, Footer, Navbar } from "./components";
+import { BackTopBtn, Footer, Navbar,Toast } from "./components";
 
 import "swiper/css";
 import "swiper/css/navigation";
@@ -44,11 +44,12 @@ function App() {
     "/cartOrder",
     "/cartPayment",
     "/completePayment",
-  ].includes(location.pathname);
+  ].includes(location.pathname) || location.pathname.startsWith("/travelSpots/");
 
   return (
     <CartProvider>
       <Navbar isCartPages={isCartPages} />
+      <Toast />
       <div className="navbar-top">
         <Routes>
           <Route path="/" element={<Home />}></Route> {/* 首頁 */}
