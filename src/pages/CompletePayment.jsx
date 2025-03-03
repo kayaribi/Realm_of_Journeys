@@ -3,6 +3,7 @@ import { useContext, useEffect, useState } from "react";
 import { CartContext } from "../store/store";
 
 export default function CompletePayment() {
+  const [deadline, setDeadline] = useState("");
   const { cartList, removeCart } = useContext(CartContext);
   const location = useLocation();
   const paymentMethod = location.state?.paymentMethod || "CreditCard";
@@ -11,6 +12,15 @@ export default function CompletePayment() {
     const totalAmount = cartList.reduce((sum, cartItem) => sum + cartItem.total, 0);
     setOrderTotal(totalAmount); // 存入 state
     removeCart(); // 進入頁面後清空購物車
+  }, []);
+
+  useEffect(() => {
+    const today = new Date();
+    today.setDate(today.getDate() + 2); // 加2天
+    const formattedDate = today.getFullYear() + " / " +
+                          String(today.getMonth() + 1).padStart(2, "0") + " / " +
+                          String(today.getDate()).padStart(2, "0");
+    setDeadline(formattedDate);
   }, []);
   
   return (
@@ -79,7 +89,7 @@ export default function CompletePayment() {
           </div>
           <div className="row justify-content-center">
             <div className="col-md-4 fs-10">
-              <p className="my-2">繳款期限：2024 / 12 / 21</p>
+              <p className="my-2">繳款期限：{deadline}</p>
               <p>
                 訂單金額：
                 {orderTotal.toLocaleString()}

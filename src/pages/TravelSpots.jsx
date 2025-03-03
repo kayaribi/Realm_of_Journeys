@@ -46,29 +46,10 @@ export default function TravelSpots() {
     if (windowWidth) {
       paginationCurrentPageRef.current = pagination.current_page;
       paginationTotalPageRef.current = pagination.total_pages;
-
-      // if (
-      //   paginationCurrentPageRef.current !== undefined &&
-      //   paginationTotalPageRef.current !== undefined
-      // ) {
-      //   if (
-      //     paginationCurrentPageRef.current === paginationTotalPageRef.current
-      //   ) {
-      //     console.log(
-      //       "已經渲染完，paginationCurrentPageRef.current應該等於總頁數"
-      //     );
-
-      //     console.log(
-      //       paginationCurrentPageRef.current,
-      //       paginationTotalPageRef.current
-      //     );
-      //   }
-      // }
     }
   }, [pagination]);
 
   const handleScroll = () => {
-    console.log("執行卷軸功能");
 
     const height =
       listRef.current.offsetHeight + listRef.current.offsetTop - 715;
@@ -76,10 +57,7 @@ export default function TravelSpots() {
 
     //在等於總頁數後的執行動作
     if (paginationCurrentPageRef.current === paginationTotalPageRef.current) {
-      console.log("我是在卷軸觸發等於總頁數後，才執行的動作");
-      console.log("height", height, "window.scrollY", window.scrollY);
       if (waitSelectHeight.current && window.scrollY >= height + 100) {
-        console.log("我要讓fixed固定在height", height);
         selectBarRef.current.style.position = "absolute";
         selectBarRef.current.style.top = `${height + 695}px`;
         // selectBarRef.current.style.bottom = "0px";
@@ -101,11 +79,7 @@ export default function TravelSpots() {
       paginationCurrentPageRef.current < paginationTotalPageRef.current
     ) {
       paginationCurrentPageRef.current += 1;
-      console.log("categoryRef.current", categoryRef.current);
       getProduct(paginationCurrentPageRef.current, categoryRef.current);
-
-      console.log("我是在卷軸觸發等於總頁數之前，就執行的動作");
-      console.log("height", height, "window.scrollY", window.scrollY);
     }
   };
 
@@ -115,11 +89,9 @@ export default function TravelSpots() {
 
     // 登入之後 會執行這一段
     if (initialSwitchRef.current) {
-      console.log("initialSwitchRef.current轉為true", initialSwitchRef.current);
       window.scrollTo({ top: 0, behavior: "smooth" });
       if (windowWidth) {
         // 小於 575px
-        console.log("視窗變更為575px以下了，所以執行卷軸監聽事件");
         window.addEventListener("scroll", debounceScroll);
         setProductList([]);
         getProduct(1, categoryRef.current);
@@ -128,7 +100,6 @@ export default function TravelSpots() {
         selectBarRef.current.style.bottom = "32px";
       } else {
         // 大於 575px
-        console.log("視窗變更為575px以上了，所以移除卷軸監聽事件");
         window.removeEventListener("scroll", debounceScroll);
         setProductList([]);
         getProduct(1, categoryRef.current);
@@ -140,11 +111,7 @@ export default function TravelSpots() {
       // 初始加載 會執行這一段
       if (initialWindowWidthRef.current) {
         // 如果初始寬度小於 575 px  就註冊監聽事件
-        console.log("因為初始預設寬度小於 575 px 所以執行監聽註冊");
         window.addEventListener("scroll", debounceScroll);
-      } else {
-        // 如果初始寬度大於 575 px  就註冊監聽事件
-        console.log("因為初始預設寬度大於 575 px 所以不執行監聽註冊");
       }
     }
 
@@ -206,7 +173,6 @@ export default function TravelSpots() {
   // 登入功能
   const signIn = async () => {
     try {
-      console.log("進入登入function內部");
       const res = await axios.post(`${BASE_URL}/v2/admin/signin`, {
         username: "RealmOfJourneys@gmail.com",
         password: "RealmOfJourneys",
@@ -217,14 +183,13 @@ export default function TravelSpots() {
       axios.defaults.headers.common["Authorization"] = token;
       setIsSignIn(true);
     } catch (error) {
-      console.log(error);
+      alert(error);
     }
   };
 
   // 執行登入以及備份初始資料
   useEffect(() => {
     signIn();
-    console.log("登入成功");
   }, []);
 
   useEffect(() => {
@@ -238,8 +203,6 @@ export default function TravelSpots() {
   const getProduct = async (page = 1, category = "") => {
     setIsScreenLoading(true);
     try {
-      console.log("執行getProduct");
-
       setTimeout(() => {
         initialWaitRef.current = true;
       }, 5000);
@@ -254,7 +217,6 @@ export default function TravelSpots() {
       initialSwitchRef.current = true;
       if (windowWidth) {
         setProductList((preProductsList) => {
-          console.log("更新卷軸渲染資料");
           return [...preProductsList, ...products];
         });
       } else {
@@ -266,18 +228,12 @@ export default function TravelSpots() {
         if (
           paginationCurrentPageRef.current === paginationTotalPageRef.current
         ) {
-          // if (initialWaitRef.current) {
-          // setTimeout(() => {
           waitSelectHeight.current = true;
-          // initialWaitRef.current = false;
-          // }, 5000);
-          // }
         }
       }, 1000);
       setIsScreenLoading(false);
     } catch (error) {
-      console.log("資料抓取失敗");
-      console.log(error);
+      alert("資料抓取失敗");
     }
   };
 

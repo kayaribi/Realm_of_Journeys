@@ -1,6 +1,8 @@
 import { useEffect, useState, useRef } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination, Autoplay } from 'swiper/modules';
+import WOW from "wow.js";
+import "animate.css";
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
@@ -164,6 +166,11 @@ function Evaluate() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  useEffect(() => {
+    const wow = new WOW();
+    wow.init();
+  }, []);
+
   return (
     <>
       {/* 根據裝置不同，設定背景圖片與大小 */}
@@ -186,7 +193,7 @@ function Evaluate() {
       >
         <div className="container evaluate">
           {/* 主標題 */}
-          <div className="title-family h1 text-white text-center pt-10 pt-lg-20 pb-8 pb-lg-15 fs-lg-3">
+          <div className="title-family h1 text-white text-center pt-10 pt-lg-20 pb-8 pb-lg-15 fs-lg-3 wow animate__animated animate__slideInUp">
             我們的旅程，由您見證
           </div>
 
@@ -201,6 +208,7 @@ function Evaluate() {
                 disableOnInteraction: false,
               }}
               modules={[Navigation, Pagination, Autoplay]}
+              className='wow animate__animated animate__slideInUp'
             >
               {groupedDesktopData.map((group, index) => (
                 <SwiperSlide key={index}>

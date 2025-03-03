@@ -1,7 +1,6 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import { Link } from "react-router-dom";
 import ReactLoading from "react-loading";
-import axios from "axios";
 import { CartContext } from "../store/store";
 import CartItem from "../components/CartItem";
 import EmptyCart from "../components/EmptyCart";
