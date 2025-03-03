@@ -4,7 +4,7 @@ const EmptyCart = () => {
   return (
     <div className="text-center mt-md-14 mt-18">
       <img
-        src="../public/images/icon/cart.svg"
+        src="images/icon/cart.svg"
         style={{ width: "100%", maxWidth: "185px" }}
       />
       <h3 className="fs-md-5 fs-7 text-neutral-100 title-family my-6">

@@ -2,14 +2,14 @@ import { useState, useEffect, useRef } from "react";
 import { CSSTransition } from "react-transition-group";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import { motion, AnimatePresence } from "framer-motion";
+import WOW from "wow.js";
+import "animate.css";
 import featuredData from "../featuredData";
 import featuredTitleIcon from "../../public/images/icon/shiny_48px.svg";
 import FeaturedCard from "../components/FeaturedCard";
 import { Evaluate, FAQ } from "../components";
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
-const API_PATH = import.meta.env.VITE_API_PATH;
 const images = [
   "images/banner_img_01.jpg",
   "images/banner_img_02.jpg",
@@ -19,6 +19,7 @@ const images = [
 
 export default function Home() {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const imageRefs = useRef(images.map(() => useRef(null)));
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -43,13 +44,18 @@ export default function Home() {
     signIn();
   }, []);
 
+  useEffect(() => {
+    const wow = new WOW();
+    wow.init();
+  }, []);
+
   return (
     <>
       {/* --------------------- header - Hailey --------------------- */}
       <header id="header" className="position-relative slideshow-container">
         {images.map((image, index) => (
           <CSSTransition
-            key={index} // 改成使用圖片 URL
+            key={index}
             in={currentImageIndex === index}
             timeout={2500}
             classNames={{
@@ -62,9 +68,10 @@ export default function Home() {
             }}
             appear={true}
             unmountOnExit
-            
+            nodeRef={imageRefs.current[index]}
           >
             <div
+              ref={imageRefs.current[index]}
               className="slideshow-image"
               style={{
                 backgroundImage: `url(${image})`,
@@ -157,11 +164,11 @@ export default function Home() {
         </div>
       </header>
       <section className="bg-primary-50">
-        <div className="container text-center py-15 py-md-20">
-          <h3 className="fs-8 fs-md-5 mb-12 mb-md-10 text-primary-600 title-family">
+        <div className="container text-center py-15 py-md-20 animate__slideInUp">
+          <h3 className="fs-8 fs-md-5 mb-12 mb-md-10 text-primary-600 title-family wow animate__animated animate__slideInUp">
             選擇我們的好處⋯⋯
           </h3>
-          <div className="row">
+          <div className="row wow animate__animated animate__slideInUp">
             <div className="col-lg-4">
               <img src="images/icon/Vector.svg" alt="全包服務，無憂旅程" />
               <h4 className="my-3 my-md-5 gradient-blue fs-8 fs-md-6">
@@ -196,7 +203,7 @@ export default function Home() {
       {/* 精選行程 - 倫倫 */}
       <section className="bg-white">
         <div className="container pt-lg-20 pb-lg-20 pt-15 pb-9 ">
-          <div className="d-flex align-items-center mb-lg-5 mb-8">
+          <div className="d-flex align-items-center mb-lg-5 mb-8 wow animate__animated animate__slideInUp">
             <div className="featuredTitleIcon">
               <img
                 style={{ width: "100%", height: "100%" }}
@@ -204,11 +211,11 @@ export default function Home() {
                 alt="精選行程標題icon"
               />
             </div>
-
             <h2 className="text-primary-600 fs-sm-3 fs-6 ms-sm-4 ms-2 title-family">
               精選行程
             </h2>
           </div>
+
           <div className="row row-cols-lg-2 row-cols-1">
             {featuredData.map((item, index) => (
               <FeaturedCard key={item.id} featuredItem={item} index={index} />

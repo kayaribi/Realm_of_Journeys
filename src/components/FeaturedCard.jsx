@@ -1,9 +1,17 @@
 import DepartureTimeDecoration from "./DepartureTimeDecoration";
 import { Link } from "react-router-dom";
+import WOW from "wow.js";
+import "animate.css";
+import { useEffect } from "react";
+
 function FeaturedCard({ featuredItem, index }) {
+  useEffect(() => {
+    const wow = new WOW();
+    wow.init();
+  }, []);
   return (
     <div
-      className={`col ${index % 2 === 0 ? "mt-lg-16 mt-0 mb-lg-0 mb-6" : "mb-lg-16 mb-6"
+      className={`col wow animate__animated animate__slideInUp ${index % 2 === 0 ? "mt-lg-16 mt-0 mb-lg-0 mb-6" : "mb-lg-16 mb-6"
         }`}
     >
       <Link to={`/travelSpots/${featuredItem.id}`}>
