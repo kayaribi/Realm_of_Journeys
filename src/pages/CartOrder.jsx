@@ -8,7 +8,6 @@ import CartOrderModal from "../components/CartOrderModal";
 
 export default function CartOrder() {
   const { cartList } = useContext(CartContext);
-
   const {
     register,
     handleSubmit,
@@ -20,45 +19,48 @@ export default function CartOrder() {
 
   const navigate = useNavigate();
 
+  //=========== 提交表單 ===========
   const startSubmit = (data) => {
     navigate('/cartPayment');
     saveFormData(data);
   };
 
-  // 提交下一步警告
+  //=========== 下一步 - 警告 ===========
   const cartOrderModal = useRef(null);
   useEffect(() => {
     cartOrderModal.current = new Modal("#cartOrderModal");
   }, []);
-
+  // 開啟
   const openBackSubmitModal = () => {
     cartOrderModal.current.show();
   };
+  // 關閉
   const closeBackSubmitModal = () => {
     cartOrderModal.current.hide();
   };
 
   // =========== 表單資料暫時儲存 ===========
-  // 表單變化
+  // 儲存到 localStorage
   const formData = watch();
   const saveFormData = (data) => {
-    localStorage.setItem('formData', JSON.stringify(data));
+    // 過濾掉不需要儲存的欄位
+    const { isAgree, ...filteredData } = data;
+    localStorage.setItem('formData', JSON.stringify(filteredData));
   };
+
   // 頁面更新時儲存資料
   useEffect(() => {
     const handleBeforeUnload = () => {
       saveFormData(formData);
     };
-
     window.addEventListener('beforeunload', handleBeforeUnload);
-
     // 清除事件監聽器
     return () => {
       window.removeEventListener('beforeunload', handleBeforeUnload);
     };
   }, [formData]);
 
-  // 當頁面載入時檢查是否有儲存的資料
+  // 頁面載入時，檢查有沒有儲存的資料
   useEffect(() => {
     const savedData = localStorage.getItem('formData');
     if (savedData) {
@@ -76,9 +78,11 @@ export default function CartOrder() {
       <CartOrderModal
         closeBackSubmitModal={closeBackSubmitModal}
         cartOrderModal={cartOrderModal}
+        formData={formData}
+        saveFormData={saveFormData}
       />
 
-      {/* 進度條 */}
+      {/* ================ 進度條 ================ */}
       <div className="container position-relative mt-md-40 mt-22 mb-lg-10 my-6">
         <div className="row row-cols-4 text-center">
           <div className="col d-flex justify-content-center align-items-center flex-column py-md-4 py-3">
@@ -134,14 +138,13 @@ export default function CartOrder() {
           </div>
         </div>
       </div>
-      {/* 填寫訂單頁 */}
+      {/* ================ 表單 ================ */}
       <form
         className="container mb-lg-20 mb-8"
         onSubmit={handleSubmit(startSubmit)}
       >
-        {/* 訂單 */}
         <div className="row">
-          {/* 聯絡人資料 */}
+          {/* ----- 聯絡人資料 ----- */}
           <div className="col-md-8">
             <div className="d-flex justify-content-between align-items-end">
               <h3 className="title-family fs-md-5 fs-8">主要聯絡人資料</h3>
@@ -158,10 +161,7 @@ export default function CartOrder() {
                     <label htmlFor="username" className="form-label">
                       姓名<span className="text-danger ms-2">*</span>
                     </label>
-                    <p
-                      className="text-danger d-md-none ms-auto mb-auto"
-                      style={{ fontSize: "12px" }}
-                    >
+                    <p className="text-danger d-md-none ms-auto mb-auto fs-11">
                       {errors.name ? errors.name.message : ""}
                     </p>
                   </div>
@@ -170,7 +170,6 @@ export default function CartOrder() {
                     className="form-control"
                     id="username"
                     placeholder="請輸入姓名"
-            
                     {...register("name", {
                       required: "這是必填欄位。",
                       pattern: {
@@ -179,10 +178,7 @@ export default function CartOrder() {
                       },
                     })}
                   />
-                  <p
-                    className="text-danger mt-2 d-none d-md-block position-absolute"
-                    style={{ fontSize: "12px" }}
-                  >
+                  <p className="text-danger mt-2 d-none d-md-block position-absolute  fs-11">
                     {errors.name ? errors.name.message : ""}
                   </p>
                 </div>
@@ -193,10 +189,7 @@ export default function CartOrder() {
                   <label htmlFor="male" className="form-label">
                     姓別<span className="text-danger ms-2">*</span>
                   </label>
-                  <p
-                    className="text-danger d-md-none ms-auto mb-auto"
-                    style={{ fontSize: "12px" }}
-                  >
+                  <p className="text-danger d-md-none ms-auto mb-auto fs-11">
                     {errors.gender ? errors.gender.message : ""}
                   </p>
                 </div>
@@ -209,8 +202,6 @@ export default function CartOrder() {
                       name="gender"
                       id="male"
                       value="male"
-              
-                      
                       {...register("gender", {
                         required: "這是必填欄位。",
                       })}
@@ -219,10 +210,7 @@ export default function CartOrder() {
                       男性
                     </label>
                   </div>
-                  <p
-                    className="text-danger mt-5 d-none d-md-block position-absolute"
-                    style={{ fontSize: "12px" }}
-                  >
+                  <p className="text-danger mt-5 d-none d-md-block position-absolute fs-11">
                     {errors.gender ? errors.gender.message : ""}
                   </p>
                   <div className="form-check form-check-inline mb-0">
@@ -232,8 +220,6 @@ export default function CartOrder() {
                       name="gender"
                       id="female"
                       value="female"
-              
-                      
                       {...register("gender", {
                         required: "這是必填欄位。",
                       })}
@@ -251,10 +237,7 @@ export default function CartOrder() {
                     <label htmlFor="email" className="form-label">
                       E-mail<span className="text-danger ms-2">*</span>
                     </label>
-                    <p
-                      className="text-danger d-md-none ms-auto mb-auto"
-                      style={{ fontSize: "12px" }}
-                    >
+                    <p className="text-danger d-md-none ms-auto mb-auto fs-11">
                       {errors.email ? errors.email.message : ""}
                     </p>
                   </div>
@@ -264,8 +247,6 @@ export default function CartOrder() {
                     className="form-control"
                     id="email"
                     placeholder="請輸入E-mail"
-            
-                    
                     {...register("email", {
                       required: "這是必填欄位。",
                       pattern: {
@@ -274,10 +255,7 @@ export default function CartOrder() {
                       },
                     })}
                   />
-                  <p
-                    className="text-danger mt-2 d-none d-md-block position-absolute"
-                    style={{ fontSize: "12px" }}
-                  >
+                  <p className="text-danger mt-2 d-none d-md-block position-absolute fs-11">
                     {errors.email ? errors.email.message : ""}
                   </p>
                 </div>
@@ -289,21 +267,15 @@ export default function CartOrder() {
                     <label htmlFor="tel" className="form-label">
                       手機號碼<span className="text-danger ms-2">*</span>
                     </label>
-                    <p
-                      className="text-danger d-md-none ms-auto mb-auto"
-                      style={{ fontSize: "12px" }}
-                    >
+                    <p className="text-danger d-md-none ms-auto mb-auto fs-11">
                       {errors.tel ? errors.tel.message : ""}
                     </p>
                   </div>
-
                   <input
                     type="tel"
                     className="form-control"
                     id="tel"
                     placeholder="請輸入手機號碼"
-            
-                    
                     {...register("tel", {
                       required: "此欄位為必填。",
                       pattern: {
@@ -312,10 +284,7 @@ export default function CartOrder() {
                       },
                     })}
                   />
-                  <p
-                    className="text-danger mt-2 d-none d-md-block position-absolute"
-                    style={{ fontSize: "12px" }}
-                  >
+                  <p className="text-danger mt-2 d-none d-md-block position-absolute fs-11">
                     {errors.tel ? errors.tel.message : ""}
                   </p>
                 </div>
@@ -327,29 +296,20 @@ export default function CartOrder() {
                     <label htmlFor="lineID" className="form-label">
                       LINE ID<span className="text-danger ms-2">*</span>
                     </label>
-                    <p
-                      className="text-danger d-md-none ms-auto mb-auto"
-                      style={{ fontSize: "12px" }}
-                    >
+                    <p className="text-danger d-md-none ms-auto mb-auto fs-11">
                       {errors.line ? errors.line.message : ""}
                     </p>
                   </div>
-
                   <input
                     type="text"
                     className="form-control"
                     id="lineID"
                     placeholder="請輸入LINE ID"
-            
-                    
                     {...register("line", {
                       required: "這是必填欄位。",
                     })}
                   />
-                  <p
-                    className="text-danger mt-2 d-none d-md-block position-absolute"
-                    style={{ fontSize: "12px" }}
-                  >
+                  <p className="text-danger mt-2 d-none d-md-block position-absolute fs-11">
                     {errors.line ? errors.line.message : ""}
                   </p>
                 </div>
@@ -360,10 +320,7 @@ export default function CartOrder() {
                   <label htmlFor="preferenceAll" className="form-label">
                     偏好方式<span className="text-danger ms-2">*</span>
                   </label>
-                  <p
-                    className="text-danger d-md-none ms-auto mb-auto"
-                    style={{ fontSize: "12px" }}
-                  >
+                  <p className="text-danger d-md-none ms-auto mb-auto fs-11">
                     {errors.likeContact ? errors.likeContact.message : ""}
                   </p>
                 </div>
@@ -376,8 +333,6 @@ export default function CartOrder() {
                       name="preference"
                       id="preferenceAll"
                       value="preferenceAll"
-              
-                      
                       {...register("likeContact", {
                         required: "這是必填欄位。",
                       })}
@@ -393,8 +348,6 @@ export default function CartOrder() {
                       name="preference"
                       id="preferenceEmail"
                       value="Email"
-              
-                      
                       {...register("likeContact", {
                         required: "這是必填欄位。",
                       })}
@@ -413,8 +366,6 @@ export default function CartOrder() {
                       name="preference"
                       id="preferenceTel"
                       value="tel"
-              
-                      
                       {...register("likeContact", {
                         required: "這是必填欄位。",
                       })}
@@ -430,8 +381,6 @@ export default function CartOrder() {
                       name="preference"
                       id="preferenceLine"
                       value="LineID"
-              
-                      
                       {...register("likeContact", {
                         required: "這是必填欄位。",
                       })}
@@ -443,10 +392,7 @@ export default function CartOrder() {
                       LINE ID
                     </label>
                   </div>
-                  <p
-                    className="text-danger mt-md-2 mt-lg-4 mt-xxl-6 position-absolute d-none d-md-block"
-                    style={{ fontSize: "12px" }}
-                  >
+                  <p className="text-danger mt-md-2 mt-lg-4 mt-xxl-6 position-absolute d-none d-md-block fs-11">
                     {errors.likeContact ? errors.likeContact.message : ""}
                   </p>
                 </div>
@@ -465,8 +411,6 @@ export default function CartOrder() {
                       height: "186px",
                       resize: "none",
                     }}
-            
-                    
                     {...register("userMessage")}
                   />
                 </div>
@@ -479,8 +423,6 @@ export default function CartOrder() {
                     type="checkbox"
                     value=""
                     id="membershipRights"
-            
-                    
                     {...register("isAgree", {
                       required: "請瀏覽上述資訊，並勾選以示同意。",
                     })}
@@ -509,15 +451,13 @@ export default function CartOrder() {
                     </a>
                   </label>
                 </div>
-                <p
-                  className="text-danger text-center mt-8 d-none d-lg-block position-absolute"
-                  style={{ fontSize: "12px" }}
-                >
+                <p className="text-danger text-center mt-8 d-none d-lg-block position-absolute fs-11">
                   {errors.isAgree ? errors.isAgree.message : ""}
                 </p>
               </div>
               {/* 按鈕 */}
               <div className="col d-flex justify-content-center mt-6">
+                {/* 上一步 */}
                 <button
                   type="button"
                   className="btn btn-outline-secondary-200 py-3 px-md-5 px-4 fs-md-7 fs-10 me-md-6 me-3"
@@ -525,7 +465,7 @@ export default function CartOrder() {
                 >
                   上一步：選擇人數
                 </button>
-
+                {/* 下一步 */}
                 <button
                   type="submit"
                   className="btn btn-secondary-200 py-3 px-md-5 px-4 fs-md-7 fs-10 text-white"
@@ -536,7 +476,8 @@ export default function CartOrder() {
               </div>
             </div>
           </div>
-          {/* 訂單明細 */}
+
+          {/* ----- 訂單明細 ----- */}
           <div className="col-md-4 d-none d-md-block">
             <div className="border border-primary-300 bg-primary-50 rounded-3 p-6 shadow-sm">
               <h3 className="title-family fs-5">訂單明細</h3>
@@ -578,6 +519,8 @@ export default function CartOrder() {
             </div>
           </div>
         </div>
+
+
         {/* 會員權益說明 Modal */}
         <div
           className="modal fade"

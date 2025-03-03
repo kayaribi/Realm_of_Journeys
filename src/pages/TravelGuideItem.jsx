@@ -6,8 +6,6 @@ import ReactLoading from 'react-loading';
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 const API_PATH  = import.meta.env.VITE_API_PATH;
 
-
-
 export default function TravelGuideItem(){
     const {id:article_id} = useParams();
     const [travelGuideItemData,setTravelGuideItemData]=useState(null); //當前文章物件
@@ -69,8 +67,6 @@ export default function TravelGuideItem(){
             }
         }
     }, [allArticleData,article_id]);
-
-
 
     return(<>
     {travelGuideItemData && (
