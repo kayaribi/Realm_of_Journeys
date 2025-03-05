@@ -1,6 +1,4 @@
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
-import axios from "axios";
-import { set, useForm, useWatch } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 
@@ -8,7 +6,7 @@ export default function Register() {
   const {
     register,
     handleSubmit,
-    control,
+
     watch,
     formState: { errors },
   } = useForm({
@@ -27,13 +25,8 @@ export default function Register() {
 
   const navigate = useNavigate();
 
-  console.log("errors", errors);
-  console.log("errors?.gender?.message", errors?.gender?.message);
-
   const onSubmit = async (data) => {
     try {
-      console.log("進入function內部");
-
       await Swal.fire({
         title: "恭喜註冊成功！即將返回首頁...",
         icon: "success",
@@ -53,17 +46,7 @@ export default function Register() {
     }
   };
 
-  const watchForm = useWatch({
-    control,
-  });
-
   const password = watch("registerPassword");
-
-  //   console.log("password", password);
-
-  useEffect(() => {
-    console.log(watchForm);
-  }, [watchForm]);
 
   return (
     <>
