@@ -150,4 +150,16 @@
     }
   }
 
+  .link-animation {
+    display: inline-block;
+    transition: transform 0.2s ease-in-out;
+  }
+
+  .link-animation:hover {
+    transform: scale(1.01);
+  }
+
+  .link-animation:active {
+    transform: scale(0.98);
+  }
 }
