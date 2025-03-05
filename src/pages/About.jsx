@@ -178,20 +178,28 @@ export default function About() {
             className="wow animate__animated animate__slideInUp"
           >
             <SwiperSlide>
-              <img className="mb-4" src="images/Hailey.jpg" alt="Hailey" />
-              <p className="text-black text-center fs-md-6 fs-xl-5">Hailey</p>
+              <a href="https://github.com/Hailey-1025" target="_blank" rel="noopener noreferrer" className="link-animation text-decoration-none">
+                <img className="mb-4" src="images/Hailey.jpg" alt="Hailey" />
+                <p className="text-black text-center fs-md-6 fs-xl-5">Hailey</p>
+              </a>
             </SwiperSlide>
             <SwiperSlide>
-              <img className="mb-4" src="images/Kaya.jpeg" alt="Kaya" />
-              <p className="text-black text-center fs-md-6 fs-xl-5">Kaya</p>
+              <a href="https://github.com/kayaribi" target="_blank" rel="noopener noreferrer" className="link-animation text-decoration-none">
+                <img className="mb-4" src="images/Kaya.jpeg" alt="Kaya" />
+                <p className="text-black text-center fs-md-6 fs-xl-5">Kaya</p>
+              </a>
             </SwiperSlide>
             <SwiperSlide>
-              <img className="mb-4" src="images/star.jpg" alt="star" />
-              <p className="text-black text-center fs-md-6 fs-xl-5">蘑菇星星</p>
+              <a href="https://github.com/hbill320115" target="_blank" rel="noopener noreferrer" className="link-animation text-decoration-none">
+                <img className="mb-4" src="images/star.jpg" alt="star" />
+                <p className="text-black text-center fs-md-6 fs-xl-5">蘑菇星星</p>
+              </a>
             </SwiperSlide>
             <SwiperSlide>
-              <img className="mb-4" src="images/lunlun.jpeg" alt="lunlun" />
-              <p className="text-black text-center fs-md-6 fs-xl-5">倫倫</p>
+              <a href="https://github.com/D1034422045" target="_blank" rel="noopener noreferrer" className="link-animation text-decoration-none">
+                <img className="mb-4" src="images/lunlun.jpeg" alt="lunlun" />
+                <p className="text-black text-center fs-md-6 fs-xl-5">倫倫</p>
+              </a>
             </SwiperSlide>
           </Swiper>
         </section>
@@ -218,9 +226,8 @@ export default function About() {
                 <div className="input-group">
                   <input
                     type="email"
-                    className={`form-control ${
-                      isValid ? "" : "is-invalid"
-                    } fs-lg-9`}
+                    className={`form-control ${isValid ? "" : "is-invalid"
+                      } fs-lg-9`}
                     placeholder="請輸入您的 Email 訂閱我們接收最新消息"
                     aria-label="請輸入您的 Email 訂閱我們接收最新消息"
                     aria-describedby="button-addon2"
