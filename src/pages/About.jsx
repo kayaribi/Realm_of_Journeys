@@ -1,9 +1,11 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules";
 import "swiper/css";
 import WOW from "wow.js";
 import "animate.css";
+import { CartContext } from "../store/store";
+
 
 export default function About() {
   const [email, setEmail] = useState(""); // 儲存 Email
@@ -11,6 +13,7 @@ export default function About() {
   const [message, setMessage] = useState(""); // 錯誤訊息
   const [submittedEmail, setSubmittedEmail] = useState(""); // 顯示已輸入的 Email
   const [isLargeScreen, setIsLargeScreen] = useState(window.innerWidth >= 992);
+  const { showToast } = useContext(CartContext);
 
   useEffect(() => {
     const handleResize = () => setIsLargeScreen(window.innerWidth >= 992);
@@ -48,7 +51,8 @@ export default function About() {
     if (!isValid || email === "") return;
 
     setSubmittedEmail(email); // 設定已輸入的 Email
-    alert(`訂閱成功！Email: ${email}`); // 彈出提示
+    // alert(`訂閱成功！Email: ${email}`); // 彈出提示
+    showToast(`訂閱成功！Email: ${email}`, "success");
     setEmail(""); // 清空輸入框
     setMessage(""); // 清空錯誤訊息
     setIsValid(true); // 設定為有效狀態
