@@ -35,12 +35,12 @@ export default function Account() {
   const onSubmit = async (data) => {
     const { email, password } = data;
     const account = { username: email, password };
+    
 
     try {
       const res = await axios.post(`${BASE_URL}/v2/admin/signin`, account);
-
       const { token, expired } = res.data;
-      // document.cookie = `hexToken=${token}; expires=${new Date(expired)}`;
+      document.cookie = `userToken=${token}; expires=${new Date(expired)}`;
       axios.defaults.headers.common["Authorization"] = token;
 
       if (data.rememberMe) {

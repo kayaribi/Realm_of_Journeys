@@ -1,12 +1,20 @@
-import { useNavigate } from "react-router-dom"
+import { useLocation, useNavigate } from "react-router-dom"
 
 export default function CartOrderModal({cartOrderModal,closeBackSubmitModal,saveFormData, formData}){
     const navigate = useNavigate();
+    const location = useLocation();
+    // 跳轉頁面
     const backBtn = (data)=>{
-        saveFormData(formData);// 儲存表單資料到 localStorage
-        navigate('/cart');
+        if(location.pathname === "/cartOrder"){
+            saveFormData(formData);// 儲存表單資料到 localStorage
+            navigate('/cart');
+        }
+        if(location.pathname === "/cartPayment"){
+            navigate('/cartOrder');
+        }
         cartOrderModal.current.hide();
     }
+    
     return(<>
     
         <div className="modal fade cartOrderModal" id="cartOrderModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

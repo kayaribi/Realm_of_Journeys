@@ -4,14 +4,15 @@ import { CartContext } from "../store/store";
 
 export default function CompletePayment() {
   const [deadline, setDeadline] = useState("");
-  const { cartList, removeCart } = useContext(CartContext);
+  const { cartList, checkout } = useContext(CartContext);
   const location = useLocation();
   const paymentMethod = location.state?.paymentMethod || "CreditCard";
   const [orderTotal, setOrderTotal] = useState(0);
+
   useEffect(() => {
     const totalAmount = cartList.reduce((sum, cartItem) => sum + cartItem.total, 0);
     setOrderTotal(totalAmount); // 存入 state
-    removeCart(); // 進入頁面後清空購物車
+    checkout(); // 結帳 + 清空購物車
   }, []);
 
   useEffect(() => {
@@ -22,7 +23,7 @@ export default function CompletePayment() {
                           String(today.getDate()).padStart(2, "0");
     setDeadline(formattedDate);
   }, []);
-  
+
   return (
     <>
       {/* 進度條 */}

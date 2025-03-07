@@ -1,15 +1,17 @@
-import { useContext, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useContext, useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { CartContext } from "../store/store";
+import { Modal } from "bootstrap";
+import CartOrderModal from "../components/CartOrderModal";
+
 
 export default function CartPayment() {
-  const { cartList } = useContext(CartContext);
+  const { cartList , checkout } = useContext(CartContext);
   
   const navigate = useNavigate();
 
+  // ======================================== 驗證 ========================================
 
-  
-  // 驗證
   const [paymentMethod, setPaymentMethod] = useState("");
   const [cardNum, setCardNum] = useState(""); 
   const [cardTerm, setCardTerm] = useState(""); 
@@ -89,13 +91,33 @@ export default function CartPayment() {
 
     return false;
   };
-
+  // ======================================== 下一步 ========================================
   const handleNextStep = () => {
     navigate("/completePayment", { state: { paymentMethod } });
   };
+
+  //====================================== 上一步 - 警告 =====================================
+  const cartOrderModal = useRef(null);
+  useEffect(() => {
+    cartOrderModal.current = new Modal("#cartOrderModal");
+  }, []);
+  // 開啟
+  const openBackSubmitModal = () => {
+    cartOrderModal.current.show();
+  };
+  // 關閉
+  const closeBackSubmitModal = () => {
+    cartOrderModal.current.hide();
+  };
+
   
   return (
-    <>
+    <>  
+      {/* 上一步 Modal */}
+        <CartOrderModal
+          closeBackSubmitModal={closeBackSubmitModal}
+          cartOrderModal={cartOrderModal}
+        />
       {/* 進度條 */}
       <div className="container position-relative mt-md-40 mt-22 mb-lg-10 my-6">
         <div className="row row-cols-4 text-center">
@@ -313,12 +335,12 @@ export default function CartPayment() {
         </div>
 
         <div className="col d-flex justify-content-center mt-6">
-          <Link
-            to="/cartOrder"
+          <button type="button"
             className="btn btn-outline-secondary-200 py-3 px-md-5 px-4 fs-md-7 fs-10 me-md-6 me-3"
+            onClick={openBackSubmitModal}
           >
             上一步：填寫訂單
-          </Link>
+          </button>
           <button
             type="button"
             className="btn btn-secondary-200 py-3 px-md-5 px-4 fs-md-7 fs-10"

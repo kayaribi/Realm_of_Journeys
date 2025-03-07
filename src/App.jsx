@@ -41,7 +41,7 @@ function App() {
 
   // 排除購物車頁面navbar
   const isCartPages =
-    ["/cart", "/cartOrder", "/cartPayment", "/completePayment"].includes(
+    ["/cart", "/cartOrder", "/cartPayment", "/completePayment","/account","/account/register"].includes(
       location.pathname
     ) || location.pathname.startsWith("/travelSpots/");
 

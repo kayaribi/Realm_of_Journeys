@@ -101,7 +101,34 @@
         line-height: 0;
     }
 }
-
+// 使用者按鈕
+.user-btn{
+    .btn{
+        border-radius: 40px;
+        color: #1B67AE;
+    }
+    .btn-primary-50:hover{
+        background-color: #0056b3 !important; /* 你想要的 hover 背景色 */
+        color: white ;
+    }
+    .dropdown-hr{
+        width: 140px;
+        border: 1px solid #C3C3C3;
+        margin-top: 8px;
+        margin-bottom: 8px;
+    }
+    .dropdown-item{
+        padding: 12px 38px;
+    }  
+    .dropdown-toggle::after {
+        display: none !important;
+    }
+    .dropdown-menu{
+        padding: 12px 24px;
+        margin-left: -72px !important;
+    }
+}
+  
 
 // 漢堡選單icon
 .hamburg-icon{
