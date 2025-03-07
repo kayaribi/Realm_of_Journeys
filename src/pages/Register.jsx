@@ -311,9 +311,9 @@ export default function Register() {
                     id="registerCellPhone"
                     placeholder="請輸入手機號碼"
                     className={` form-control ${
-                      errors.registerConfirmPassword ? "is-invalid" : ""
+                      errors.registerCellPhone ? "is-invalid" : ""
                     } px-3 py-2 loginInInput w-100  d-inline-block`}
-                    name="registerConfirmPassword"
+                    name="registerCellPhone"
                     {...register("registerCellPhone", {
                       required: {
                         value: true,
