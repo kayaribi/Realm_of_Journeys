@@ -1,8 +1,12 @@
 import axios from "axios";
+
 import { createContext, useReducer, useEffect, useState } from "react";
+
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 const API_PATH = import.meta.env.VITE_API_PATH;
+
+
 
 export const initialState = {
   cartList: [],
@@ -159,6 +163,31 @@ export const CartProvider = ({ children }) => {
     }
   };
 
+  // 結帳 + 清空購物車
+  const checkout = async () => {
+    try {
+      const userData = JSON.parse(localStorage.getItem('formData'));
+      console.log(userData)
+      const resComplete = await axios.post(`${BASE_URL}/v2/api/${API_PATH}/order`,
+        {
+          "data": {
+            "user": {
+              "name": userData.name,
+              "email": userData.email,
+              "tel": userData.tel,
+              "address": userData.address || "沒有預設這個欄位"
+            },
+            "message": userData.userMessage || "",
+          }
+        }
+    );
+      showToast('訂單已完成', 'success');
+      localStorage.clear(); // 清除 localStorage
+    } catch (error) {
+      showToast('您已結完帳，請勿停留此頁面', 'danger');
+    }
+  };
+
   return (
     <CartContext.Provider
       value={{
@@ -169,6 +198,7 @@ export const CartProvider = ({ children }) => {
         updateQuantity,
         isScreenLoading,
         setIsScreenLoading,
+        checkout,
         toastMessage, // toast訊息
       }}
     >

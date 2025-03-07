@@ -1,4 +1,4 @@
-import { useContext, useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef } from "react";
 import {  useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { Modal } from "bootstrap";
@@ -19,13 +19,13 @@ export default function CartOrder() {
 
   const navigate = useNavigate();
 
-  //=========== 提交表單 ===========
+  //========================= 提交表單 =========================
   const startSubmit = (data) => {
     navigate('/cartPayment');
     saveFormData(data);
   };
 
-  //=========== 下一步 - 警告 ===========
+  //========================= 上一步 - 警告 =========================
   const cartOrderModal = useRef(null);
   useEffect(() => {
     cartOrderModal.current = new Modal("#cartOrderModal");
@@ -39,15 +39,16 @@ export default function CartOrder() {
     cartOrderModal.current.hide();
   };
 
-  // =========== 表單資料暫時儲存 ===========
+  // ========================= 表單資料暫時儲存 =========================
   // 儲存到 localStorage
   const formData = watch();
   const saveFormData = (data) => {
     // 過濾掉不需要儲存的欄位
     const { isAgree, ...filteredData } = data;
+    
     localStorage.setItem('formData', JSON.stringify(filteredData));
   };
-
+  
   // 頁面更新時儲存資料
   useEffect(() => {
     const handleBeforeUnload = () => {

@@ -44,13 +44,13 @@ export default function Account() {
   const onSubmit = async (data) => {
     const { email, password } = data;
     const account = { username: email, password };
+    
 
     try {
       console.log("進入登入function內部");
       const res = await axios.post(`${BASE_URL}/v2/admin/signin`, account);
-
       const { token, expired } = res.data;
-      // document.cookie = `hexToken=${token}; expires=${new Date(expired)}`;
+      document.cookie = `userToken=${token}; expires=${new Date(expired)}`;
       axios.defaults.headers.common["Authorization"] = token;
 
       console.log(res);
