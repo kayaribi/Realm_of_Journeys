@@ -237,7 +237,7 @@ export default function About() {
                     aria-describedby="button-addon2"
                     value={email}
                     onChange={handleChange}
-                    style={{ fontSize: "10px", lineHeight: "1.2" }} // 設定字體大小
+                    style={{ fontSize: "10px" }} // 設定字體大小
                   />
                   <button
                     className="btn btn-secondary-200 rounded-0 fs-lg-9"
