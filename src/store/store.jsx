@@ -167,7 +167,6 @@ export const CartProvider = ({ children }) => {
   const checkout = async () => {
     try {
       const userData = JSON.parse(localStorage.getItem('formData'));
-      console.log(userData)
       const resComplete = await axios.post(`${BASE_URL}/v2/api/${API_PATH}/order`,
         {
           "data": {
@@ -181,10 +180,11 @@ export const CartProvider = ({ children }) => {
           }
         }
     );
+      dispatch({ type: "REMOVE_CART" }); // 清空購物車
       showToast('訂單已完成', 'success');
       localStorage.clear(); // 清除 localStorage
     } catch (error) {
-      showToast('您已結完帳，請勿停留此頁面', 'danger');
+      console.log(error)
     }
   };
 
