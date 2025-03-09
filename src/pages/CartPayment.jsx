@@ -6,7 +6,7 @@ import CartOrderModal from "../components/CartOrderModal";
 
 
 export default function CartPayment() {
-  const { cartList , checkout } = useContext(CartContext);
+  const { cartList } = useContext(CartContext);
   
   const navigate = useNavigate();
 
