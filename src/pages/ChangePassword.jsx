@@ -1,5 +1,4 @@
-import { useEffect } from "react";
-import { useForm, useWatch } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 
@@ -7,7 +6,6 @@ export default function ChangePassword() {
   const {
     register,
     handleSubmit,
-    control,
     watch,
     formState: { errors },
   } = useForm({
@@ -22,12 +20,8 @@ export default function ChangePassword() {
 
   const password = watch("newPassword");
 
-  console.log("errors", errors);
-
   const onSubmit = async (data) => {
     try {
-      console.log("進入function內部");
-
       await Swal.fire({
         title: "密碼修改成功！",
         icon: "success",
@@ -46,14 +40,6 @@ export default function ChangePassword() {
       });
     }
   };
-
-  const watchForm = useWatch({
-    control,
-  });
-
-  useEffect(() => {
-    console.log(watchForm);
-  }, [watchForm]);
 
   return (
     <>

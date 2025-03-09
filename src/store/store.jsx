@@ -35,10 +35,10 @@ export const cartReducer = (state, action) => {
         cartList: state.cartList.map((item) =>
           item.id === action.payload.product_id
             ? {
-                ...item,
-                qty: action.payload.qty,
-                total: item.product.price * action.payload.qty,
-              }
+              ...item,
+              qty: action.payload.qty,
+              total: item.product.price * action.payload.qty,
+            }
             : item
         ),
       };
@@ -54,13 +54,13 @@ export const CartProvider = ({ children }) => {
   const [state, dispatch] = useReducer(cartReducer, initialState);
   const [isScreenLoading, setIsScreenLoading] = useState(false);
   const [toastMessage, setToastMessage] = useState({ type: '', text: '' }); // toast狀態
- 
+
   // toast開啟
   const showToast = (message, type) => {
     setToastMessage({ text: message, type }); // 顯示訊息
-    setTimeout(() => setToastMessage({ 
-      text: '', 
-      type: '' 
+    setTimeout(() => setToastMessage({
+      text: '',
+      type: ''
     }), 3000); // 3秒後清除
   };
 
@@ -200,6 +200,7 @@ export const CartProvider = ({ children }) => {
         setIsScreenLoading,
         checkout,
         toastMessage, // toast訊息
+        showToast, //讓外部元件可以使用 showToast
       }}
     >
       {children}

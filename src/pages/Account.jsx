@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import axios from "axios";
-import { useForm, useWatch } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import loginInImage from "../../public/images/loginInImage.svg";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
@@ -12,7 +12,6 @@ export default function Account() {
   const {
     register,
     handleSubmit,
-    control,
     setValue,
     formState: { errors },
   } = useForm({
@@ -23,15 +22,7 @@ export default function Account() {
     mode: "onTouched",
   });
 
-  const watchForm = useWatch({
-    control,
-  });
-
   const navigate = useNavigate();
-
-  useEffect(() => {
-    console.log(watchForm);
-  }, [watchForm]);
 
   useEffect(() => {
     if (sessionStorage.getItem("savedEmail")) {
@@ -47,13 +38,10 @@ export default function Account() {
     
 
     try {
-      console.log("進入登入function內部");
       const res = await axios.post(`${BASE_URL}/v2/admin/signin`, account);
       const { token, expired } = res.data;
       document.cookie = `userToken=${token}; expires=${new Date(expired)}`;
       axios.defaults.headers.common["Authorization"] = token;
-
-      console.log(res);
 
       if (data.rememberMe) {
         // 如果勾選記住我，存帳號和密碼

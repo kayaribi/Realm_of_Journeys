@@ -1,14 +1,13 @@
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
-import axios from "axios";
-import { set, useForm, useWatch } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+import { Modal } from "bootstrap";
 import Swal from "sweetalert2";
 
 export default function Register() {
   const {
     register,
     handleSubmit,
-    control,
+
     watch,
     formState: { errors },
   } = useForm({
@@ -27,13 +26,8 @@ export default function Register() {
 
   const navigate = useNavigate();
 
-  console.log("errors", errors);
-  console.log("errors?.gender?.message", errors?.gender?.message);
-
   const onSubmit = async (data) => {
     try {
-      console.log("進入function內部");
-
       await Swal.fire({
         title: "恭喜註冊成功！即將返回首頁...",
         icon: "success",
@@ -53,17 +47,7 @@ export default function Register() {
     }
   };
 
-  const watchForm = useWatch({
-    control,
-  });
-
   const password = watch("registerPassword");
-
-  //   console.log("password", password);
-
-  useEffect(() => {
-    console.log(watchForm);
-  }, [watchForm]);
 
   return (
     <>
@@ -327,9 +311,9 @@ export default function Register() {
                     id="registerCellPhone"
                     placeholder="請輸入手機號碼"
                     className={` form-control ${
-                      errors.registerConfirmPassword ? "is-invalid" : ""
+                      errors.registerCellPhone ? "is-invalid" : ""
                     } px-3 py-2 loginInInput w-100  d-inline-block`}
-                    name="registerConfirmPassword"
+                    name="registerCellPhone"
                     {...register("registerCellPhone", {
                       required: {
                         value: true,
@@ -403,17 +387,19 @@ export default function Register() {
                   <label htmlFor="agreeTerm" className="text-neutral-300 ms-2 ">
                     我同意行旅之境的{" "}
                     <a
-                      href=""
-                      className="text-primary-400 text-decoration-underline "
-                      onClick={(e) => e.preventDefault()}
+                      href="#"
+                      className="link-primary-400 text-decoration-underline"
+                      data-bs-toggle="modal"
+                      data-bs-target="#membershipRightsIllustrate"
                     >
                       會員權益說明
                     </a>{" "}
                     與{" "}
                     <a
-                      href=""
-                      className="text-primary-400 text-decoration-underline cursor-pointer"
-                      onClick={(e) => e.preventDefault()}
+                      href="#"
+                      className="link-primary-400 text-decoration-underline"
+                      data-bs-toggle="modal"
+                      data-bs-target="#privacy"
                     >
                       隱私權政策
                     </a>
@@ -442,6 +428,136 @@ export default function Register() {
                 <button className="mt-6 loginInButton w-100 fs-sm-7 fs-9 py-3">
                   註冊
                 </button>
+
+                {/* 會員權益說明 Modal */}
+                <div
+                  className="modal fade"
+                  id="membershipRightsIllustrate"
+                  tabIndex="-1"
+                  aria-labelledby="exampleModalLabel"
+                  aria-hidden="true"
+                >
+                  <div
+                    className="modal-dialog modal-dialog-centered"
+                    style={{ maxWidth: "636px" }}
+                  >
+                    <div className="modal-content border-0">
+                      <button
+                        type="button"
+                        className="btn-close ms-auto"
+                        data-bs-dismiss="modal"
+                        aria-label="Close"
+                        style={{ padding: "18px" }}
+                      ></button>
+                      <div className="px-md-20 px-6 pb-20">
+                        <div className="modal-header border-0 py-md-8 pt-3 pb-6 px-0">
+                          <h4
+                            className="modal-title fs-md-6 fs-8"
+                            id="exampleModalLabel"
+                          >
+                            會員權益說明
+                          </h4>
+                        </div>
+                        <div className="modal-body p-0">
+                          <ul className="mb-0 text-neutral-300">
+                            <li>
+                              <h5 className="fs-md-7 fs-9 mb-2">服務範圍</h5>
+                              <p className="fs-10 fs-md-9">
+                                本網站為旅遊資訊展示及預訂模擬平台，旨在提供模擬體驗，無實際商業交易行為。
+                              </p>
+                            </li>
+                            <li className="my-6">
+                              <h5 className="fs-md-7 fs-9 mb-2">會員資格</h5>
+                              <p className="fs-10 fs-md-9">
+                                註冊為會員即表示您同意本網站的使用條款與規範。會員資訊僅用於展示和測試，不涉及任何實際用途。
+                              </p>
+                            </li>
+                            <li>
+                              <h5 className="fs-md-7 fs-9 mb-2">模擬預定</h5>
+                              <p className="fs-10 fs-md-9">
+                                所有預定資料僅為展示功能，您提交的個人資訊不會被用於真實交易。
+                              </p>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                {/* 隱私權政策 Modal */}
+                <div
+                  className="modal fade"
+                  id="privacy"
+                  tabIndex="-1"
+                  aria-labelledby="exampleModalLabel"
+                  aria-hidden="true"
+                >
+                  <div
+                    className="modal-dialog modal-dialog-centered"
+                    style={{ maxWidth: "636px" }}
+                  >
+                    <div className="modal-content border-0">
+                      <button
+                        type="button"
+                        className="btn-close ms-auto"
+                        data-bs-dismiss="modal"
+                        aria-label="Close"
+                        style={{ padding: "18px" }}
+                      ></button>
+                      <div className="px-md-20 px-6 pb-20">
+                        <div className="modal-header border-0 py-md-8 pt-3 pb-6 px-0">
+                          <h4
+                            className="modal-title fs-md-6 fs-8"
+                            id="exampleModalLabel"
+                          >
+                            隱私權政策
+                          </h4>
+                        </div>
+                        <div className="modal-body p-0">
+                          <ol className="mb-0 text-neutral-300">
+                            <li>
+                              <h5 className="fs-md-7 fs-9 mb-2">
+                                資料收集與使用：
+                              </h5>
+                              <ul className="ps-4 fs-10 fs-md-9">
+                                <li type="disc">
+                                  本網站僅收集用於測試的模擬資料，如姓名、聯絡資訊，所有數據不會用於商業用途。
+                                </li>
+                                <li type="disc">
+                                  您的資訊僅用於顯示功能測試，不會與第三方共享。
+                                </li>
+                              </ul>
+                            </li>
+                            <li className="my-6">
+                              <h5 className="fs-md-7 fs-9 mb-2">資料保護：</h5>
+                              <ul className="ps-4 fs-10 fs-md-9">
+                                <li type="disc">
+                                  所有提供的個人資料僅用於本平台模擬測試，並將定期清除以確保隱私安全。
+                                </li>
+                                <li type="disc">
+                                  若因操作過程導致資料遺漏或損失，本網站不承擔責任，敬請見諒。
+                                </li>
+                              </ul>
+                            </li>
+                            <li>
+                              <h5 className="fs-md-7 fs-9 mb-2">
+                                同意與更新：
+                              </h5>
+                              <ul className="ps-4 fs-10 fs-md-9">
+                                <li type="disc">
+                                  訪問或使用本網站及表示您同意隱私政策。
+                                </li>
+                                <li type="disc">
+                                  本政策可能隨網站測試需求進行更新，更新內容將於本頁面發布。
+                                </li>
+                              </ul>
+                            </li>
+                          </ol>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </form>
             </div>
           </div>

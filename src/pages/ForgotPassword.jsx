@@ -1,5 +1,4 @@
-import { useEffect } from "react";
-import { useForm, useWatch } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 
@@ -7,8 +6,7 @@ export default function ForgotPassword() {
   const {
     register,
     handleSubmit,
-    control,
-    watch,
+
     formState: { errors },
   } = useForm({
     defaultValues: {
@@ -20,12 +18,8 @@ export default function ForgotPassword() {
 
   const navigate = useNavigate();
 
-  console.log("errors", errors);
-
   const onSubmit = async (data) => {
     try {
-      console.log("進入function內部");
-
       await Swal.fire({
         title: "驗證成功！跳轉至修改密碼頁面",
         icon: "success",
@@ -44,14 +38,6 @@ export default function ForgotPassword() {
       });
     }
   };
-
-  const watchForm = useWatch({
-    control,
-  });
-
-  useEffect(() => {
-    console.log(watchForm);
-  }, [watchForm]);
 
   return (
     <>
