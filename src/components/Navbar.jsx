@@ -145,6 +145,7 @@ export default function Navbar({ isCartPages }) {
                     className="position-absolute translate-middle badge rounded-pill bg-danger fs-11 start-100"
                     style={{
                       top: "35%",
+                      fontStyle: 'normal'
                     }}
                   >
                     {cartItemCount}
@@ -217,6 +218,7 @@ export default function Navbar({ isCartPages }) {
                         style={{
                           top: "30%",
                           left: "80%",
+                          fontStyle: 'normal'
                         }}
                       >
                         {cartItemCount}
