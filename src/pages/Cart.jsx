@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
 import ReactLoading from "react-loading";
 import { CartContext } from "../store/store";
@@ -16,7 +16,6 @@ export default function Cart() {
     updateQuantity,
     isScreenLoading,
   } = useContext(CartContext);
-
 
   return (
     <>

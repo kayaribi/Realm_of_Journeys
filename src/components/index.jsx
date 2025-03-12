@@ -9,4 +9,6 @@ import Evaluate from './Evaluate';
 import Toast from './Toast';
 
 
-export {Evaluate,AnimateGo,BackTopBtn,DepartureTimeDecoration,FeaturedCard,Footer,Navbar,FAQ,Toast}
+
+
+export {Evaluate,AnimateGo,DepartureTimeDecoration,FeaturedCard,Footer,Navbar,FAQ,Toast,BackTopBtn}
