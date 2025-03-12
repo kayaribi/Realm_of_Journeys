@@ -194,7 +194,7 @@ export default function About() {
               </a>
             </SwiperSlide>
             <SwiperSlide>
-              <a href="https://github.com/hbill320115" target="_blank" rel="noopener noreferrer" className="link-animation text-decoration-none">
+              <a href="https://github.com/hann320115" target="_blank" rel="noopener noreferrer" className="link-animation text-decoration-none">
                 <img className="mb-4" src="images/star.jpg" alt="star" />
                 <p className="text-black text-center fs-md-6 fs-xl-5">蘑菇星星</p>
               </a>

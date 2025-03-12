@@ -274,7 +274,7 @@ export default function TravelSpots() {
         }}
         id="header"
       >
-        <div className="travelSpotsBannerBackDrop"></div>
+        <div className="travelSpotsBannerBackDrop" ></div>
         <h2 className="title-family  text-white travelSpotsBannerText z-3">
           精選旅遊行程，開啟你的夢想旅途
         </h2>

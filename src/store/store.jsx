@@ -184,7 +184,7 @@ export const CartProvider = ({ children }) => {
       showToast('訂單已完成', 'success');
       localStorage.clear(); // 清除 localStorage
     } catch (error) {
-      console.log(error)
+      alert('訂單失敗');
     }
   };
 

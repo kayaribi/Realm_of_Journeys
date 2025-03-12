@@ -1,11 +1,9 @@
 import { useEffect, useState } from 'react';
-import '../scss/all.scss';
 import axios from 'axios';
 import ReactLoading from 'react-loading';
 import { Link } from 'react-router-dom';
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 const API_PATH  = import.meta.env.VITE_API_PATH;
-
 
 export default function TravelGuide(){
     const [articlesData,setArticlesData]=useState([]);
@@ -40,7 +38,7 @@ export default function TravelGuide(){
 
     return(<>
         <div className="travelGuide">
-            <header className="header-height header-bg position-relative" id="header">
+            <header className="header-height header-bg position-relative">
                 <div className="header-mask"></div>
                 <div className="container d-flex align-items-center justify-content-start justify-content-lg-center h-100">
                     <h3 className="header-title text-white fs-lg-4 title-family">
@@ -82,15 +80,15 @@ export default function TravelGuide(){
             </div>
         </div>
         {isScreenLoading && (      
-                <div className="d-flex justify-content-center align-items-center"
-                style={{
-                    position: "fixed",
-                    inset: 0,
-                    backgroundColor: "rgba(255,255,255,0.5)",
-                    zIndex: 999,
-                }}>
-                <ReactLoading type="spokes" color="black" width="4rem" height="4rem" />
-                </div>)
-            }
-        </>)
+            <div className="d-flex justify-content-center align-items-center"
+            style={{
+                position: "fixed",
+                inset: 0,
+                backgroundColor: "rgba(255,255,255,0.5)",
+                zIndex: 999,
+            }}>
+            <ReactLoading type="spokes" color="black" width="4rem" height="4rem" />
+            </div>)
+        }
+    </>)
 }

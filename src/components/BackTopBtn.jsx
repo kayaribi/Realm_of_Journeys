@@ -1,103 +1,59 @@
-import { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom"; // 用於取得當前路由
+import { useEffect, useState } from 'react';
+import ScrollToTop from 'react-scroll-to-top';
+import { useLocation } from "react-router-dom";
 
-export default function BackTopBtn() {
-  const location = useLocation(); // 取得當前頁面路徑
+export default function BackTopBtn({footerHeight}){
+  const location = useLocation(); 
   const [buttonPosition, setButtonPosition] = useState(100);
-  const [headerHeight, setHeaderHeight] = useState(0);
-  const [isVisible, setIsVisible] = useState(false);
-  const [isDesktop, setIsDesktop] = useState(window.innerWidth >= 992); // 判斷是否為桌面版
-
-  useEffect(() => {
-    // 判斷螢幕寬度變化，更新 isDesktop
-    const handleResize = () => {
-      setIsDesktop(window.innerWidth >= 576);
-    };
-
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
-
-  useEffect(() => {
-    // 取得 `header` 高度
-    const updateHeaderHeight = () => {
-      const header = document.getElementById("header");
-      if (header) {
-        const height = header.offsetHeight;
-        setHeaderHeight(height);
-      }
-    };
-
-    updateHeaderHeight(); // 初次執行
-
-    window.addEventListener("resize", updateHeaderHeight);
-    return () => window.removeEventListener("resize", updateHeaderHeight);
-  }, []);
 
   useEffect(() => {
     const handleViewportChange = () => {
-      const scrollPosition = window.scrollY;
-      const windowHeight = window.innerHeight;
-      const documentHeight = document.body.scrollHeight;
-
-      // 設定不同解析度的 `headerHeight` 偏移量
-      const offset = window.innerWidth >= 992 ? 180 : 64;
-
-      // 讓按鈕在 `headerHeight + offset` 外才顯示
-      setIsVisible(scrollPosition + windowHeight > headerHeight + offset);
-
-      // 讓按鈕不會超過底部
-      let bottomLimit;
-
-      if (window.innerWidth >= 1500) {
-        bottomLimit = documentHeight - 343;
-      } else if (window.innerWidth >= 992) {
+      const scrollPosition = window.scrollY;              // 當前滾動位置
+      const windowHeight = window.innerHeight;            // 視窗的高度
+      const documentHeight = document.body.scrollHeight; // 頁面總高度
+      let bottomLimit; // 底部顯示的限制位置
+      if (window.innerWidth >= 992) {
         bottomLimit = documentHeight - 259;
       } else {
         bottomLimit = documentHeight - 699;
       }
-
-      let newPosition = 100;
+      let newPosition = 100; // 設定按鈕位置的初始值
+      // 頁面滾動超過底部限制，更新按鈕位置
       if (scrollPosition + windowHeight > bottomLimit) {
+        // 按鈕離底部距離：滾動位置 + 視窗高度 - 底部限制位置
         newPosition = Math.max(newPosition, scrollPosition + windowHeight - bottomLimit);
       }
-
-      setButtonPosition(newPosition);
+      setButtonPosition(newPosition); // 更新按鈕位置
     };
-
-    handleViewportChange();
-    window.addEventListener("scroll", handleViewportChange);
-    window.addEventListener("resize", handleViewportChange);
+    window.addEventListener('scroll', handleViewportChange);  // 滾動事件監聽
+    // 清理事件監聽器，當組件卸載時移除事件監聽器
     return () => {
-      window.removeEventListener("scroll", handleViewportChange);
-      window.removeEventListener("resize", handleViewportChange);
+      window.removeEventListener('scroll', handleViewportChange);
     };
-  }, [headerHeight]);
+  }, [footerHeight]);
 
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  };
-
-  // 只有在 `/travelSpots` 頁面，並且在桌面版時顯示 BackTopBtn
+  
+  // ====================== 商品頁面不在手機板顯示置頂按鈕 ======================
   if (location.pathname === "/travelSpots") {
-    if (!isDesktop) {
+    if (window.innerWidth <= 575) {
       return null; // 在手機板隱藏
     }
   }
 
-  return (
-    <>
-      {isVisible && (
-        <img
-          className="top-btn rounded-circle custom-up-arrow"
+  return(<>
+          <ScrollToTop
+          smooth
+          className="rounded-circle backToTopBtnStyle d-flex justify-content-center align-items-center"
+          component={
+            <img
+              className="backToTopSvg"
+              src="images/icon/up-arrow_48px.svg"
+              alt="Up Arrow"
+            />
+          }
           style={{
             bottom: `${buttonPosition}px`, // 距離底部動態變化
           }}
-          onClick={scrollToTop}
-          src="images/icon/up-arrow_48px.svg"
-          alt="置頂按鍵"
         />
-      )}
-    </>
-  );
+  </>)
 }
