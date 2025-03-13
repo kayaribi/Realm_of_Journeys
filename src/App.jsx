@@ -37,11 +37,16 @@ function App() {
     location.pathname === "/cartPayment" ||
     location.pathname === "/completePayment" ||
     location.pathname === "/about" ||
+    location.pathname === "/account/forgotPassword" ||
+    location.pathname === "/account/changePassword" ||
+    location.pathname === "/account/register" ||
+    location.pathname === "/admin/dashboard" ||
+    location.pathname === "/admin" ||
     location.pathname.startsWith("/travelGuide/")
   );
   // 排除購物車頁面navbar
   const isCartPages =
-    ["/cart", "/cartOrder", "/cartPayment", "/completePayment","/account","/account/register"].includes(
+    ["/cart", "/cartOrder", "/cartPayment", "/completePayment","/account","/account/register","/account/forgotPassword","/account/changePassword"].includes(
       location.pathname
     ) || location.pathname.startsWith("/travelSpots/");
 
