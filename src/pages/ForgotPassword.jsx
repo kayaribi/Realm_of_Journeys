@@ -43,8 +43,8 @@ export default function ForgotPassword() {
     <>
       <section className="py-20">
         <div className="container">
-          <div className="row">
-            <div className="col-lg-8 col-12 mx-auto">
+          <div className="row justify-content-center">
+            <div className="col-lg-8 col-12 ">
               <h3 className="text-center fs-5 title-family text-neutral-black mb-5">
                 忘記密碼
               </h3>

@@ -12,6 +12,8 @@ import CompletePayment from "./CompletePayment";
 import Register from "./Register";
 import ForgotPassword from "./ForgotPassword";
 import ChangePassword from "./ChangePassword";
+import AdminLogin from "./AdminLogin";
+import AdminDashboard from "./AdminDashboard";
 
 export {
   Home,
@@ -28,4 +30,6 @@ export {
   Register,
   ForgotPassword,
   ChangePassword,
+  AdminLogin,
+  AdminDashboard,
 };
