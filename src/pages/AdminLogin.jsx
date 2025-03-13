@@ -36,6 +36,15 @@ export default function Account() {
 
   const onSubmit = async (data) => {
     const { email, password } = data;
+    if (email !== "RealmOfJourneys@gmail.com" || password !== "RealmOfJourneys") {
+      Swal.fire({
+        title: "登入失敗",
+        text: "帳號或密碼錯誤，請重新輸入！",
+        icon: "error",
+        confirmButtonText: "確定",
+      });
+      return; // ❌ 直接中止，不繼續發送 API 請求
+    }
     const account = { username: email, password };
 
 
