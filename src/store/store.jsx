@@ -54,6 +54,19 @@ export const CartProvider = ({ children }) => {
   const [state, dispatch] = useReducer(cartReducer, initialState);
   const [isScreenLoading, setIsScreenLoading] = useState(false);
   const [toastMessage, setToastMessage] = useState({ type: '', text: '' }); // toast狀態
+  const [isAdminLoggedIn, setIsAdminLoggedIn] = useState(!!localStorage.getItem("userToken"));
+
+  // ✅ 管理員登入
+  const loginAdmin = (token) => {
+    localStorage.setItem("userToken", token);
+    setIsAdminLoggedIn(true); // ✅ 立即更新狀態
+  };
+
+  // ✅ 管理員登出
+  const logoutAdmin = () => {
+    localStorage.removeItem("userToken");
+    setIsAdminLoggedIn(false); // ✅ 立即更新狀態
+  };
 
   // toast開啟
   const showToast = (message, type) => {
@@ -179,12 +192,12 @@ export const CartProvider = ({ children }) => {
             "message": userData.userMessage || "",
           }
         }
-    );
+      );
       dispatch({ type: "REMOVE_CART" }); // 清空購物車
       showToast('訂單已完成', 'success');
       localStorage.clear(); // 清除 localStorage
     } catch (error) {
-      console.log(error)
+      alert('訂單失敗');
     }
   };
 
@@ -193,6 +206,9 @@ export const CartProvider = ({ children }) => {
       value={{
         cartList: state.cartList,
         addCartItem,
+        isAdminLoggedIn,
+        loginAdmin,
+        logoutAdmin,
         removeCart,
         removeCartItem,
         updateQuantity,

@@ -21,7 +21,6 @@ export default function TravelGuideItem(){
             try{
                 const respone = await axios.get(`${BASE_URL}/v2/api/${API_PATH}/article/${article_id}`);
                 setTravelGuideItemData(respone.data.article);
-                window.scrollTo(0, 0); //置頂
             }catch(error){
                 alert("取得單一產品失敗");
             }finally{

@@ -9,6 +9,9 @@ import featuredTitleIcon from "../../public/images/icon/shiny_48px.svg";
 import FeaturedCard from "../components/FeaturedCard";
 import { Evaluate, FAQ } from "../components";
 
+
+
+
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 const images = [
   "images/banner_img_01.jpg",
@@ -25,7 +28,6 @@ export default function Home() {
     const interval = setInterval(() => {
       setCurrentImageIndex((prev) => (prev + 1) % images.length);
     }, 3000);
-
     return () => clearInterval(interval);
   }, []);
 
@@ -51,6 +53,7 @@ export default function Home() {
 
   return (
     <>
+      
       {/* --------------------- header - Hailey --------------------- */}
       <header id="header" className="position-relative slideshow-container">
         {images.map((image, index) => (

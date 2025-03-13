@@ -1,29 +1,26 @@
-.custom-up-arrow {
-  position: fixed;
-  right: 12px;
-  z-index: 1000;
-  width: 48px;
-  height: 48px;
-  border-radius: 800px;
-  padding: 12px;
-  background-color: #174675;
-  cursor: pointer;
-
+.scroll-to-top{
+  background-color: #174675 !important;
+  position: fixed !important;
+  right: 12px !important;
+  z-index: 1000 !important;
+  width: 48px !important;
+  height: 48px !important;
   &:hover {
-    background-color: #1B67AE;
+    background-color: #1B67AE !important;
   }
-
   &:active {
-    background-color: #509FE0;
+    background-color: #509FE0 !important;
   }
-
-  @media (min-width: 992px) {
-    width: 80px;
-    height: 80px;
-    padding: 16px;
+  @media(min-width: 992px){
+    width: 80px !important;
+    height: 80px !important;
   }
-
-  @media (min-width: 1920px) {
-    right: 200px;
+}
+.backToTopSvg{
+  width: 24px;
+  height: 24px;
+  @media(min-width: 992px){
+    width: 48px;
+    height: 48px;
   }
 }

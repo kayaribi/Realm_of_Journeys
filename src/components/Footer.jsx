@@ -1,11 +1,29 @@
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
+import { CartContext } from "../store/store";
+import { useEffect, useState, useContext } from 'react';
+import Swal from "sweetalert2";
 import '../scss/all.scss';
 
 export default function Footer() {
+    const navigate = useNavigate();
+    const { isAdminLoggedIn, logoutAdmin } = useContext(CartContext); // ✅ 取得狀態 & 登出函式
 
     const linkActiveColor = ({ isActive }) => {
         return `${isActive ? "text-danger" : ""}`
     }
+
+    const handleLogout = () => {
+        Swal.fire({
+            title: "登出成功！",
+            text: "您已成功登出。",
+            icon: "success",
+            showConfirmButton: false,
+            timer: 1500, // 1.5 秒後自動關閉
+        }).then(() => {
+            logoutAdmin(); // ✅ 清除 Token 並更新狀態
+            navigate("/"); // ✅ 跳轉回首頁
+        });
+    };
 
     return (<>
         <footer className="footer bg-primary-600">
@@ -49,9 +67,26 @@ export default function Footer() {
                         </li>
                     </ul>
                     {/* 管理員登入 */}
-                    <a href="https://github.com/kayaribi/Realm_of_Journeys" className="text-white link-warning px-4 py-3 mb-8 mb-lg-0">
+                    {/* <a href="https://github.com/kayaribi/Realm_of_Journeys" className="text-white link-warning px-4 py-3 mb-8 mb-lg-0">
                         管理員登入<i className="bi bi-box-arrow-in-right ms-2"></i>
-                    </a>
+                    </a> */}
+                    {isAdminLoggedIn ? (
+                        // 🔴 已登入時顯示「登出」
+                        <button
+                            className="text-white link-warning px-4 py-3 mb-8 mb-lg-0 border-0 bg-transparent"
+                            onClick={handleLogout} // ✅ 呼叫登出函式
+                        >
+                            管理員登出 <i className="bi bi-box-arrow-right ms-2"></i>
+                        </button>
+                    ) : (
+                        // 🟢 未登入時顯示「登入」
+                        <button
+                            className="text-white link-warning px-4 py-3 mb-8 mb-lg-0 border-0 bg-transparent"
+                            onClick={() => navigate("/admin")}
+                        >
+                            管理員登入 <i className="bi bi-box-arrow-in-right ms-2"></i>
+                        </button>
+                    )}
                 </div>
                 <hr className="footer-hr mb-8" />
                 <div className="footer-text d-flex flex-column flex-lg-row align-items-start justify-content-lg-center">

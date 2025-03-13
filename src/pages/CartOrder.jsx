@@ -251,7 +251,7 @@ export default function CartOrder() {
                     {...register("email", {
                       required: "這是必填欄位。",
                       pattern: {
-                        value: /^[^@]+@[^@]+$/,
+                        value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
                         message: "必須為電子郵件格式",
                       },
                     })}

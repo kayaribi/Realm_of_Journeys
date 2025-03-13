@@ -1,14 +1,13 @@
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import ReactLoading from "react-loading";
 
 import DepartureTimeDecoration from "../components/DepartureTimeDecoration";
 import productPageBanner from "../../public/images/icon/productPageBanner.svg";
-import productPageBanner2 from "../../public/images/icon/productPageBanner2.svg";
-import productPageBanner3 from "../../public/images/icon/productPageBanner3.svg";
+import productPageBanner2 from "../../public/images/icon/productPageBanner2.png";
+import productPageBanner3 from "../../public/images/icon/productPageBanner3.png";
 import productPageBanner4 from "../../public/images/icon/productPageBanner4.svg";
-import { use } from "react";
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 const API_PATH = import.meta.env.VITE_API_PATH;
@@ -18,7 +17,6 @@ export default function TravelSpots() {
   const [pagination, setPagination] = useState({});
   const [bannerChange, setBannerChange] = useState(productPageBanner);
   const [selected, setSelected] = useState("");
-  const [isFilterProducts, setIsFilterProducts] = useState(false);
   const [isScreenLoading, setIsScreenLoading] = useState(false);
   // // 判斷是否啟用 ... 分頁功能
   const [isDotPagination, setIsDotPagination] = useState(true);
@@ -40,7 +38,6 @@ export default function TravelSpots() {
   const selectBarRef = useRef(null);
   const waitSelectHeight = useRef(false);
   const initialWaitRef = useRef(false);
-  // const testSwitch
 
   useEffect(() => {
     if (windowWidth) {
@@ -50,7 +47,6 @@ export default function TravelSpots() {
   }, [pagination]);
 
   const handleScroll = () => {
-
     const height =
       listRef.current.offsetHeight + listRef.current.offsetTop - 715;
     const currentTop = parseInt(selectBarRef.current.style.top, 10) || 0; // 轉數字，避免字串比較問題
@@ -264,6 +260,10 @@ export default function TravelSpots() {
     };
   };
 
+  const goToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
   return (
     <>
       {/* banner */}
@@ -274,7 +274,7 @@ export default function TravelSpots() {
         }}
         id="header"
       >
-        <div className="travelSpotsBannerBackDrop"></div>
+        <div className="travelSpotsBannerBackDrop" ></div>
         <h2 className="title-family  text-white travelSpotsBannerText z-3">
           精選旅遊行程，開啟你的夢想旅途
         </h2>
@@ -425,6 +425,7 @@ export default function TravelSpots() {
                           onClick={(e) => {
                             e.preventDefault();
                             getProduct(pagination.current_page - 1, selected);
+                            goToTop();
                           }}
                         ></a>
                       </li>
@@ -446,6 +447,7 @@ export default function TravelSpots() {
                                 onClick={(e) => {
                                   e.preventDefault();
                                   getProduct(index + 1, selected);
+                                  goToTop();
                                 }}
                                 href=""
                               >
@@ -463,6 +465,7 @@ export default function TravelSpots() {
                           onClick={(e) => {
                             e.preventDefault();
                             getProduct(pagination.current_page + 1, selected);
+                            goToTop();
                           }}
                         ></a>
                       </li>
@@ -478,6 +481,7 @@ export default function TravelSpots() {
                           onClick={(e) => {
                             e.preventDefault();
                             getProduct(pagination.current_page - 1, selected);
+                            goToTop();
                           }}
                         ></a>
                       </li>
@@ -515,6 +519,7 @@ export default function TravelSpots() {
                                 onClick={(e) => {
                                   e.preventDefault();
                                   getProduct(index + 1, selected);
+                                  goToTop();
                                 }}
                                 href=""
                               >
@@ -532,6 +537,7 @@ export default function TravelSpots() {
                           onClick={(e) => {
                             e.preventDefault();
                             getProduct(pagination.current_page + 1, selected);
+                            goToTop();
                           }}
                         ></a>
                       </li>
