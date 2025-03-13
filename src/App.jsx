@@ -15,8 +15,10 @@ import {
   Register,
   ForgotPassword,
   ChangePassword,
+  AdminLogin,
+  AdminDashboard,
 } from "./pages";
-import { BackTopBtn,Footer, Navbar, Toast } from "./components";
+import { BackTopBtn, Footer, Navbar, Toast } from "./components";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
@@ -41,7 +43,7 @@ function App() {
   );
   // 排除購物車頁面navbar
   const isCartPages =
-    ["/cart", "/cartOrder", "/cartPayment", "/completePayment","/account","/account/register"].includes(
+    ["/cart", "/cartOrder", "/cartPayment", "/completePayment", "/account", "/account/register"].includes(
       location.pathname
     ) || location.pathname.startsWith("/travelSpots/");
 
@@ -55,7 +57,7 @@ function App() {
           <Route path="/about" element={<About />}></Route>                             {/* 關於我們 */}
           <Route path="/travelSpots" element={<TravelSpots />} />                       {/* 旅遊景點-商品列表 */}
           <Route path="/travelSpots/:id" element={<TravelSpotsItem />} />               {/* ---各別單一商品-呈現 */}
-          <Route path="/travelGuide" element={<TravelGuide />}/>                        {/* 攻略指南 */}
+          <Route path="/travelGuide" element={<TravelGuide />} />                        {/* 攻略指南 */}
           <Route path="/travelGuide/:id" element={<TravelGuideItem />} />
           <Route path="/cart" element={<Cart />}></Route>                               {/* 購物車 */}
           <Route path="/cartOrder" element={<CartOrder />}></Route>                     {/* 購物車訂單 */}
@@ -65,10 +67,12 @@ function App() {
           <Route path="/account/register" element={<Register />}></Route>               {/* 註冊 */}
           <Route path="/account/forgotPassword" element={<ForgotPassword />}></Route>   {/* 忘記密碼 */}
           <Route path="/account/changePassword" element={<ChangePassword />}></Route>   {/* 修改密碼 */}
+          <Route path="/admin" element={<AdminLogin />} /> {/* 後台登入 */}
+          <Route path="/admin/dashboard" element={<AdminDashboard />} /> {/* 後台管理頁面 */}
         </Routes>
       </div>
-      {isNotBackTopPage && <BackTopBtn/>}
-      <Footer/>
+      {isNotBackTopPage && <BackTopBtn />}
+      <Footer />
     </CartProvider>
   );
 }
