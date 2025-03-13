@@ -94,7 +94,6 @@ export default function Navbar({ isCartPages }) {
   const cartItemCount = cartList.reduce((total, item) => total + item.qty, 0);
 
   // 登出
-
   const logout = ()=>{
     document.cookie = "userToken=";
     setIsToken(false);
@@ -107,11 +106,15 @@ export default function Navbar({ isCartPages }) {
     });
     navigate('/');
   }
+  // 待製作
+  const toBeUpdated = ()=>{
+    alert("此功能尚未開放，敬請期待！");
+  }
 
   return (
     <>
       <nav
-        className={`navbar navbar-expand-lg fixed-top navbar-light navbarPadding 
+        className={`navbar navbar-expand-lg fixed-top navbar-light navbarPadding
             ${isScrolled ? "opacity-85 backdrop-blur" : "bg-transparent"} 
             ${isNavbarOpen && !screenWidth ? "bg-F2F7FD" : ""}`}
       >
@@ -169,7 +172,6 @@ export default function Navbar({ isCartPages }) {
               ></i>
             </button>
           </div>
-
           {/* link */}
           <div className="collapse navbar-collapse" id="navbarContent">
             <ul className="navbar-nav ms-auto mt-14 mt-lg-0 d-flex align-items-center">
@@ -185,7 +187,6 @@ export default function Navbar({ isCartPages }) {
               <li>
                 <div className="nav-item-br"></div>
               </li>
-
               <li className="nav-item me-lg-8">
                 <NavLink
                   className={linkActiveColor}
@@ -198,7 +199,6 @@ export default function Navbar({ isCartPages }) {
               <li>
                 <div className="nav-item-br"></div>
               </li>
-
               <li className="nav-item">
                 <NavLink
                   className={linkActiveColor}
@@ -241,21 +241,32 @@ export default function Navbar({ isCartPages }) {
                         <p className="fs-7">Nina</p>
                       </button>
                       <ul className="dropdown-menu mt-4">
-                        <li><a className="dropdown-item m-0" href="#">訂單資訊</a></li>
+                        <li><button type="button" className="dropdown-item m-0" onClick={toBeUpdated}>訂單資訊</button></li>
                         <hr className="dropdown-hr" />
-                        <li><a className="dropdown-item m-0" href="#">我的最愛</a></li>
+                        <li><button type="button" className="dropdown-item m-0" onClick={toBeUpdated}>我的最愛</button></li>
                         <hr className="dropdown-hr" />
                         <li><button type="button" className="dropdown-item m-0 text-center" onClick={logout}>登出</button></li>
                       </ul>
                     </div>
                   )
                   // 登出按鈕
-                  : (<li className="nav-item mt-lg-0 login-btn-margin">
-                        <button type="button" className="btn btn-primary-600 login-btn text-white" onClick={logout}>
+                  : (<>
+                      <div className="dropdown user-btn mobile-user-btn">
+                        <button
+                          className="btn btn-primary-50 border border-primary-500 px-4 py-2 d-flex"
+                          type="button"
+                          onClick={toBeUpdated}
+                        >
+                          <img src="images/user-icon.png" className="me-2" alt="user-img" />
+                          <p className="fs-7">Nina</p>
+                        </button>
+                      </div>
+                      <li className="nav-item mt-lg-0">
+                        <button type="button" className="btn text-primary-600 logout-btn" onClick={logout}>
                           登出
                         </button>
                       </li>
-                    )
+                  </>)
                 ) : (
                   <li className="nav-item mt-lg-0 login-btn-margin">
                     <button type="button" className="btn btn-primary-600 login-btn">
