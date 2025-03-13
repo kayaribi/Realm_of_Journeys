@@ -57,7 +57,7 @@ function App() {
     ["/cart", "/cartOrder", "/cartPayment", "/completePayment","/account","/account/register","/account/forgotPassword","/account/changePassword"].includes(
       location.pathname
     ) || location.pathname.startsWith("/travelSpots/");
-
+   
   return (
     <CartProvider>
       <Navbar isCartPages={isCartPages} />
