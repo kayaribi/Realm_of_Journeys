@@ -1,7 +1,6 @@
-import { useEffect, useContext } from "react";
+import { useContext } from "react";
 import axios from "axios";
 import { useForm } from "react-hook-form";
-import loginInImage from "../../public/images/loginInImage.svg";
 import { useNavigate } from "react-router-dom";
 import { CartContext } from "../store/store";
 import Swal from "sweetalert2";
@@ -13,7 +12,6 @@ export default function Account() {
   const {
     register,
     handleSubmit,
-    setValue,
     formState: { errors },
   } = useForm({
     defaultValues: {
@@ -25,14 +23,6 @@ export default function Account() {
 
   const navigate = useNavigate();
   const { loginAdmin } = useContext(CartContext); // ✅ 取得 `loginAdmin`
-
-  useEffect(() => {
-    if (sessionStorage.getItem("savedEmail")) {
-      setValue("email", sessionStorage.getItem("savedEmail"));
-      setValue("password", sessionStorage.getItem("savedPassword"));
-      setValue("rememberMe", sessionStorage.getItem("savedRememberMe"));
-    }
-  }, []);
 
   const onSubmit = async (data) => {
     const { email, password } = data;
@@ -57,18 +47,6 @@ export default function Account() {
       localStorage.setItem("userToken", token);
       axios.defaults.headers.common["Authorization"] = token;
 
-      if (data.rememberMe) {
-        // 如果勾選記住我，存帳號和密碼
-        sessionStorage.setItem("savedEmail", data.email);
-        sessionStorage.setItem("savedPassword", data.password);
-        sessionStorage.setItem("savedRememberMe", true);
-      } else {
-        // 如果沒勾選記住我，就移除 sessionStorage
-        sessionStorage.removeItem("savedEmail");
-        sessionStorage.removeItem("savedPassword");
-        sessionStorage.removeItem("savedRememberMe");
-      }
-
       await Swal.fire({
         title: res.data.message,
         icon: "success",
@@ -91,15 +69,8 @@ export default function Account() {
   return (
     <section className="py-lg-20 pt-26 pb-6">
       <div className="container">
-        <div className="row flex-xl-row flex-column">
-          <div className="col-xl-7 col-12  d-sm-block d-none">
-            <img
-              className=" w-100 object-fit-cover"
-              src={loginInImage}
-              alt="登入頁面圖片"
-            />
-          </div>
-          <div className="col-xl-5 col-12">
+        <div className="row justify-content-center"> {/* ✅ 讓表單置中 */}
+          <div className="col-md-6"> {/* ✅ 設定寬度 50% */}
             <div className="h-100 d-flex flex-column justify-content-center pt-xl-0 pt-sm-6 pt-0">
               <h3 className="text-neutral-black fs-xXl-5 fs-xl-6 fs-sm-6 fs-8  title-family text-center">
                 管理員登入
@@ -169,22 +140,6 @@ export default function Account() {
                         {errors?.password?.message}
                       </div>
                     )}
-                  </div>
-
-                  <div className="d-flex align-items-center mb-xxl-6 mb-xl-5 mb-lg-4 mb-6  mt-lg-0 mt-3">
-                    <input
-                      type="checkbox"
-                      id="rememberMe"
-                      className="loginInCheckBox"
-                      name="rememberMe"
-                      {...register("rememberMe")}
-                    />
-                    <label
-                      htmlFor="rememberMe"
-                      className="text-neutral-300 ms-2"
-                    >
-                      記住我
-                    </label>
                   </div>
                 </div>
                 <button className="loginInButton w-100 fs-sm-7 fs-9 py-3">

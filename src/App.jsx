@@ -1,5 +1,5 @@
-import { Route, Routes, useLocation } from "react-router-dom";
-import { CartProvider } from "./store/store";
+import { Route, Routes, Navigate, useLocation } from "react-router-dom";
+import { CartContext, CartProvider } from "./store/store";
 import {
   Home,
   About,
@@ -23,7 +23,12 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "./scss/all.scss";
-import { useEffect } from "react";
+import { useEffect, useContext } from "react";
+
+const PrivateRoute = ({ element }) => {
+  const { isAdminLoggedIn } = useContext(CartContext);
+  return isAdminLoggedIn ? element : <Navigate to="/admin" replace />;
+};
 
 function App() {
   const location = useLocation(); // 儲存當前頁面
@@ -32,6 +37,7 @@ function App() {
     window.scrollTo(0, 0);
   }, [location]);
 
+
   const isNotBackTopPage = !(
     location.pathname === "/cart" ||
     location.pathname === "/account" ||
@@ -39,14 +45,19 @@ function App() {
     location.pathname === "/cartPayment" ||
     location.pathname === "/completePayment" ||
     location.pathname === "/about" ||
+    location.pathname === "/account/forgotPassword" ||
+    location.pathname === "/account/changePassword" ||
+    location.pathname === "/account/register" ||
+    location.pathname === "/admin/dashboard" ||
+    location.pathname === "/admin" ||
     location.pathname.startsWith("/travelGuide/")
   );
   // 排除購物車頁面navbar
   const isCartPages =
-    ["/cart", "/cartOrder", "/cartPayment", "/completePayment", "/account", "/account/register"].includes(
+    ["/cart", "/cartOrder", "/cartPayment", "/completePayment","/account","/account/register","/account/forgotPassword","/account/changePassword"].includes(
       location.pathname
     ) || location.pathname.startsWith("/travelSpots/");
-
+   
   return (
     <CartProvider>
       <Navbar isCartPages={isCartPages} />
@@ -68,7 +79,7 @@ function App() {
           <Route path="/account/forgotPassword" element={<ForgotPassword />}></Route>   {/* 忘記密碼 */}
           <Route path="/account/changePassword" element={<ChangePassword />}></Route>   {/* 修改密碼 */}
           <Route path="/admin" element={<AdminLogin />} /> {/* 後台登入 */}
-          <Route path="/admin/dashboard" element={<AdminDashboard />} /> {/* 後台管理頁面 */}
+          <Route path="/admin/dashboard" element={<PrivateRoute element={<AdminDashboard />} />} /> {/* 後台管理頁面 */}
         </Routes>
       </div>
       {isNotBackTopPage && <BackTopBtn />}
