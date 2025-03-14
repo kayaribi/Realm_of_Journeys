@@ -1,5 +1,5 @@
 import { useContext, useEffect, useRef } from "react";
-import {  useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { Modal } from "bootstrap";
 import { CartContext } from "../store/store";
@@ -13,7 +13,7 @@ export default function CartOrder() {
     handleSubmit,
     formState: { errors },
     formState,
-    watch ,
+    watch,
     setValue
   } = useForm({ mode: "onChange" });
 
@@ -45,10 +45,10 @@ export default function CartOrder() {
   const saveFormData = (data) => {
     // 過濾掉不需要儲存的欄位
     const { isAgree, ...filteredData } = data;
-    
+
     localStorage.setItem('formData', JSON.stringify(filteredData));
   };
-  
+
   // 頁面更新時儲存資料
   useEffect(() => {
     const handleBeforeUnload = () => {
@@ -91,7 +91,7 @@ export default function CartOrder() {
               className="bg-primary-500 mb-4 rounded-circle d-flex justify-content-center align-items-center"
               style={{ width: "32px", height: "32px" }}
             >
-              <img src="images/icon/check.svg" alt="" />
+              <img src="images/icon/check.svg" alt="check" />
             </div>
             <p className="text-primary-500 fs-md-9 fs-12">購物車明細</p>
           </div>
@@ -488,7 +488,7 @@ export default function CartOrder() {
                     <p className="fs-7">{item.product.title}</p>
                     <div className="d-flex justify-content-between align-items-center mt-3 fs-7">
                       <div className="d-flex justify-content-between align-items-center">
-                        <img src="images/icon/price.svg" alt="" />
+                        <img src="images/icon/price.svg" alt="price" />
                         <p>{item.total.toLocaleString()}</p>
                       </div>
                       <p>{item.qty}人</p>

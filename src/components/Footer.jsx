@@ -31,7 +31,7 @@ export default function Footer() {
                 <div className="d-flex justify-content-center flex-column flex-lg-row justify-content-lg-center align-items-center mb-8">
                     {/* logo + title */}
                     <div className="d-flex align-items-center mb-14 my-lg-4 me-xl-15 me-lg-10">
-                        <img src="images/logo-light-L.svg" />
+                        <img src="images/logo-light-L.svg" alt="logo" />
                     </div>
                     {/* link page */}
                     <ul className="list-unstyled d-flex flex-column align-items-center flex-lg-row gap-6 mb-15 mb-lg-0 text-20px">

@@ -7,16 +7,16 @@ import CartOrderModal from "../components/CartOrderModal";
 
 export default function CartPayment() {
   const { cartList } = useContext(CartContext);
-  
+
   const navigate = useNavigate();
 
   // ======================================== 驗證 ========================================
 
   const [paymentMethod, setPaymentMethod] = useState("");
-  const [cardNum, setCardNum] = useState(""); 
-  const [cardTerm, setCardTerm] = useState(""); 
-  const [securityCode, setSecurityCode] = useState(""); 
-  const [errors, setErrors] = useState({}); 
+  const [cardNum, setCardNum] = useState("");
+  const [cardTerm, setCardTerm] = useState("");
+  const [securityCode, setSecurityCode] = useState("");
+  const [errors, setErrors] = useState({});
 
   // 驗證信用卡號
   const handleCardNumChange = (e) => {
@@ -31,7 +31,7 @@ export default function CartPayment() {
     } else {
       setErrors((prevErrors) => {
         const { cardNum, ...rest } = prevErrors;
-        return rest; 
+        return rest;
       });
     }
   };
@@ -49,7 +49,7 @@ export default function CartPayment() {
     } else {
       setErrors((prevErrors) => {
         const { cardTerm, ...rest } = prevErrors;
-        return rest; 
+        return rest;
       });
     }
   };
@@ -67,7 +67,7 @@ export default function CartPayment() {
     } else {
       setErrors((prevErrors) => {
         const { securityCode, ...rest } = prevErrors;
-        return rest; 
+        return rest;
       });
     }
   };
@@ -77,7 +77,7 @@ export default function CartPayment() {
     if (paymentMethod === "atm") {
       return true; // ATM 轉帳可以直接點擊
     }
-    
+
     if (paymentMethod === "card") {
       // 信用卡必須填寫正確才可以啟用按鈕
       return (
@@ -110,14 +110,14 @@ export default function CartPayment() {
     cartOrderModal.current.hide();
   };
 
-  
+
   return (
-    <>  
+    <>
       {/* 上一步 Modal */}
-        <CartOrderModal
-          closeBackSubmitModal={closeBackSubmitModal}
-          cartOrderModal={cartOrderModal}
-        />
+      <CartOrderModal
+        closeBackSubmitModal={closeBackSubmitModal}
+        cartOrderModal={cartOrderModal}
+      />
       {/* 進度條 */}
       <div className="container position-relative mt-md-40 mt-22 mb-lg-10 my-6">
         <div className="row row-cols-4 text-center">
@@ -126,7 +126,7 @@ export default function CartPayment() {
               className="bg-primary-500 mb-4 rounded-circle d-flex justify-content-center align-items-center"
               style={{ width: "32px", height: "32px" }}
             >
-              <img src="images/icon/check.svg" alt="" />
+              <img src="images/icon/check.svg" alt="check" />
             </div>
             <p className="text-primary-500 fs-md-9 fs-12">購物車明細</p>
           </div>
@@ -136,7 +136,7 @@ export default function CartPayment() {
               className="bg-primary-500 mb-4 rounded-circle d-flex justify-content-center align-items-center"
               style={{ width: "32px", height: "32px" }}
             >
-              <img src="images/icon/check.svg" alt="" />
+              <img src="images/icon/check.svg" alt="check" />
             </div>
             <p className="text-primary-500 fs-md-9 fs-12">填寫資料</p>
           </div>
@@ -283,7 +283,7 @@ export default function CartPayment() {
                 )}
               </div>
             </div>
-            
+
           </div>
           {/* 有效期限 + 安全碼 */}
           <div className="col-lg-4 col-md-6 ms-md-7">
@@ -300,7 +300,7 @@ export default function CartPayment() {
                     id="cardTerm"
                     placeholder="到期月年"
                     value={cardTerm}
-                    onChange={handleCardTermChange}  
+                    onChange={handleCardTermChange}
                   />
                   <div className="pb-6">
                     {errors.cardTerm && (

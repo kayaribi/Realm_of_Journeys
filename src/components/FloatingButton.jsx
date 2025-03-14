@@ -1,7 +1,7 @@
 import { useEffect, useState, useContext } from "react";
 import { CartContext } from "../store/store";
 
-export default function FloatingButton(){
+export default function FloatingButton() {
   const [isAboveFooter, setIsAboveFooter] = useState(false);
   const { cartList } = useContext(CartContext);
 
@@ -45,44 +45,44 @@ export default function FloatingButton(){
           <h3 className="title-family">訂單明細</h3>
           <div className="d-flex justify-content-center align-items-center">
             <small className="text-neutral-200 fs-12 me-1">展開明細</small>
-            <img src="images/icon/minimize_16px.svg" alt="" />
+            <img src="images/icon/minimize_16px.svg" alt="minimize" />
           </div>
         </div>
         <div className="collapse text-start mb-4" id="collapseDetails">
-              {cartList.map((item) => {
-                return (
-                  <div className="mb-4" key={item.id}>
-                    <p className="mb-3">{item.product.title}</p>
-                    <div className="d-flex justify-content-between align-items-center text-neutral-300">
-                      <div className="d-flex justify-content-center align-items-center">
-                        <img src="images/icon/price.svg" alt="" />
-                        <p>{item.total.toLocaleString()}</p>
-                      </div>
-                      <p>{item.qty}人</p>
-                    </div>
+          {cartList.map((item) => {
+            return (
+              <div className="mb-4" key={item.id}>
+                <p className="mb-3">{item.product.title}</p>
+                <div className="d-flex justify-content-between align-items-center text-neutral-300">
+                  <div className="d-flex justify-content-center align-items-center">
+                    <img src="images/icon/price.svg" alt="price" />
+                    <p>{item.total.toLocaleString()}</p>
                   </div>
-                );
-              })}
-              <div className="border-top mb-4 border-primary-200"></div>
-              <div className="d-flex justify-content-between align-items-center">
-                <div className="d-flex justify-content-center align-items.center">
-                  <img
-                    src="images/icon/alert-circle_16px.svg"
-                    alt=""
-                    className="me-1"
-                  />
-                  <p>提醒</p>
+                  <p>{item.qty}人</p>
                 </div>
-                <h5 className="text-primary-600">
-                  總計<span className="ms-3"></span>NT {cartList
-                  .reduce((sum, cartItem) => sum + cartItem.total, 0)
-                  .toLocaleString()}
-                </h5>
               </div>
+            );
+          })}
+          <div className="border-top mb-4 border-primary-200"></div>
+          <div className="d-flex justify-content-between align-items-center">
+            <div className="d-flex justify-content-center align-items.center">
+              <img
+                src="images/icon/alert-circle_16px.svg"
+                alt="alert-circle"
+                className="me-1"
+              />
+              <p>提醒</p>
             </div>
+            <h5 className="text-primary-600">
+              總計<span className="ms-3"></span>NT {cartList
+                .reduce((sum, cartItem) => sum + cartItem.total, 0)
+                .toLocaleString()}
+            </h5>
+          </div>
+        </div>
       </button>
 
-      
+
     </div>
   );
 };
