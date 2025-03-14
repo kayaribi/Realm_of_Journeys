@@ -19,8 +19,8 @@ export default function CompletePayment() {
     const today = new Date();
     today.setDate(today.getDate() + 2); // 加2天
     const formattedDate = today.getFullYear() + " / " +
-                          String(today.getMonth() + 1).padStart(2, "0") + " / " +
-                          String(today.getDate()).padStart(2, "0");
+      String(today.getMonth() + 1).padStart(2, "0") + " / " +
+      String(today.getDate()).padStart(2, "0");
     setDeadline(formattedDate);
   }, []);
 
@@ -34,7 +34,7 @@ export default function CompletePayment() {
               className="bg-primary-500 mb-4 rounded-circle d-flex justify-content-center align-items-center"
               style={{ width: "32px", height: "32px" }}
             >
-              <img src="images/icon/check.svg" alt="" />
+              <img src="images/icon/check.svg" alt="check" />
             </div>
             <p className="text-primary-500 fs-md-9 fs-12">購物車明細</p>
           </div>
@@ -44,7 +44,7 @@ export default function CompletePayment() {
               className="bg-primary-500 mb-4 rounded-circle d-flex justify-content-center align-items-center"
               style={{ width: "32px", height: "32px" }}
             >
-              <img src="images/icon/check.svg" alt="" />
+              <img src="images/icon/check.svg" alt="check" />
             </div>
             <p className="text-primary-500 fs-md-9 fs-12">填寫資料</p>
           </div>
@@ -54,7 +54,7 @@ export default function CompletePayment() {
               className="bg-primary-500 mb-4 rounded-circle d-flex justify-content-center align-items-center"
               style={{ width: "32px", height: "32px" }}
             >
-              <img src="images/icon/check.svg" alt="" />
+              <img src="images/icon/check.svg" alt="check" />
             </div>
             <p className="text-primary-500 fs-md-9 fs-12">付款方式</p>
           </div>
