@@ -31,7 +31,7 @@ export default function FloatingButton(){
   return (
     <div
       id="floatingButton"
-      className={`d-md-none ${isAboveFooter ? "above-footer" : "fixed-bottom"}`}
+      className={`d-md-none z-3 ${isAboveFooter ? "above-footer" : "fixed-bottom"}`}
     >
       <button
         className="btn btn-primary-50 w-100 rounded-0 border-top border-primary-300 py-0"

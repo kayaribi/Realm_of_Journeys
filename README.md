@@ -20,39 +20,13 @@
 
 ### 前端技術
 
-![HTML](https://img.shields.io/badge/HTML-5C5C5C?style=for-the-badge&logo=html5&logoColor=white) ![CSS](https://img.shields.io/badge/CSS-264DE4?style=for-the-badge&logo=css3&logoColor=white) ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black) ![Sass](https://img.shields.io/badge/Sass-CC6699?style=for-the-badge&logo=sass&logoColor=white) ![React](https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=react&logoColor=black) ![Bootstrap 5](https://img.shields.io/badge/Bootstrap-7952B3?style=for-the-badge&logo=bootstrap&logoColor=white) ![Swiper](https://img.shields.io/badge/Swiper-6332F9?style=for-the-badge&logo=swiper&logoColor=white)
-
-### 工具與框架
-
-![Vite](https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white) ![Axios](https://img.shields.io/badge/Axios-5A29E4?style=for-the-badge&logo=axios&logoColor=white) ![WOW.js](https://img.shields.io/badge/WOW.js-FFB6C1?style=for-the-badge&logo=html5&logoColor=white)
+![HTML](https://img.shields.io/badge/HTML-5C5C5C?style=for-the-badge&logo=html5&logoColor=white) ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black) ![Sass](https://img.shields.io/badge/Sass-CC6699?style=for-the-badge&logo=sass&logoColor=white) ![React](https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=react&logoColor=black) ![Bootstrap 5](https://img.shields.io/badge/Bootstrap-7952B3?style=for-the-badge&logo=bootstrap&logoColor=white) ![Swiper](https://img.shields.io/badge/Swiper-6332F9?style=for-the-badge&logo=swiper&logoColor=white)![Vite](https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white) ![WOW.js](https://img.shields.io/badge/WOW.js-FFB6C1?style=for-the-badge&logo=html5&logoColor=white) ![npm](https://img.shields.io/badge/npm-CB3837?style=for-the-badge&logo=npm&logoColor=white) ![Animate.css](https://img.shields.io/badge/Animate.css-000000?style=for-the-badge&logo=animate.css&logoColor=white) ![Validator.js](https://img.shields.io/badge/Validator.js-F6C915?style=for-the-badge&logo=validator.js&logoColor=black) ![ESLINT](https://img.shields.io/badge/ESLint-4B32C3?style=for-the-badge&logo=eslint&logoColor=white)
 
 ### 開發與版本控制
-
-![Git](https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=git&logoColor=white) ![npm](https://img.shields.io/badge/npm-CB3837?style=for-the-badge&logo=npm&logoColor=white) ![GitHub](https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white)
+![GitHub](https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white) ![Axios](https://img.shields.io/badge/Axios-5A29E4?style=for-the-badge&logo=axios&logoColor=white) 
 
 ### 設計與協作工具
-
 ![Figma](https://img.shields.io/badge/Figma-F24E1E?style=for-the-badge&logo=figma&logoColor=white) ![Miro](https://img.shields.io/badge/Miro-5F90F2?style=for-the-badge&logo=miro&logoColor=white) ![Notion](https://img.shields.io/badge/Notion-000000?style=for-the-badge&logo=notion&logoColor=white) ![Discord](https://img.shields.io/badge/Discord-5865F2?style=for-the-badge&logo=discord&logoColor=white)
-
----
-
-## 特別感謝 - 專題指導
-
-* 六角學院 / 洧杰老師
-* Tofu / 專題教練
-* 六角學院 / 助教群
-
----
-
-## 特別感謝 - 設計協作
-
-* Joanne Chen
-
----
-
-## 圖片素材來源
-
-* [Unsplash](https://unsplash.com/)
 
 ---
 
@@ -124,18 +98,16 @@ Banner 採用動畫效果，為使用者帶來動態體驗，並在右下角顯�
 
 ---
 
-### 功能元件
+## 特別感謝 - 專題指導
 
-#### 置頂按鈕
-![img](/public/images/readmeImg/image-9.png)
-
-使用者可點擊此按鈕快速返回頁面頂端，提升使用者體驗。
-
-#### 通知 Toast 訊息
-![img](/public/images/readmeImg/image-10.png)
-
-跳出提示訊息，告知使用者操作是否成功。
+* 六角學院 / 洧杰校長 & 卡斯伯老師
+* 專題教練 / Tofu
+* 六角學院 / 助教群
 
 ---
+
+## 圖片素材來源
+
+* [Unsplash](https://unsplash.com/)
 
 
