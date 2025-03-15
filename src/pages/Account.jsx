@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import axios from "axios";
 import { useForm } from "react-hook-form";
-import loginInImage from "../../public/images/loginInImage.svg";
+import loginInImage from "../../public/images/loginInImage.png";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 
@@ -35,7 +35,6 @@ export default function Account() {
   const onSubmit = async (data) => {
     const { email, password } = data;
     const account = { username: email, password };
-    
 
     try {
       const res = await axios.post(`${BASE_URL}/v2/admin/signin`, account);
