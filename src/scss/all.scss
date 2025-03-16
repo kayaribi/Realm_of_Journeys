@@ -1,0 +1,44 @@
+// 字型
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100..900&family=Noto+Serif+TC:wght@200..900&display=swap");
+// bs icon
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css");
+
+@import "animate.css";
+
+@import "bootstrap/scss/functions";
+
+@import "./helpers/variables";
+
+@import "bootstrap/scss/bootstrap";
+
+@import "./helpers/utilities";
+
+@import "bootstrap/scss/utilities/api";
+
+@import "./layout/layout";
+
+// Page-scss
+@import "./pages/home";
+@import "./pages/travelSpots";
+@import "./pages/footer";
+@import "./pages/navbar";
+@import "./pages/evaluate";
+@import "./pages/travelGuide";
+@import "./pages/backtopbtn";
+@import "./pages/FAQ";
+@import "./pages/travelGuideItem";
+@import "./pages/travelSpotsItem";
+@import "./pages/cart";
+@import "./pages/cartOrder";
+@import "./pages/about";
+@import "./pages/account";
+@import "./pages/register";
+
+// 補足navbar佔用空間
+.navbar-top {
+  margin-top: 0;
+
+  @media (min-width: 991px) {
+    margin-top: 102px;
+  }
+}

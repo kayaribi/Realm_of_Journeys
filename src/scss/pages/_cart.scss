@@ -1,0 +1,42 @@
+.progressWidth {
+  width: 75%;
+  top: 30%;
+  max-width: 990px;
+
+  @media (min-width: 1400px) {
+    width: 100%;
+  }
+}
+
+.cartImg {
+  width: 200px;
+  height: 130px;
+  object-fit: cover;
+  border-radius: 20px;
+
+  @media (min-width: 992px) {
+    width: 173px;
+    height: 109px;
+  }
+}
+
+.adjustmentNumBtn {
+  width: 24px;
+  height: 30px;
+  @media (min-width: 992px) {
+    width: 36px;
+    height: 36px;
+  }
+}
+
+.above-footer {
+  position: absolute !important;
+  bottom: calc(100% + 10px); /* 讓它在 footer 之上 */
+}
+
+.fixed-bottom {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+}

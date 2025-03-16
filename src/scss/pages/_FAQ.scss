@@ -1,0 +1,22 @@
+.custom-up-arrow {
+  width: 48px;
+  height: 48px;
+  border-radius: 800px;
+  padding: 12px;
+  background-color: #174675;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #1B67AE;
+  }
+
+  &:active {
+    background-color: #509FE0;
+  }
+
+  @media (min-width: 992px) {
+    width: 80px;
+    height: 80px;
+    padding: 16px;
+  }
+}
