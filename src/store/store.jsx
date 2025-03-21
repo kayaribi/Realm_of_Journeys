@@ -57,14 +57,28 @@ export const CartProvider = ({ children }) => {
   const [isAdminLoggedIn, setIsAdminLoggedIn] = useState(!!localStorage.getItem("userToken"));
 
   // ✅ 管理員登入
-  const loginAdmin = (token) => {
+  const loginAdmin = (token, expired) => {
+    const expirationTime = new Date(expired).toISOString(); // 轉換時間格式
+    // 統一處理所有認證相關的儲存邏輯
+    // 儲存 token 到 cookie 或 localStorage（可選）
     localStorage.setItem("userToken", token);
+    localStorage.setItem("tokenExpired", expirationTime);
+    // 設定 axios headers
+    axios.defaults.headers.common["Authorization"] = token;
     setIsAdminLoggedIn(true); // ✅ 立即更新狀態
+    // **檢查 token 是否過期**
+    const isExpired = new Date(expirationTime) < new Date();
+    if (isExpired) {
+      console.warn("Token 已過期，強制登出");
+      logoutAdmin();
+    }
   };
 
   // ✅ 管理員登出
   const logoutAdmin = () => {
     localStorage.removeItem("userToken");
+    localStorage.removeItem("tokenExpired");
+    axios.defaults.headers.common["Authorization"] = "";
     setIsAdminLoggedIn(false); // ✅ 立即更新狀態
   };
 
