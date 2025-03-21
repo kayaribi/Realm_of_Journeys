@@ -11,7 +11,7 @@ const API_PATH = import.meta.env.VITE_API_PATH;
 const AdminDashboard = () => {
   const navigate = useNavigate();
   const { isAdminLoggedIn } = useContext(CartContext); // 取得登入狀態
-  const [tempProduct, setTempProduct] = useState({});
+  const [tempProduct] = useState({});
   const [products, setProducts] = useState([]);
   const [isScreenLoading, setIsScreenLoading] = useState(false);
 
