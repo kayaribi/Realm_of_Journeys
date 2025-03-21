@@ -6,7 +6,6 @@ import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
-const API_PATH = import.meta.env.VITE_API_PATH;
 
 export default function Account() {
   const {
@@ -30,7 +29,7 @@ export default function Account() {
       setValue("password", sessionStorage.getItem("savedPassword"));
       setValue("rememberMe", sessionStorage.getItem("savedRememberMe"));
     }
-  }, []);
+  }, [setValue]);
 
   const onSubmit = async (data) => {
     const { email, password } = data;
