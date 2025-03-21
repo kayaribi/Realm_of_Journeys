@@ -327,7 +327,7 @@ const TravelSpotsItem = ({ cartProduct }) => {
                   <div className="d-flex gap-6 justify-content-between">
                     <button
                       type="button"
-                      className="btn btn-secondary-200 custom-btn-secondary-200 w-100 py-lg-3 px-0"
+                      className="btn btn-secondary-200 w-100 py-lg-3 px-0"
                       onClick={handleBuyNow}
                     >
                       直接購買

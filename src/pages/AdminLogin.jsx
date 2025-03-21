@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import axios from "axios";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
@@ -24,6 +24,27 @@ export default function Account() {
   const navigate = useNavigate();
   const { loginAdmin } = useContext(CartContext); // ✅ 取得 `loginAdmin`
 
+  // 🔹 **檢查是否已登入，若已登入則跳轉**
+  useEffect(() => {
+    const token = localStorage.getItem("userToken");
+    const tokenExpired = localStorage.getItem("tokenExpired");
+
+    if (token && tokenExpired) {
+      const isExpired = new Date(tokenExpired) < new Date();
+      if (!isExpired) {
+        Swal.fire({
+          title: "已登入",
+          text: "你已經登入，即將跳轉至後台",
+          icon: "success",
+          timer: 1500,
+          showConfirmButton: false,
+        }).then(() => {
+          navigate("/admin/dashboard"); // ✅ 自動跳轉
+        });
+      }
+    }
+  }, [navigate]);
+
   const onSubmit = async (data) => {
     const { email, password } = data;
     if (email !== "RealmOfJourneys@gmail.com" || password !== "RealmOfJourneys") {
@@ -41,11 +62,8 @@ export default function Account() {
     try {
       const res = await axios.post(`${BASE_URL}/v2/admin/signin`, account);
       const { token, expired } = res.data;
-      // 登入成功後，更新登入狀態
-      loginAdmin(token); // ✅ 設定登入狀態
-      // 儲存 token 到 cookie 或 localStorage（可選）
-      localStorage.setItem("userToken", token);
-      axios.defaults.headers.common["Authorization"] = token;
+      // 所有認證相關邏輯統一由 loginAdmin 處理
+      loginAdmin(token, expired);
 
       await Swal.fire({
         title: res.data.message,
@@ -53,7 +71,7 @@ export default function Account() {
         showConfirmButton: false,
         timer: 1500,
       });
-      // 跳轉首頁
+      // 跳轉後台
       navigate("/admin/dashboard");
     } catch (error) {
       console.log(error);
@@ -127,8 +145,8 @@ export default function Account() {
                           message: "密碼為必填",
                         },
                         minLength: {
-                          value: 6,
-                          message: "密碼不能少於6碼",
+                          value: 15,
+                          message: "密碼為唯一15碼",
                         },
                       })}
                     />
@@ -142,7 +160,7 @@ export default function Account() {
                     )}
                   </div>
                 </div>
-                <button className="loginInButton w-100 fs-sm-7 fs-9 py-3">
+                <button className="btn btn-secondary-200 w-100 fs-sm-7 fs-9 py-3">
                   登入
                 </button>
               </form>
