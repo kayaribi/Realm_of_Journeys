@@ -1,9 +1,10 @@
-import { useEffect, useContext, useState, useRef } from "react";
+import { useEffect, useContext, useState, useRef, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { CartContext } from "../store/store";
 import ReactLoading from 'react-loading';
 import axios from "axios";
 import { Modal } from "bootstrap";
+import PropTypes from 'prop-types';
 
 import Swal from "sweetalert2";
 
@@ -71,7 +72,7 @@ const AdminDashboard = () => {
   }, [navigate, isAdminLoggedIn]);
 
   // ✅ 放在 useEffect 外面
-  const getProducts = async (page = 1, category = selectedCategory) => {
+  const getProducts = useCallback(async (page = 1, category = selectedCategory) => {
     setIsScreenLoading(true);
     try {
       let url = `${BASE_URL}/v2/api/${API_PATH}/admin/products?page=${page}`;
@@ -88,12 +89,11 @@ const AdminDashboard = () => {
     } finally {
       setIsScreenLoading(false);
     }
-  };
-
+  }, [selectedCategory]); // ✅ 加入依賴
 
   useEffect(() => {
-    getProducts();
-  }, []);
+    getProducts(); // ✅ 安全使用 getProducts
+  }, [getProducts]); // ✅ 加入依賴
 
   const productModalRef = useRef(null);
   const delProductModalRef = useRef(null);
@@ -354,6 +354,10 @@ const AdminDashboard = () => {
     </svg>
   );
 
+  ChevronLeft.propTypes = {
+    className: PropTypes.string
+  };
+
   const ChevronRight = ({ className }) => (
     <svg
       className={className}
@@ -372,6 +376,10 @@ const AdminDashboard = () => {
       />
     </svg>
   );
+
+  ChevronRight.propTypes = {
+    className: PropTypes.string
+  };
 
   const [pageInfo, setPageInfo] = useState({});
 

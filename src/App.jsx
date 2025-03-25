@@ -1,5 +1,6 @@
 import { Route, Routes, Navigate, useLocation } from "react-router-dom";
 import { CartContext, CartProvider } from "./store/store";
+import PropTypes from 'prop-types';
 import {
   Home,
   About,
@@ -30,6 +31,10 @@ const PrivateRoute = ({ element }) => {
   return isAdminLoggedIn ? element : <Navigate to="/admin" replace />;
 };
 
+PrivateRoute.propTypes = {
+  element: PropTypes.element.isRequired,
+};
+
 function App() {
   const location = useLocation(); // 儲存當前頁面
   // 置頂
@@ -54,10 +59,10 @@ function App() {
   );
   // 排除購物車頁面navbar
   const isCartPages =
-    ["/cart", "/cartOrder", "/cartPayment", "/completePayment","/account","/account/register","/account/forgotPassword","/account/changePassword"].includes(
+    ["/cart", "/cartOrder", "/cartPayment", "/completePayment", "/account", "/account/register", "/account/forgotPassword", "/account/changePassword"].includes(
       location.pathname
     ) || location.pathname.startsWith("/travelSpots/");
-   
+
   return (
     <CartProvider>
       <Navbar isCartPages={isCartPages} />

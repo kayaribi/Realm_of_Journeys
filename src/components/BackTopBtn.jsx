@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
 import ScrollToTop from 'react-scroll-to-top';
 import { useLocation } from "react-router-dom";
+import PropTypes from 'prop-types';
 
-export default function BackTopBtn({footerHeight}){
-  const location = useLocation(); 
+export default function BackTopBtn({ footerHeight }) {
+  const location = useLocation();
   const [buttonPosition, setButtonPosition] = useState(100);
 
   useEffect(() => {
@@ -32,7 +33,7 @@ export default function BackTopBtn({footerHeight}){
     };
   }, [footerHeight]);
 
-  
+
   // ====================== 商品頁面不在手機板顯示置頂按鈕 ======================
   if (location.pathname === "/travelSpots") {
     if (window.innerWidth <= 575) {
@@ -40,20 +41,24 @@ export default function BackTopBtn({footerHeight}){
     }
   }
 
-  return(<>
-          <ScrollToTop
-          smooth
-          className="rounded-circle backToTopBtnStyle d-flex justify-content-center align-items-center"
-          component={
-            <img
-              className="backToTopSvg"
-              src="images/icon/up-arrow_48px.svg"
-              alt="Up Arrow"
-            />
-          }
-          style={{
-            bottom: `${buttonPosition}px`, // 距離底部動態變化
-          }}
+  return (<>
+    <ScrollToTop
+      smooth
+      className="rounded-circle backToTopBtnStyle d-flex justify-content-center align-items-center"
+      component={
+        <img
+          className="backToTopSvg"
+          src="images/icon/up-arrow_48px.svg"
+          alt="Up Arrow"
         />
+      }
+      style={{
+        bottom: `${buttonPosition}px`, // 距離底部動態變化
+      }}
+    />
   </>)
 }
+
+BackTopBtn.propTypes = {
+  footerHeight: PropTypes.number, // 根據實際情況可改為 isRequired
+};

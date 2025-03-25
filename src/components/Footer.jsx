@@ -1,16 +1,12 @@
 import { NavLink, useNavigate } from 'react-router-dom';
 import { CartContext } from "../store/store";
-import { useEffect, useState, useContext } from 'react';
+import { useContext } from 'react';
 import Swal from "sweetalert2";
 import '../scss/all.scss';
 
 export default function Footer() {
     const navigate = useNavigate();
     const { isAdminLoggedIn, logoutAdmin } = useContext(CartContext); // ✅ 取得狀態 & 登出函式
-
-    const linkActiveColor = ({ isActive }) => {
-        return `${isActive ? "text-danger" : ""}`
-    }
 
     const handleLogout = () => {
         Swal.fire({
