@@ -14,12 +14,11 @@ import { CartContext } from "../store/store";
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 const API_PATH = import.meta.env.VITE_API_PATH;
 
-const TravelSpotsItem = ({ cartProduct }) => {
+const TravelSpotsItem = () => {
   const { id } = useParams(); // 取得網址中的產品 ID
   const [product, setProduct] = useState(null);
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
   const [isScreenLoading, setIsScreenLoading] = useState(false);
-  const [productList, setProductList] = useState([]);
   const [randomProducts, setRandomProducts] = useState([]);
   const [isLargeScreen, setIsLargeScreen] = useState(window.innerWidth >= 992);
 
@@ -66,8 +65,6 @@ const TravelSpotsItem = ({ cartProduct }) => {
           allProducts.sort(() => Math.random() - 0.5).slice(0, 4)
         );
 
-        // 🔹 儲存完整產品列表 (可能未來需要)
-        setProductList(allProducts);
       } catch (error) {
         console.error("請求失敗", error);
       }
@@ -91,7 +88,7 @@ const TravelSpotsItem = ({ cartProduct }) => {
       await addCartItem(id, quantity); // 確保購物車資料更新
       navigate("/cart"); // 更新完成後再跳轉
     } catch (error) {
-      alert("加入購物車失敗");
+      alert("加入購物車失敗", error);
     }
   };
 
@@ -224,7 +221,7 @@ const TravelSpotsItem = ({ cartProduct }) => {
                       <span className="fs-10 fs-lg-9">成團人數：</span>
                     </div>
                     <h5 className="text-primary-500 fs-lg-7">
-                      {product.leastPeopleNum}
+                      {product.leastPeopleNum}人
                     </h5>
                   </div>
                   <div className="pb-4  pb-lg-8">

@@ -1,6 +1,5 @@
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import { Modal } from "bootstrap";
 import Swal from "sweetalert2";
 
 export default function Register() {
@@ -26,7 +25,7 @@ export default function Register() {
 
   const navigate = useNavigate();
 
-  const onSubmit = async (data) => {
+  const onSubmit = async () => {
     try {
       await Swal.fire({
         title: "恭喜註冊成功！即將返回首頁...",
@@ -85,9 +84,8 @@ export default function Register() {
                         type="text"
                         id="name"
                         placeholder="請輸入使用者姓名"
-                        className={` form-control ${
-                          errors.name ? "is-invalid" : ""
-                        } px-3 py-2 loginInInput w-100  d-inline-block`}
+                        className={` form-control ${errors.name ? "is-invalid" : ""
+                          } px-3 py-2 loginInInput w-100  d-inline-block`}
                         name="name"
                         {...register("name", {
                           required: {
@@ -121,9 +119,8 @@ export default function Register() {
                         <div>
                           <input
                             type="radio"
-                            className={` form-check-input ${
-                              errors.gender ? "is-invalid" : ""
-                            } `}
+                            className={` form-check-input ${errors.gender ? "is-invalid" : ""
+                              } `}
                             id="male"
                             name="gender"
                             value="male"
@@ -145,9 +142,8 @@ export default function Register() {
                         <div className="ms-sm-6 ms-8">
                           <input
                             type="radio"
-                            className={` form-check-input ${
-                              errors.gender ? "is-invalid" : ""
-                            } `}
+                            className={` form-check-input ${errors.gender ? "is-invalid" : ""
+                              } `}
                             id="female"
                             name="gender"
                             value="female"
@@ -166,9 +162,8 @@ export default function Register() {
                           </label>
                         </div>
                         <div
-                          className={`invalid-feedback position-absolute cusGenderFeedBackPosition ${
-                            errors.gender ? "d-block" : ""
-                          }`}
+                          className={`invalid-feedback position-absolute cusGenderFeedBackPosition ${errors.gender ? "d-block" : ""
+                            }`}
                         >
                           {errors?.gender?.message}
                         </div>
@@ -192,9 +187,8 @@ export default function Register() {
                     type="email"
                     id="registerEmail"
                     placeholder="請輸入 Email"
-                    className={` form-control ${
-                      errors.registerEmail ? "is-invalid" : ""
-                    } px-3 py-2 loginInInput w-100  d-inline-block`}
+                    className={` form-control ${errors.registerEmail ? "is-invalid" : ""
+                      } px-3 py-2 loginInInput w-100  d-inline-block`}
                     name="registerEmail"
                     {...register("registerEmail", {
                       required: {
@@ -232,9 +226,8 @@ export default function Register() {
                     type="password"
                     id="registerPassword"
                     placeholder="請輸入密碼"
-                    className={` form-control ${
-                      errors.registerPassword ? "is-invalid" : ""
-                    } px-3 py-2 loginInInput w-100  d-inline-block`}
+                    className={` form-control ${errors.registerPassword ? "is-invalid" : ""
+                      } px-3 py-2 loginInInput w-100  d-inline-block`}
                     name="registerEmail"
                     {...register("registerPassword", {
                       required: {
@@ -272,9 +265,8 @@ export default function Register() {
                     type="password"
                     id="registerConfirmPassword"
                     placeholder="請再次輸入密碼"
-                    className={` form-control ${
-                      errors.registerConfirmPassword ? "is-invalid" : ""
-                    } px-3 py-2 loginInInput w-100  d-inline-block`}
+                    className={` form-control ${errors.registerConfirmPassword ? "is-invalid" : ""
+                      } px-3 py-2 loginInInput w-100  d-inline-block`}
                     name="registerConfirmPassword"
                     {...register("registerConfirmPassword", {
                       required: {
@@ -310,9 +302,8 @@ export default function Register() {
                     type="tel"
                     id="registerCellPhone"
                     placeholder="請輸入手機號碼"
-                    className={` form-control ${
-                      errors.registerCellPhone ? "is-invalid" : ""
-                    } px-3 py-2 loginInInput w-100  d-inline-block`}
+                    className={` form-control ${errors.registerCellPhone ? "is-invalid" : ""
+                      } px-3 py-2 loginInInput w-100  d-inline-block`}
                     name="registerCellPhone"
                     {...register("registerCellPhone", {
                       required: {
@@ -350,9 +341,8 @@ export default function Register() {
                     type="text"
                     id="registerLineId"
                     placeholder="請輸入 LINE ID"
-                    className={` form-control ${
-                      errors.registerLineId ? "is-invalid" : ""
-                    } px-3 py-2 loginInInput w-100  d-inline-block`}
+                    className={` form-control ${errors.registerLineId ? "is-invalid" : ""
+                      } px-3 py-2 loginInInput w-100  d-inline-block`}
                     name="registerLineId"
                     {...register("registerLineId", {
                       required: {

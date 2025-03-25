@@ -205,7 +205,7 @@ export default function TravelSpots() {
 
       isScrollLoadingRef.current = true;
       const res = await axios.get(
-        `${BASE_URL}/v2/api/${API_PATH}/admin/products?page=${page}&category=${category}`
+        `${BASE_URL}/v2/api/${API_PATH}/products?page=${page}&category=${category}`
       );
       const { products, pagination } = res.data;
       setPagination(pagination);
@@ -288,9 +288,8 @@ export default function TravelSpots() {
               <ul className="list-unstyled mb-0 travelSpotsSelectWrap p-1">
                 <li className="travelSpotsSelectbuttonWrap  ">
                   <a
-                    className={`filterTagRefs text-white fw-bold travelSpotsSelectbutton ${
-                      selected === "" ? "bg-primary-500" : ""
-                    } text-nowrap py-xl-4 py-md-3 py-2`}
+                    className={`filterTagRefs text-white fw-bold travelSpotsSelectbutton ${selected === "" ? "bg-primary-500" : ""
+                      } text-nowrap py-xl-4 py-md-3 py-2`}
                     href=""
                     onClick={(e) => {
                       handleFilterProducts(e, "");
@@ -301,9 +300,8 @@ export default function TravelSpots() {
                 </li>
                 <li className="travelSpotsSelectbuttonWrap">
                   <a
-                    className={`filterTagRefs text-white fw-bold ${
-                      selected === "亞洲" ? "bg-primary-500" : ""
-                    } travelSpotsSelectbutton  text-nowrap py-xl-4 py-md-3 py-2`}
+                    className={`filterTagRefs text-white fw-bold ${selected === "亞洲" ? "bg-primary-500" : ""
+                      } travelSpotsSelectbutton  text-nowrap py-xl-4 py-md-3 py-2`}
                     href=""
                     onClick={(e) => {
                       handleFilterProducts(e, "亞洲");
@@ -314,9 +312,8 @@ export default function TravelSpots() {
                 </li>
                 <li className="travelSpotsSelectbuttonWrap">
                   <a
-                    className={`filterTagRefs text-white fw-bold ${
-                      selected === "歐洲" ? "bg-primary-500" : ""
-                    } travelSpotsSelectbutton  text-nowrap py-xl-4 py-md-3 py-2`}
+                    className={`filterTagRefs text-white fw-bold ${selected === "歐洲" ? "bg-primary-500" : ""
+                      } travelSpotsSelectbutton  text-nowrap py-xl-4 py-md-3 py-2`}
                     href=""
                     onClick={(e) => {
                       handleFilterProducts(e, "歐洲");
@@ -327,9 +324,8 @@ export default function TravelSpots() {
                 </li>
                 <li className="travelSpotsSelectbuttonWrap">
                   <a
-                    className={`filterTagRefs text-white fw-bold ${
-                      selected === "中東" ? "bg-primary-500" : ""
-                    } travelSpotsSelectbutton  text-nowrap py-xl-4 py-md-3 py-2`}
+                    className={`filterTagRefs text-white fw-bold ${selected === "中東" ? "bg-primary-500" : ""
+                      } travelSpotsSelectbutton  text-nowrap py-xl-4 py-md-3 py-2`}
                     href=""
                     onClick={(e) => {
                       handleFilterProducts(e, "中東");
@@ -379,9 +375,8 @@ export default function TravelSpots() {
                           return (
                             <p
                               key={index}
-                              className={`${
-                                index === 0 ? "mb-sm-0 mb-2" : ""
-                              } text-neutral-300 travelSpotCardDescription`}
+                              className={`${index === 0 ? "mb-sm-0 mb-2" : ""
+                                } text-neutral-300 travelSpotCardDescription`}
                             >
                               {des}
                             </p>
@@ -419,9 +414,8 @@ export default function TravelSpots() {
                       {/* 總頁數小於等於 3 */}
                       <li>
                         <a
-                          className={`leftArrow ${
-                            pagination.has_pre ? "" : "disabled"
-                          }  `}
+                          className={`leftArrow ${pagination.has_pre ? "" : "disabled"
+                            }  `}
                           onClick={(e) => {
                             e.preventDefault();
                             getProduct(pagination.current_page - 1, selected);
@@ -433,13 +427,11 @@ export default function TravelSpots() {
                         (_, index) => {
                           return (
                             <li
-                              className={`cusDotStylePagination ${
-                                index === 0 ? "" : "paginationNumbersMargin"
-                              } ${
-                                index + 1 === pagination.current_page
+                              className={`cusDotStylePagination ${index === 0 ? "" : "paginationNumbersMargin"
+                                } ${index + 1 === pagination.current_page
                                   ? "paginationActive"
                                   : ""
-                              }`}
+                                }`}
                               key={`${index}_page`}
                             >
                               <a
@@ -459,9 +451,8 @@ export default function TravelSpots() {
                       )}
                       <li>
                         <a
-                          className={`rightArrow ${
-                            pagination.has_next ? "" : "disabled"
-                          }`}
+                          className={`rightArrow ${pagination.has_next ? "" : "disabled"
+                            }`}
                           onClick={(e) => {
                             e.preventDefault();
                             getProduct(pagination.current_page + 1, selected);
@@ -475,9 +466,8 @@ export default function TravelSpots() {
                       {/* 總頁數大於 3 */}
                       <li>
                         <a
-                          className={`leftArrow ${
-                            pagination.has_pre ? "" : "disabled"
-                          }  `}
+                          className={`leftArrow ${pagination.has_pre ? "" : "disabled"
+                            }  `}
                           onClick={(e) => {
                             e.preventDefault();
                             getProduct(pagination.current_page - 1, selected);
@@ -489,27 +479,23 @@ export default function TravelSpots() {
                         (_, index) => {
                           return (
                             <li
-                              className={`cusDotStylePagination ${
-                                index === 0 ? "" : "paginationNumbersMargin"
-                              } 
+                              className={`cusDotStylePagination ${index === 0 ? "" : "paginationNumbersMargin"
+                                } 
 
-                              ${
-                                isDotPagination &&
+                              ${isDotPagination &&
                                 index !== 0 &&
                                 index !== pagination.total_pages - 1 &&
                                 "dotDisplayNone"
-                              } 
+                                } 
                               
-                             ${
-                               isDotPagination &&
-                               index + 1 === pagination.current_page &&
-                               dotPaginationDirection
-                             }
+                             ${isDotPagination &&
+                                index + 1 === pagination.current_page &&
+                                dotPaginationDirection
+                                }
  
-                                ${
-                                  index + 1 === pagination.current_page
-                                    ? "paginationActive"
-                                    : ""
+                                ${index + 1 === pagination.current_page
+                                  ? "paginationActive"
+                                  : ""
                                 }
                               `}
                               key={`${index}_page`}
@@ -531,9 +517,8 @@ export default function TravelSpots() {
                       )}
                       <li>
                         <a
-                          className={`rightArrow ${
-                            pagination.has_next ? "" : "disabled"
-                          }`}
+                          className={`rightArrow ${pagination.has_next ? "" : "disabled"
+                            }`}
                           onClick={(e) => {
                             e.preventDefault();
                             getProduct(pagination.current_page + 1, selected);

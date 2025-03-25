@@ -1,0 +1,94 @@
+/* 覆蓋樣式的SCSS文件 */
+.adminDashboard {
+
+  input[type=number]::-webkit-outer-spin-button,
+  input[type=number]::-webkit-inner-spin-button {
+    -webkit-appearance: auto;
+    margin: 0;
+  }
+
+  .pagination {
+    margin: 0;
+    gap: 4px; // 使用 gap 替代單獨的 margin，更容易控制間距
+
+    .page-link {
+      color: #4A4A4A !important; // 使用較柔和的黑色
+      font-weight: 500; // 適中的字重
+      font-size: 16px; // 調整字體大小
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      padding: 0;
+      margin: 0 4px;
+      border: none; // 移除邊框
+      transition: all 0.3s ease; // 添加過渡效果
+
+      // 移除 focus 時的外框
+      &:focus {
+        box-shadow: none;
+        outline: none;
+      }
+
+      // 添加 hover 效果
+      &:hover:not(.disabled) {
+        transform: translateY(-1px); // 輕微上浮效果
+      }
+    }
+
+    .page-item-bullet {
+      &:hover .page-link {
+        background: #E4EEFA;
+        color: #1B67AE !important;
+        border-radius: 50%;
+        box-shadow: 0 2px 4px rgba(27, 103, 174, 0.1); // 添加陰影
+      }
+
+      &.active .page-link {
+        background: #E4EEFA;
+        color: #1B67AE !important;
+        border-radius: 50%;
+        font-weight: 600; // 當前頁面使用更粗的字重
+        box-shadow: 0 2px 8px rgba(27, 103, 174, 0.15); // 更明顯的陰影
+      }
+
+      // 省略號樣式
+      &.disabled {
+        .page-link {
+          cursor: not-allowed;
+          background-color: transparent;
+          border-color: transparent;
+          pointer-events: none;
+
+          .pagination-arrow {
+            color: #C4C4C4;
+            opacity: 0.8; // 稍微調整透明度
+          }
+
+          // 省略號特殊樣式
+          &:not(.pagination-arrow) {
+            font-size: 16px; // 調整省略號大小
+            letter-spacing: 2px; // 增加省略號間距
+            color: #9E9E9E !important; // 使用較淡的灰色
+          }
+
+          &:hover {
+            background-color: transparent !important;
+          }
+        }
+      }
+    }
+
+    // 箭頭圖標樣式優化
+    .pagination-arrow {
+      width: 16px;
+      height: 16px;
+      transition: transform 0.3s ease;
+
+      &:hover:not(.disabled) {
+        transform: scale(1.1); // hover 時稍微放大
+      }
+    }
+  }
+}

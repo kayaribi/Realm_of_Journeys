@@ -2,6 +2,7 @@ import DepartureTimeDecoration from "./DepartureTimeDecoration";
 import { Link } from "react-router-dom";
 import WOW from "wow.js";
 import "animate.css";
+import PropTypes from 'prop-types';
 import { useEffect } from "react";
 
 function FeaturedCard({ featuredItem, index }) {
@@ -71,5 +72,20 @@ function FeaturedCard({ featuredItem, index }) {
     </div>
   );
 }
+
+FeaturedCard.propTypes = {
+  featuredItem: PropTypes.shape({
+    id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+    imageUrl: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired,
+    origin_price: PropTypes.number.isRequired,
+    price: PropTypes.number.isRequired,
+    unit: PropTypes.string.isRequired,
+    travelDate: PropTypes.string, // 如果 DepartureTimeDecoration 需要
+  }).isRequired,
+  index: PropTypes.number.isRequired,
+};
+
 
 export default FeaturedCard;

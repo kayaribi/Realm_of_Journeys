@@ -2,9 +2,10 @@ import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState, useContext } from "react";
 import "../scss/all.scss";
 import { CartContext } from "../store/store";
+import PropTypes from 'prop-types';
 import Swal from "sweetalert2";
 
-export default function Navbar({ isCartPages }) {
+function Navbar({ isCartPages }) {
   const { cartList } = useContext(CartContext); // 獲取購物車資料
   const location = useLocation();
   const [isNavbarOpen, setIsNavbarOpen] = useState(false);
@@ -23,13 +24,13 @@ export default function Navbar({ isCartPages }) {
       setIsToken(cookies.userToken ? true : false);
     };
     checkUserToken();
-  }, [location]); 
+  }, [location]);
 
   // 連結被選中的樣式
   const linkActiveColor = ({ isActive }) => {
     return `nav-link ${isActive ? "text-primary-600 fw-bold" : ""}`;
   };
-  
+
   // 漢堡選單 - 開關
   const handleNavbarToggle = () => {
     setIsNavbarOpen((prevState) => !prevState);
@@ -94,7 +95,7 @@ export default function Navbar({ isCartPages }) {
   const cartItemCount = cartList.reduce((total, item) => total + item.qty, 0);
 
   // 登出
-  const logout = ()=>{
+  const logout = () => {
     document.cookie = "userToken=";
     setIsToken(false);
     handleLinkClick();
@@ -107,7 +108,7 @@ export default function Navbar({ isCartPages }) {
     navigate('/');
   }
   // 待製作
-  const toBeUpdated = ()=>{
+  const toBeUpdated = () => {
     alert("此功能尚未開放，敬請期待！");
   }
 
@@ -140,7 +141,7 @@ export default function Navbar({ isCartPages }) {
               to="/cart"
               onClick={handleLinkClick}
               className={`d-block d-lg-none me-4 fs-6 d-flex align-items-center
-              ${ isCartPages ? "text-neutral-300" : cartIconClass }`}
+              ${isCartPages ? "text-neutral-300" : cartIconClass}`}
             >
               <i className="bi bi-cart position-relative">
                 {cartItemCount > 0 && (
@@ -168,7 +169,7 @@ export default function Navbar({ isCartPages }) {
               onClick={handleNavbarToggle}
             >
               <i className={`${isNavbarOpen ? "bi bi-x" : "bi bi-list"} 
-                ${ isCartPages ? "text-neutral-300" : hamburgIconClass }`}
+                ${isCartPages ? "text-neutral-300" : hamburgIconClass}`}
               ></i>
             </button>
           </div>
@@ -230,52 +231,52 @@ export default function Navbar({ isCartPages }) {
               {isToken ? (
                 // 使用者按鈕
                 screenWidth ? (
-                    <div className="dropdown user-btn">
+                  <div className="dropdown user-btn">
+                    <button
+                      className="btn btn-primary-50 border border-primary-500 dropdown-toggle px-4 py-2 d-flex"
+                      type="button"
+                      id="dropdownMenuButton1"
+                      data-bs-toggle="dropdown"
+                    >
+                      <img src="images/user-icon.png" className="me-2" alt="user-img" />
+                      <p className="fs-7">Nina</p>
+                    </button>
+                    <ul className="dropdown-menu mt-4">
+                      <li><button type="button" className="dropdown-item m-0" onClick={toBeUpdated}>訂單資訊</button></li>
+                      <hr className="dropdown-hr" />
+                      <li><button type="button" className="dropdown-item m-0" onClick={toBeUpdated}>我的最愛</button></li>
+                      <hr className="dropdown-hr" />
+                      <li><button type="button" className="dropdown-item m-0 text-center" onClick={logout}>登出</button></li>
+                    </ul>
+                  </div>
+                )
+                  // 登出按鈕
+                  : (<>
+                    <div className="dropdown user-btn mobile-user-btn">
                       <button
-                        className="btn btn-primary-50 border border-primary-500 dropdown-toggle px-4 py-2 d-flex"
+                        className="btn btn-primary-50 border border-primary-500 px-4 py-2 d-flex"
                         type="button"
-                        id="dropdownMenuButton1"
-                        data-bs-toggle="dropdown"
+                        onClick={toBeUpdated}
                       >
                         <img src="images/user-icon.png" className="me-2" alt="user-img" />
                         <p className="fs-7">Nina</p>
                       </button>
-                      <ul className="dropdown-menu mt-4">
-                        <li><button type="button" className="dropdown-item m-0" onClick={toBeUpdated}>訂單資訊</button></li>
-                        <hr className="dropdown-hr" />
-                        <li><button type="button" className="dropdown-item m-0" onClick={toBeUpdated}>我的最愛</button></li>
-                        <hr className="dropdown-hr" />
-                        <li><button type="button" className="dropdown-item m-0 text-center" onClick={logout}>登出</button></li>
-                      </ul>
                     </div>
-                  )
-                  // 登出按鈕
-                  : (<>
-                      <div className="dropdown user-btn mobile-user-btn">
-                        <button
-                          className="btn btn-primary-50 border border-primary-500 px-4 py-2 d-flex"
-                          type="button"
-                          onClick={toBeUpdated}
-                        >
-                          <img src="images/user-icon.png" className="me-2" alt="user-img" />
-                          <p className="fs-7">Nina</p>
-                        </button>
-                      </div>
-                      <li className="nav-item mt-lg-0">
-                        <button type="button" className="btn text-primary-600 logout-btn" onClick={logout}>
-                          登出
-                        </button>
-                      </li>
+                    <li className="nav-item mt-lg-0">
+                      <button type="button" className="btn text-primary-600 logout-btn" onClick={logout}>
+                        登出
+                      </button>
+                    </li>
                   </>)
-                ) : (
-                  <li className="nav-item mt-lg-0 login-btn-margin">
-                    <button type="button" className="btn btn-primary-600 login-btn">
-                      <NavLink to="/account" className="text-white" onClick={handleLinkClick}>
-                        登入 / 註冊
-                      </NavLink>
-                    </button>
-                  </li>
-                )}
+              ) : (
+                <li className="nav-item mt-lg-0 login-btn-margin">
+                  <button type="button" className="btn btn-primary-600 login-btn">
+                    <NavLink to="/account" className="text-white" onClick={handleLinkClick}>
+                      登入 / 註冊
+                    </NavLink>
+                  </button>
+                </li>
+              )}
             </ul>
           </div>
         </div>
@@ -283,3 +284,9 @@ export default function Navbar({ isCartPages }) {
     </>
   );
 }
+
+Navbar.propTypes = {
+  isCartPages: PropTypes.bool.isRequired,
+};
+
+export default Navbar;

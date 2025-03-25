@@ -30,7 +30,7 @@ export default function CartPayment() {
       }));
     } else {
       setErrors((prevErrors) => {
-        const { cardNum, ...rest } = prevErrors;
+        const { ...rest } = prevErrors;
         return rest;
       });
     }
@@ -48,7 +48,7 @@ export default function CartPayment() {
       }));
     } else {
       setErrors((prevErrors) => {
-        const { cardTerm, ...rest } = prevErrors;
+        const { ...rest } = prevErrors;
         return rest;
       });
     }
@@ -66,7 +66,7 @@ export default function CartPayment() {
       }));
     } else {
       setErrors((prevErrors) => {
-        const { securityCode, ...rest } = prevErrors;
+        const { ...rest } = prevErrors;
         return rest;
       });
     }

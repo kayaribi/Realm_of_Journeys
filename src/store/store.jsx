@@ -1,5 +1,5 @@
 import axios from "axios";
-
+import PropTypes from "prop-types";
 import { createContext, useReducer, useEffect, useState } from "react";
 
 
@@ -97,7 +97,7 @@ export const CartProvider = ({ children }) => {
       setIsScreenLoading(true);
       const res = await axios.get(`${BASE_URL}/v2/api/${API_PATH}/cart`);
       dispatch({ type: "GET_CART", payload: res.data.data });
-    } catch (error) {
+    } catch {
       showToast('取得購物車列表失敗', 'danger');
     } finally {
       setIsScreenLoading(false);
@@ -145,7 +145,7 @@ export const CartProvider = ({ children }) => {
 
       await getCart(); // 更新購物車列表
       showToast('加入購物車成功！', 'success');
-    } catch (error) {
+    } catch {
       showToast('加入購物車失敗', 'danger');
     }
   };
@@ -153,10 +153,10 @@ export const CartProvider = ({ children }) => {
   // 刪除全部購物車品項
   const removeCart = async () => {
     try {
-      const res = await axios.delete(`${BASE_URL}/v2/api/${API_PATH}/carts`);
+      await axios.delete(`${BASE_URL}/v2/api/${API_PATH}/carts`);
       dispatch({ type: "REMOVE_CART" });
       showToast('購物車已清空', 'success');
-    } catch (error) {
+    } catch {
       showToast('刪除購物車失敗', 'danger');
     }
   };
@@ -164,12 +164,12 @@ export const CartProvider = ({ children }) => {
   // 刪除單一購物車品項
   const removeCartItem = async (cartItem_id) => {
     try {
-      const res = await axios.delete(
+      await axios.delete(
         `${BASE_URL}/v2/api/${API_PATH}/cart/${cartItem_id}`
       );
       dispatch({ type: "REMOVE_CART_ITEM", payload: cartItem_id });
       showToast('商品已從購物車中移除', 'success');
-    } catch (error) {
+    } catch {
       showToast('刪除購物車品項失敗', 'danger');
     }
   };
@@ -185,7 +185,7 @@ export const CartProvider = ({ children }) => {
       );
       dispatch({ type: "UPDATE_QUANTITY", payload: res.data.data });
       showToast('數量更新成功', 'success');
-    } catch (error) {
+    } catch {
       showToast('數量更新失敗', 'danger');
     }
   };
@@ -194,7 +194,7 @@ export const CartProvider = ({ children }) => {
   const checkout = async () => {
     try {
       const userData = JSON.parse(localStorage.getItem('formData'));
-      const resComplete = await axios.post(`${BASE_URL}/v2/api/${API_PATH}/order`,
+      await axios.post(`${BASE_URL}/v2/api/${API_PATH}/order`,
         {
           "data": {
             "user": {
@@ -210,10 +210,15 @@ export const CartProvider = ({ children }) => {
       dispatch({ type: "REMOVE_CART" }); // 清空購物車
       showToast('訂單已完成', 'success');
       localStorage.clear(); // 清除 localStorage
-    } catch (error) {
+    } catch {
       alert('訂單失敗');
     }
   };
+
+  CartProvider.propTypes = {
+    children: PropTypes.node.isRequired,
+  };
+
 
   return (
     <CartContext.Provider
@@ -231,6 +236,7 @@ export const CartProvider = ({ children }) => {
         checkout,
         toastMessage, // toast訊息
         showToast, //讓外部元件可以使用 showToast
+        getCart,
       }}
     >
       {children}

@@ -13,7 +13,7 @@ export default function CompletePayment() {
     const totalAmount = cartList.reduce((sum, cartItem) => sum + cartItem.total, 0);
     setOrderTotal(totalAmount); // 存入 state
     checkout(); // 結帳 + 清空購物車
-  }, []);
+  }, [cartList, checkout]);
 
   useEffect(() => {
     const today = new Date();

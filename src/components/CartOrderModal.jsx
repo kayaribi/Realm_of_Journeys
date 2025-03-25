@@ -1,10 +1,11 @@
 import { useLocation, useNavigate } from "react-router-dom"
+import PropTypes from "prop-types";
 
 export default function CartOrderModal({cartOrderModal,closeBackSubmitModal,saveFormData, formData}){
     const navigate = useNavigate();
     const location = useLocation();
     // 跳轉頁面
-    const backBtn = (data)=>{
+    const backBtn = ()=>{
         if(location.pathname === "/cartOrder"){
             saveFormData(formData);// 儲存表單資料到 localStorage
             navigate('/cart');
@@ -43,3 +44,10 @@ export default function CartOrderModal({cartOrderModal,closeBackSubmitModal,save
         </div>
     </>)
 }
+
+CartOrderModal.propTypes = {
+    cartOrderModal: PropTypes.shape({ current: PropTypes.object }).isRequired,
+    closeBackSubmitModal: PropTypes.func.isRequired,
+    saveFormData: PropTypes.func.isRequired,
+    formData: PropTypes.object.isRequired,
+};

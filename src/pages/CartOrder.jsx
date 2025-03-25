@@ -44,7 +44,7 @@ export default function CartOrder() {
   const formData = watch();
   const saveFormData = (data) => {
     // 過濾掉不需要儲存的欄位
-    const { isAgree, ...filteredData } = data;
+    const { ...filteredData } = data;
 
     localStorage.setItem('formData', JSON.stringify(filteredData));
   };
