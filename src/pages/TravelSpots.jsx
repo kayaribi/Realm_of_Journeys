@@ -174,7 +174,7 @@ export default function TravelSpots() {
         password: "RealmOfJourneys",
       });
 
-      const { token, expired } = res.data;
+      const { token } = res.data;
       // document.cookie = `hexToken=${token}; expires=${new Date(expired)}`;
       axios.defaults.headers.common["Authorization"] = token;
       setIsSignIn(true);
@@ -228,7 +228,7 @@ export default function TravelSpots() {
         }
       }, 1000);
       setIsScreenLoading(false);
-    } catch (error) {
+    } catch {
       alert("資料抓取失敗");
     }
   };
