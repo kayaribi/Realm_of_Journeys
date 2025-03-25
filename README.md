@@ -3,7 +3,8 @@
 ## 專案路徑
 
 * [GitHub repo](https://github.com/kayaribi/Realm_of_Journeys/tree/feature/star)
-* [GitHub page](https://kayaribi.github.io/Realm_of_Journeys/)
+* [GitHub pages](https://kayaribi.github.io/Realm_of_Journeys/)
+* [GitHub pages 後台管理頁](https://kayaribi.github.io/Realm_of_Journeys/#/admin)
 
 ---
 
@@ -107,6 +108,14 @@
 
 ---
 
+### 後台頁面
+![管理員登入頁](/public/readmeImg/img-16.png)
+- 管理員登入頁。
+![產品列表](/public/readmeImg/img-17.png)
+- 產品列表，可編輯或新增、下架產品。
+
+---
+
 ## 特別感謝 - 專題指導
 
 * 六角學院 / 洧杰校長 & 卡斯伯老師
@@ -118,5 +127,3 @@
 ## 圖片素材來源
 
 * [Unsplash](https://unsplash.com/)
-
-
