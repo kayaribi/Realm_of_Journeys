@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types';
+
 export default function DepartureTimeDecoration({ featuredItem }) {
   return (
     <div className="bg-primary-500 d-flex align-items-center position-absolute bottom-0 end-0 py-1 px-3">
@@ -8,3 +10,9 @@ export default function DepartureTimeDecoration({ featuredItem }) {
     </div>
   );
 }
+
+DepartureTimeDecoration.propTypes = {
+  featuredItem: PropTypes.shape({
+    travelDate: PropTypes.string.isRequired,
+  }).isRequired,
+};

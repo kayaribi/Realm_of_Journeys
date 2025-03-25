@@ -1,6 +1,7 @@
 import { useEffect, useState, useRef } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination, Autoplay } from 'swiper/modules';
+import PropTypes from 'prop-types';
 import WOW from "wow.js";
 import "animate.css";
 import 'swiper/css';
@@ -29,6 +30,13 @@ const groupedDesktopData = chunkArray(evaluateData, 4);
   依據 totalPages 與 currentPage 顯示不同的頁碼
 ===================== */
 const CustomPagination = ({ totalPages, currentPage, onClickPage, swiperInstance }) => {
+  CustomPagination.propTypes = {
+    totalPages: PropTypes.number.isRequired,
+    currentPage: PropTypes.number.isRequired,
+    onClickPage: PropTypes.func.isRequired,
+    swiperInstance: PropTypes.object, // optional, 可根據需要設為 required
+  };
+
   let pages = [];
 
   // 當總頁數小於等於 3 時，直接顯示所有頁碼
@@ -151,7 +159,7 @@ function Evaluate() {
       setCurrentPage(1);
       setTotalPages(Math.ceil((swiperInstance?.slides?.length || 1) / 1));
     }
-  }, [isDesktop]);
+  }, [isDesktop, swiperInstance]);
 
   /* ---------------------
     監聽視窗大小改變事件，動態更新是否為桌面版

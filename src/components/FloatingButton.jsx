@@ -12,7 +12,6 @@ export default function FloatingButton() {
 
       if (footer && button) {
         const footerTop = footer.offsetTop;
-        const buttonHeight = button.offsetHeight;
         const windowBottom = window.scrollY + window.innerHeight;
 
         // 當視窗底部超過 footerTop - buttonHeight 時，固定在 footer 上方

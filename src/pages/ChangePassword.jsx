@@ -20,7 +20,7 @@ export default function ChangePassword() {
 
   const password = watch("newPassword");
 
-  const onSubmit = async (data) => {
+  const onSubmit = async () => {
     try {
       await Swal.fire({
         title: "密碼修改成功！",
@@ -70,9 +70,8 @@ export default function ChangePassword() {
                       type="password"
                       id="newPassword"
                       placeholder="請輸入新密碼"
-                      className={` form-control ${
-                        errors.newPassword ? "is-invalid" : ""
-                      } px-3 py-2 loginInInput w-100  d-inline-block`}
+                      className={` form-control ${errors.newPassword ? "is-invalid" : ""
+                        } px-3 py-2 loginInInput w-100  d-inline-block`}
                       name="newPassword"
                       {...register("newPassword", {
                         required: {
@@ -110,9 +109,8 @@ export default function ChangePassword() {
                       type="password"
                       id="confirmNewPassword"
                       placeholder="請再次輸入新密碼"
-                      className={` form-control ${
-                        errors.confirmNewPassword ? "is-invalid" : ""
-                      } px-3 py-2 loginInInput w-100  d-inline-block`}
+                      className={` form-control ${errors.confirmNewPassword ? "is-invalid" : ""
+                        } px-3 py-2 loginInInput w-100  d-inline-block`}
                       name="confirmNewPassword"
                       {...register("confirmNewPassword", {
                         required: {

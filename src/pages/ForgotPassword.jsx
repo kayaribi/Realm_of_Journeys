@@ -18,7 +18,7 @@ export default function ForgotPassword() {
 
   const navigate = useNavigate();
 
-  const onSubmit = async (data) => {
+  const onSubmit = async () => {
     try {
       await Swal.fire({
         title: "驗證成功！跳轉至修改密碼頁面",
@@ -68,9 +68,8 @@ export default function ForgotPassword() {
                       type="email"
                       id="emailForFindPassword"
                       placeholder="請輸入電子郵件"
-                      className={` form-control ${
-                        errors.emailForFindPassword ? "is-invalid" : ""
-                      } px-3 py-2 loginInInput w-100  d-inline-block`}
+                      className={` form-control ${errors.emailForFindPassword ? "is-invalid" : ""
+                        } px-3 py-2 loginInInput w-100  d-inline-block`}
                       name="emailForFindPassword"
                       {...register("emailForFindPassword", {
                         required: {
@@ -108,9 +107,8 @@ export default function ForgotPassword() {
                       type="text"
                       id="verificationCode"
                       placeholder="請輸入驗證碼"
-                      className={` form-control ${
-                        errors.verificationCode ? "is-invalid" : ""
-                      } px-3 py-2 loginInInput w-100  d-inline-block`}
+                      className={` form-control ${errors.verificationCode ? "is-invalid" : ""
+                        } px-3 py-2 loginInInput w-100  d-inline-block`}
                       name="verificationCode"
                       {...register("verificationCode", {
                         required: {
