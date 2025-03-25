@@ -228,8 +228,8 @@ export default function TravelSpots() {
         }
       }, 1000);
       setIsScreenLoading(false);
-    } catch (error) {
-      alert("資料抓取失敗", error);
+    } catch {
+      alert("資料抓取失敗");
     }
   };
 
