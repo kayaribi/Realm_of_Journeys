@@ -1,12 +1,9 @@
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import { Link } from "react-router-dom";
 import ReactLoading from "react-loading";
 import { CartContext } from "../store/store";
 import CartItem from "../components/CartItem";
 import EmptyCart from "../components/EmptyCart";
-
-const BASE_URL = import.meta.env.VITE_BASE_URL;
-const API_PATH = import.meta.env.VITE_API_PATH;
 
 export default function Cart() {
   const {

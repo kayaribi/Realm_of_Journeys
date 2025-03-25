@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import PropTypes from 'prop-types'; 
 
 const AnimateGo = ({ animation, children }) => {
   const elementRef = useRef(null);
@@ -40,6 +41,11 @@ const AnimateGo = ({ animation, children }) => {
       </div>
     </div>
   );
+};
+
+AnimateGo.propTypes = {
+  animation: PropTypes.string.isRequired,  
+  children: PropTypes.node.isRequired,     
 };
 
 export default AnimateGo;

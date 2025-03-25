@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import PropTypes from "prop-types";
+
 
 const CartItem = ({ cartItem, updateQuantity, removeCartItem }) => {
   const [isDesktop, setIsDesktop] = useState(false);
@@ -122,6 +124,21 @@ const CartItem = ({ cartItem, updateQuantity, removeCartItem }) => {
       </div>
     </div>
   );
+};
+
+CartItem.propTypes = {
+  cartItem: PropTypes.shape({
+    id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+    qty: PropTypes.number.isRequired,
+    total: PropTypes.number.isRequired,
+    product: PropTypes.shape({
+      imageUrl: PropTypes.string.isRequired,
+      title: PropTypes.string.isRequired,
+      travelDate: PropTypes.string.isRequired,
+    }).isRequired,
+  }).isRequired,
+  updateQuantity: PropTypes.func.isRequired,
+  removeCartItem: PropTypes.func.isRequired,
 };
 
 export default CartItem;

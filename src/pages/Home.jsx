@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, createRef } from "react";
 import { CSSTransition } from "react-transition-group";
 import { Link } from "react-router-dom";
 import axios from "axios";
@@ -22,7 +22,7 @@ const images = [
 
 export default function Home() {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const imageRefs = useRef(images.map(() => useRef(null)));
+  const imageRefs = useRef(images.map(() => createRef()));
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -33,11 +33,10 @@ export default function Home() {
 
   const signIn = async () => {
     try {
-      const res = await axios.post(`${BASE_URL}/v2/admin/signin`, {
+      await axios.post(`${BASE_URL}/v2/admin/signin`, {
         username: "RealmOfJourneys@gmail.com",
         password: "RealmOfJourneys",
       });
-      const { token } = res.data;
     } catch (error) {
       console.log(error);
     }
