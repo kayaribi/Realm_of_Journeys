@@ -35,6 +35,7 @@ const AdminDashboard = () => {
   const [products, setProducts] = useState([]);
   const [isScreenLoading, setIsScreenLoading] = useState(false);
   const [formErrors, setFormErrors] = useState({});
+  const [selectedCategory, setSelectedCategory] = useState("全部");
 
   const validateProduct = () => {
     const errors = {};
@@ -70,10 +71,15 @@ const AdminDashboard = () => {
   }, [navigate, isAdminLoggedIn]);
 
   // ✅ 放在 useEffect 外面
-  const getProducts = async (page = 1) => {
+  const getProducts = async (page = 1, category = selectedCategory) => {
     setIsScreenLoading(true);
     try {
-      const res = await axios.get(`${BASE_URL}/v2/api/${API_PATH}/admin/products?page=${page}`);
+      let url = `${BASE_URL}/v2/api/${API_PATH}/admin/products?page=${page}`;
+      if (category !== "全部") {
+        url += `&category=${category}`;
+      }
+
+      const res = await axios.get(url);
       setProducts(res.data.products);
       setPageInfo(res.data.pagination);
     } catch (error) {
@@ -83,6 +89,7 @@ const AdminDashboard = () => {
       setIsScreenLoading(false);
     }
   };
+
 
   useEffect(() => {
     getProducts();
@@ -369,36 +376,34 @@ const AdminDashboard = () => {
   const [pageInfo, setPageInfo] = useState({});
 
   const handlePageChange = (page) => {
-    getProducts(page);
+    getProducts(page, selectedCategory);
   };
 
   // 首先創建一個生成分頁數組的函數
   const generatePagination = (currentPage, totalPages) => {
-    const delta = 2; // 當前頁面前後顯示的頁數
+    const safeTotal = totalPages < 1 ? 1 : totalPages; // 保證至少 1 頁
+    const delta = 2;
     const range = [];
     const rangeWithDots = [];
     let l;
 
-    // 生成基礎範圍
-    for (let i = Math.max(2, currentPage - delta); i <= Math.min(totalPages - 1, currentPage + delta); i++) {
+    for (let i = Math.max(2, currentPage - delta); i <= Math.min(safeTotal - 1, currentPage + delta); i++) {
       range.push(i);
     }
 
-    // 確保始終顯示第一頁和最後一頁
-    if (totalPages > 1) {
+    if (safeTotal > 1) {
       range.unshift(1);
-      if (totalPages > 1) {
-        range.push(totalPages);
-      }
+      range.push(safeTotal);
+    } else {
+      range.push(1);
     }
 
-    // 添加省略號
     for (let i of range) {
       if (l) {
         if (i - l === 2) {
           rangeWithDots.push(l + 1);
         } else if (i - l !== 1) {
-          rangeWithDots.push('...');
+          rangeWithDots.push("...");
         }
       }
       rangeWithDots.push(i);
@@ -407,6 +412,7 @@ const AdminDashboard = () => {
 
     return rangeWithDots;
   };
+
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
@@ -441,9 +447,30 @@ const AdminDashboard = () => {
       <div className="container py-5">
         <div className="row">
           <div className="col">
-            <div className="d-flex justify-content-between align-items-center mb-4">
+            <div className="d-flex justify-content-between align-items-center mb-3">
               <h2 className="fs-4">產品列表</h2>
-              <button onClick={() => handleOpenProductModal('create')} type="button" className="btn btn-primary">建立新的產品</button>
+              <div className="d-flex align-items-center">
+                <label htmlFor="categoryFilter" className="me-2 mb-0">分類：</label>
+                <select
+                  id="categoryFilter"
+                  className="form-select"
+                  style={{ width: "150px" }}
+                  value={selectedCategory}
+                  onChange={(e) => {
+                    const newCategory = e.target.value;
+                    setSelectedCategory(newCategory);
+                    getProducts(1, newCategory); // 切換分類時從第一頁開始載入
+                  }}
+                >
+                  <option value="全部">全部</option>
+                  <option value="亞洲">亞洲</option>
+                  <option value="歐洲">歐洲</option>
+                  <option value="中東">中東</option>
+                </select>
+              </div>
+              <button onClick={() => handleOpenProductModal("create")} type="button" className="btn btn-primary ms-3">
+                建立新的產品
+              </button>
             </div>
             <table className="table">
               <thead>
@@ -478,66 +505,67 @@ const AdminDashboard = () => {
             </table>
           </div>
           <div className="d-flex justify-content-center adminDashboard">
-            <nav>
-              <ul className="pagination">
-                {/* 上一頁按鈕 */}
-                <li className={`page-item page-item-bullet ${!pageInfo.has_pre ? "disabled" : ""}`}>
-                  <a
-                    className="page-link"
-                    href="#"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      if (pageInfo.has_pre) {
-                        handlePageChange(pageInfo.current_page - 1);
-                      }
-                    }}
-                  >
-                    <ChevronLeft className="pagination-arrow" />
-                  </a>
-                </li>
-
-                {/* 分頁數字 */}
-                {generatePagination(pageInfo.current_page, pageInfo.total_pages).map((page, index) => (
-                  <li
-                    key={index}
-                    className={`page-item page-item-bullet ${page === pageInfo.current_page ? "active" : ""
-                      } ${page === "..." ? "disabled" : ""}`}
-                  >
+            {pageInfo.total_pages >= 1 && (
+              <nav>
+                <ul className="pagination">
+                  {/* 上一頁 */}
+                  <li className={`page-item page-item-bullet ${!pageInfo.has_pre ? "disabled" : ""}`}>
                     <a
-                      onClick={(e) => {
-                        e.preventDefault();
-                        if (page !== "...") {
-                          handlePageChange(page);
-                        }
-                      }}
                       className="page-link"
                       href="#"
-                      style={{
-                        cursor: page === "..." ? "default" : "pointer"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        if (pageInfo.has_pre) {
+                          handlePageChange(pageInfo.current_page - 1);
+                        }
                       }}
                     >
-                      {page}
+                      <ChevronLeft className="pagination-arrow" />
                     </a>
                   </li>
-                ))}
 
-                {/* 下一頁按鈕 */}
-                <li className={`page-item page-item-bullet ${!pageInfo.has_next ? "disabled" : ""}`}>
-                  <a
-                    className="page-link"
-                    href="#"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      if (pageInfo.has_next) {
-                        handlePageChange(pageInfo.current_page + 1);
-                      }
-                    }}
-                  >
-                    <ChevronRight className="pagination-arrow" />
-                  </a>
-                </li>
-              </ul>
-            </nav>
+                  {/* 分頁數字 */}
+                  {generatePagination(pageInfo.current_page, pageInfo.total_pages).map((page, index) => (
+                    <li
+                      key={index}
+                      className={`page-item page-item-bullet ${page === pageInfo.current_page ? "active" : ""
+                        } ${page === "..." ? "disabled" : ""}`}
+                    >
+                      <a
+                        onClick={(e) => {
+                          e.preventDefault();
+                          if (page !== "...") {
+                            handlePageChange(page);
+                          }
+                        }}
+                        className="page-link"
+                        href="#"
+                        style={{ cursor: page === "..." ? "default" : "pointer" }}
+                      >
+                        {page}
+                      </a>
+                    </li>
+                  ))}
+
+                  {/* 下一頁 */}
+                  <li className={`page-item page-item-bullet ${!pageInfo.has_next ? "disabled" : ""}`}>
+                    <a
+                      className="page-link"
+                      href="#"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        if (pageInfo.has_next) {
+                          handlePageChange(pageInfo.current_page + 1);
+                        }
+                      }}
+                    >
+                      <ChevronRight className="pagination-arrow" />
+                    </a>
+                  </li>
+                </ul>
+              </nav>
+            )}
+
           </div>
         </div>
       </div>
