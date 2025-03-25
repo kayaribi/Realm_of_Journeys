@@ -224,7 +224,7 @@ const TravelSpotsItem = ({ cartProduct }) => {
                       <span className="fs-10 fs-lg-9">成團人數：</span>
                     </div>
                     <h5 className="text-primary-500 fs-lg-7">
-                      {product.leastPeopleNum}
+                      {product.leastPeopleNum}人
                     </h5>
                   </div>
                   <div className="pb-4  pb-lg-8">
