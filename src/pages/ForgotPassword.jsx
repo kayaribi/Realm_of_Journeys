@@ -29,7 +29,7 @@ export default function ForgotPassword() {
       // // 跳轉修改密碼頁面
       navigate("/account/changePassword");
     } catch (error) {
-      console.log(error);
+      console.error(error);
       Swal.fire({
         title: "發送失敗！",
         text: "請重新輸入",
@@ -44,7 +44,7 @@ export default function ForgotPassword() {
       <section className="py-20">
         <div className="container">
           <div className="row justify-content-center">
-            <div className="col-lg-8 col-12 ">
+            <div className="col-lg-8">
               <h3 className="text-center fs-5 title-family text-neutral-black mb-5">
                 忘記密碼
               </h3>

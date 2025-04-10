@@ -3,6 +3,7 @@ import '../scss/all.scss';
 import axios from 'axios';
 import { Link, useLocation, useParams } from 'react-router-dom';
 import ReactLoading from 'react-loading';
+import Swal from 'sweetalert2';
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 const API_PATH = import.meta.env.VITE_API_PATH;
 
@@ -19,10 +20,15 @@ export default function TravelGuideItem() {
     const getTravelGuideItemData = async () => {
       setIsScreenLoading(true);
       try {
-        const respone = await axios.get(`${BASE_URL}/v2/api/${API_PATH}/article/${article_id}`);
-        setTravelGuideItemData(respone.data.article);
+        const response = await axios.get(`${BASE_URL}/v2/api/${API_PATH}/article/${article_id}`);
+        setTravelGuideItemData(response.data.article);
       } catch (error) {
-        alert("取得單一產品失敗", error);
+        console.error("取得單一產品失敗", error);
+        Swal.fire({
+          title: "取得單一產品失敗",
+          text: "請稍後再試！",
+          icon: "error",
+        });
       } finally {
         setIsScreenLoading(false);
       }
@@ -38,7 +44,12 @@ export default function TravelGuideItem() {
         const allArticles = [...respone1.data.articles, ...respone2.data.articles];
         setAllArticleData(allArticles);
       } catch (error) {
-        alert("取得所有文章失敗", error);
+        console.error("取得所有文章失敗", error);
+        Swal.fire({
+          title: "取得所有文章失敗",
+          text: "請稍後再試！",
+          icon: "error",
+        });
       }
     }
     getAllArticleData();
@@ -78,7 +89,7 @@ export default function TravelGuideItem() {
         }}></div>
         <div className="travelGuideItem-main container bg-white shadow-lg">
           <div className="row justify-content-center">
-            <div className="col-12 col-lg-10">
+            <div className="col-lg-10">
               <div className="py-8 pt-lg-12 pb-lg-27">
                 <h3 className="title-family fs-8 fs-lg-5 mb-3 mb-lg-7">【{travelGuideItemData.title}】</h3>
                 <p className="fs-10 fs-lg-7 mb-4 mb-lg-6">

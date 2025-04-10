@@ -1,5 +1,6 @@
 import axios from "axios";
 import PropTypes from "prop-types";
+import swal from "sweetalert2";
 import { useReducer, useEffect, useState, useCallback } from "react";
 import { initialState, cartReducer } from "./cartReducer";
 import { CartContext } from "./CartContext";
@@ -137,8 +138,13 @@ export const CartProvider = ({ children }) => {
       dispatch({ type: "REMOVE_CART" });
       showToast('訂單已完成', 'success');
       localStorage.clear();
-    } catch {
-      alert('訂單失敗');
+    } catch (error) {
+      console.error("訂單失敗", error);
+      swal.fire({
+        title: "訂單失敗",
+        text: "請稍後再試！",
+        icon: "error",
+      });
     }
   };
 

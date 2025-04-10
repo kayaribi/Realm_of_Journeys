@@ -3,6 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import ReactLoading from "react-loading";
+import Swal from "sweetalert2";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { FreeMode, Thumbs, Autoplay } from "swiper/modules";
 import DepartureTimeDecoration from "../components/DepartureTimeDecoration";
@@ -88,7 +89,12 @@ const TravelSpotsItem = () => {
       await addCartItem(id, quantity); // 確保購物車資料更新
       navigate("/cart"); // 更新完成後再跳轉
     } catch (error) {
-      alert("加入購物車失敗", error);
+      console.error("加入購物車失敗", error);
+      Swal.fire({
+        title: "加入購物車失敗",
+        text: "請稍後再試！",
+        icon: "error",
+      });
     }
   };
 

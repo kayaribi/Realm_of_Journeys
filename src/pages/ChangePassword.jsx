@@ -31,7 +31,7 @@ export default function ChangePassword() {
       // // 跳轉首頁
       navigate("/");
     } catch (error) {
-      console.log(error);
+      console.error(error);
       Swal.fire({
         title: "密碼修改失敗！",
         text: "請重新輸入",
@@ -46,7 +46,7 @@ export default function ChangePassword() {
       <section className="py-20">
         <div className="container">
           <div className="row justify-content-center">
-            <div className="col-lg-8 col-12 ">
+            <div className="col-lg-8">
               <h3 className="text-center fs-5 title-family text-neutral-black mb-5">
                 修改密碼
               </h3>

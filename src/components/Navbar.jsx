@@ -109,7 +109,12 @@ function Navbar({ isCartPages }) {
   }
   // 待製作
   const toBeUpdated = () => {
-    alert("此功能尚未開放，敬請期待！");
+    Swal.fire({
+      title: "此功能尚未開放，敬請期待！",
+      icon: "info",
+      showConfirmButton: false,
+      timer: 1500,
+    });
   }
 
   return (

@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import ReactLoading from 'react-loading';
 import { Link } from 'react-router-dom';
+import Swal from 'sweetalert2';
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 const API_PATH = import.meta.env.VITE_API_PATH;
 
@@ -22,7 +23,12 @@ export default function TravelGuide() {
         const allArticles = [...responsePage1.data.articles, ...responsePage2.data.articles];
         setArticlesData(allArticles);
       } catch (error) {
-        alert("取得文章失敗", error);
+        console.error("取得文章失敗", error);
+        Swal.fire({
+          title: "取得文章失敗",
+          text: "請稍後再試！",
+          icon: "error",
+        });
       } finally {
         setIsScreenLoading(false);
       }
@@ -58,7 +64,7 @@ export default function TravelGuide() {
         <div className="row py-8 pt-lg-25 pb-lg-20">
           {filteredData.map((item) => {
             return (
-              <div className="col-12 col-md-6 col-lg-4 mb-lg-6 mb-8" key={item.id}>
+              <div className="col-md-6 col-lg-4 mb-lg-6 mb-8" key={item.id}>
                 <div className="card border-0">
                   <Link className="image-container" to={item.id}>
                     <img className="image-main" alt="cardImg" src={item.image} />
