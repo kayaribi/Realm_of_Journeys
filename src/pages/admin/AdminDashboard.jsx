@@ -257,35 +257,35 @@ const AdminDashboard = () => {
     }
   };
 
-  const deleteProduct = async () => {
-    const result = await Swal.fire({
-      title: "確定要刪除嗎？",
-      text: "刪除後將無法恢復",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonText: "確定刪除",
-      cancelButtonText: "取消",
-    });
-    if (!result.isConfirmed) return;
-    try {
-      await axios.delete(`${BASE_URL}/v2/api/${API_PATH}/admin/product/${tempProduct.id}`);
+  // const deleteProduct = async () => {
+  //   const result = await Swal.fire({
+  //     title: "確定要刪除嗎？",
+  //     text: "刪除後將無法恢復",
+  //     icon: "warning",
+  //     showCancelButton: true,
+  //     confirmButtonText: "確定刪除",
+  //     cancelButtonText: "取消",
+  //   });
+  //   if (!result.isConfirmed) return;
+  //   try {
+  //     await axios.delete(`${BASE_URL}/v2/api/${API_PATH}/admin/product/${tempProduct.id}`);
 
-      await Swal.fire({
-        title: "刪除成功",
-        icon: "success",
-        timer: 1500,
-        showConfirmButton: false,
-      });
-    } catch (error) {
-      const errorMessage = error.response?.data?.message || "請稍後再試";
-      Swal.fire({
-        title: "刪除失敗",
-        text: errorMessage,
-        icon: "error",
-        confirmButtonText: "確定",
-      });
-    }
-  };
+  //     await Swal.fire({
+  //       title: "刪除成功",
+  //       icon: "success",
+  //       timer: 1500,
+  //       showConfirmButton: false,
+  //     });
+  //   } catch (error) {
+  //     const errorMessage = error.response?.data?.message || "請稍後再試";
+  //     Swal.fire({
+  //       title: "刪除失敗",
+  //       text: errorMessage,
+  //       icon: "error",
+  //       confirmButtonText: "確定",
+  //     });
+  //   }
+  // };
 
   const handleUpdateProduct = async () => {
     if (!validateProduct()) {
@@ -314,15 +314,37 @@ const AdminDashboard = () => {
     }
   };
 
-  const handleDeleteProduct = async () => {
+  const handleDeleteProduct = async (product) => {
+    const result = await Swal.fire({
+      title: "確定要刪除嗎？",
+      text: `刪除「${product.title}」後將無法恢復`,
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "確定刪除",
+      cancelButtonText: "取消",
+    });
+
+    if (!result.isConfirmed) return;
+
     try {
-      await deleteProduct();
+      await axios.delete(`${BASE_URL}/v2/api/${API_PATH}/admin/product/${product.id}`);
+      await Swal.fire({
+        title: "刪除成功",
+        icon: "success",
+        timer: 1500,
+        showConfirmButton: false,
+      });
       getProducts();
-      handleCloseDelProductModal();
     } catch (error) {
-      console.error("刪除產品失敗", error);
+      Swal.fire({
+        title: "刪除失敗",
+        text: error.response?.data?.message || "請稍後再試",
+        icon: "error",
+        confirmButtonText: "確定",
+      });
     }
   };
+
 
   const ChevronLeft = ({ className }) => (
     <svg
@@ -493,7 +515,8 @@ const AdminDashboard = () => {
                     <td>
                       <div className="btn-group">
                         <button onClick={() => handleOpenProductModal('edit', product)} type="button" className="btn btn-outline-primary btn-sm">編輯</button>
-                        <button onClick={() => handleOpenDelProductModal(product)} type="button" className="btn btn-outline-danger btn-sm">刪除</button>
+                        <button onClick={() => handleDeleteProduct(product)} type="button" className="btn btn-outline-danger btn-sm">刪除</button>
+
                       </div>
                     </td>
                   </tr>
