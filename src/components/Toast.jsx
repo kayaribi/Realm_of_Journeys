@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { CartContext } from '../store/store';
+import { CartContext } from '../store/CartContext.js';
 
 const Toast = () => {
   const { toastMessage } = useContext(CartContext); // 從 CartContext 獲取 toastMessage
