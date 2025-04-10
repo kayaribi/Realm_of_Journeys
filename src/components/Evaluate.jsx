@@ -10,8 +10,8 @@ import 'swiper/css/navigation';
 import evaluateData from '../evaluateData';
 
 /* =====================
-  分組資料的工具函式
-  將陣列切割成固定大小的多個子陣列
+分組資料的工具函式
+將陣列切割成固定大小的多個子陣列
 ===================== */
 const chunkArray = (array, size) => {
   return array.reduce((acc, _, i) => {
@@ -26,8 +26,8 @@ const groupedPhoneData = chunkArray(evaluateData, 3);
 const groupedDesktopData = chunkArray(evaluateData, 4);
 
 /* =====================
-  自定義分頁元件
-  依據 totalPages 與 currentPage 顯示不同的頁碼
+自定義分頁元件
+依據 totalPages 與 currentPage 顯示不同的頁碼
 ===================== */
 const CustomPagination = ({ totalPages, currentPage, onClickPage, swiperInstance }) => {
   CustomPagination.propTypes = {
@@ -106,8 +106,8 @@ const CustomPagination = ({ totalPages, currentPage, onClickPage, swiperInstance
 };
 
 /* =====================
-  Evaluate 主元件
-  根據裝置寬度顯示桌面版或手機版的 Swiper 評價區塊，並整合自定義分頁元件
+Evaluate 主元件
+根據裝置寬度顯示桌面版或手機版的 Swiper 評價區塊，並整合自定義分頁元件
 ===================== */
 function Evaluate() {
   // 判斷是否為桌面版 (window.innerWidth >= 992 為桌面)
@@ -121,10 +121,10 @@ function Evaluate() {
   const [currentPage, setCurrentPage] = useState(1);
 
   /* ---------------------
-    當 Swiper 初始化後：
-    - 計算總頁數
-    - 設定目前頁碼
-    - 監聽 Swiper 的 slideChange 事件，更新目前頁碼
+  當 Swiper 初始化後：
+  - 計算總頁數
+  - 設定目前頁碼
+  - 監聽 Swiper 的 slideChange 事件，更新目前頁碼
   --------------------- */
   useEffect(() => {
     if (swiperInstance) {
@@ -139,7 +139,7 @@ function Evaluate() {
   }, [swiperInstance]);
 
   /* ---------------------
-    點擊自定義分頁的數字時，切換到對應的頁面
+  點擊自定義分頁的數字時，切換到對應的頁面
   --------------------- */
   const handlePaginationClick = (page) => {
     if (swiperInstance) {
@@ -148,10 +148,10 @@ function Evaluate() {
   };
 
   /* ---------------------
-    當裝置版型切換（手機版 ↔ 桌面版）時：
-      - 將 Swiper 切換回第一頁
-      - 重設目前頁碼為 1
-      - 重新計算總頁數
+  當裝置版型切換（手機版 ↔ 桌面版）時：
+  - 將 Swiper 切換回第一頁
+  - 重設目前頁碼為 1
+  - 重新計算總頁數
   --------------------- */
   useEffect(() => {
     if (swiperInstance) {
@@ -162,7 +162,7 @@ function Evaluate() {
   }, [isDesktop, swiperInstance]);
 
   /* ---------------------
-    監聽視窗大小改變事件，動態更新是否為桌面版
+  監聽視窗大小改變事件，動態更新是否為桌面版
   --------------------- */
   useEffect(() => {
     const handleResize = () => {
