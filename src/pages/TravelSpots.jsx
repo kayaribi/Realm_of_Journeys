@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import ReactLoading from "react-loading";
 
 import DepartureTimeDecoration from "../components/DepartureTimeDecoration";
-import productPageBanner from "../../public/images/icon/productPageBanner.svg";
+import productPageBanner from "../../public/images/icon/productPageBanner.png";
 import productPageBanner2 from "../../public/images/icon/productPageBanner2.png";
 import productPageBanner3 from "../../public/images/icon/productPageBanner3.png";
 import productPageBanner4 from "../../public/images/icon/productPageBanner4.svg";
