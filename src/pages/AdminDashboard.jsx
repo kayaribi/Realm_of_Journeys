@@ -1,6 +1,6 @@
 import { useEffect, useContext, useState, useRef, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
-import { CartContext } from "../store/store";
+import { CartContext } from "../store/CartContext.js";
 import ReactLoading from 'react-loading';
 import axios from "axios";
 import { Modal } from "bootstrap";

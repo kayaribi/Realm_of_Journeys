@@ -1,7 +1,7 @@
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState, useContext } from "react";
 import "../scss/all.scss";
-import { CartContext } from "../store/store";
+import { CartContext } from "../store/CartContext.js";
 import PropTypes from 'prop-types';
 import Swal from "sweetalert2";
 

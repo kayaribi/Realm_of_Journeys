@@ -2,7 +2,7 @@ import { useContext, useEffect } from "react";
 import axios from "axios";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import { CartContext } from "../store/store";
+import { CartContext } from "../store/CartContext.js";
 import Swal from "sweetalert2";
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;

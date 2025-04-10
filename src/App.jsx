@@ -1,5 +1,6 @@
 import { Route, Routes, Navigate, useLocation } from "react-router-dom";
-import { CartContext, CartProvider } from "./store/store";
+import { CartProvider } from "./store/store";
+import { CartContext } from "./store/CartContext.js";
 import PropTypes from 'prop-types';
 import {
   Home,

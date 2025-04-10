@@ -2,7 +2,7 @@ import { useContext, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { Modal } from "bootstrap";
-import { CartContext } from "../store/store";
+import { CartContext } from "../store/CartContext.js";
 import FloatingButton from "../components/FloatingButton";
 import CartOrderModal from "../components/CartOrderModal";
 

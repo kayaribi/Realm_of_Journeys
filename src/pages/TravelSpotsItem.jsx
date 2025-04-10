@@ -9,7 +9,7 @@ import DepartureTimeDecoration from "../components/DepartureTimeDecoration";
 import "swiper/css";
 import "swiper/css/free-mode";
 import "swiper/css/thumbs";
-import { CartContext } from "../store/store";
+import { CartContext } from "../store/CartContext.js";
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 const API_PATH = import.meta.env.VITE_API_PATH;

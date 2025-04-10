@@ -1,5 +1,5 @@
 import { useEffect, useState, useContext } from "react";
-import { CartContext } from "../store/store";
+import { CartContext } from "../store/CartContext.js";
 
 export default function FloatingButton() {
   const [isAboveFooter, setIsAboveFooter] = useState(false);

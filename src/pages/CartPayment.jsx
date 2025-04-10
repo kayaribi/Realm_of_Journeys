@@ -1,6 +1,6 @@
 import { useContext, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { CartContext } from "../store/store";
+import { CartContext } from "../store/CartContext.js";
 import { Modal } from "bootstrap";
 import CartOrderModal from "../components/CartOrderModal";
 import { useForm } from "react-hook-form";
@@ -40,7 +40,7 @@ export default function CartPayment() {
     } else {
       setErrors((prevErrors) => {
         const { cardNum, ...rest } = prevErrors;
-        return cardNum,rest;
+        return cardNum, rest;
       });
     }
   };
@@ -58,7 +58,7 @@ export default function CartPayment() {
     } else {
       setErrors((prevErrors) => {
         const { cardTerm, ...rest } = prevErrors;
-        return cardTerm,rest;
+        return cardTerm, rest;
       });
     }
   };
@@ -76,7 +76,7 @@ export default function CartPayment() {
     } else {
       setErrors((prevErrors) => {
         const { securityCode, ...rest } = prevErrors;
-        return securityCode,rest;
+        return securityCode, rest;
       });
     }
   };
