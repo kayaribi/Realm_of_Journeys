@@ -78,7 +78,7 @@ export default function TravelGuideItem() {
         }}></div>
         <div className="travelGuideItem-main container bg-white shadow-lg">
           <div className="row justify-content-center">
-            <div className="col-12 col-lg-10">
+            <div className="col-lg-10">
               <div className="py-8 pt-lg-12 pb-lg-27">
                 <h3 className="title-family fs-8 fs-lg-5 mb-3 mb-lg-7">【{travelGuideItemData.title}】</h3>
                 <p className="fs-10 fs-lg-7 mb-4 mb-lg-6">

@@ -282,22 +282,6 @@ const AdminDashboard = () => {
     }
   };
 
-  // const handleUpdateProduct = async () => {
-  //   const apiCall = modalMode === "create" ? createProduct : updateProduct;
-  //   try {
-  //     await apiCall();
-  //     getProducts();
-  //     handleCloseProductModal();
-  //   } catch (error) {
-  //     console.error("更新產品失敗", error);
-  //     Swal.fire({
-  //       title: "操作失敗",
-  //       text: "請稍後再試或聯絡管理員",
-  //       icon: "error",
-  //       confirmButtonText: "確定",
-  //     });
-  //   }
-  // };
   const handleUpdateProduct = async () => {
     if (!validateProduct()) {
       Swal.fire({

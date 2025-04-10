@@ -73,7 +73,6 @@ export default function Account() {
       // 跳轉後台
       navigate("/admin/dashboard");
     } catch (error) {
-      console.log(error);
       Swal.fire({
         title: error.response.data.message,
         text: "請重新登入！",

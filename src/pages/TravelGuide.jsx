@@ -58,7 +58,7 @@ export default function TravelGuide() {
         <div className="row py-8 pt-lg-25 pb-lg-20">
           {filteredData.map((item) => {
             return (
-              <div className="col-12 col-md-6 col-lg-4 mb-lg-6 mb-8" key={item.id}>
+              <div className="col-md-6 col-lg-4 mb-lg-6 mb-8" key={item.id}>
                 <div className="card border-0">
                   <Link className="image-container" to={item.id}>
                     <img className="image-main" alt="cardImg" src={item.image} />

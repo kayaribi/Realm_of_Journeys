@@ -38,7 +38,7 @@ export default function Home() {
         password: "RealmOfJourneys",
       });
     } catch (error) {
-      console.log(error);
+      console.error("登入錯誤:", error);
     }
   };
   useEffect(() => {
@@ -52,7 +52,7 @@ export default function Home() {
 
   return (
     <>
-      
+
       {/* --------------------- header - Hailey --------------------- */}
       <header id="header" className="position-relative slideshow-container">
         {images.map((image, index) => (
