@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import ReactLoading from 'react-loading';
 import { Link } from 'react-router-dom';
+import Swal from 'sweetalert2';
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 const API_PATH = import.meta.env.VITE_API_PATH;
 
@@ -22,7 +23,12 @@ export default function TravelGuide() {
         const allArticles = [...responsePage1.data.articles, ...responsePage2.data.articles];
         setArticlesData(allArticles);
       } catch (error) {
-        alert("取得文章失敗", error);
+        console.error("取得文章失敗", error);
+        Swal.fire({
+          title: "取得文章失敗",
+          text: "請稍後再試！",
+          icon: "error",
+        });
       } finally {
         setIsScreenLoading(false);
       }

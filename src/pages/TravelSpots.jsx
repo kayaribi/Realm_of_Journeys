@@ -8,6 +8,7 @@ import productPageBanner from "../../public/images/icon/productPageBanner.svg";
 import productPageBanner2 from "../../public/images/icon/productPageBanner2.png";
 import productPageBanner3 from "../../public/images/icon/productPageBanner3.png";
 import productPageBanner4 from "../../public/images/icon/productPageBanner4.svg";
+import Swal from "sweetalert2";
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 const API_PATH = import.meta.env.VITE_API_PATH;
@@ -82,8 +83,14 @@ export default function TravelSpots() {
         }
       }, 1000);
       setIsScreenLoading(false);
-    } catch {
-      alert("資料抓取失敗");
+    } catch (error) {
+      console.error("資料抓取失敗", error);
+      Swal.fire({
+        title: "資料抓取失敗",
+        text: "請稍後再試！",
+        icon: "error",
+        confirmButtonText: "確定",
+      });
     }
   }, [windowWidth, handleDotStylePagination]);
 
@@ -191,7 +198,14 @@ export default function TravelSpots() {
       axios.defaults.headers.common["Authorization"] = token;
       setIsSignIn(true);
     } catch (error) {
-      alert(error);
+      console.error("登入失敗", error);
+      Swal.fire({
+        title: "登入失敗",
+        text: "請稍後再試！",
+        icon: "error",
+        confirmButtonText: "確定",
+      });
+      setIsSignIn(false);
     }
   };
 

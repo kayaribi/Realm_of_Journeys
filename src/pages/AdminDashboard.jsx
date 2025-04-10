@@ -85,7 +85,12 @@ const AdminDashboard = () => {
       setPageInfo(res.data.pagination);
     } catch (error) {
       console.error("請求失敗", error);
-      alert("請求失敗");
+      Swal.fire({
+        title: "請求失敗",
+        text: "請稍後再試",
+        icon: "error",
+        confirmButtonText: "確定",
+      });
     } finally {
       setIsScreenLoading(false);
     }

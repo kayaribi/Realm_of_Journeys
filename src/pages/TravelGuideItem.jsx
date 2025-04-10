@@ -3,6 +3,7 @@ import '../scss/all.scss';
 import axios from 'axios';
 import { Link, useLocation, useParams } from 'react-router-dom';
 import ReactLoading from 'react-loading';
+import Swal from 'sweetalert2';
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 const API_PATH = import.meta.env.VITE_API_PATH;
 
@@ -19,10 +20,15 @@ export default function TravelGuideItem() {
     const getTravelGuideItemData = async () => {
       setIsScreenLoading(true);
       try {
-        const respone = await axios.get(`${BASE_URL}/v2/api/${API_PATH}/article/${article_id}`);
-        setTravelGuideItemData(respone.data.article);
+        const response = await axios.get(`${BASE_URL}/v2/api/${API_PATH}/article/${article_id}`);
+        setTravelGuideItemData(response.data.article);
       } catch (error) {
-        alert("取得單一產品失敗", error);
+        console.error("取得單一產品失敗", error);
+        Swal.fire({
+          title: "取得單一產品失敗",
+          text: "請稍後再試！",
+          icon: "error",
+        });
       } finally {
         setIsScreenLoading(false);
       }
@@ -38,7 +44,12 @@ export default function TravelGuideItem() {
         const allArticles = [...respone1.data.articles, ...respone2.data.articles];
         setAllArticleData(allArticles);
       } catch (error) {
-        alert("取得所有文章失敗", error);
+        console.error("取得所有文章失敗", error);
+        Swal.fire({
+          title: "取得所有文章失敗",
+          text: "請稍後再試！",
+          icon: "error",
+        });
       }
     }
     getAllArticleData();
