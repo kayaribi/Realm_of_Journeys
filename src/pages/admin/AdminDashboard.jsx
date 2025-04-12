@@ -141,11 +141,11 @@ const AdminDashboard = () => {
     modalInstance.hide();
   }
 
-  const handleOpenDelProductModal = (product) => {
-    setTempProduct(product);
-    const modalInstance = Modal.getInstance(delProductModalRef.current);
-    modalInstance.show();
-  }
+  // const handleOpenDelProductModal = (product) => {
+  //   setTempProduct(product);
+  //   const modalInstance = Modal.getInstance(delProductModalRef.current);
+  //   modalInstance.show();
+  // }
 
   const handleCloseDelProductModal = () => {
     const modalInstance = Modal.getInstance(delProductModalRef.current);

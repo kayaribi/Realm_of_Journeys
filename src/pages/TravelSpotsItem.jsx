@@ -514,14 +514,14 @@ const TravelSpotsItem = () => {
                             style={{ fontSize: "14px" }}
                             className="text-decoration-line-through text-neutral-200"
                           >
-                            原價 NT{" "}
+                            原價 NT$ {" "}
                             {filterProduct.origin_price.toLocaleString()}
                           </p>
                           <p
                             style={{ lineHeight: "1.2" }}
                             className="text-secondary-200 travelSpotCardDiscountPrice fw-bold"
                           >
-                            優惠價 NT {filterProduct.price.toLocaleString()}/
+                            優惠價 NT$ {filterProduct.price.toLocaleString()}/
                             {filterProduct.unit}
                           </p>
                         </div>
