@@ -2,7 +2,7 @@
   // header背景圖
     .header-height {
         height: 179px;
-        @media (min-width: 991px) {
+        @include media-breakpoint-up(lg) {
             height: 445px;
         }
     }
@@ -16,16 +16,16 @@
         margin-top: -43px;
         border-top-left-radius:24px;
         border-top-right-radius:24px;
-        @media (min-width: 991px) {
+        @include media-breakpoint-up(lg) {
             margin-top: -165px;
         }
         // 主要圖片-設定
         .travelGuideItem-img-height{
           height: 141px;
-          @media(min-width:576px){
+          @include media-breakpoint-up(sm){
             height: 320px;
           }
-          @media(min-width:991px){
+          @include media-breakpoint-up(lg){
             height: 500px;
           }
         }
@@ -45,7 +45,7 @@
         .btn-padding{
           padding-top: 12px;
           padding-bottom: 12px;
-          @media(min-width:991px){
+          @include media-breakpoint-up(lg){
             padding: 12px 20px;
           }
         }

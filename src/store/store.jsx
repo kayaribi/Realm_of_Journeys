@@ -66,7 +66,7 @@ export const CartProvider = ({ children }) => {
     // 設定 axios headers
     axios.defaults.headers.common["Authorization"] = token;
     setIsAdminLoggedIn(true); // ✅ 立即更新狀態
-    // **檢查 token 是否過期**
+    // 檢查 token 是否過期
     const isExpired = new Date(expirationTime) < new Date();
     if (isExpired) {
       console.warn("Token 已過期，強制登出");
