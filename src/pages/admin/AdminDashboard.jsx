@@ -103,6 +103,7 @@ const AdminDashboard = () => {
   const productModalRef = useRef(null);
   const delProductModalRef = useRef(null);
   const [modalMode, setModalMode] = useState(null);
+  const fileInputRef = useRef(null);
 
   useEffect(() => {
     new Modal(productModalRef.current, {
@@ -116,6 +117,10 @@ const AdminDashboard = () => {
   const handleOpenProductModal = (mode, product) => {
     const modalInstance = Modal.getInstance(productModalRef.current);
     setModalMode(mode);
+
+    if (fileInputRef.current) {
+      fileInputRef.current.value = "";
+    }
 
     switch (mode) {
       case "create":
@@ -136,11 +141,11 @@ const AdminDashboard = () => {
     modalInstance.hide();
   }
 
-  const handleOpenDelProductModal = (product) => {
-    setTempProduct(product);
-    const modalInstance = Modal.getInstance(delProductModalRef.current);
-    modalInstance.show();
-  }
+  // const handleOpenDelProductModal = (product) => {
+  //   setTempProduct(product);
+  //   const modalInstance = Modal.getInstance(delProductModalRef.current);
+  //   modalInstance.show();
+  // }
 
   const handleCloseDelProductModal = () => {
     const modalInstance = Modal.getInstance(delProductModalRef.current);
@@ -604,6 +609,7 @@ const AdminDashboard = () => {
                   <div className="mb-5">
                     <label htmlFor="fileInput" className="form-label"> 圖片上傳 </label>
                     <input
+                      ref={fileInputRef}
                       type="file"
                       accept=".jpg,.jpeg,.png"
                       className="form-control"

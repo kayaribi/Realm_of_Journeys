@@ -3,23 +3,59 @@ import { CartContext } from "../store/CartContext.js";
 import { useContext } from 'react';
 import Swal from "sweetalert2";
 import '../scss/all.scss';
+import axios from 'axios';
+
+const BASE_URL = import.meta.env.VITE_BASE_URL;
 
 export default function Footer() {
   const navigate = useNavigate();
   const { isAdminLoggedIn, logoutAdmin } = useContext(CartContext); // ✅ 取得狀態 & 登出函式
 
-  const handleLogout = () => {
-    Swal.fire({
-      title: "登出成功！",
-      text: "您已成功登出。",
-      icon: "success",
-      showConfirmButton: false,
-      timer: 1500, // 1.5 秒後自動關閉
-    }).then(() => {
-      logoutAdmin(); // ✅ 清除 Token 並更新狀態
-      navigate("/"); // ✅ 跳轉回首頁
-    });
+  // const handleLogout = () => {
+  //   Swal.fire({
+  //     title: "登出成功！",
+  //     text: "您已成功登出。",
+  //     icon: "success",
+  //     showConfirmButton: false,
+  //     timer: 1500, // 1.5 秒後自動關閉
+  //   }).then(() => {
+  //     logoutAdmin(); // ✅ 清除 Token 並更新狀態
+  //     navigate("/"); // ✅ 跳轉回首頁
+  //   });
+  // };
+
+  const handleLogout = async () => {
+    const token = localStorage.getItem("userToken");
+
+    try {
+      await axios.post(`${BASE_URL}/v2/logout`, {}, {
+        headers: {
+          Authorization: token,
+        },
+      });
+
+      Swal.fire({
+        title: "登出成功！",
+        text: "您已成功登出。",
+        icon: "success",
+        showConfirmButton: false,
+        timer: 1500,
+      }).then(() => {
+        logoutAdmin();
+        navigate("/");
+      });
+
+    } catch (error) {
+      Swal.fire({
+        title: "登出失敗",
+        text: error.response?.data?.message || "請稍後再試一次",
+        icon: "error",
+        confirmButtonText: "確定",
+      });
+      console.error("登出錯誤：", error.response);
+    }
   };
+
 
   return (<>
     <footer className="footer bg-primary-600">

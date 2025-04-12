@@ -23,6 +23,14 @@ export default function Account() {
   const navigate = useNavigate();
   const { loginAdmin } = useContext(CartContext); // ✅ 取得 `loginAdmin`
 
+  useEffect(() => {
+    // 🔐 重新整理頁面時自動補上 token
+    const token = localStorage.getItem("userToken");
+    if (token) {
+      axios.defaults.headers.common["Authorization"] = token;
+    }
+  }, []);
+
   // 🔹 **檢查是否已登入，若已登入則跳轉**
   useEffect(() => {
     const token = localStorage.getItem("userToken");

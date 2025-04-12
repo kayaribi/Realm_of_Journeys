@@ -313,7 +313,7 @@ const TravelSpotsItem = () => {
                     <div className="col-lg-6">
                       <div className="pb-4 pb-lg-0">
                         <p className="text-neutral-200 text-decoration-line-through pb-1 pb-lg-2 fs-10 fs-lg-9">
-                          原價 NT{" "}
+                          原價 NT${" "}
                           {(product.origin_price * quantity).toLocaleString()}
                         </p>
                         <div className="d-flex justify-content-between flex-lg-column align-items-center align-items-lg-start">
@@ -321,7 +321,7 @@ const TravelSpotsItem = () => {
                             優惠價
                           </p>
                           <h4 className="text-primary-500">
-                            NT {(product.price * quantity).toLocaleString()}/人
+                            NT$ {(product.price * quantity).toLocaleString()}/人
                           </h4>
                         </div>
                       </div>
@@ -514,14 +514,14 @@ const TravelSpotsItem = () => {
                             style={{ fontSize: "14px" }}
                             className="text-decoration-line-through text-neutral-200"
                           >
-                            原價 NT{" "}
+                            原價 NT$ {" "}
                             {filterProduct.origin_price.toLocaleString()}
                           </p>
                           <p
                             style={{ lineHeight: "1.2" }}
                             className="text-secondary-200 travelSpotCardDiscountPrice fw-bold"
                           >
-                            優惠價 NT {filterProduct.price.toLocaleString()}/
+                            優惠價 NT$ {filterProduct.price.toLocaleString()}/
                             {filterProduct.unit}
                           </p>
                         </div>
