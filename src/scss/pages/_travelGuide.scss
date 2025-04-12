@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 .travelGuide{
   .header-height {
     height: 211px;
@@ -9,19 +10,46 @@
     background: url("/public/images/banner_TravelGuide.jpg") no-repeat center center / cover;
   } 
   .header-mask{
+=======
+.travelGuide {
+  .header-height {
+    height: 211px;
+
+    @media (min-width: 991px) {
+      height: 398px;
+    }
+  }
+
+  .header-bg {
+    background: url("/public/images/banner_TravelGuide.jpg") no-repeat center center / cover;
+  }
+
+  .header-mask {
+>>>>>>> ca62ab531f926a2ef2abe6eea1cfdbb3e5abe91a
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
     background-color: rgba(28, 28, 28, 0.3);
+<<<<<<< HEAD
     z-index: 0; 
   }
   .header-title{
+=======
+    z-index: 0;
+  }
+
+  .header-title {
+>>>>>>> ca62ab531f926a2ef2abe6eea1cfdbb3e5abe91a
     position: relative;
     z-index: 1;
     text-shadow: 0px 0px 10px #174675;
   }
+<<<<<<< HEAD
+=======
+
+>>>>>>> ca62ab531f926a2ef2abe6eea1cfdbb3e5abe91a
   // 下拉選單
   .form-select {
     font-size: 12px;
@@ -31,7 +59,12 @@
     width: 141px;
     // height: 28.4px;
     padding: 7px 0px 7px 13px;
+<<<<<<< HEAD
     @include media-breakpoint-up(lg) {
+=======
+
+    @media (min-width: 991px) {
+>>>>>>> ca62ab531f926a2ef2abe6eea1cfdbb3e5abe91a
       font-size: 24px;
       line-height: 28.8px;
       margin-left: 180px;
@@ -39,26 +72,51 @@
       height: 43px;
     }
   }
+<<<<<<< HEAD
+=======
+
+>>>>>>> ca62ab531f926a2ef2abe6eea1cfdbb3e5abe91a
   // 卡片圖片設定 ↓
   .image-container {
     border-radius: 60px 60px 0px 60px;
     width: 100%;
     height: 351px;
+<<<<<<< HEAD
     overflow: hidden;  // 確保圖片放大時不會溢出容器
     position: relative;  // 確保圖片在容器內定位正確
     z-index: 1;  // 確保圖片的層級高於其他元素
     @include media-breakpoint-up(lg) {
         height: 294px;
     }
+=======
+    overflow: hidden; // 確保圖片放大時不會溢出容器
+    position: relative; // 確保圖片在容器內定位正確
+    z-index: 1; // 確保圖片的層級高於其他元素
+
+    @media (min-width: 991px) {
+      height: 294px;
+    }
+
+>>>>>>> ca62ab531f926a2ef2abe6eea1cfdbb3e5abe91a
     .image-main {
       border-radius: 60px 60px 0px 60px;
       width: 100%;
       height: 100%;
       object-fit: cover;
       transition: transform 0.5s ease;
+<<<<<<< HEAD
       &:hover {
         transform: scale(1.5);  // 可以稍微減少放大比例
       }
     }
   }
 }
+=======
+
+      &:hover {
+        transform: scale(1.5); // 可以稍微減少放大比例
+      }
+    }
+  }
+}
+>>>>>>> ca62ab531f926a2ef2abe6eea1cfdbb3e5abe91a

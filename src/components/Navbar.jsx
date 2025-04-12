@@ -1,7 +1,7 @@
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState, useContext } from "react";
 import "../scss/all.scss";
-import { CartContext } from "../store/store";
+import { CartContext } from "../store/CartContext.js";
 import PropTypes from 'prop-types';
 import Swal from "sweetalert2";
 
@@ -109,15 +109,20 @@ function Navbar({ isCartPages }) {
   }
   // 待製作
   const toBeUpdated = () => {
-    alert("此功能尚未開放，敬請期待！");
+    Swal.fire({
+      title: "此功能尚未開放，敬請期待！",
+      icon: "info",
+      showConfirmButton: false,
+      timer: 1500,
+    });
   }
 
   return (
     <>
       <nav
         className={`navbar navbar-expand-lg fixed-top navbar-light navbarPadding
-            ${isScrolled ? "opacity-85 backdrop-blur" : "bg-transparent"} 
-            ${isNavbarOpen && !screenWidth ? "bg-F2F7FD" : ""}`}
+${isScrolled ? "opacity-85 backdrop-blur" : "bg-transparent"} 
+${isNavbarOpen && !screenWidth ? "bg-F2F7FD" : ""}`}
       >
         <div className="container d-flex justify-content-between align-items-center">
           {/* logo + 標題 */}
@@ -129,7 +134,7 @@ function Navbar({ isCartPages }) {
               </h1>
               {/* 手機 logo */}
               <h1 className={`d-block d-lg-none log-style logo-size-s
-                  ${isCartPages ? "logo-sm-dark" : logoImg}`}
+${isCartPages ? "logo-sm-dark" : logoImg}`}
               >
                 行旅之境
               </h1>
@@ -141,7 +146,7 @@ function Navbar({ isCartPages }) {
               to="/cart"
               onClick={handleLinkClick}
               className={`d-block d-lg-none me-4 fs-6 d-flex align-items-center
-              ${isCartPages ? "text-neutral-300" : cartIconClass}`}
+${isCartPages ? "text-neutral-300" : cartIconClass}`}
             >
               <i className="bi bi-cart position-relative">
                 {cartItemCount > 0 && (
@@ -169,7 +174,7 @@ function Navbar({ isCartPages }) {
               onClick={handleNavbarToggle}
             >
               <i className={`${isNavbarOpen ? "bi bi-x" : "bi bi-list"} 
-                ${isCartPages ? "text-neutral-300" : hamburgIconClass}`}
+${isCartPages ? "text-neutral-300" : hamburgIconClass}`}
               ></i>
             </button>
           </div>
