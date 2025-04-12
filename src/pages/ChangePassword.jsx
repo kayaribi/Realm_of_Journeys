@@ -20,7 +20,7 @@ export default function ChangePassword() {
 
   const password = watch("newPassword");
 
-  const onSubmit = async (data) => {
+  const onSubmit = async () => {
     try {
       await Swal.fire({
         title: "密碼修改成功！",

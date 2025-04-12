@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import WOW from "wow.js";
 import "animate.css";
 import { useEffect } from "react";
+import PropTypes from "prop-types";
 
 function FeaturedCard({ featuredItem, index }) {
   useEffect(() => {
@@ -11,8 +12,9 @@ function FeaturedCard({ featuredItem, index }) {
   }, []);
   return (
     <div
-      className={`col wow animate__animated animate__slideInUp ${index % 2 === 0 ? "mt-lg-16 mt-0 mb-lg-0 mb-6" : "mb-lg-16 mb-6"
-        }`}
+      className={`col wow animate__animated animate__slideInUp ${
+        index % 2 === 0 ? "mt-lg-16 mt-0 mb-lg-0 mb-6" : "mb-lg-16 mb-6"
+      }`}
     >
       <Link to={`/travelSpots/${featuredItem.id}`}>
         <div className="d-flex flex-lg-row flex-column px-xxl-6 px-xl-4 px-lg-2 px-0 ">
@@ -42,8 +44,9 @@ function FeaturedCard({ featuredItem, index }) {
               return (
                 <p
                   key={index}
-                  className={`${index === 0 ? "mb-xl-3 mb-2" : ""
-                    } text-neutral-300 featuredCardDescription`}
+                  className={`${
+                    index === 0 ? "mb-xl-3 mb-2" : ""
+                  } text-neutral-300 featuredCardDescription`}
                 >
                   {des}
                 </p>
@@ -55,13 +58,13 @@ function FeaturedCard({ featuredItem, index }) {
                 className="text-decoration-line-through text-neutral-200"
                 style={{ fontSize: "14px" }}
               >
-                原價 NT{featuredItem.origin_price.toLocaleString()}
+                原價 NT$ {featuredItem.origin_price.toLocaleString()}
               </p>
               <p
                 style={{ lineHeight: "1.2" }}
                 className="text-secondary-200 featuredDiscountPrice fw-bold"
               >
-                優惠價 NT{featuredItem.price.toLocaleString()}/
+                優惠價 NT$ {featuredItem.price.toLocaleString()}/
                 {featuredItem.unit}
               </p>
             </div>
@@ -71,5 +74,19 @@ function FeaturedCard({ featuredItem, index }) {
     </div>
   );
 }
+
+// 定義 PropTypes
+FeaturedCard.propTypes = {
+  featuredItem: PropTypes.shape({
+    id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+    imageUrl: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired,
+    origin_price: PropTypes.number.isRequired,
+    price: PropTypes.number.isRequired,
+    unit: PropTypes.string.isRequired,
+  }).isRequired,
+  index: PropTypes.number.isRequired,
+};
 
 export default FeaturedCard;

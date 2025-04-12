@@ -1,6 +1,5 @@
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import { Modal } from "bootstrap";
 import Swal from "sweetalert2";
 
 export default function Register() {
@@ -26,7 +25,7 @@ export default function Register() {
 
   const navigate = useNavigate();
 
-  const onSubmit = async (data) => {
+  const onSubmit = async () => {
     try {
       await Swal.fire({
         title: "恭喜註冊成功！即將返回首頁...",
@@ -191,7 +190,7 @@ export default function Register() {
                   <input
                     type="email"
                     id="registerEmail"
-                    placeholder="請輸入 Email"
+                    placeholder="請輸入信箱"
                     className={` form-control ${
                       errors.registerEmail ? "is-invalid" : ""
                     } px-3 py-2 loginInInput w-100  d-inline-block`}
@@ -199,11 +198,11 @@ export default function Register() {
                     {...register("registerEmail", {
                       required: {
                         value: true,
-                        message: "email 為必填",
+                        message: "信箱為必填",
                       },
                       pattern: {
                         value: /^\S+@\S+$/i,
-                        message: "email 格式不正確",
+                        message: "信箱格式不正確",
                       },
                     })}
                   />

@@ -18,7 +18,7 @@ export default function ForgotPassword() {
 
   const navigate = useNavigate();
 
-  const onSubmit = async (data) => {
+  const onSubmit = async () => {
     try {
       await Swal.fire({
         title: "驗證成功！跳轉至修改密碼頁面",

@@ -100,7 +100,7 @@ export default function Account() {
                     <input
                       type="email"
                       id="email"
-                      placeholder="email"
+                      placeholder="信箱"
                       className={` form-control ${
                         errors.email ? "is-invalid" : ""
                       } px-3 py-2 loginInInput w-100  d-inline-block`}
@@ -108,11 +108,11 @@ export default function Account() {
                       {...register("email", {
                         required: {
                           value: true,
-                          message: "email為必填",
+                          message: "信箱為必填",
                         },
                         pattern: {
                           value: /^\S+@\S+$/i,
-                          message: "email 格式不正確",
+                          message: "信箱格式不正確",
                         },
                       })}
                     />
@@ -131,7 +131,7 @@ export default function Account() {
                     <input
                       type="password"
                       id="password"
-                      placeholder="Password"
+                      placeholder="密碼"
                       className={`form-control ${
                         errors.password ? "is-invalid" : ""
                       } px-3 py-2 loginInInput w-100  d-inline-block`}
