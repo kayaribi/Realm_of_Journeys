@@ -40,7 +40,6 @@ export default function TravelSpots() {
   const initialWaitRef = useRef(false);
 
   useEffect(() => {
-    // 原版
     if (windowWidth) {
       paginationCurrentPageRef.current = pagination.current_page;
       paginationTotalPageRef.current = pagination.total_pages;
@@ -58,13 +57,11 @@ export default function TravelSpots() {
       if (waitSelectHeight.current && window.scrollY >= height + 100) {
         selectBarRef.current.style.position = "absolute";
         selectBarRef.current.style.top = `${height + 695}px`;
-        // selectBarRef.current.style.bottom = "0px";
         selectBarRef.current.style.bottom = "auto"; // 確保 `bottom` 被清除
       }
 
       if (currentTop === height + 695 && window.scrollY <= height + 100) {
         selectBarRef.current.style.position = "fixed";
-        // selectBarRef.current.style.top = "0px";
         selectBarRef.current.style.top = "auto"; // 清除 top
         selectBarRef.current.style.bottom = "32px";
       }
@@ -176,9 +173,7 @@ export default function TravelSpots() {
         username: "RealmOfJourneys@gmail.com",
         password: "RealmOfJourneys",
       });
-
       const { token } = res.data;
-      // document.cookie = `hexToken=${token}; expires=${new Date(expired)}`;
       axios.defaults.headers.common["Authorization"] = token;
       setIsSignIn(true);
     } catch (error) {
