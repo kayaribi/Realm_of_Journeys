@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 
 
-const CartItem = ({ cartItem, updateQuantity, removeCartItem }) => {
+const CartItem = ({ cartItem, updateQuantity, onRemove }) => {
   const [isDesktop, setIsDesktop] = useState(false);
 
   useEffect(() => {
@@ -11,7 +11,7 @@ const CartItem = ({ cartItem, updateQuantity, removeCartItem }) => {
 
   return isDesktop ? (
     <div className="col-12" key={cartItem.id}>
-      <div className="row align-items-center">
+      <div className="row align-items-center flex-column flex-lg-row text-center text-lg-start">
         <div className="col text-center">
           <img
             src={cartItem.product.imageUrl}
@@ -27,7 +27,7 @@ const CartItem = ({ cartItem, updateQuantity, removeCartItem }) => {
             {cartItem.product.title}
           </p>
         </div>
-        <div className="col">
+        <div className="col mb-5 mb-lg-0">
           <p className="w-100">
             出發日期 2025/
             {cartItem.product.travelDate.split(" - ")[0]}
@@ -41,7 +41,7 @@ const CartItem = ({ cartItem, updateQuantity, removeCartItem }) => {
               disabled={cartItem.qty === 1}
               onClick={() => updateQuantity(cartItem.id, cartItem.qty - 1)}
             >
-              -
+              <i className="bi bi-dash" />
             </button>
             <p className="mx-4 fs-lg-9 fs-10">{cartItem.qty}</p>
             <button
@@ -50,22 +50,22 @@ const CartItem = ({ cartItem, updateQuantity, removeCartItem }) => {
               disabled={cartItem.qty >= 10}
               onClick={() => updateQuantity(cartItem.id, cartItem.qty + 1)}
             >
-              +
+              <i className="bi bi-plus" />
             </button>
           </div>
         </div>
         <div className="col">
           <h4 className="fs-lg-6 fs-8 text-primary-500 text-nowrap text-end">
-            NT {cartItem.total.toLocaleString()}
+            NT$ {cartItem.total.toLocaleString()}
           </h4>
         </div>
         <div className="col">
           <button
             type="button"
             className="btn btn-sm ms-auto d-lg-block d-none"
-            onClick={() => removeCartItem(cartItem.id)}
+            onClick={onRemove}
           >
-            <i className="bi bi-trash3 fs-5"></i>
+            <i className="bi bi-trash3 fs-7"></i>
           </button>
         </div>
       </div>
@@ -110,12 +110,12 @@ const CartItem = ({ cartItem, updateQuantity, removeCartItem }) => {
           </div>
           <div className="d-flex justify-content-center align-items-center">
             <h4 className="fs-lg-6 fs-8 text-primary-500 mx-lg-8 text-nowrap">
-              NT {cartItem.total.toLocaleString()}
+              NT$ {cartItem.total.toLocaleString()}
             </h4>
             <button
               type="button"
               className="btn btn-sm ms-5 d-lg-none"
-              onClick={() => removeCartItem(cartItem.id)}
+               onClick={onRemove}
             >
               <i className="bi bi-trash3 fs-5"></i>
             </button>
@@ -138,7 +138,8 @@ CartItem.propTypes = {
     }).isRequired,
   }).isRequired,
   updateQuantity: PropTypes.func.isRequired,
-  removeCartItem: PropTypes.func.isRequired,
+  onRemove: PropTypes.func.isRequired,
+  // removeCartItem: PropTypes.func.isRequired,
 };
 
 export default CartItem;

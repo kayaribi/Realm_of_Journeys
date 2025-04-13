@@ -1,6 +1,6 @@
 import { Link, useLocation } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
-import { CartContext } from "../store/store";
+import { CartContext } from "../store/CartContext.js";
 
 export default function CompletePayment() {
   const [deadline, setDeadline] = useState("");
@@ -10,9 +10,13 @@ export default function CompletePayment() {
   const [orderTotal, setOrderTotal] = useState(0);
 
   useEffect(() => {
-    const totalAmount = cartList.reduce((sum, cartItem) => sum + cartItem.total, 0);
-    setOrderTotal(totalAmount); // 存入 state
-    checkout(); // 結帳 + 清空購物車
+    const handleCheckout = () => {
+      const totalAmount = cartList.reduce((sum, cartItem) => sum + cartItem.total, 0);
+      setOrderTotal(totalAmount);
+      checkout(); // 只會執行一次
+    };
+    handleCheckout();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -109,11 +113,11 @@ export default function CompletePayment() {
               <div className="d-flex justify-content-center">
                 <Link
                   to="/"
-                  className="btn btn-outline-secondary-200 me-6 w-100 fs-lg-7"
+                  className="btn btn-outline-secondary-200 me-6 w-100 fs-lg-7 text-nowrap"
                 >
                   回到首頁
                 </Link>
-                <Link to="/" className="btn btn-secondary-200 w-100 fs-lg-7">
+                <Link to="/" className="btn btn-secondary-200 w-100 fs-lg-7 text-nowrap">
                   前往訂單
                 </Link>
               </div>

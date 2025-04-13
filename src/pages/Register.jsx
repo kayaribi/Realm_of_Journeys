@@ -36,7 +36,7 @@ export default function Register() {
       // // 跳轉首頁
       navigate("/");
     } catch (error) {
-      console.log(error);
+      console.error(error);
       Swal.fire({
         title: "註冊失敗！",
         text: "請重新註冊",
@@ -53,7 +53,7 @@ export default function Register() {
       <section className="py-20">
         <div className="container">
           <div className="row">
-            <div className="col-lg-8 col-12 mx-auto">
+            <div className="col-lg-8 mx-auto">
               <h3 className="text-center fs-5 title-family text-neutral-black mb-5">
                 會員註冊
               </h3>

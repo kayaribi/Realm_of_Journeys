@@ -1,9 +1,11 @@
-import { useContext } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import ReactLoading from "react-loading";
-import { CartContext } from "../store/store";
+import { CartContext } from "../store/CartContext.js";
 import CartItem from "../components/CartItem";
 import EmptyCart from "../components/EmptyCart";
+import CartRemoveModal from "../components/CartRemoveModal.jsx";
+import { Modal } from "bootstrap";
 
 export default function Cart() {
   const {
@@ -14,10 +16,43 @@ export default function Cart() {
     isScreenLoading,
   } = useContext(CartContext);
 
+  // 【Modal】
+  const removeModal = useRef(null);
+  const [modalType,setModalType] = useState("");
+  const [targetItemId, setTargetItemId] = useState(null);
+  useEffect(() => {
+    removeModal.current = new Modal("#removeModal", {
+      backdrop: "static",
+    });
+  }, []);
+  // 開啟
+  const openRemoveModal = (type, itemId = null) => {
+    setModalType(type);
+    setTargetItemId(itemId); // 加這行
+    removeModal.current.show();
+  };
+  // 關閉
+  const closeRemoveModal = () => {
+    removeModal.current.hide();
+  };
+  // 確認刪除
+  const handleConfirmRemove = () => {
+    if (modalType === "all") {
+      removeCart();
+    } else if (modalType === "single" && targetItemId) {
+      removeCartItem(targetItemId);
+    }
+    closeRemoveModal();
+  };
+
   return (
     <>
-
-
+      {/* 刪除提醒Modal */}
+      <CartRemoveModal
+        closeRemoveModal={closeRemoveModal}
+        onConfirm={handleConfirmRemove}
+        modalType={modalType}
+      />
       {/* 進度條 */}
       <div className="container position-relative mt-md-40 mt-22 mb-lg-10 my-6">
         <div className="row row-cols-4 text-center">
@@ -108,6 +143,7 @@ export default function Cart() {
                       cartItem={cartItem}
                       updateQuantity={updateQuantity}
                       removeCartItem={removeCartItem}
+                      onRemove={() => openRemoveModal("single", cartItem.id)}
                     />
                   );
                 })
@@ -121,13 +157,13 @@ export default function Cart() {
                 <button
                   type="button"
                   className="btn btn-outline-secondary-200 fs-7 d-lg-block d-none"
-                  onClick={() => removeCart()}
+                  onClick={() => openRemoveModal("all")}
                 >
-                  清空購物車品項
+                  全部刪除
                 </button>
                 <div className="d-lg-flex align-items-center justify-content-lg-center mt-6 mt-lg-0">
-                  <h3 className="fs-lg-5 fs-7 title-family text-primary-600 d-lg-block d-flex align-items-end">
-                    <span className="fs-lg-7 fs-9 me-auto">總計</span> NT{" "}
+                  <h3 className="fs-lg-5 fs-7 text-primary-600 d-lg-block d-flex align-items-end">
+                    <span className="fs-lg-7 fs-9 me-auto">總計</span> NT${" "}
                     {cartList
                       .reduce((sum, cartItem) => sum + cartItem.total, 0)
                       .toLocaleString()}
@@ -143,7 +179,7 @@ export default function Cart() {
                   <button
                     type="button"
                     className="btn btn-outline-secondary-200 fs-lg-7 fs-9 me-3 w-100"
-                    onClick={() => removeCart()}
+                    onClick={() => openRemoveModal("all")}
                   >
                     清空購物車品項
                   </button>
@@ -159,8 +195,6 @@ export default function Cart() {
           </>
         )}
       </div>
-
-
     </>
   );
 }

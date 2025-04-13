@@ -1,5 +1,5 @@
 import { useEffect, useState, useContext } from "react";
-import { CartContext } from "../store/store";
+import { CartContext } from "../store/CartContext.js";
 
 export default function FloatingButton() {
   const [isAboveFooter, setIsAboveFooter] = useState(false);
@@ -73,7 +73,7 @@ export default function FloatingButton() {
               <p>提醒</p>
             </div>
             <h5 className="text-primary-600">
-              總計<span className="ms-3"></span>NT {cartList
+              總計<span className="ms-3"></span>NT$ {cartList
                 .reduce((sum, cartItem) => sum + cartItem.total, 0)
                 .toLocaleString()}
             </h5>

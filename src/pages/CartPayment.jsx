@@ -1,6 +1,6 @@
 import { useContext, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { CartContext } from "../store/store";
+import { CartContext } from "../store/CartContext.js";
 import { Modal } from "bootstrap";
 import CartOrderModal from "../components/CartOrderModal";
 import { useForm } from "react-hook-form";
@@ -40,7 +40,7 @@ export default function CartPayment() {
     } else {
       setErrors((prevErrors) => {
         const { cardNum, ...rest } = prevErrors;
-        return cardNum,rest;
+        return cardNum, rest;
       });
     }
   };
@@ -58,7 +58,7 @@ export default function CartPayment() {
     } else {
       setErrors((prevErrors) => {
         const { cardTerm, ...rest } = prevErrors;
-        return cardTerm,rest;
+        return cardTerm, rest;
       });
     }
   };
@@ -76,7 +76,7 @@ export default function CartPayment() {
     } else {
       setErrors((prevErrors) => {
         const { securityCode, ...rest } = prevErrors;
-        return securityCode,rest;
+        return securityCode, rest;
       });
     }
   };
@@ -223,7 +223,7 @@ export default function CartPayment() {
                   <div className="col text-md-end d-flex d-md-block justify-content-between mt-9 mt-md-0">
                     <p className="d-md-none">{item.qty}</p>
                     <h4 className="fs-lg-6 fs-8 text-primary-500 text-nowrap">
-                      NT {item.total.toLocaleString()}
+                      NT$ {item.total.toLocaleString()}
                     </h4>
                   </div>
                 </div>
@@ -231,8 +231,8 @@ export default function CartPayment() {
             );
           })}
           <div className="col-lg-10 text-end">
-            <h3 className="fs-lg-5 fs-7 title-family text-primary-600 d-lg-block d-flex align-items-end mb-5 mb-lg-13 ms-lg-8">
-              <span className="fs-lg-7 fs-9 me-auto">總計</span> NT{" "}
+            <h3 className="fs-lg-5 fs-7 text-primary-600 d-lg-block d-flex align-items-end mb-5 mb-lg-13 ms-lg-8">
+              <span className="fs-lg-7 fs-9 me-auto">總計</span> NT${" "}
               {cartList
                 .reduce((sum, cartItem) => sum + cartItem.total, 0)
                 .toLocaleString()}
