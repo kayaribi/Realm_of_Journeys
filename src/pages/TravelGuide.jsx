@@ -55,17 +55,8 @@ export default function TravelGuide() {
         </div>
       </header>
       <div className="container position-relative">
-        {/* 舊版下拉選單 */}
-        {/* <select className="form-select position-absolute translate-middle top-0 border-primary-500" aria-label="select"
-          onChange={handleSelectChange}>
-          <option value="">挑選您的旅途</option>
-          <option value="亞洲">亞洲</option>
-          <option value="歐洲">歐洲</option>
-          <option value="中東">中東</option>
-        </select> */}
-
         {/* Tab */}
-        <div className="row travelGuideSelectWrapPosition">
+        <section className="row travelGuideSelectWrapPosition">
           <div className="col-lg-8 col-md-10  mx-auto">
             <ul className="list-unstyled mb-0 travelGuideSelectWrap d-flex align-items-center justify-content-center p-1">
               <li className="travelGuideSelectbuttonWrap">
@@ -110,7 +101,7 @@ export default function TravelGuide() {
               </li>
             </ul>
           </div>
-        </div>
+        </section>
         <div className="row py-8 pt-lg-25 pb-lg-20">
           {filteredData.map((item) => {
             return (
