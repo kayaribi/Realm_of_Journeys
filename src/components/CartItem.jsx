@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 
 
-const CartItem = ({ cartItem, updateQuantity, removeCartItem }) => {
+const CartItem = ({ cartItem, updateQuantity, onRemove }) => {
   const [isDesktop, setIsDesktop] = useState(false);
 
   useEffect(() => {
@@ -63,7 +63,7 @@ const CartItem = ({ cartItem, updateQuantity, removeCartItem }) => {
           <button
             type="button"
             className="btn btn-sm ms-auto d-lg-block d-none"
-            onClick={() => removeCartItem(cartItem.id)}
+            onClick={onRemove}
           >
             <i className="bi bi-trash3 fs-5"></i>
           </button>
@@ -115,7 +115,7 @@ const CartItem = ({ cartItem, updateQuantity, removeCartItem }) => {
             <button
               type="button"
               className="btn btn-sm ms-5 d-lg-none"
-              onClick={() => removeCartItem(cartItem.id)}
+               onClick={onRemove}
             >
               <i className="bi bi-trash3 fs-5"></i>
             </button>
@@ -138,7 +138,7 @@ CartItem.propTypes = {
     }).isRequired,
   }).isRequired,
   updateQuantity: PropTypes.func.isRequired,
-  removeCartItem: PropTypes.func.isRequired,
+  // removeCartItem: PropTypes.func.isRequired,
 };
 
 export default CartItem;

@@ -121,8 +121,8 @@ function Navbar({ isCartPages }) {
     <>
       <nav
         className={`navbar navbar-expand-lg fixed-top navbar-light navbarPadding
-${isScrolled ? "opacity-85 backdrop-blur" : "bg-transparent"} 
-${isNavbarOpen && !screenWidth ? "bg-F2F7FD" : ""}`}
+        ${isScrolled ? "opacity-85 backdrop-blur" : "bg-transparent"} 
+        ${isNavbarOpen && !screenWidth ? "bg-F2F7FD" : ""}`}
       >
         <div className="container d-flex justify-content-between align-items-center">
           {/* logo + 標題 */}
@@ -134,7 +134,7 @@ ${isNavbarOpen && !screenWidth ? "bg-F2F7FD" : ""}`}
               </h1>
               {/* 手機 logo */}
               <h1 className={`d-block d-lg-none log-style logo-size-s
-${isCartPages ? "logo-sm-dark" : logoImg}`}
+              ${isCartPages ? "logo-sm-dark" : logoImg}`}
               >
                 行旅之境
               </h1>
@@ -146,7 +146,7 @@ ${isCartPages ? "logo-sm-dark" : logoImg}`}
               to="/cart"
               onClick={handleLinkClick}
               className={`d-block d-lg-none me-4 fs-6 d-flex align-items-center
-${isCartPages ? "text-neutral-300" : cartIconClass}`}
+              ${isCartPages ? "text-neutral-300" : cartIconClass}`}
             >
               <i className="bi bi-cart position-relative">
                 {cartItemCount > 0 && (
@@ -174,7 +174,7 @@ ${isCartPages ? "text-neutral-300" : cartIconClass}`}
               onClick={handleNavbarToggle}
             >
               <i className={`${isNavbarOpen ? "bi bi-x" : "bi bi-list"} 
-${isCartPages ? "text-neutral-300" : hamburgIconClass}`}
+                ${isCartPages ? "text-neutral-300" : hamburgIconClass}`}
               ></i>
             </button>
           </div>
