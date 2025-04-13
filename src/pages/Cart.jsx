@@ -162,8 +162,8 @@ export default function Cart() {
                   全部刪除
                 </button>
                 <div className="d-lg-flex align-items-center justify-content-lg-center mt-6 mt-lg-0">
-                  <h3 className="fs-lg-5 fs-7 title-family text-primary-600 d-lg-block d-flex align-items-end">
-                    <span className="fs-lg-7 fs-9 me-auto">總計</span> NT{" "}
+                  <h3 className="fs-lg-5 fs-7 text-primary-600 d-lg-block d-flex align-items-end">
+                    <span className="fs-lg-7 fs-9 me-auto">總計</span> NT${" "}
                     {cartList
                       .reduce((sum, cartItem) => sum + cartItem.total, 0)
                       .toLocaleString()}

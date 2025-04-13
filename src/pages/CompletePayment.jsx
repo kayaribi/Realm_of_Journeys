@@ -113,11 +113,11 @@ export default function CompletePayment() {
               <div className="d-flex justify-content-center">
                 <Link
                   to="/"
-                  className="btn btn-outline-secondary-200 me-6 w-100 fs-lg-7"
+                  className="btn btn-outline-secondary-200 me-6 w-100 fs-lg-7 text-nowrap"
                 >
                   回到首頁
                 </Link>
-                <Link to="/" className="btn btn-secondary-200 w-100 fs-lg-7">
+                <Link to="/" className="btn btn-secondary-200 w-100 fs-lg-7 text-nowrap">
                   前往訂單
                 </Link>
               </div>

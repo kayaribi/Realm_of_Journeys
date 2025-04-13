@@ -498,7 +498,7 @@ export default function CartOrder() {
               })}
               <div className="border-top border-primary-200 mb-6"></div>
               <h5 className="fs-7 text-primary-600 text-end">
-                總計 NT
+                總計 NT${" "}
                 {cartList
                   .reduce((sum, cartItem) => sum + cartItem.total, 0)
                   .toLocaleString()}
