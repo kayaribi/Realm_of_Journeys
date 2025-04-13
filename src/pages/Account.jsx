@@ -62,7 +62,6 @@ export default function Account() {
       // // 跳轉首頁
       navigate("/");
     } catch (error) {
-      console.log(error);
       Swal.fire({
         title: error.response.data.message,
         text: "請重新登入！",
@@ -76,14 +75,14 @@ export default function Account() {
     <section className="py-lg-20 pt-26 pb-6">
       <div className="container">
         <div className="row flex-xl-row flex-column">
-          <div className="col-xl-7 col-12  d-sm-block d-none">
+          <div className="col-xl-7 d-sm-block d-none">
             <img
               className=" w-100 object-fit-cover"
               src={loginInImage}
               alt="登入頁面圖片"
             />
           </div>
-          <div className="col-xl-5 col-12">
+          <div className="col-xl-5">
             <div className="h-100 d-flex flex-column justify-content-center pt-xl-0 pt-sm-6 pt-0">
               <h3 className="text-neutral-black fs-xXl-5 fs-xl-6 fs-sm-6 fs-8  title-family text-center">
                 會員登入

@@ -1,72 +1,26 @@
 import axios from "axios";
 import PropTypes from "prop-types";
-import { createContext, useReducer, useEffect, useState } from "react";
-
+import swal from "sweetalert2";
+import { useReducer, useEffect, useState, useCallback } from "react";
+import { initialState, cartReducer } from "./cartReducer";
+import { CartContext } from "./CartContext";
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 const API_PATH = import.meta.env.VITE_API_PATH;
 
-
-
-export const initialState = {
-  cartList: [],
-};
-
-export const cartReducer = (state, action) => {
-  switch (action.type) {
-    case "GET_CART":
-      return { ...state, cartList: action.payload.carts || [] };
-
-    case "ADD_TO_CART":
-      return { ...state, cartList: action.payload.carts };
-
-    case "REMOVE_CART":
-      return { ...state, cartList: [] };
-
-    case "REMOVE_CART_ITEM":
-      return {
-        ...state,
-        cartList: state.cartList.filter((item) => item.id !== action.payload),
-      };
-
-    case "UPDATE_QUANTITY":
-      return {
-        ...state,
-        cartList: state.cartList.map((item) =>
-          item.id === action.payload.product_id
-            ? {
-              ...item,
-              qty: action.payload.qty,
-              total: item.product.price * action.payload.qty,
-            }
-            : item
-        ),
-      };
-
-    default:
-      return state;
-  }
-};
-
-export const CartContext = createContext();
-
 export const CartProvider = ({ children }) => {
   const [state, dispatch] = useReducer(cartReducer, initialState);
   const [isScreenLoading, setIsScreenLoading] = useState(false);
-  const [toastMessage, setToastMessage] = useState({ type: '', text: '' }); // toast狀態
+  const [toastMessage, setToastMessage] = useState({ type: '', text: '' });
   const [isAdminLoggedIn, setIsAdminLoggedIn] = useState(!!localStorage.getItem("userToken"));
 
-  // ✅ 管理員登入
   const loginAdmin = (token, expired) => {
-    const expirationTime = new Date(expired).toISOString(); // 轉換時間格式
-    // 統一處理所有認證相關的儲存邏輯
-    // 儲存 token 到 cookie 或 localStorage（可選）
+    const expirationTime = new Date(expired).toISOString();
     localStorage.setItem("userToken", token);
     localStorage.setItem("tokenExpired", expirationTime);
-    // 設定 axios headers
     axios.defaults.headers.common["Authorization"] = token;
-    setIsAdminLoggedIn(true); // ✅ 立即更新狀態
-    // **檢查 token 是否過期**
+    setIsAdminLoggedIn(true);
+
     const isExpired = new Date(expirationTime) < new Date();
     if (isExpired) {
       console.warn("Token 已過期，強制登出");
@@ -74,25 +28,19 @@ export const CartProvider = ({ children }) => {
     }
   };
 
-  // ✅ 管理員登出
   const logoutAdmin = () => {
     localStorage.removeItem("userToken");
     localStorage.removeItem("tokenExpired");
     axios.defaults.headers.common["Authorization"] = "";
-    setIsAdminLoggedIn(false); // ✅ 立即更新狀態
+    setIsAdminLoggedIn(false);
   };
 
-  // toast開啟
   const showToast = (message, type) => {
-    setToastMessage({ text: message, type }); // 顯示訊息
-    setTimeout(() => setToastMessage({
-      text: '',
-      type: ''
-    }), 3000); // 3秒後清除
+    setToastMessage({ text: message, type });
+    setTimeout(() => setToastMessage({ text: '', type: '' }), 3000);
   };
 
-  // 取得購物車列表
-  const getCart = async () => {
+  const getCart = useCallback(async () => {
     try {
       setIsScreenLoading(true);
       const res = await axios.get(`${BASE_URL}/v2/api/${API_PATH}/cart`);
@@ -102,55 +50,43 @@ export const CartProvider = ({ children }) => {
     } finally {
       setIsScreenLoading(false);
     }
-  };
-  useEffect(() => {
-    getCart();
   }, []);
 
-  // 加入購物車
+  useEffect(() => {
+    getCart();
+  }, [getCart]);
+
   const addCartItem = async (product_id, quantity) => {
     try {
-      // 先檢查購物車內是否已經有這個品項
       const existingItem = state.cartList.find(
         (item) => item.product.id === product_id
       );
 
+      const updatedQty = existingItem ? existingItem.qty + Number(quantity) : Number(quantity);
+
+      if (updatedQty > 10) {
+        showToast('該商品最多只能購買 10 件！', 'danger');
+        return;
+      }
+
       if (existingItem) {
-        const updatedQty = existingItem.qty + Number(quantity);
-
-        // 🔴 限制數量最多 10
-        if (updatedQty > 10) {
-          showToast('該商品最多只能購買 10 件！', 'danger');
-          return;
-        }
-
-        // 更新數量
         await axios.put(
           `${BASE_URL}/v2/api/${API_PATH}/cart/${existingItem.id}`,
-          {
-            data: { product_id, qty: updatedQty },
-          }
+          { data: { product_id, qty: updatedQty } }
         );
       } else {
-        // 如果商品不存在，則新增
-        if (Number(quantity) > 10) {
-          showToast('該商品最多只能購買 10 件！', 'danger');
-          return;
-        }
-
         await axios.post(`${BASE_URL}/v2/api/${API_PATH}/cart`, {
           data: { product_id, qty: Number(quantity) },
         });
       }
 
-      await getCart(); // 更新購物車列表
+      await getCart();
       showToast('加入購物車成功！', 'success');
     } catch {
       showToast('加入購物車失敗', 'danger');
     }
   };
 
-  // 刪除全部購物車品項
   const removeCart = async () => {
     try {
       await axios.delete(`${BASE_URL}/v2/api/${API_PATH}/carts`);
@@ -161,12 +97,9 @@ export const CartProvider = ({ children }) => {
     }
   };
 
-  // 刪除單一購物車品項
   const removeCartItem = async (cartItem_id) => {
     try {
-      await axios.delete(
-        `${BASE_URL}/v2/api/${API_PATH}/cart/${cartItem_id}`
-      );
+      await axios.delete(`${BASE_URL}/v2/api/${API_PATH}/cart/${cartItem_id}`);
       dispatch({ type: "REMOVE_CART_ITEM", payload: cartItem_id });
       showToast('商品已從購物車中移除', 'success');
     } catch {
@@ -174,14 +107,11 @@ export const CartProvider = ({ children }) => {
     }
   };
 
-  // 更新數量
   const updateQuantity = async (product_id, qty) => {
     try {
       const res = await axios.put(
         `${BASE_URL}/v2/api/${API_PATH}/cart/${product_id}`,
-        {
-          data: { product_id, qty },
-        }
+        { data: { product_id, qty } }
       );
       dispatch({ type: "UPDATE_QUANTITY", payload: res.data.data });
       showToast('數量更新成功', 'success');
@@ -190,35 +120,37 @@ export const CartProvider = ({ children }) => {
     }
   };
 
-  // 結帳 + 清空購物車
   const checkout = async () => {
     try {
       const userData = JSON.parse(localStorage.getItem('formData'));
-      await axios.post(`${BASE_URL}/v2/api/${API_PATH}/order`,
-        {
-          "data": {
-            "user": {
-              "name": userData.name,
-              "email": userData.email,
-              "tel": userData.tel,
-              "address": userData.address || "沒有預設這個欄位"
-            },
-            "message": userData.userMessage || "",
-          }
+      await axios.post(`${BASE_URL}/v2/api/${API_PATH}/order`, {
+        data: {
+          user: {
+            name: userData.name,
+            email: userData.email,
+            tel: userData.tel,
+            address: userData.address || "沒有預設這個欄位"
+          },
+          message: userData.userMessage || "",
         }
-      );
-      dispatch({ type: "REMOVE_CART" }); // 清空購物車
+      });
+
+      dispatch({ type: "REMOVE_CART" });
       showToast('訂單已完成', 'success');
-      localStorage.clear(); // 清除 localStorage
-    } catch {
-      alert('訂單失敗');
+      localStorage.clear();
+    } catch (error) {
+      console.error("訂單失敗", error);
+      swal.fire({
+        title: "訂單失敗",
+        text: "請稍後再試！",
+        icon: "error",
+      });
     }
   };
 
   CartProvider.propTypes = {
     children: PropTypes.node.isRequired,
   };
-
 
   return (
     <CartContext.Provider
@@ -234,8 +166,8 @@ export const CartProvider = ({ children }) => {
         isScreenLoading,
         setIsScreenLoading,
         checkout,
-        toastMessage, // toast訊息
-        showToast, //讓外部元件可以使用 showToast
+        toastMessage,
+        showToast,
         getCart,
       }}
     >

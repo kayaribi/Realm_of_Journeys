@@ -1,53 +1,53 @@
 import { useLocation, useNavigate } from "react-router-dom"
 import PropTypes from "prop-types";
 
-export default function CartOrderModal({cartOrderModal,closeBackSubmitModal,saveFormData, formData}){
-    const navigate = useNavigate();
-    const location = useLocation();
-    // 跳轉頁面
-    const backBtn = ()=>{
-        if(location.pathname === "/cartOrder"){
-            saveFormData(formData);// 儲存表單資料到 localStorage
-            navigate('/cart');
-        }
-        if(location.pathname === "/cartPayment"){
-            navigate('/cartOrder');
-        }
-        cartOrderModal.current.hide();
+export default function CartOrderModal({ cartOrderModal, closeBackSubmitModal, saveFormData, formData }) {
+  const navigate = useNavigate();
+  const location = useLocation();
+  // 跳轉頁面
+  const backBtn = () => {
+    if (location.pathname === "/cartOrder") {
+      saveFormData(formData);// 儲存表單資料到 localStorage
+      navigate('/cart');
     }
-    
-    return(<>
-    
-        <div className="modal fade cartOrderModal" id="cartOrderModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div className="modal-dialog">
-                <div className="modal-content">
-                    <button type="button" className="btn btn-close position-absolute end-0 p-4 border-0" style={{fontSize:"12px"}}
-                    onClick={closeBackSubmitModal}></button>
-                    <div className="modal-body p-md-20 py-20 px-5">
-                        <p className="mb-15 text-center">資料尚未填寫完畢，是否前往上一步？</p>
-                        <div className="d-flex">
+    if (location.pathname === "/cartPayment") {
+      navigate('/cartOrder');
+    }
+    cartOrderModal.current.hide();
+  }
 
-                            <button to="/cart"className="btn btn-outline-secondary-200 fs-9 fs-md-7 px-3 w-50 me-3"
-                            onClick={backBtn}>
-                                是，回上一步
-                            </button>
+  return (<>
 
-                            <button type="button" className="btn btn-secondary-200 fs-9 fs-md-7 px-3 w-50 ms-3"
-                            onClick={closeBackSubmitModal}>
-                                否，繼續填寫
-                            </button>
+    <div className="modal fade cartOrderModal" id="cartOrderModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div className="modal-dialog">
+        <div className="modal-content">
+          <button type="button" className="btn btn-close position-absolute end-0 p-4 border-0" style={{ fontSize: "12px" }}
+            onClick={closeBackSubmitModal}></button>
+          <div className="modal-body p-md-20 py-20 px-5">
+            <p className="mb-15 text-center">資料尚未填寫完畢，是否前往上一步？</p>
+            <div className="d-flex">
 
-                        </div>
-                    </div>
-                </div>
+              <button to="/cart" className="btn btn-outline-secondary-200 fs-9 fs-md-7 px-3 w-50 me-3"
+                onClick={backBtn}>
+                是，回上一步
+              </button>
+
+              <button type="button" className="btn btn-secondary-200 fs-9 fs-md-7 px-3 w-50 ms-3"
+                onClick={closeBackSubmitModal}>
+                否，繼續填寫
+              </button>
+
             </div>
+          </div>
         </div>
-    </>)
+      </div>
+    </div>
+  </>)
 }
 
 CartOrderModal.propTypes = {
-    cartOrderModal: PropTypes.shape({ current: PropTypes.object }).isRequired,
-    closeBackSubmitModal: PropTypes.func.isRequired,
-    saveFormData: PropTypes.func.isRequired,
-    formData: PropTypes.object.isRequired,
+  cartOrderModal: PropTypes.shape({ current: PropTypes.object }).isRequired,
+  closeBackSubmitModal: PropTypes.func.isRequired,
+  saveFormData: PropTypes.func.isRequired,
+  formData: PropTypes.object.isRequired,
 };

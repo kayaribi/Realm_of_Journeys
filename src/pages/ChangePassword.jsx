@@ -31,7 +31,7 @@ export default function ChangePassword() {
       // // 跳轉首頁
       navigate("/");
     } catch (error) {
-      console.log(error);
+      console.error(error);
       Swal.fire({
         title: "密碼修改失敗！",
         text: "請重新輸入",
@@ -46,7 +46,7 @@ export default function ChangePassword() {
       <section className="py-20">
         <div className="container">
           <div className="row justify-content-center">
-            <div className="col-lg-8 col-12 ">
+            <div className="col-lg-8">
               <h3 className="text-center fs-5 title-family text-neutral-black mb-5">
                 修改密碼
               </h3>
@@ -70,9 +70,8 @@ export default function ChangePassword() {
                       type="password"
                       id="newPassword"
                       placeholder="請輸入新密碼"
-                      className={` form-control ${
-                        errors.newPassword ? "is-invalid" : ""
-                      } px-3 py-2 loginInInput w-100  d-inline-block`}
+                      className={` form-control ${errors.newPassword ? "is-invalid" : ""
+                        } px-3 py-2 loginInInput w-100  d-inline-block`}
                       name="newPassword"
                       {...register("newPassword", {
                         required: {
@@ -110,9 +109,8 @@ export default function ChangePassword() {
                       type="password"
                       id="confirmNewPassword"
                       placeholder="請再次輸入新密碼"
-                      className={` form-control ${
-                        errors.confirmNewPassword ? "is-invalid" : ""
-                      } px-3 py-2 loginInInput w-100  d-inline-block`}
+                      className={` form-control ${errors.confirmNewPassword ? "is-invalid" : ""
+                        } px-3 py-2 loginInInput w-100  d-inline-block`}
                       name="confirmNewPassword"
                       {...register("confirmNewPassword", {
                         required: {

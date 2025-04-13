@@ -29,7 +29,7 @@ export default function ForgotPassword() {
       // // 跳轉修改密碼頁面
       navigate("/account/changePassword");
     } catch (error) {
-      console.log(error);
+      console.error(error);
       Swal.fire({
         title: "發送失敗！",
         text: "請重新輸入",
@@ -44,7 +44,7 @@ export default function ForgotPassword() {
       <section className="py-20">
         <div className="container">
           <div className="row justify-content-center">
-            <div className="col-lg-8 col-12 ">
+            <div className="col-lg-8">
               <h3 className="text-center fs-5 title-family text-neutral-black mb-5">
                 忘記密碼
               </h3>
@@ -68,9 +68,8 @@ export default function ForgotPassword() {
                       type="email"
                       id="emailForFindPassword"
                       placeholder="請輸入電子郵件"
-                      className={` form-control ${
-                        errors.emailForFindPassword ? "is-invalid" : ""
-                      } px-3 py-2 loginInInput w-100  d-inline-block`}
+                      className={` form-control ${errors.emailForFindPassword ? "is-invalid" : ""
+                        } px-3 py-2 loginInInput w-100  d-inline-block`}
                       name="emailForFindPassword"
                       {...register("emailForFindPassword", {
                         required: {
@@ -108,9 +107,8 @@ export default function ForgotPassword() {
                       type="text"
                       id="verificationCode"
                       placeholder="請輸入驗證碼"
-                      className={` form-control ${
-                        errors.verificationCode ? "is-invalid" : ""
-                      } px-3 py-2 loginInInput w-100  d-inline-block`}
+                      className={` form-control ${errors.verificationCode ? "is-invalid" : ""
+                        } px-3 py-2 loginInInput w-100  d-inline-block`}
                       name="verificationCode"
                       {...register("verificationCode", {
                         required: {

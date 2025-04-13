@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import ReactLoading from "react-loading";
 
 import DepartureTimeDecoration from "../components/DepartureTimeDecoration";
-import productPageBanner from "../../public/images/icon/productPageBanner.svg";
+import productPageBanner from "../../public/images/icon/productPageBanner.png";
 import productPageBanner2 from "../../public/images/icon/productPageBanner2.png";
 import productPageBanner3 from "../../public/images/icon/productPageBanner3.png";
 import productPageBanner4 from "../../public/images/icon/productPageBanner4.svg";
@@ -40,10 +40,12 @@ export default function TravelSpots() {
   const initialWaitRef = useRef(false);
 
   useEffect(() => {
+    // 原版
     if (windowWidth) {
       paginationCurrentPageRef.current = pagination.current_page;
       paginationTotalPageRef.current = pagination.total_pages;
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pagination]);
 
   const handleScroll = () => {
@@ -114,6 +116,7 @@ export default function TravelSpots() {
     return () => {
       window.removeEventListener("scroll", debounceScroll);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [windowWidth]);
 
   // 篩選資料、變更 banner 圖片、重置分頁相關參數
@@ -193,6 +196,7 @@ export default function TravelSpots() {
       getProduct();
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isSignIn]);
 
   // 取得產品資料

@@ -1,9 +1,9 @@
 import { useContext, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { CartContext } from "../store/store";
+import { CartContext } from "../store/CartContext.js";
 import { Modal } from "bootstrap";
 import CartOrderModal from "../components/CartOrderModal";
-
+import { useForm } from "react-hook-form";
 
 export default function CartPayment() {
   const { cartList } = useContext(CartContext);
@@ -17,6 +17,15 @@ export default function CartPayment() {
   const [cardTerm, setCardTerm] = useState("");
   const [securityCode, setSecurityCode] = useState("");
   const [errors, setErrors] = useState({});
+  const { watch } = useForm();
+
+  const formData = watch();
+  const saveFormData = (data) => {
+    // 過濾掉不需要儲存的欄位
+    const { ...filteredData } = data;
+
+    localStorage.setItem('formData', JSON.stringify(filteredData));
+  };
 
   // 驗證信用卡號
   const handleCardNumChange = (e) => {
@@ -30,8 +39,8 @@ export default function CartPayment() {
       }));
     } else {
       setErrors((prevErrors) => {
-        const { ...rest } = prevErrors;
-        return rest;
+        const { cardNum, ...rest } = prevErrors;
+        return cardNum, rest;
       });
     }
   };
@@ -48,8 +57,8 @@ export default function CartPayment() {
       }));
     } else {
       setErrors((prevErrors) => {
-        const { ...rest } = prevErrors;
-        return rest;
+        const { cardTerm, ...rest } = prevErrors;
+        return cardTerm, rest;
       });
     }
   };
@@ -66,8 +75,8 @@ export default function CartPayment() {
       }));
     } else {
       setErrors((prevErrors) => {
-        const { ...rest } = prevErrors;
-        return rest;
+        const { securityCode, ...rest } = prevErrors;
+        return securityCode, rest;
       });
     }
   };
@@ -117,6 +126,9 @@ export default function CartPayment() {
       <CartOrderModal
         closeBackSubmitModal={closeBackSubmitModal}
         cartOrderModal={cartOrderModal}
+        formData={formData}
+        saveFormData={saveFormData}
+
       />
       {/* 進度條 */}
       <div className="container position-relative mt-md-40 mt-22 mb-lg-10 my-6">

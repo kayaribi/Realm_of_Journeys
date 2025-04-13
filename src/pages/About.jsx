@@ -4,7 +4,7 @@ import { Autoplay } from "swiper/modules";
 import "swiper/css";
 import WOW from "wow.js";
 import "animate.css";
-import { CartContext } from "../store/store";
+import { CartContext } from "../store/CartContext.js";
 
 
 export default function About() {

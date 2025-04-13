@@ -3,23 +3,23 @@ import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import ReactLoading from "react-loading";
+import Swal from "sweetalert2";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { FreeMode, Thumbs, Autoplay } from "swiper/modules";
 import DepartureTimeDecoration from "../components/DepartureTimeDecoration";
 import "swiper/css";
 import "swiper/css/free-mode";
 import "swiper/css/thumbs";
-import { CartContext } from "../store/store";
+import { CartContext } from "../store/CartContext.js";
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 const API_PATH = import.meta.env.VITE_API_PATH;
 
-const TravelSpotsItem = ({ cartProduct }) => {
+const TravelSpotsItem = () => {
   const { id } = useParams(); // 取得網址中的產品 ID
   const [product, setProduct] = useState(null);
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
   const [isScreenLoading, setIsScreenLoading] = useState(false);
-  const [productList, setProductList] = useState([]);
   const [randomProducts, setRandomProducts] = useState([]);
   const [isLargeScreen, setIsLargeScreen] = useState(window.innerWidth >= 992);
 
@@ -66,8 +66,6 @@ const TravelSpotsItem = ({ cartProduct }) => {
           allProducts.sort(() => Math.random() - 0.5).slice(0, 4)
         );
 
-        // 🔹 儲存完整產品列表 (可能未來需要)
-        setProductList(allProducts);
       } catch (error) {
         console.error("請求失敗", error);
       }
@@ -91,7 +89,12 @@ const TravelSpotsItem = ({ cartProduct }) => {
       await addCartItem(id, quantity); // 確保購物車資料更新
       navigate("/cart"); // 更新完成後再跳轉
     } catch (error) {
-      alert("加入購物車失敗");
+      console.error("加入購物車失敗", error);
+      Swal.fire({
+        title: "加入購物車失敗",
+        text: "請稍後再試！",
+        icon: "error",
+      });
     }
   };
 
@@ -310,7 +313,7 @@ const TravelSpotsItem = ({ cartProduct }) => {
                     <div className="col-lg-6">
                       <div className="pb-4 pb-lg-0">
                         <p className="text-neutral-200 text-decoration-line-through pb-1 pb-lg-2 fs-10 fs-lg-9">
-                          原價 NT{" "}
+                          原價 NT${" "}
                           {(product.origin_price * quantity).toLocaleString()}
                         </p>
                         <div className="d-flex justify-content-between flex-lg-column align-items-center align-items-lg-start">
@@ -318,7 +321,7 @@ const TravelSpotsItem = ({ cartProduct }) => {
                             優惠價
                           </p>
                           <h4 className="text-primary-500">
-                            NT {(product.price * quantity).toLocaleString()}/人
+                            NT$ {(product.price * quantity).toLocaleString()}/人
                           </h4>
                         </div>
                       </div>
@@ -511,14 +514,14 @@ const TravelSpotsItem = ({ cartProduct }) => {
                             style={{ fontSize: "14px" }}
                             className="text-decoration-line-through text-neutral-200"
                           >
-                            原價 NT{" "}
+                            原價 NT$ {" "}
                             {filterProduct.origin_price.toLocaleString()}
                           </p>
                           <p
                             style={{ lineHeight: "1.2" }}
                             className="text-secondary-200 travelSpotCardDiscountPrice fw-bold"
                           >
-                            優惠價 NT {filterProduct.price.toLocaleString()}/
+                            優惠價 NT$ {filterProduct.price.toLocaleString()}/
                             {filterProduct.unit}
                           </p>
                         </div>
