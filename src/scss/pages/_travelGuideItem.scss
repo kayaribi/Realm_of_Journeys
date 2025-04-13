@@ -1,59 +1,53 @@
 .travelGuideItem{
   // header背景圖
-    .header-height {
-        height: 179px;
-        @include media-breakpoint-up(lg) {
-            height: 445px;
-        }
-    }
-    .bg-header {
-        background: url("https://s3-alpha-sig.figma.com/img/140b/cd78/1d2b18cd1439f3d5cd742e1491cc6ed1?Expires=1739750400&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=HnClAabyroTS5RLkAtF9d7a5BtuaTR7m93aT8U-XfA6KvMLS1Qq3ysYoOjCwjEl0-xH5nfm5sKDusFdILKIJWeblqeJlW84HPy-oD-idmTzlCKmzF075B0nRoKJswbMNb2iJPrQmOCR0Nhjx2VPCYaSl~09s2IL-iOBPx9rS~O3xq659WLuhYmq5pwlGC9GCSvc21ioFXIZFchIhmvGclDrNRDz9nifU1GFZnYF90EWI7vmgH6-o1gB-UUUmGN2BzDTgZPmTRliplyoaeOkGf1nd1kzwL5ZBeF42CWoVguXq5bggHRNKJTEOAP0Uinkl80Y36B2I3OqnyZiRFVgbwQ__")
-        no-repeat center center / cover;
-    }
+  .header-height {
+      height: 179px;
+      @include media-breakpoint-up(lg) {
+          height: 445px;
+      }
+  }
+  .bg-header {
+      background: url("https://s3-alpha-sig.figma.com/img/140b/cd78/1d2b18cd1439f3d5cd742e1491cc6ed1?Expires=1739750400&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=HnClAabyroTS5RLkAtF9d7a5BtuaTR7m93aT8U-XfA6KvMLS1Qq3ysYoOjCwjEl0-xH5nfm5sKDusFdILKIJWeblqeJlW84HPy-oD-idmTzlCKmzF075B0nRoKJswbMNb2iJPrQmOCR0Nhjx2VPCYaSl~09s2IL-iOBPx9rS~O3xq659WLuhYmq5pwlGC9GCSvc21ioFXIZFchIhmvGclDrNRDz9nifU1GFZnYF90EWI7vmgH6-o1gB-UUUmGN2BzDTgZPmTRliplyoaeOkGf1nd1kzwL5ZBeF42CWoVguXq5bggHRNKJTEOAP0Uinkl80Y36B2I3OqnyZiRFVgbwQ__")
+      no-repeat center center / cover;
+  }
 // 內容
-    .travelGuideItem-main{
-      // 位置
-        margin-top: -43px;
-        border-top-left-radius:24px;
-        border-top-right-radius:24px;
-        @include media-breakpoint-up(lg) {
-            margin-top: -165px;
-        }
-        // 主要圖片-設定
-        .travelGuideItem-img-height{
-          height: 141px;
-          @include media-breakpoint-up(sm){
-            height: 320px;
-          }
-          @include media-breakpoint-up(lg){
-            height: 500px;
-          }
-        }
-        .object-img{
-          object-fit: cover;
-          object-position: center;
-        }
-        // hr
-        .travelGuideItem-hr{
-            border : 1px solid #C2DCF5;
-            margin-bottom: 16px;
-        }
-        // 
-        .radius-24px{
-          border-radius:24px;
-        }
-        .btn-padding{
-          padding-top: 12px;
-          padding-bottom: 12px;
-          @include media-breakpoint-up(lg){
-            padding: 12px 20px;
-          }
-        }
-        // 文字省略設定
-        // .text-truncate-style{
-        //   white-space: nowrap;
-        //   overflow: hidden;
-        //   text-overflow: ellipsis;
-        // }
+  .travelGuideItem-main{
+    // 位置
+    margin-top: -43px;
+    border-top-left-radius:24px;
+    border-top-right-radius:24px;
+    @include media-breakpoint-up(lg) {
+        margin-top: -165px;
     }
+    // 主要圖片-設定
+    .travelGuideItem-img-height{
+      height: 141px;
+      @include media-breakpoint-up(sm){
+        height: 320px;
+      }
+      @include media-breakpoint-up(lg){
+        height: 500px;
+      }
+    }
+    .object-img{
+      object-fit: cover;
+      object-position: center;
+    }
+    // hr
+    .travelGuideItem-hr{
+        border : 1px solid #C2DCF5;
+        margin-bottom: 16px;
+    }
+    // 
+    .radius-24px{
+      border-radius:24px;
+    }
+    .btn-padding{
+      padding-top: 12px;
+      padding-bottom: 12px;
+      @include media-breakpoint-up(lg){
+        padding: 12px 20px;
+      }
+    }
+  }
 }

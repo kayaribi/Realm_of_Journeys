@@ -19,13 +19,8 @@ export const CartProvider = ({ children }) => {
     localStorage.setItem("userToken", token);
     localStorage.setItem("tokenExpired", expirationTime);
     axios.defaults.headers.common["Authorization"] = token;
-<<<<<<< HEAD
-    setIsAdminLoggedIn(true); // ✅ 立即更新狀態
-    // 檢查 token 是否過期
-=======
     setIsAdminLoggedIn(true);
 
->>>>>>> ca62ab531f926a2ef2abe6eea1cfdbb3e5abe91a
     const isExpired = new Date(expirationTime) < new Date();
     if (isExpired) {
       console.warn("Token 已過期，強制登出");

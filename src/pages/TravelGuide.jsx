@@ -38,7 +38,9 @@ export default function TravelGuide() {
 
   // ============================================================================== 下拉選單-值
   const handleSelectChange = (e) => {
-    setSelectArea(e.target.value);
+    e.preventDefault();
+    setSelectArea(e.target.dataset.value);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
   const filteredData = selectArea ? articlesData.filter((item) => item.area === selectArea) : articlesData;
 
@@ -52,15 +54,63 @@ export default function TravelGuide() {
           </h3>
         </div>
       </header>
-
       <div className="container position-relative">
-        <select className="form-select position-absolute translate-middle top-0 border-primary-500" aria-label="select"
+        {/* 舊版下拉選單 */}
+        {/* <select className="form-select position-absolute translate-middle top-0 border-primary-500" aria-label="select"
           onChange={handleSelectChange}>
           <option value="">挑選您的旅途</option>
           <option value="亞洲">亞洲</option>
           <option value="歐洲">歐洲</option>
           <option value="中東">中東</option>
-        </select>
+        </select> */}
+
+        {/* Tab */}
+        <div className="row travelGuideSelectWrapPosition">
+          <div className="col-lg-8 col-md-10  mx-auto">
+            <ul className="list-unstyled mb-0 travelGuideSelectWrap d-flex align-items-center justify-content-center p-1">
+              <li className="travelGuideSelectbuttonWrap">
+                <a
+                  className={`filterTagRefs text-white fw-bold travelGuideSelectbutton text-nowrap py-xl-4 py-md-3 py-2 ${selectArea === '' ? 'active' : ''}`}
+                  href="#"
+                  data-value=""
+                  onClick={(e)=>{handleSelectChange(e)}}
+                >
+                  全部
+                </a>
+              </li>
+              <li className="travelGuideSelectbuttonWrap">
+                <a
+                  className={`filterTagRefs text-white fw-bold travelGuideSelectbutton text-nowrap py-xl-4 py-md-3 py-2 ${selectArea === '亞洲' ? 'active' : ''}`}
+                  href="#"
+                  data-value="亞洲"
+                  onClick={(e)=>{handleSelectChange(e)}}
+                >
+                  亞洲
+                </a>
+              </li>
+              <li className="travelGuideSelectbuttonWrap">
+                <a
+                  className={`filterTagRefs text-white fw-bold travelGuideSelectbutton text-nowrap py-xl-4 py-md-3 py-2 ${selectArea === '歐洲' ? 'active' : ''}`}
+                  href="#"
+                  data-value="歐洲"
+                  onClick={(e)=>{handleSelectChange(e)}}
+                >
+                  歐洲
+                </a>
+              </li>
+              <li className="travelGuideSelectbuttonWrap">
+                <a
+                  className={`filterTagRefs text-white fw-bold travelGuideSelectbutton text-nowrap py-xl-4 py-md-3 py-2 ${selectArea === '中東' ? 'active' : ''}`}
+                  href="#"
+                  data-value="中東"
+                  onClick={(e)=>{handleSelectChange(e)}}
+                >
+                  中東
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
         <div className="row py-8 pt-lg-25 pb-lg-20">
           {filteredData.map((item) => {
             return (

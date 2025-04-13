@@ -62,6 +62,7 @@ function App() {
     location.pathname === "/account/register" ||
     location.pathname === "/admin/dashboard" ||
     location.pathname === "/admin" ||
+    location.pathname === "/travelGuide" ||
     location.pathname.startsWith("/travelGuide/")
   );
 
