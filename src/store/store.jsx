@@ -4,7 +4,6 @@ import swal from "sweetalert2";
 import { useReducer, useEffect, useState, useCallback } from "react";
 import { initialState, cartReducer } from "./cartReducer";
 import { CartContext } from "./CartContext";
-
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 const API_PATH = import.meta.env.VITE_API_PATH;
 
@@ -20,26 +19,22 @@ export const CartProvider = ({ children }) => {
     localStorage.setItem("tokenExpired", expirationTime);
     axios.defaults.headers.common["Authorization"] = token;
     setIsAdminLoggedIn(true);
-
     const isExpired = new Date(expirationTime) < new Date();
     if (isExpired) {
       console.warn("Token 已過期，強制登出");
       logoutAdmin();
     }
   };
-
   const logoutAdmin = () => {
     localStorage.removeItem("userToken");
     localStorage.removeItem("tokenExpired");
     axios.defaults.headers.common["Authorization"] = "";
     setIsAdminLoggedIn(false);
   };
-
   const showToast = (message, type) => {
     setToastMessage({ text: message, type });
     setTimeout(() => setToastMessage({ text: '', type: '' }), 3000);
   };
-
   const getCart = useCallback(async () => {
     try {
       setIsScreenLoading(true);
@@ -51,24 +46,19 @@ export const CartProvider = ({ children }) => {
       setIsScreenLoading(false);
     }
   }, []);
-
   useEffect(() => {
     getCart();
   }, [getCart]);
-
   const addCartItem = async (product_id, quantity) => {
     try {
       const existingItem = state.cartList.find(
         (item) => item.product.id === product_id
       );
-
       const updatedQty = existingItem ? existingItem.qty + Number(quantity) : Number(quantity);
-
       if (updatedQty > 10) {
         showToast('該商品最多只能購買 10 件！', 'danger');
         return;
       }
-
       if (existingItem) {
         await axios.put(
           `${BASE_URL}/v2/api/${API_PATH}/cart/${existingItem.id}`,
@@ -79,7 +69,6 @@ export const CartProvider = ({ children }) => {
           data: { product_id, qty: Number(quantity) },
         });
       }
-
       await getCart();
       showToast('加入購物車成功！', 'success');
     } catch {
@@ -147,11 +136,9 @@ export const CartProvider = ({ children }) => {
       });
     }
   };
-
   CartProvider.propTypes = {
     children: PropTypes.node.isRequired,
   };
-
   return (
     <CartContext.Provider
       value={{

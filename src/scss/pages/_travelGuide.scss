@@ -53,7 +53,7 @@
     line-height: 1.2;
     border-radius: 100px;
     text-align: center;
-    font-size: 32px;
+    font-size: 18px;
     transition: all 0.3s ease;
     &:hover {
       background: #1b67ae;
@@ -61,20 +61,7 @@
     &.active {
       background: #1b67ae;
     }
-    @media screen and (max-width: 374px) {
-      font-size: 18px;
-    }
   }
-  // ----
-
-
-
-
-
-
-
-
-
   // ----------------------------------------
   // 卡片圖片設定 ↓
   .image-container {

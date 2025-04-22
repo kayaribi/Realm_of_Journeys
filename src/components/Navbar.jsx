@@ -1,10 +1,8 @@
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState, useContext } from "react";
-import "../scss/all.scss";
 import { CartContext } from "../store/CartContext.js";
 import PropTypes from 'prop-types';
 import Swal from "sweetalert2";
-
 function Navbar({ isCartPages }) {
   const { cartList } = useContext(CartContext); // 獲取購物車資料
   const location = useLocation();
@@ -25,17 +23,14 @@ function Navbar({ isCartPages }) {
     };
     checkUserToken();
   }, [location]);
-
   // 連結被選中的樣式
   const linkActiveColor = ({ isActive }) => {
     return `nav-link ${isActive ? "text-primary-600 fw-bold" : ""}`;
   };
-
   // 漢堡選單 - 開關
   const handleNavbarToggle = () => {
     setIsNavbarOpen((prevState) => !prevState);
   };
-
   // 點擊漢堡選單連結隱藏選單
   const handleLinkClick = () => {
     setIsNavbarOpen(false);
@@ -45,7 +40,6 @@ function Navbar({ isCartPages }) {
       collapseElement.classList.remove("show");
     }
   };
-
   // 滾動透明
   useEffect(() => {
     const handleScroll = () => {
@@ -60,7 +54,6 @@ function Navbar({ isCartPages }) {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
-
   // 螢幕大於991啟動
   useEffect(() => {
     const handleResize = () => {
@@ -77,23 +70,18 @@ function Navbar({ isCartPages }) {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
-
   // 漢堡選單icon style，根據狀態(navbar開啟、滾動狀態)調整顏色
   const hamburgIconClass =
     isNavbarOpen || isScrolled
       ? `hamburg-icon text-neutral-300`
       : `hamburg-icon text-white`;
-
   // 購物車icon樣式，根據狀態調整顏色
   const cartIconClass =
     isNavbarOpen || isScrolled ? "text-neutral-300" : "text-white";
-
   // 滾動顯示不同的logo
   const logoImg = isNavbarOpen ? "logo-sm-dark" : (isScrolled ? "logo-sm-dark" : "logo-sm-light");
-
   // 計算購物車中商品的數量
   const cartItemCount = cartList.reduce((total, item) => total + item.qty, 0);
-
   // 登出
   const logout = () => {
     document.cookie = "userToken=";
@@ -116,7 +104,6 @@ function Navbar({ isCartPages }) {
       timer: 1500,
     });
   }
-
   return (
     <>
       <nav
@@ -289,9 +276,7 @@ function Navbar({ isCartPages }) {
     </>
   );
 }
-
 Navbar.propTypes = {
   isCartPages: PropTypes.bool.isRequired,
 };
-
 export default Navbar;
