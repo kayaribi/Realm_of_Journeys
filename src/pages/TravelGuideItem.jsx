@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import '../scss/all.scss';
 import axios from 'axios';
 import { Link, useLocation, useParams } from 'react-router-dom';
 import ReactLoading from 'react-loading';

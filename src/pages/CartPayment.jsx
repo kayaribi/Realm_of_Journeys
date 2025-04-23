@@ -7,31 +7,24 @@ import { useForm } from "react-hook-form";
 
 export default function CartPayment() {
   const { cartList } = useContext(CartContext);
-
   const navigate = useNavigate();
-
   // ======================================== 驗證 ========================================
-
   const [paymentMethod, setPaymentMethod] = useState("");
   const [cardNum, setCardNum] = useState("");
   const [cardTerm, setCardTerm] = useState("");
   const [securityCode, setSecurityCode] = useState("");
   const [errors, setErrors] = useState({});
   const { watch } = useForm();
-
   const formData = watch();
   const saveFormData = (data) => {
     // 過濾掉不需要儲存的欄位
     const { ...filteredData } = data;
-
     localStorage.setItem('formData', JSON.stringify(filteredData));
   };
-
   // 驗證信用卡號
   const handleCardNumChange = (e) => {
     const value = e.target.value;
     setCardNum(value);
-
     if (!/^\d{16}$/.test(value)) {
       setErrors((prevErrors) => ({
         ...prevErrors,
@@ -44,12 +37,10 @@ export default function CartPayment() {
       });
     }
   };
-
   // 驗證有效期限
   const handleCardTermChange = (e) => {
     const value = e.target.value;
     setCardTerm(value);
-
     if (!/^(0[1-9]|1[0-2])\d{2}$/.test(value)) {
       setErrors((prevErrors) => ({
         ...prevErrors,
@@ -62,12 +53,10 @@ export default function CartPayment() {
       });
     }
   };
-
   // 驗證安全碼
   const handleSecurityCodeChange = (e) => {
     const value = e.target.value;
     setSecurityCode(value);
-
     if (!/^\d{3}$/.test(value)) {
       setErrors((prevErrors) => ({
         ...prevErrors,
@@ -80,13 +69,11 @@ export default function CartPayment() {
       });
     }
   };
-
   // 驗證按鈕是否啟用
   const isButtonEnabled = () => {
     if (paymentMethod === "atm") {
       return true; // ATM 轉帳可以直接點擊
     }
-
     if (paymentMethod === "card") {
       // 信用卡必須填寫正確才可以啟用按鈕
       return (
@@ -97,14 +84,12 @@ export default function CartPayment() {
         Object.keys(errors).length === 0 // 確保錯誤訊息已清除
       );
     }
-
     return false;
   };
   // ======================================== 下一步 ========================================
   const handleNextStep = () => {
     navigate("/completePayment", { state: { paymentMethod } });
   };
-
   //====================================== 上一步 - 警告 =====================================
   const cartOrderModal = useRef(null);
   useEffect(() => {
@@ -118,8 +103,6 @@ export default function CartPayment() {
   const closeBackSubmitModal = () => {
     cartOrderModal.current.hide();
   };
-
-
   return (
     <>
       {/* 上一步 Modal */}
@@ -128,7 +111,6 @@ export default function CartPayment() {
         cartOrderModal={cartOrderModal}
         formData={formData}
         saveFormData={saveFormData}
-
       />
       {/* 進度條 */}
       <div className="container position-relative mt-md-40 mt-22 mb-lg-10 my-6">
@@ -142,7 +124,6 @@ export default function CartPayment() {
             </div>
             <p className="text-primary-500 fs-md-9 fs-12">購物車明細</p>
           </div>
-
           <div className="col d-flex justify-content-center align-items-center flex-column py-md-4 py-3">
             <div
               className="bg-primary-500 mb-4 rounded-circle d-flex justify-content-center align-items-center"
@@ -152,7 +133,6 @@ export default function CartPayment() {
             </div>
             <p className="text-primary-500 fs-md-9 fs-12">填寫資料</p>
           </div>
-
           <div className="col d-flex justify-content-center align-items-center flex-column py-md-4 py-3">
             <div
               className="bg-primary-500 mb-4 rounded-circle d-flex justify-content-center align-items-center"
@@ -162,7 +142,6 @@ export default function CartPayment() {
             </div>
             <p className="text-primary-500 fs-md-9 fs-12">付款方式</p>
           </div>
-
           <div className="col d-flex justify-content-center align-items-center flex-column py-md-4 py-3">
             <div
               className="bg-neutral-100 mb-4 rounded-circle d-flex justify-content-center align-items-center"
@@ -186,7 +165,6 @@ export default function CartPayment() {
           </div>
         </div>
       </div>
-
       {/* 支付頁面 */}
       <div className="container position-relative mt-6 mb-8 my-md-20">
         {/* 標題 */}
@@ -239,7 +217,6 @@ export default function CartPayment() {
             </h3>
           </div>
         </div>
-
         <h3 className="title-family fs-md-5 fs-8">付款方式</h3>
         <div className="border-top border-primary-200 my-md-5 my-2"></div>
         {/* ATM */}
@@ -295,7 +272,6 @@ export default function CartPayment() {
                 )}
               </div>
             </div>
-
           </div>
           {/* 有效期限 + 安全碼 */}
           <div className="col-lg-4 col-md-6 ms-md-7">
@@ -345,7 +321,6 @@ export default function CartPayment() {
             </div>
           </div>
         </div>
-
         <div className="col d-flex justify-content-center mt-6">
           <button type="button"
             className="btn btn-outline-secondary-200 py-3 px-md-5 px-4 fs-md-7 fs-10 me-md-6 me-3"

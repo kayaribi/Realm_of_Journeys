@@ -6,7 +6,6 @@ import PropTypes from 'prop-types';
 export default function BackTopBtn({ footerHeight }) {
   const location = useLocation();
   const [buttonPosition, setButtonPosition] = useState(100);
-
   useEffect(() => {
     const handleViewportChange = () => {
       const scrollPosition = window.scrollY;              // 當前滾動位置
@@ -32,15 +31,12 @@ export default function BackTopBtn({ footerHeight }) {
       window.removeEventListener('scroll', handleViewportChange);
     };
   }, [footerHeight]);
-
-
   // ====================== 商品頁面不在手機板顯示置頂按鈕 ======================
   if (location.pathname === "/travelSpots") {
     if (window.innerWidth <= 575) {
       return null; // 在手機板隱藏
     }
   }
-
   return (<>
     <ScrollToTop
       smooth
@@ -58,7 +54,6 @@ export default function BackTopBtn({ footerHeight }) {
     />
   </>)
 }
-
 BackTopBtn.propTypes = {
   footerHeight: PropTypes.number, // 根據實際情況可改為 isRequired
 };
