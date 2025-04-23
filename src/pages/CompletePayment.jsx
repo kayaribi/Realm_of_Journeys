@@ -8,7 +8,6 @@ export default function CompletePayment() {
   const location = useLocation();
   const paymentMethod = location.state?.paymentMethod || "CreditCard";
   const [orderTotal, setOrderTotal] = useState(0);
-
   useEffect(() => {
     const handleCheckout = () => {
       const totalAmount = cartList.reduce((sum, cartItem) => sum + cartItem.total, 0);
@@ -18,7 +17,6 @@ export default function CompletePayment() {
     handleCheckout();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
   useEffect(() => {
     const today = new Date();
     today.setDate(today.getDate() + 2); // 加2天
@@ -27,7 +25,6 @@ export default function CompletePayment() {
       String(today.getDate()).padStart(2, "0");
     setDeadline(formattedDate);
   }, []);
-
   return (
     <>
       {/* 進度條 */}
@@ -42,7 +39,6 @@ export default function CompletePayment() {
             </div>
             <p className="text-primary-500 fs-md-9 fs-12">購物車明細</p>
           </div>
-
           <div className="col d-flex justify-content-center align-items-center flex-column py-md-4 py-3">
             <div
               className="bg-primary-500 mb-4 rounded-circle d-flex justify-content-center align-items-center"
@@ -52,7 +48,6 @@ export default function CompletePayment() {
             </div>
             <p className="text-primary-500 fs-md-9 fs-12">填寫資料</p>
           </div>
-
           <div className="col d-flex justify-content-center align-items-center flex-column py-md-4 py-3">
             <div
               className="bg-primary-500 mb-4 rounded-circle d-flex justify-content-center align-items-center"
@@ -62,7 +57,6 @@ export default function CompletePayment() {
             </div>
             <p className="text-primary-500 fs-md-9 fs-12">付款方式</p>
           </div>
-
           <div className="col d-flex justify-content-center align-items-center flex-column py-md-4 py-3">
             <div
               className="bg-primary-500 mb-4 rounded-circle d-flex justify-content-center align-items-center"

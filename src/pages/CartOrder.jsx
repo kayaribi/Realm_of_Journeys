@@ -16,15 +16,12 @@ export default function CartOrder() {
     watch,
     setValue
   } = useForm({ mode: "onChange" });
-
   const navigate = useNavigate();
-
   //========================= 提交表單 =========================
   const startSubmit = (data) => {
     navigate('/cartPayment');
     saveFormData(data);
   };
-
   //========================= 上一步 - 警告 =========================
   const cartOrderModal = useRef(null);
   useEffect(() => {
@@ -38,17 +35,14 @@ export default function CartOrder() {
   const closeBackSubmitModal = () => {
     cartOrderModal.current.hide();
   };
-
   // ========================= 表單資料暫時儲存 =========================
   // 儲存到 localStorage
   const formData = watch();
   const saveFormData = (data) => {
     // 過濾掉不需要儲存的欄位
     const { ...filteredData } = data;
-
     localStorage.setItem('formData', JSON.stringify(filteredData));
   };
-
   // 頁面更新時儲存資料
   useEffect(() => {
     const handleBeforeUnload = () => {
@@ -60,7 +54,6 @@ export default function CartOrder() {
       window.removeEventListener('beforeunload', handleBeforeUnload);
     };
   }, [formData]);
-
   // 頁面載入時，檢查有沒有儲存的資料
   useEffect(() => {
     const savedData = localStorage.getItem('formData');
@@ -72,7 +65,6 @@ export default function CartOrder() {
       });
     }
   }, [setValue]);
-
   return (
     <>
       {/* 確認下一步modal */}
@@ -82,7 +74,6 @@ export default function CartOrder() {
         formData={formData}
         saveFormData={saveFormData}
       />
-
       {/* ================ 進度條 ================ */}
       <div className="container position-relative mt-md-40 mt-22 mb-lg-10 my-6">
         <div className="row row-cols-4 text-center">
@@ -95,7 +86,6 @@ export default function CartOrder() {
             </div>
             <p className="text-primary-500 fs-md-9 fs-12">購物車明細</p>
           </div>
-
           <div className="col d-flex justify-content-center align-items-center flex-column py-md-4 py-3">
             <div
               className="bg-primary-500 mb-4 rounded-circle d-flex justify-content-center align-items-center"
@@ -105,7 +95,6 @@ export default function CartOrder() {
             </div>
             <p className="text-primary-500 fs-md-9 fs-12">填寫資料</p>
           </div>
-
           <div className="col d-flex justify-content-center align-items-center flex-column py-md-4 py-3">
             <div
               className="bg-neutral-100 mb-4 rounded-circle d-flex justify-content-center align-items-center"
@@ -115,7 +104,6 @@ export default function CartOrder() {
             </div>
             <p className="text-neutral-100 fs-md-9 fs-12">付款方式</p>
           </div>
-
           <div className="col d-flex justify-content-center align-items-center flex-column py-md-4 py-3">
             <div
               className="bg-neutral-100 mb-4 rounded-circle d-flex justify-content-center align-items-center"
@@ -194,7 +182,6 @@ export default function CartOrder() {
                     {errors.gender ? errors.gender.message : ""}
                   </p>
                 </div>
-
                 <div className="mt-md-2">
                   <div className="form-check form-check-inline mb-0 me-6">
                     <input
@@ -242,7 +229,6 @@ export default function CartOrder() {
                       {errors.email ? errors.email.message : ""}
                     </p>
                   </div>
-
                   <input
                     type="email"
                     className="form-control"
@@ -477,7 +463,6 @@ export default function CartOrder() {
               </div>
             </div>
           </div>
-
           {/* ----- 訂單明細 ----- */}
           <div className="col-md-4 d-none d-md-block">
             <div className="border border-primary-300 bg-primary-50 rounded-3 p-6 shadow-sm">
@@ -520,8 +505,6 @@ export default function CartOrder() {
             </div>
           </div>
         </div>
-
-
         {/* 會員權益說明 Modal */}
         <div
           className="modal fade"

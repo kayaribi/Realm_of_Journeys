@@ -1,39 +1,22 @@
-import { NavLink, useNavigate } from 'react-router-dom';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { CartContext } from "../store/CartContext.js";
 import { useContext } from 'react';
 import Swal from "sweetalert2";
 import '../scss/all.scss';
 import axios from 'axios';
-
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 
 export default function Footer() {
   const navigate = useNavigate();
-  const { isAdminLoggedIn, logoutAdmin } = useContext(CartContext); // ✅ 取得狀態 & 登出函式
-
-  // const handleLogout = () => {
-  //   Swal.fire({
-  //     title: "登出成功！",
-  //     text: "您已成功登出。",
-  //     icon: "success",
-  //     showConfirmButton: false,
-  //     timer: 1500, // 1.5 秒後自動關閉
-  //   }).then(() => {
-  //     logoutAdmin(); // ✅ 清除 Token 並更新狀態
-  //     navigate("/"); // ✅ 跳轉回首頁
-  //   });
-  // };
-
+  const { isAdminLoggedIn, logoutAdmin } = useContext(CartContext); // 取得狀態 & 登出函式
   const handleLogout = async () => {
     const token = localStorage.getItem("userToken");
-
     try {
       await axios.post(`${BASE_URL}/v2/logout`, {}, {
         headers: {
           Authorization: token,
         },
       });
-
       Swal.fire({
         title: "登出成功！",
         text: "您已成功登出。",
@@ -44,7 +27,6 @@ export default function Footer() {
         logoutAdmin();
         navigate("/");
       });
-
     } catch (error) {
       Swal.fire({
         title: "登出失敗",
@@ -55,21 +37,16 @@ export default function Footer() {
       console.error("登出錯誤：", error.response);
     }
   };
-
-
   return (<>
     <footer className="footer bg-primary-600">
       <div className="container py-10">
         <div className="d-flex justify-content-center flex-column flex-lg-row justify-content-lg-center align-items-center mb-8">
           {/* logo + title */}
-          <div className="d-flex align-items-center mb-14 my-lg-4 me-xl-15 me-lg-10">
+          <Link to="/" className="d-flex align-items-center mb-14 my-lg-4 me-xl-15 me-lg-10">
             <img src="images/logo-light-L.svg" alt="logo" />
-          </div>
+          </Link>
           {/* link page */}
           <ul className="list-unstyled d-flex flex-column align-items-center flex-lg-row gap-6 mb-15 mb-lg-0 text-20px">
-            <li>
-              <NavLink className="text-white link-warning" to="/">首頁</NavLink>
-            </li>
             <li>
               <NavLink className="text-white link-warning" to="/travelSpots">旅遊景點</NavLink>
             </li>
@@ -98,20 +75,16 @@ export default function Footer() {
               </a>
             </li>
           </ul>
-          {/* 管理員登入 */}
-          {/* <a href="https://github.com/kayaribi/Realm_of_Journeys" className="text-white link-warning px-4 py-3 mb-8 mb-lg-0">
-管理員登入<i className="bi bi-box-arrow-in-right ms-2"></i>
-</a> */}
           {isAdminLoggedIn ? (
-            // 🔴 已登入時顯示「登出」
+            // 已登入時顯示「登出」
             <button
               className="text-white link-warning px-4 py-3 mb-8 mb-lg-0 border-0 bg-transparent"
-              onClick={handleLogout} // ✅ 呼叫登出函式
+              onClick={handleLogout} // 呼叫登出函式
             >
               管理員登出 <i className="bi bi-box-arrow-right ms-2"></i>
             </button>
           ) : (
-            // 🟢 未登入時顯示「登入」
+            // 未登入時顯示「登入」
             <button
               className="text-white link-warning px-4 py-3 mb-8 mb-lg-0 border-0 bg-transparent"
               onClick={() => navigate("/admin")}

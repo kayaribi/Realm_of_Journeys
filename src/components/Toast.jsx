@@ -3,9 +3,7 @@ import { CartContext } from '../store/CartContext.js';
 
 const Toast = () => {
   const { toastMessage } = useContext(CartContext); // 從 CartContext 獲取 toastMessage
-
   if (!toastMessage.text) return null; // 如果沒有訊息，則不顯示
-
   return (
     <div className='toast-container position-fixed' style={{ top: '100px', right: '15px' }}>
       <div
@@ -32,5 +30,4 @@ const Toast = () => {
     </div>
   );
 };
-
 export default Toast;
